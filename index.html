@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCALO 2.0 — The Waitlist</title>
+<!-- Helvetica system font stack -->
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #000000;
+    --bg-elevated: #0A0A0A;
+    --bg-card: #111111;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --text-primary: #E6E8DA;
+    --text-secondary: rgba(230, 232, 218, 0.6);
+    --text-muted: rgba(255, 255, 255, 0.35);
+    --white: #FFFFFF;
+    --accent: #B8E986;
+    --accent-dim: rgba(184, 233, 134, 0.15);
+    --accent-glow: rgba(184, 233, 134, 0.08);
+    --red: #FF6B5A;
+    --success: #B8E986;
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: -0.027em;
+    background: var(--bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ───── STUDENT WINS TRACKER (floating bar) ───── */
+  .wins-tracker {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0;
+    height: 46px;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  .wins-tracker.faded {
+    opacity: 0.12;
+  }
+
+  .wins-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 0 1.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .wins-amount {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0 1.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: 0 6px 6px 0;
+  }
+
+  @media (max-width: 768px) {
+    .wins-tracker { height: 40px; bottom: 1rem; }
+    .wins-label { font-size: 0.58rem; padding: 0 1rem; }
+    .wins-amount { font-size: 0.8rem; padding: 0 1rem; }
+  }
+
+  /* ───── GRAIN OVERLAY ───── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ───── TOPBAR ───── */
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: all 0.3s ease, transform 0.3s ease;
+  }
+
+  .topbar.scrolled {
+    padding: 1rem 2.5rem;
+    background: rgba(0, 0, 0, 0.9);
+    border-bottom-color: var(--border);
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .logo span {
+    font-weight: 500;
+    color: var(--accent);
+    margin-left: 0.3rem;
+  }
+
+  .topbar-right {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ───── HERO ───── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle radial glow behind hero */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--border));
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 1.4rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .badge::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+    color: var(--white);
+    max-width: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1.8rem;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.35s forwards;
+  }
+
+  .hero h1 em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 580px;
+    margin-bottom: 2.5rem;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+  }
+
+  /* ───── WAITLIST FORM ───── */
+  .waitlist-form {
+    display: flex;
+    gap: 0;
+    max-width: 580px;
+    width: 100%;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.65s forwards;
+  }
+
+  .waitlist-form input[type="email"] {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--white);
+    background: var(--bg-elevated);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .waitlist-form input[type="email"]::placeholder {
+    color: var(--text-muted);
+  }
+
+  .waitlist-form input[type="email"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+
+  .waitlist-form button {
+    padding: 1.25rem 2.25rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 0 6px 6px 0;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .waitlist-form button:hover {
+    background: #CDFF96;
+    box-shadow: 0 0 20px var(--accent-dim);
+  }
+
+  .waitlist-form button:disabled {
+    background: rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .form-message {
+    margin-top: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    min-height: 1.4em;
+  }
+
+  .form-message.show { opacity: 1; }
+  .form-message.success { color: var(--accent); }
+  .form-message.error { color: var(--red); }
+
+  /* ───── WAITLIST TIERS (tally-bar visual) ───── */
+  .waitlist-tiers {
+    max-width: 580px;
+    width: 100%;
+    margin-top: 2rem;
+    text-align: left;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .waitlist-tiers-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .tier {
+    margin-bottom: 1rem;
+  }
+
+  .tier-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .tier-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .tier-badge {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  .tier-badge.filled {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .tier-badge.critical {
+    background: #F0A050;
+    color: var(--bg);
+    animation: fadeUp 0.4s ease;
+  }
+
+  .tally-mark.active.critical {
+    background: #F0A050;
+    box-shadow: 0 0 6px rgba(240, 160, 80, 0.3);
+  }
+
+  .tally-bar {
+    display: flex;
+    gap: 2px;
+    height: 18px;
+    align-items: flex-end;
+  }
+
+  .tally-mark {
+    width: 3px;
+    height: 100%;
+    border-radius: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+  }
+
+  .tally-mark.active {
+    background: var(--accent);
+  }
+
+  .tally-mark.just-filled {
+    animation: spotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .waitlist-status {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+  }
+
+  .waitlist-status.closed {
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .tally-mark { width: 2.5px; }
+  }
+
+  /* ───── PROGRAMME MODULES (sticky scroll) ───── */
+  .modules-section {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 4rem;
+  }
+
+  .modules-header {
+    text-align: center;
+    padding: 0 2rem 3rem;
+  }
+
+  .modules-header .section-label {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .modules-header h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--white);
+    letter-spacing: -0.03em;
+  }
+
+  .modules-container {
+    position: relative;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .modules-sticky-wrap {
+    display: flex;
+    gap: 0;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Sticky number column */
+  .modules-number-col {
+    width: 40%;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .module-number-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(8rem, 18vw, 14rem);
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.06);
+    letter-spacing: -0.04em;
+    transition: opacity 0.4s ease;
+    user-select: none;
+  }
+
+  /* Scrolling cards column */
+  .modules-cards-col {
+    width: 60%;
+    padding: 2rem 2rem 2rem 0;
+  }
+
+  .module-card {
+    margin-bottom: 3rem;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .module-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .module-card-header {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem 2rem;
+  }
+
+  .module-card-header img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .module-card-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+  }
+
+  .module-card-header .module-value {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .module-card-header h3 {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .module-card-header .module-line {
+    position: relative;
+    z-index: 2;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    margin-top: 0.75rem;
+    border-radius: 1px;
+  }
+
+  @media (max-width: 768px) {
+    .module-card-header { height: 220px; }
+  }
+
+  .module-card-body {
+    padding: 2rem;
+    background: #F5F0E8;
+    color: #2C2A26;
+  }
+
+  .module-card-body .module-desc {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    line-height: 1.75;
+    color: #3D3B36;
+    margin-bottom: 1.5rem;
+  }
+
+  .module-card-body .module-desc strong {
+    color: #1A1917;
+  }
+
+  .module-card-body .module-sub {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #1A1917;
+    margin-bottom: 1rem;
+  }
+
+  .module-bullets {
+    list-style: none;
+  }
+
+  .module-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: #3D3B36;
+  }
+
+  .module-bullets li:last-child {
+    border-bottom: none;
+  }
+
+  .module-bullets li strong {
+    color: #1A1917;
+  }
+
+  .bullet-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #2C2A26;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .bullet-icon svg {
+    width: 10px;
+    height: 10px;
+    fill: none;
+    stroke: #F5F0E8;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Total value */
+  .modules-total {
+    text-align: center;
+    padding: 4rem 2rem 5rem;
+  }
+
+  .price-reveal {
+    position: relative;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .price-line {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: opacity 0.6s ease;
+  }
+
+  .price-line span {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+
+  .price-line strong {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+
+  .price-actual {
+    opacity: 0;
+  }
+
+  .price-actual strong {
+    color: var(--accent);
+  }
+
+  .price-value.fade-out {
+    opacity: 0;
+  }
+
+  .price-actual.fade-in {
+    opacity: 1;
+  }
+
+  /* ───── CLOSING STACK ───── */
+  .closing-stack {
+    text-align: center;
+    padding: 4rem 2rem 5rem;
+    max-width: 600px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .closing-lead {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .closing-bold {
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .closing-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  .closing-list {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .closing-list li {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 700;
+    padding: 0.4rem 0;
+  }
+
+  .closing-final {
+    font-size: 1rem;
+    color: var(--white);
+  }
+
+  .closing-final strong {
+    font-weight: 700;
+  }
+
+  /* ───── TESTIMONIAL CASE STUDY ───── */
+  .testimonial-section {
+    padding: 5rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .testimonial-section-label {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    color: var(--white);
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-video {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(184, 233, 134, 0.3);
+    box-shadow: 0 0 25px rgba(184, 233, 134, 0.08), 0 0 60px rgba(184, 233, 134, 0.04);
+  }
+
+  .testimonial-video video {
+    width: 100%;
+    display: block;
+    border-radius: 9px;
+  }
+
+  .testimonial-info-wrap {
+    border: 1px solid rgba(184, 233, 134, 0.3);
+    box-shadow: 0 0 25px rgba(184, 233, 134, 0.08), 0 0 60px rgba(184, 233, 134, 0.04);
+    border-radius: 10px;
+    padding: 2.5rem;
+    background: var(--bg-elevated);
+  }
+
+  .testimonial-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    color: var(--white);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    line-height: 1.25;
+  }
+
+  .testimonial-body {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .testimonial-body p {
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-body em {
+    font-style: italic;
+    color: var(--text-primary);
+  }
+
+  /* Stats row */
+  .testimonial-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-stat {
+    padding: 2rem 0;
+    border-left: 3px solid var(--accent);
+    padding-left: 1.5rem;
+  }
+
+  .testimonial-stat:last-child {
+    border-left-color: var(--border);
+  }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--white);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Quote */
+  .testimonial-quote-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: end;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 2rem;
+  }
+
+  .testimonial-quote {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-primary);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 1.5rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    white-space: nowrap;
+  }
+
+  .testimonial-author-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+  }
+
+  .testimonial-author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-author-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+
+  .testimonial-author-handle {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .testimonial-author-role {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .testimonial-info-wrap { padding: 1.5rem; }
+    .testimonial-content { grid-template-columns: 1fr; gap: 1.5rem; }
+    .testimonial-stats { grid-template-columns: 1fr; }
+    .testimonial-stat:last-child { border-left-color: var(--accent); }
+    .testimonial-quote-row { grid-template-columns: 1fr; }
+  }
+
+  /* ───── MY PROMISE SECTION ───── */
+  .promise-section {
+    padding: 5rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .promise-section .section-label {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .promise-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    color: var(--white);
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+
+  .promise-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .promise-image {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .promise-image img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .promise-text p {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .promise-text strong {
+    color: var(--white);
+  }
+
+  .promise-text .promise-highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .promise-layout { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  /* ───── QUALIFICATION SECTION ───── */
+  .qualify-section {
+    padding: 5rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .qualify-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .qualify-card {
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 2.5rem;
+    background: var(--bg-elevated);
+  }
+
+  .qualify-card.for-you {
+    border: 1px solid rgba(184, 233, 134, 0.3);
+    box-shadow: 0 0 25px rgba(184, 233, 134, 0.08), 0 0 60px rgba(184, 233, 134, 0.04);
+  }
+
+  .qualify-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .qualify-card.for-you h3 {
+    color: var(--accent);
+  }
+
+  .qualify-card.not-for h3 {
+    color: var(--text-muted);
+  }
+
+  .qualify-card p {
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .qualify-card p strong {
+    color: var(--white);
+  }
+
+  .qualify-card p em {
+    color: var(--text-primary);
+    font-style: italic;
+  }
+
+  .qualify-list {
+    list-style: none;
+  }
+
+  .qualify-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .qualify-list li:last-child { border-bottom: none; }
+
+  .qualify-list li strong { color: var(--white); }
+
+  .q-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    margin-top: 2px;
+  }
+
+  .q-check {
+    background: rgba(184, 233, 134, 0.15);
+    color: var(--accent);
+    border: 1px solid rgba(184, 233, 134, 0.25);
+  }
+
+  .q-cross {
+    background: rgba(255, 107, 90, 0.08);
+    color: rgba(255, 107, 90, 0.45);
+    border: 1px solid rgba(255, 107, 90, 0.12);
+  }
+
+  @media (max-width: 768px) {
+    .qualify-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── WRITTEN TESTIMONIALS (screenshot grid) ───── */
+  .written-testimonials {
+    padding: 5rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .written-testimonials .section-label {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .written-testimonials h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    color: var(--white);
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+  }
+
+  .screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .screenshot-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .screenshot-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  .screenshot-card img {
+    width: 100%;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .screenshots-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  }
+
+  .story-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .story-card {
+    background: var(--bg-elevated);
+    border: 1px solid rgba(184, 233, 134, 0.2);
+    box-shadow: 0 0 20px rgba(184, 233, 134, 0.04);
+    border-radius: 10px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+
+  .story-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(184, 233, 134, 0.08), 0 10px 40px rgba(0,0,0,0.25);
+  }
+
+  /* Card top section — dark, matches testimonial header */
+  .story-card-top {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .story-card-top h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .story-card-top .story-desc {
+    font-size: 0.78rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+
+  .story-card-top .story-desc em {
+    color: var(--text-primary);
+    font-style: italic;
+  }
+
+  /* Card stats — dark bg, big numbers with green left border */
+  .story-stat-row {
+    display: flex;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .story-stat {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .story-stat:last-child {
+    border-left-color: var(--border);
+  }
+
+  .story-stat-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    color: var(--white);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .story-stat-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* Card quote + author — dark bg, green left border on quote */
+  .story-card-quote {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .story-card-quote blockquote {
+    font-size: 0.75rem;
+    line-height: 1.75;
+    color: var(--text-primary);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    flex: 1;
+  }
+
+  .story-author {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .story-author img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+
+  .story-author-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .story-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--white);
+  }
+
+  .story-handle {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--text-muted);
+  }
+
+  .story-role {
+    display: block;
+    font-size: 0.6rem;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .story-cards-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .story-cards-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── SCROLLING JOIN BANNER ───── */
+  .scroll-banner {
+    overflow: hidden;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.5rem 0;
+    background: var(--bg);
+  }
+
+  .scroll-banner-track {
+    display: flex;
+    gap: 2rem;
+    white-space: nowrap;
+    will-change: transform;
+    width: max-content;
+  }
+
+  .scroll-banner-track span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .scroll-banner-track span:nth-child(even) {
+    color: rgba(184, 233, 134, 0.25);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    align-self: center;
+  }
+
+  /* ───── FAQ SECTION (white background) ───── */
+  .faq-section {
+    background: #F5F2ED;
+    padding: 5rem 2rem;
+    color: #1A1917;
+  }
+
+  .faq-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .faq-section .section-label {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8A8478;
+    margin-bottom: 1rem;
+  }
+
+  .faq-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: #1A1917;
+    text-align: center;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .faq-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #FFFFFF;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .faq-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  }
+
+  .faq-card video {
+    width: 100%;
+    display: block;
+  }
+
+  .faq-card-title {
+    padding: 1rem 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #1A1917;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  @media (max-width: 768px) {
+    .faq-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── SCALO FOOTER BRANDING (white bg) ───── */
+  .scalo-brand-footer {
+    background: #F5F2ED;
+    padding: 4rem 2rem 5rem;
+    text-align: center;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .scalo-brand-footer img {
+    max-width: 400px;
+    margin: 0 auto 2rem;
+    display: block;
+  }
+
+  .scalo-brand-footer p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #5A574F;
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  .scalo-brand-footer strong {
+    color: #1A1917;
+  }
+
+  .footer-waitlist {
+    display: flex;
+    max-width: 480px;
+    margin: 2rem auto 0;
+  }
+
+  /* ───── TOPBAR & BANNER LOGO ───── */
+  .logo-img {
+    height: 38px;
+    width: auto;
+    vertical-align: middle;
+  }
+
+  .cb-brand-img {
+    height: 34px;
+    width: auto;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 768px) {
+    .modules-sticky-wrap {
+      flex-direction: column;
+      min-height: auto;
+    }
+    .modules-number-col {
+      width: 100%;
+      position: relative;
+      height: auto;
+      padding: 2rem 2rem 0;
+      justify-content: flex-start;
+    }
+    .module-number-display {
+      font-size: 5rem;
+    }
+    .modules-cards-col {
+      width: 100%;
+      padding: 1rem 1rem;
+    }
+    .module-card { margin-bottom: 2rem; }
+    .module-card-header h3 { font-size: 1.15rem; }
+    .module-card-body { padding: 1.5rem; }
+  }
+
+  /* ───── COUNTDOWN BANNER (thin, becomes sticky) ───── */
+  .countdown-banner-wrap {
+    position: relative;
+    z-index: 90;
+  }
+
+  .countdown-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 2.5rem;
+    background: var(--bg-elevated);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .countdown-banner.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 150;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .cb-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .cb-brand {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .cb-brand span {
+    color: var(--accent);
+    margin-left: 0.2rem;
+  }
+
+  .cb-cta-text {
+    font-size: 0.72rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    max-width: 340px;
+    border-left: 1px solid var(--border);
+    padding-left: 1.5rem;
+    font-weight: 500;
+  }
+
+  .cb-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .countdown-banner-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .countdown-banner-timer {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .cb-unit {
+    display: flex;
+    align-items: baseline;
+    gap: 0.15rem;
+  }
+
+  .cb-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    min-width: 1.5em;
+    text-align: center;
+  }
+
+  .cb-text {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-right: 0.4rem;
+  }
+
+  .cb-sep {
+    color: rgba(255,255,255,0.15);
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0 0.1rem;
+  }
+
+  /* Spacer when banner is sticky */
+  .countdown-banner-wrap.is-sticky {
+    padding-top: 78px;
+  }
+
+  @media (max-width: 768px) {
+    .countdown-banner { flex-direction: column; gap: 0.6rem; padding: 0.85rem 1.25rem; }
+    .cb-left { gap: 0.75rem; }
+    .cb-cta-text { display: none; }
+    .cb-right { gap: 0.6rem; }
+    .cb-num { font-size: 1rem; }
+    .countdown-banner-wrap.is-sticky { padding-top: 80px; }
+  }
+
+  /* ───── TRUST BAR ───── */
+  .trust-section {
+    padding: 4rem 2rem;
+  }
+
+  .trust-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  .trust-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    color: var(--accent);
+  }
+
+  /* ───── FOOTER ───── */
+  footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  footer p {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  footer .footer-logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  /* ───── ANIMATIONS ───── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.4); }
+  }
+
+  @keyframes spotPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.7); }
+    100% { transform: scale(1); }
+  }
+
+  /* ───── SCROLL REVEAL ───── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ───── RESPONSIVE ───── */
+  @media (max-width: 768px) {
+    .topbar { padding: 0.75rem 1rem; }
+    .logo-img { height: 30px; }
+    .hero { padding: 6rem 1.25rem 2.5rem; min-height: auto; }
+    .hero h1 { font-size: 2rem; white-space: normal; }
+    .hero-sub { font-size: 0.88rem; max-width: 100%; }
+
+    .waitlist-form {
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 100%;
+    }
+    .waitlist-form input[type="email"] {
+      border-right: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .waitlist-form input[type="email"]:focus {
+      border-color: var(--accent);
+    }
+    .waitlist-form button {
+      border-radius: 6px;
+      padding: 1.05rem;
+    }
+
+    .waitlist-tiers { max-width: 100%; }
+    .tally-mark { width: 2px; }
+
+    .testimonial-section { padding: 3rem 1.25rem; }
+    .testimonial-section-title { font-size: 1.2rem; }
+
+    .modules-section { padding-top: 2.5rem; }
+    .modules-header h2 { font-size: 1.4rem; }
+
+    .promise-section { padding: 3rem 1.25rem; }
+    .promise-section h2 { font-size: 1.4rem; }
+
+    .qualify-section { padding: 3rem 1.25rem; }
+    .qualify-card { padding: 1.5rem; }
+    .qualify-card h3 { font-size: 1.1rem; }
+
+    .written-testimonials { padding: 3rem 1.25rem; }
+    .written-testimonials h2 { font-size: 1.4rem; }
+
+    .faq-section { padding: 3rem 1.25rem; }
+    .faq-section h2 { font-size: 1.5rem; }
+
+    .scalo-brand-footer { padding: 3rem 1.25rem; }
+    .scalo-brand-footer img { max-width: 250px; }
+    .footer-waitlist { flex-direction: column; }
+    .footer-waitlist input { border-right: 1px solid rgba(0,0,0,0.12) !important; border-radius: 6px !important; }
+    .footer-waitlist button { border-radius: 6px !important; }
+
+    .trust-grid {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .wins-tracker { height: 38px; bottom: 0.75rem; }
+    .wins-label { font-size: 0.55rem; padding: 0 0.75rem; }
+    .wins-amount { font-size: 0.75rem; padding: 0 0.75rem; }
+
+    .price-reveal { height: 3.5rem; }
+    .price-line strong { font-size: 1.5rem; }
+    .price-line span { font-size: 0.8rem; }
+
+    .closing-stack { padding: 3rem 1.25rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.65rem; }
+    .badge { font-size: 0.55rem; padding: 0.4rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar" id="topbar">
+  <div class="logo"><img class="logo-img" src="Branding/Untitled design (34) copy.jpg" alt="SCALO" style="border-radius:6px;"></div>
+  <div class="topbar-right">Early Access</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">Limited Availability &mdash; Next Cohort Launching Soon</div>
+  <h1>CLARITY. SYSTEMS. <em>LIFESTYLE.</em></h1>
+  <p class="hero-sub">
+    The clarity system for barbers who want higher-paying clients, content that converts, and a business that scales &mdash; without grinding behind the chair.
+  </p>
+
+  <form class="waitlist-form" id="waitlistForm">
+    <input type="email" id="emailInput" placeholder="Enter your email for early access" required autocomplete="email">
+    <button type="submit" id="submitBtn">Join Waitlist</button>
+  </form>
+  <div class="form-message" id="formMessage"></div>
+
+  <!-- WAITLIST BAR (inside hero) -->
+  <div class="waitlist-tiers" id="waitlistTiers">
+    <div class="tier">
+      <div class="tier-header">
+        <span class="tier-name">Waitlist Capacity</span>
+        <span class="tier-badge filled" id="capacityBadge">Almost at Capacity</span>
+      </div>
+      <div class="tally-bar" id="mainTallyBar"></div>
+    </div>
+    <div class="waitlist-status" id="waitlistStatus">91 of 100 spots claimed &mdash; 9 remaining</div>
+  </div>
+</section>
+
+<!-- COUNTDOWN BANNER -->
+<div class="countdown-banner-wrap" id="countdownWrap">
+  <div class="countdown-banner" id="countdownBanner">
+    <div class="cb-left">
+      <div class="cb-brand"><img class="cb-brand-img" src="Branding/Untitled design (34) copy.jpg" alt="SCALO" style="border-radius:5px;"></div>
+      <div class="cb-cta-text">Cohort doors don't open until students get the results acquired from the last cohort.</div>
+    </div>
+    <div class="cb-right">
+      <span class="countdown-banner-label">Doors Close In</span>
+      <div class="countdown-banner-timer">
+        <div class="cb-unit"><span class="cb-num" id="cDays">07</span><span class="cb-text">d</span></div>
+        <span class="cb-sep">:</span>
+        <div class="cb-unit"><span class="cb-num" id="cHours">00</span><span class="cb-text">h</span></div>
+        <span class="cb-sep">:</span>
+        <div class="cb-unit"><span class="cb-num" id="cMins">00</span><span class="cb-text">m</span></div>
+        <span class="cb-sep">:</span>
+        <div class="cb-unit"><span class="cb-num" id="cSecs">00</span><span class="cb-text">s</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIAL: STEVEN -->
+<section class="testimonial-section reveal">
+  <div class="testimonial-section-label">What You Could Achieve</div>
+  <h2 class="testimonial-section-title">This Barber Said Yes. Look What Happened.</h2>
+  <div class="testimonial-video">
+    <video controls preload="metadata" playsinline muted poster="Testimonials/steven-thumbnail.jpg" id="stevenVideo">
+      <source src="Testimonials/steven-testimonial-2.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="testimonial-info-wrap">
+  <div class="testimonial-content">
+    <div class="testimonial-headline">From 24K/month to back-to-back 35K+ months &mdash; and on track for 50K.</div>
+    <div class="testimonial-body">
+      <p>Steven was already a successful barber doing <em>&pound;24K a month</em>. Most barbers would think that's the ceiling. What we focused on was building a cult audience and a brand within his local area.</p>
+      <p>Within the first month, we increased his revenue by &pound;10K &mdash; resulting in a <em>&pound;34K month</em>. The second month we did the same again, hitting <em>&pound;37K</em>. Back-to-back &pound;35K+ months.</p>
+      <p>He's since raised prices in January and is now going into a second price increase of the year. We've increased his revenue by <em>50% over the past four months</em>, on track to hit &pound;40K&ndash;&pound;50K a month in April.</p>
+    </div>
+  </div>
+
+  <div class="testimonial-stats">
+    <div class="testimonial-stat">
+      <div class="stat-number">&pound;37K</div>
+      <div class="stat-label">Record Month Since Joining SCALO</div>
+    </div>
+    <div class="testimonial-stat">
+      <div class="stat-number">150+</div>
+      <div class="stat-label">New Clients Added Since Joining</div>
+    </div>
+  </div>
+
+  <div class="testimonial-quote-row">
+    <div class="testimonial-quote">"Since joining SCALO, everything changed. The systems gave me clarity on where to focus, the content strategy brought in higher-paying clients, and the accountability kept me pushing. I went from thinking 24K was my ceiling to consistently hitting 35K+. This is just the beginning."</div>
+    <div class="testimonial-author">
+      <img class="testimonial-author-img" src="Testimonials/Stevens Profile Picture.png" alt="Steven">
+      <div class="testimonial-author-info">
+        <span class="testimonial-author-name">Steven</span>
+        <span class="testimonial-author-handle">@ColoFX_studios</span>
+        <span class="testimonial-author-role">Barber &amp; SCALO Member</span>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- PROGRAMME MODULES -->
+<section class="modules-section" id="modulesSection">
+  <div class="modules-header">
+    <div class="section-label">What You Get</div>
+    <h2>Here's What's Inside the Programme</h2>
+  </div>
+
+  <div class="modules-container">
+    <div class="modules-sticky-wrap">
+      <div class="modules-number-col">
+        <div class="module-number-display" id="moduleNumber">01</div>
+      </div>
+      <div class="modules-cards-col" id="modulesCards">
+
+        <!-- 01 — WEEKLY LIVE CALLS -->
+        <div class="module-card" data-module="01">
+          <div class="module-card-header">
+            <img src="images/DSC00280.JPG" alt="Weekly Live Calls">
+            <div class="module-value">Value: £10,000/yr</div>
+            <h3>Weekly Live Calls</h3>
+            <div class="module-line"></div>
+          </div>
+          <div class="module-card-body">
+            <p class="module-desc"><strong>Stay ahead. Stay sharp. Stay accountable.</strong></p>
+            <p class="module-desc">Every week, you're plugged directly into what's working right now.</p>
+            <p class="module-desc">These aren't generic coaching calls &mdash; this is where strategies get broken down, problems get solved live, and you get clarity on exactly what to do next in your business.</p>
+            <p class="module-desc">You're not left guessing. You're not left stuck. You're moving forward every single week with direction.</p>
+            <div class="module-sub">Inside this you'll get:</div>
+            <ul class="module-bullets">
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Weekly deep-dive training sessions on content, clients, and scaling</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Live breakdowns of what's actually working right now</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Hot seat coaching to solve real business problems</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Direct answers so you're never stuck overthinking</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 02 — DIRECT ACCESS TO TIM -->
+        <div class="module-card" data-module="02">
+          <div class="module-card-header">
+            <img src="What's inside the program pictures/direct access to tim.JPG" alt="Direct Access to Tim">
+            <div class="module-value">Value: £15,000/yr</div>
+            <h3>Direct Access to Tim</h3>
+            <div class="module-line"></div>
+          </div>
+          <div class="module-card-body">
+            <p class="module-desc"><strong>No gatekeeping. No delays. Just answers.</strong></p>
+            <p class="module-desc">This is the part most people never get.</p>
+            <p class="module-desc">Instead of trying to figure things out alone, you have direct access to me &mdash; so when something isn't working, we fix it fast.</p>
+            <p class="module-desc">This is your shortcut. Whether it's your content, your offer, your pricing, or your positioning&hellip; you're not guessing anymore.</p>
+            <div class="module-sub">This means you can:</div>
+            <ul class="module-bullets">
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Get direct feedback on your content and strategy</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Fix problems before they cost you time or money</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Pressure test ideas before you commit to them</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Move faster because you're not doing it alone</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 03 — THE SCALO COMMUNITY -->
+        <div class="module-card" data-module="03">
+          <div class="module-card-header">
+            <img src="What's inside the program pictures/The scalo community.JPG" alt="The SCALO Community">
+            <div class="module-value">Value: £5,000/yr</div>
+            <h3>The SCALO Community</h3>
+            <div class="module-line"></div>
+          </div>
+          <div class="module-card-body">
+            <p class="module-desc"><strong>You're surrounded by people who are actually moving.</strong></p>
+            <p class="module-desc">Environment matters. When you're around barbers who are building, posting, improving, and winning &mdash; your standards change.</p>
+            <p class="module-desc">This isn't a dead group chat. This is a space where people share wins, ideas, content, and momentum daily. And that energy pulls you forward whether you like it or not.</p>
+            <div class="module-sub">Inside the community:</div>
+            <ul class="module-bullets">
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Real-time feedback on content and ideas</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>A network of barbers building alongside you</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Daily accountability and shared momentum</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Proof that what you're trying to do actually works</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 04 — YOUR BUSINESS DASHBOARD -->
+        <div class="module-card" data-module="04">
+          <div class="module-card-header">
+            <img src="images/DSC00305.JPG" alt="Your Business Dashboard">
+            <div class="module-value">Value: £5,000/yr</div>
+            <h3>Your Business Dashboard</h3>
+            <div class="module-line"></div>
+          </div>
+          <div class="module-card-body">
+            <p class="module-desc"><strong>Track everything. Fix everything. Scale faster.</strong></p>
+            <p class="module-desc">Most barbers rely on feeling. That's why they stay stuck.</p>
+            <p class="module-desc">Inside SCALO, you'll have your own personal dashboard where you track your numbers, your content, and your growth &mdash; daily. So instead of guessing what's working&hellip; you'll know. And when you know, you can scale.</p>
+            <div class="module-sub">This gives you:</div>
+            <ul class="module-bullets">
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>A clear view of your revenue, clients, and performance</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Daily tracking to identify what's actually working</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>Data-backed decisions instead of emotional ones</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>A system to scale your business with precision</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 05 — SCALO INTELLECTUAL PROPERTY -->
+        <div class="module-card" data-module="05">
+          <div class="module-card-header">
+            <img src="What's inside the program pictures/SCALO interlectul property.jpg" alt="SCALO Intellectual Property">
+            <div class="module-value">Value: £5,000/yr</div>
+            <h3>SCALO Intellectual Property</h3>
+            <div class="module-line"></div>
+          </div>
+          <div class="module-card-body">
+            <p class="module-desc"><strong>The systems that actually build the business.</strong></p>
+            <p class="module-desc">This is the core of everything. You're not just getting information &mdash; you're getting proven systems that have already helped barbers build real income, real audiences, and real freedom.</p>
+            <p class="module-desc">No fluff. No outdated theory. Just frameworks you can plug into your business immediately.</p>
+            <div class="module-sub">Inside this you'll learn:</div>
+            <ul class="module-bullets">
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>How to attract high-value clients through content</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>How to structure your content to convert, not just get views</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>How to build authority so people come to you</li>
+              <li><span class="bullet-icon"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4"/></svg></span>How to scale beyond the chair using systems</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modules-total reveal">
+    <div class="price-reveal" id="priceReveal">
+      <div class="price-line price-value" id="priceValue">
+        <span>Total Value: </span><strong>£40,000/year</strong>
+      </div>
+      <div class="price-line price-actual" id="priceActual">
+        <span>You pay: </span><strong>£3,000</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- closing stack removed -->
+</section>
+
+<!-- SCROLLING JOIN BANNER -->
+<div class="scroll-banner" id="scrollBanner">
+  <div class="scroll-banner-track" id="scrollBannerTrack">
+    <span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span>
+  </div>
+</div>
+
+<!-- MY PROMISE -->
+<section class="promise-section reveal">
+  <div class="section-label">My Promise</div>
+  <h2>The SCALO Standard</h2>
+  <div class="promise-layout">
+    <div class="promise-image">
+      <img src="my promise/my promise updated image 2.jpg" alt="Tim at work">
+    </div>
+    <div class="promise-text">
+      <p>If you join SCALO and actually commit to the process&hellip;</p>
+      <p><strong>You won't be left stuck.</strong></p>
+      <p>If you show up, follow the systems, and implement what's in front of you &mdash; I will do everything in my power to make sure you move forward.</p>
+      <p>You'll have access to the right guidance, the right structure, and the right environment to grow.</p>
+      <p><strong>If something isn't working, we fix it.</strong><br>
+      <strong>If you're unsure, we guide you.</strong></p>
+      <p>There's no guesswork here.</p>
+      <p class="promise-highlight">Your success is the standard.</p>
+      <p>But effort has to go both ways.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUALIFICATION: WHO THIS IS FOR -->
+<section class="qualify-section reveal">
+  <div class="qualify-grid">
+    <div class="qualify-card for-you">
+      <h3>You're a Good Fit For SCALO If:</h3>
+      <ul class="qualify-list">
+        <li><span class="q-icon q-check">&#10003;</span><span><strong>You're already making &pound;4&ndash;5K/month</strong> and know how to get clients consistently</span></li>
+        <li><span class="q-icon q-check">&#10003;</span><span><strong>You've built a solid foundation</strong> but feel like your income doesn't reflect the work you're putting in</span></li>
+        <li><span class="q-icon q-check">&#10003;</span><span><strong>You know you're capable of more</strong> but your current model is capping your growth</span></li>
+        <li><span class="q-icon q-check">&#10003;</span><span><strong>You're tired of trading time for money</strong> and want to scale without working more hours</span></li>
+        <li><span class="q-icon q-check">&#10003;</span><span><strong>You want to build something bigger</strong> than just being behind the chair</span></li>
+        <li><span class="q-icon q-check">&#10003;</span><span><strong>You're ready to implement</strong> and follow a proven system instead of guessing</span></li>
+      </ul>
+    </div>
+    <div class="qualify-card not-for">
+      <h3>This Is Not For You If:</h3>
+      <ul class="qualify-list">
+        <li><span class="q-icon q-cross">&#10005;</span><span><strong>You're brand new</strong> and still figuring out how to get consistent clients</span></li>
+        <li><span class="q-icon q-cross">&#10005;</span><span><strong>You're chasing followers or virality</strong> instead of building a real business</span></li>
+        <li><span class="q-icon q-cross">&#10005;</span><span><strong>You're not yet at &pound;4&ndash;5K/month</strong> and haven't built a solid client base</span></li>
+        <li><span class="q-icon q-cross">&#10005;</span><span><strong>You're looking for shortcuts</strong> instead of putting in the work</span></li>
+        <li><span class="q-icon q-cross">&#10005;</span><span><strong>You want someone to do it for you</strong> rather than learning how to do it yourself</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STUDENT WINS -->
+<section class="written-testimonials reveal">
+  <div class="section-label">Real Results</div>
+  <h2>Student Wins Inside of SCALO</h2>
+  <div class="story-cards-grid">
+
+    <!-- 1. STEVEN -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>From &pound;24K to back-to-back &pound;35K+ months.</h4>
+        <p class="story-desc">Steven was already doing <em>&pound;24K/month</em>. Within the first month inside SCALO, we increased his revenue by &pound;10K. The second month we did it again, hitting <em>&pound;37K</em>. His highest-paying client is now <em>$325 per visit</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;37K</div><div class="story-stat-label">Record Month</div></div>
+        <div class="story-stat"><div class="story-stat-num">$325</div><div class="story-stat-label">Highest Paying Client</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"The super week continues bro. 114 appointments so far and just hit $11k. Honestly I'm dumbfounded. I didn't ever think numbers like this were even possible as a barber."</blockquote>
+        <div class="story-author">
+          <img src="Testimonials/Stevens Profile Picture.png" alt="Steven">
+          <div><span class="story-name">Steven Colo</span><span class="story-handle">@ColoFX_studios</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DILLION -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>Added &pound;50K+ to his revenue since joining SCALO.</h4>
+        <p class="story-desc">Dillion was already running a solid salon but knew there was another level. Inside SCALO, we rebuilt his content strategy and positioning. The result? <em>&pound;50K+ added to his revenue</em> and <em>17,000 new followers in just four months</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;50K+</div><div class="story-stat-label">Added to Revenue</div></div>
+        <div class="story-stat"><div class="story-stat-num">17K</div><div class="story-stat-label">Followers in 4 Months</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"The content strategy completely changed the game. We went from posting randomly to having a system that actually brings people through the door. The numbers speak for themselves."</blockquote>
+        <div class="story-author">
+          <img src="Testimonials/written testimonial example/dillions profile pictur.png" alt="Dillion Field">
+          <div><span class="story-name">Dillion Field</span><span class="story-handle">@DillionFieldHair / @MoveSalons</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. JJ -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>&pound;6.1K revenue &mdash; and the month isn't even over.</h4>
+        <p class="story-desc">JJ has <em>15 years of experience</em> in the game. He knew the craft inside out &mdash; but the business side needed a system. Inside SCALO, the content strategy started converting and the revenue became predictable. Now <em>on track to add &pound;50K+ this year</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;6.1K</div><div class="story-stat-label">Mid-Month Revenue</div></div>
+        <div class="story-stat"><div class="story-stat-num">&pound;50K+</div><div class="story-stat-label">On Track This Year</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Make that &pound;6.1k revenue and still not ended the month. A heavy 2 weeks of sales. The content strategy is actually converting like crazy now."</blockquote>
+        <div class="story-author">
+          <img src="Testimonials/written testimonial example/JJ savani.png" alt="JJ Savani">
+          <div><span class="story-name">JJ Savani</span><span class="story-handle">@jjsavani</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CHRIS -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>From overworked to &euro;100+ clients &mdash; with time to spare.</h4>
+        <p class="story-desc">Chris was overworked behind the chair, trading every hour for money. We structured a <em>three-tier pricing strategy</em> that now lets him land <em>&euro;100+ clients consistently</em> &mdash; giving him more free time to spend with the people who matter.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&euro;100+</div><div class="story-stat-label">Per Client</div></div>
+        <div class="story-stat"><div class="story-stat-num">3-Tier</div><div class="story-stat-label">Pricing Strategy</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"It's mental busy with work and has a lot of new clients coming through the door. Had my first haircut premier today &euro;75 + &euro;10 tip and sold a &euro;20 product. All from 1 hours work."</blockquote>
+        <div class="story-author">
+          <img src="Testimonials/written testimonial example/Chris profile picture.png" alt="Chris Riordan">
+          <div><span class="story-name">Chris Riordan</span><span class="story-handle">@chrisoriordanhair</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. GEORGE -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>9 million views in 3 months &mdash; education dates sold out.</h4>
+        <p class="story-desc">George added over <em>&pound;12,000 to his annual income</em> while selling out one-on-one education dates quicker than you could ever imagine. His content went from invisible to <em>9 million views in just 3 months</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">9M</div><div class="story-stat-label">Views in 3 Months</div></div>
+        <div class="story-stat"><div class="story-stat-num">&pound;12K+</div><div class="story-stat-label">Added Annual Income</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Recent video blowing up haha. The content frameworks from SCALO made me actually understand what works on social media instead of just posting and hoping."</blockquote>
+        <div class="story-author">
+          <img src="Testimonials/written testimonial example/george profile picture.png" alt="George Hughes">
+          <div><span class="story-name">George Hughes</span><span class="story-handle">@georgehugheshair</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. MATEO -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>New city. Zero clients. 37 booked in two weeks.</h4>
+        <p class="story-desc">Mateo moved to a <em>brand new city</em>, starting completely from scratch. No existing clients, no reputation, nothing. Using the SCALO systems, he added <em>37 new clients in his first two weeks</em> and hasn't looked back since.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;19K</div><div class="story-stat-label">Added in 2 Weeks</div></div>
+        <div class="story-stat"><div class="story-stat-num">200+</div><div class="story-stat-label">New Clients</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Moved to a completely new city with nothing. No clients, no connections. Within two weeks I had 37 new bookings. The systems just work &mdash; if you follow them, the results come."</blockquote>
+        <div class="story-author">
+          <img src="Testimonials/written testimonial example/mateo profile picture.png" alt="Mateo Strang">
+          <div><span class="story-name">Mateo Strang</span><span class="story-handle">@Mataper</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-label">Got Questions?</div>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-grid">
+      <div class="faq-card">
+        <video controls preload="metadata" playsinline poster="FAQs/DO I NEED A BIG FOLLOWING TO GET THE RESULTS-poster.jpg">
+          <source src="FAQs/DO I NEED A BIG FOLLOWING TO GET THE RESULTS.mp4" type="video/mp4">
+        </video>
+        <div class="faq-card-title">Do I Need a Big Following to Get Results?</div>
+      </div>
+      <div class="faq-card">
+        <video controls preload="metadata" playsinline poster="FAQs/HOW FAST WILL I SEE RESULTS-poster.jpg">
+          <source src="FAQs/HOW FAST WILL I SEE RESULTS.mp4" type="video/mp4">
+        </video>
+        <div class="faq-card-title">How Fast Will I See Results?</div>
+      </div>
+      <div class="faq-card">
+        <video controls preload="metadata" playsinline poster="FAQs/WILL I GET PERSONALISED SUPPORT-poster.jpg">
+          <source src="FAQs/WILL I GET PERSONALISED SUPPORT.mp4" type="video/mp4">
+        </video>
+        <div class="faq-card-title">Will I Get Personalised Support?</div>
+      </div>
+      <div class="faq-card">
+        <video controls preload="metadata" playsinline poster="FAQs/HOW PERSONALISED IS YOUR SUPPORT-poster.jpg">
+          <source src="FAQs/HOW PERSONALISED IS YOUR SUPPORT.mp4" type="video/mp4">
+        </video>
+        <div class="faq-card-title">How Personalised Is Your Support?</div>
+      </div>
+      <div class="faq-card">
+        <video controls preload="metadata" playsinline poster="FAQs/WHAT IF I CAN'T GET THE SAME RESULTS-poster.jpg">
+          <source src="FAQs/WHAT IF I CAN'T GET THE SAME RESULTS.mp4" type="video/mp4">
+        </video>
+        <div class="faq-card-title">What If I Can't Get the Same Results?</div>
+      </div>
+      <div class="faq-card">
+        <video controls preload="metadata" playsinline poster="FAQs/WILL YOU HELP ME STRATEGIS MY PRICE INCREASE-poster.jpg">
+          <source src="FAQs/WILL YOU HELP ME STRATEGIS MY PRICE INCREASE.mp4" type="video/mp4">
+        </video>
+        <div class="faq-card-title">Will You Help Me Strategise My Price Increase?</div>
+      </div>
+      <div class="faq-card">
+        <video controls preload="metadata" playsinline poster="FAQs/WHAT IF I AM ALREADLY WORKING WITH ANOTHER COACH-poster.jpg">
+          <source src="FAQs/WHAT IF I AM ALREADLY WORKING WITH ANOTHER COACH.mp4" type="video/mp4">
+        </video>
+        <div class="faq-card-title">What If I'm Already Working with Another Coach?</div>
+      </div>
+      <div class="faq-card">
+        <video controls preload="metadata" playsinline poster="FAQs/WHAT IF I DON'T HAVE TIME TO IMPLIMENT ANOTHER SYSTEM-poster.jpg">
+          <source src="FAQs/WHAT IF I DON'T HAVE TIME TO IMPLIMENT ANOTHER SYSTEM.mp4" type="video/mp4">
+        </video>
+        <div class="faq-card-title">What If I Don't Have Time to Implement Another System?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCALO BRAND FOOTER -->
+<section class="scalo-brand-footer">
+  <img src="Branding/SCALO copy.png" alt="SCALO">
+  <p>Imagine being able to have a barber business that fuels your dream life by using <strong>systems and clarity</strong> while making you <strong>$100,000 a year</strong>.</p>
+  <form class="footer-waitlist" onsubmit="event.preventDefault();">
+    <input type="email" placeholder="Enter your email for early access" style="flex:1;padding:1rem 1.25rem;border:1px solid rgba(0,0,0,0.12);border-right:none;border-radius:6px 0 0 6px;font-family:var(--font-body);font-size:0.85rem;color:#1A1917;background:#fff;outline:none;">
+    <button type="submit" style="padding:1rem 2rem;background:#1A1917;color:#F5F2ED;border:none;border-radius:0 6px 6px 0;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;">Join Waitlist</button>
+  </form>
+</section>
+
+<!-- TRUST -->
+<section class="trust-section reveal">
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="trust-icon">&#10003;</div>
+      Trusted by 100+ Barbers
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">&#9826;</div>
+      Private Community
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">&#9889;</div>
+      Scale Faster &amp; Smarter
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">&#9733;</div>
+      While Building a Dream Life
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SCALO</div>
+  <p>&copy; 2026 SCALO. All rights reserved.</p>
+</footer>
+
+<!-- STUDENT WINS TRACKER -->
+<div class="wins-tracker">
+  <div class="wins-label">Student Wins Tracker</div>
+  <div class="wins-amount" id="winsAmount">$75,000.00</div>
+</div>
+
+<script>
+(function() {
+  // ───── STUDENT WINS TRACKER ─────
+  const WINS_START = 300000;
+  const WINS_PER_DAY = 75;
+  const WINS_START_KEY = 'scalo_wins_start_date';
+
+  function getWinsStartDate() {
+    const saved = localStorage.getItem(WINS_START_KEY);
+    if (saved) return parseInt(saved);
+    const now = Date.now();
+    localStorage.setItem(WINS_START_KEY, String(now));
+    return now;
+  }
+
+  const winsStartDate = getWinsStartDate();
+
+  function updateWinsTracker() {
+    const elapsed = Date.now() - winsStartDate;
+    const daysFraction = elapsed / (1000 * 60 * 60 * 24);
+    const totalWins = WINS_START + (daysFraction * WINS_PER_DAY);
+    document.getElementById('winsAmount').textContent =
+      '$' + totalWins.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  updateWinsTracker();
+  setInterval(updateWinsTracker, 3000);
+
+  const TOTAL_SPOTS = 100;
+  const STORAGE_KEY = 'scalo_waitlist';
+  const COUNTDOWN_KEY = 'scalo_countdown_end';
+  const INITIAL_FILLED = 91;
+
+  // Always start at 91 on page load — the 10s bump is session-only
+  var state = { emails: [], filled: INITIAL_FILLED, bumped: false };
+
+  function saveState(s) {
+    // no-op: we don't persist waitlist state across reloads
+  }
+
+  function getCountdownEnd() {
+    const saved = localStorage.getItem(COUNTDOWN_KEY);
+    if (saved) {
+      const end = parseInt(saved);
+      if (end > Date.now()) return end;
+    }
+    const end = Date.now() + 7 * 24 * 60 * 60 * 1000;
+    localStorage.setItem(COUNTDOWN_KEY, String(end));
+    return end;
+  }
+
+  const countdownEnd = getCountdownEnd();
+
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = Math.max(0, countdownEnd - now);
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= d * 1000 * 60 * 60 * 24;
+    const h = Math.floor(diff / (1000 * 60 * 60));
+    diff -= h * 1000 * 60 * 60;
+    const m = Math.floor(diff / (1000 * 60));
+    diff -= m * 1000 * 60;
+    const s = Math.floor(diff / 1000);
+    document.getElementById('cDays').textContent = String(d).padStart(2, '0');
+    document.getElementById('cHours').textContent = String(h).padStart(2, '0');
+    document.getElementById('cMins').textContent = String(m).padStart(2, '0');
+    document.getElementById('cSecs').textContent = String(s).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ───── SINGLE TALLY BAR ─────
+  var mainBar = document.getElementById('mainTallyBar');
+  var capacityBadge = document.getElementById('capacityBadge');
+
+  function renderTallyBar(filledMarks, animateLast) {
+    mainBar.innerHTML = '';
+    for (var i = 0; i < TOTAL_SPOTS; i++) {
+      var mark = document.createElement('div');
+      mark.className = 'tally-mark';
+      if (i < filledMarks) {
+        mark.classList.add('active');
+        if (animateLast && i === filledMarks - 1) {
+          mark.classList.add('just-filled');
+        }
+      }
+      mainBar.appendChild(mark);
+    }
+  }
+
+  function updateSpotsUI(animate) {
+    var filled = state.filled;
+    var remaining = TOTAL_SPOTS - filled;
+
+    renderTallyBar(filled, animate);
+
+    // Update badge
+    if (capacityBadge) {
+      if (filled >= TOTAL_SPOTS) {
+        capacityBadge.textContent = 'Full';
+      } else if (remaining <= 10) {
+        capacityBadge.textContent = 'Almost at Capacity';
+      }
+    }
+
+    // Update status + form
+    var statusEl = document.getElementById('waitlistStatus');
+    var btnEl = document.getElementById('submitBtn');
+    var inputEl = document.getElementById('emailInput');
+
+    if (filled >= TOTAL_SPOTS) {
+      statusEl.textContent = 'Waitlist is now closed \u2014 all 100 spots have been claimed';
+      statusEl.classList.add('closed');
+      btnEl.disabled = true;
+      btnEl.textContent = 'Closed';
+      inputEl.disabled = true;
+      inputEl.placeholder = 'Waitlist is full';
+    } else {
+      statusEl.textContent = filled + ' of ' + TOTAL_SPOTS + ' spots claimed \u2014 ' + remaining + ' remaining';
+      statusEl.classList.remove('closed');
+    }
+  }
+
+  updateSpotsUI(false);
+
+  // Auto-fill exactly one spot after 10 seconds, then turn red
+  setTimeout(function() {
+    if (!state.bumped && state.filled < TOTAL_SPOTS) {
+      state.bumped = true;
+      state.filled++;
+      updateSpotsUI(true);
+      // Turn badge red
+      if (capacityBadge) {
+        capacityBadge.classList.remove('filled');
+        capacityBadge.classList.add('critical');
+      }
+      // Turn all active marks red
+      document.querySelectorAll('.tally-mark.active').forEach(function(m) {
+        m.classList.add('critical');
+      });
+    }
+  }, 10000);
+
+  const form = document.getElementById('waitlistForm');
+  const emailInput = document.getElementById('emailInput');
+  const formMessage = document.getElementById('formMessage');
+
+  function showMessage(text, type) {
+    formMessage.textContent = text;
+    formMessage.className = 'form-message show ' + type;
+    setTimeout(() => { formMessage.classList.remove('show'); }, 4000);
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (state.filled >= TOTAL_SPOTS) {
+      showMessage('The waitlist is now closed.', 'error');
+      return;
+    }
+    const email = emailInput.value.trim().toLowerCase();
+    if (!email) return;
+    if (state.emails.includes(email)) {
+      showMessage("You're already on the waitlist!", 'error');
+      emailInput.value = '';
+      return;
+    }
+    state.emails.push(email);
+    state.filled++;
+    saveState(state);
+    emailInput.value = '';
+    showMessage("You're in! Check your inbox for next steps.", 'success');
+    updateSpotsUI(true);
+  });
+
+  const topbar = document.getElementById('topbar');
+
+  // ───── COUNTDOWN STICKY BANNER ─────
+  var countdownWrap = document.getElementById('countdownWrap');
+  var countdownBanner = document.getElementById('countdownBanner');
+  var bannerOffsetTop = 0;
+
+  function updateBannerOffset() {
+    if (countdownWrap && !countdownWrap.classList.contains('is-sticky')) {
+      bannerOffsetTop = countdownWrap.offsetTop;
+    }
+  }
+  updateBannerOffset();
+
+  // ───── WINS TRACKER SCROLL FADE ─────
+  var winsTracker = document.querySelector('.wins-tracker');
+  var scrollTimer = null;
+
+  window.addEventListener('scroll', function() {
+    // Topbar
+    topbar.classList.toggle('scrolled', window.scrollY > 50);
+
+    // Sticky countdown banner
+    if (countdownWrap && countdownBanner) {
+      if (!countdownWrap.classList.contains('is-sticky')) {
+        bannerOffsetTop = countdownWrap.offsetTop;
+      }
+      if (window.scrollY >= bannerOffsetTop) {
+        countdownBanner.classList.add('sticky');
+        countdownWrap.classList.add('is-sticky');
+        // Hide topbar when banner is sticky
+        topbar.style.transform = 'translateY(-100%)';
+      } else {
+        countdownBanner.classList.remove('sticky');
+        countdownWrap.classList.remove('is-sticky');
+        topbar.style.transform = 'translateY(0)';
+      }
+    }
+
+    // Wins tracker: fade while scrolling, solid when stopped
+    if (winsTracker) {
+      winsTracker.classList.add('faded');
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function() {
+        winsTracker.classList.remove('faded');
+      }, 300);
+    }
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el) { observer.observe(el); });
+
+  // ───── SCROLLING JOIN BANNER ─────
+  var bannerTrack = document.getElementById('scrollBannerTrack');
+  if (bannerTrack) {
+    var bannerPos = 0;
+    var lastScrollY = window.scrollY;
+    var bannerSpeed = 0.5;
+
+    function updateBanner() {
+      var currentScrollY = window.scrollY;
+      var delta = currentScrollY - lastScrollY;
+      bannerPos -= delta * bannerSpeed;
+      // Reset position to loop seamlessly
+      var halfWidth = bannerTrack.scrollWidth / 2;
+      if (Math.abs(bannerPos) > halfWidth) bannerPos = 0;
+      bannerTrack.style.transform = 'translateX(' + bannerPos + 'px)';
+      lastScrollY = currentScrollY;
+    }
+
+    window.addEventListener('scroll', updateBanner);
+  }
+
+  // ───── PROMISE IMAGE HEIGHT MATCH ─────
+  function matchPromiseHeight() {
+    var txt = document.querySelector('.promise-text');
+    var imgWrap = document.querySelector('.promise-image');
+    if (txt && imgWrap) {
+      imgWrap.style.height = txt.offsetHeight + 'px';
+    }
+  }
+  window.addEventListener('load', matchPromiseHeight);
+  window.addEventListener('resize', matchPromiseHeight);
+  matchPromiseHeight();
+
+  // ───── VIDEO: 3s thumbnail then autoplay with sound ─────
+  var stevenVideo = document.getElementById('stevenVideo');
+  if (stevenVideo) {
+    var videoTriggered = false;
+    var videoObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !videoTriggered) {
+          videoTriggered = true;
+          // Show thumbnail for 3 seconds, then start playing
+          setTimeout(function() {
+            stevenVideo.muted = false;
+            stevenVideo.volume = 0.8;
+            stevenVideo.play().catch(function() {
+              // If unmuted autoplay blocked, try muted
+              stevenVideo.muted = true;
+              stevenVideo.play().catch(function() {});
+            });
+          }, 3000);
+        }
+        if (!entry.isIntersecting && videoTriggered) {
+          stevenVideo.pause();
+        }
+      });
+    }, { threshold: 0.3 });
+    videoObs.observe(stevenVideo);
+  }
+
+  // ───── PRICE ROTATE ANIMATION ─────
+  var priceValueEl = document.getElementById('priceValue');
+  var priceActualEl = document.getElementById('priceActual');
+  if (priceValueEl && priceActualEl) {
+    var showingValue = true;
+    function togglePrice() {
+      if (showingValue) {
+        priceValueEl.classList.add('fade-out');
+        setTimeout(function() {
+          priceActualEl.classList.add('fade-in');
+        }, 500);
+      } else {
+        priceActualEl.classList.remove('fade-in');
+        setTimeout(function() {
+          priceValueEl.classList.remove('fade-out');
+        }, 500);
+      }
+      showingValue = !showingValue;
+    }
+    setInterval(togglePrice, 5000);
+  }
+
+  // ───── MODULE CARDS: scroll reveal + sticky number ─────
+  const moduleCards = document.querySelectorAll('.module-card');
+  const moduleNumberEl = document.getElementById('moduleNumber');
+
+  // Reveal cards on scroll
+  const modObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  moduleCards.forEach(function(card) { modObserver.observe(card); });
+
+  // Update sticky number based on which card is most visible
+  if (moduleNumberEl && moduleCards.length > 0) {
+    var currentModule = '01';
+    function updateModuleNumber() {
+      var viewportCenter = window.innerHeight / 2;
+      var closest = null;
+      var closestDist = Infinity;
+      moduleCards.forEach(function(card) {
+        var rect = card.getBoundingClientRect();
+        var cardCenter = rect.top + rect.height / 2;
+        var dist = Math.abs(cardCenter - viewportCenter);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = card;
+        }
+      });
+      if (closest) {
+        var num = closest.getAttribute('data-module');
+        if (num && num !== currentModule) {
+          currentModule = num;
+          moduleNumberEl.style.opacity = '0';
+          setTimeout(function() {
+            moduleNumberEl.textContent = num;
+            moduleNumberEl.style.opacity = '1';
+          }, 200);
+        }
+      }
+    }
+    window.addEventListener('scroll', updateModuleNumber);
+    updateModuleNumber();
+  }
+})();
+</script>
+</body>
+</html>

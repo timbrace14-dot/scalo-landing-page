@@ -1,0 +1,36 @@
+# Large video files
+*.mov
+*.MOV
+*.mp4
+*.MP4
+.DS_Store
+.claude/
+
+# Unused large images
+images/DSC00281.JPG
+images/DSC00282.JPG
+images/DSC00283.JPG
+images/DSC00284.JPG
+images/DSC00285.JPG
+images/DSC00286.JPG
+images/DSC00287.JPG
+images/DSC00288.JPG
+images/DSC00289.JPG
+images/DSC00290.JPG
+images/DSC00291.JPG
+images/DSC00292.JPG
+images/DSC00293.JPG
+images/DSC00294.JPG
+images/DSC00295.JPG
+images/DSC00296.JPG
+images/DSC00297.JPG
+images/DSC00298.JPG
+images/DSC00299.JPG
+images/DSC00300.JPG
+images/DSC00301.JPG
+images/DSC00302.JPG
+images/DSC00303.JPG
+images/DSC00304.JPG
+images/DSC00306.JPG
+images/DSC00307.JPG
+images/DSC00308.JPG
