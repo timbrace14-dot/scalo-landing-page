@@ -792,10 +792,17 @@
     box-shadow: 0 0 25px rgba(184, 233, 134, 0.08), 0 0 60px rgba(184, 233, 134, 0.04);
   }
 
-  .testimonial-video video {
+  .testimonial-video video,
+  .testimonial-video iframe {
     width: 100%;
     display: block;
     border-radius: 9px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .testimonial-video iframe {
+    border: none;
+    height: auto;
   }
 
   .testimonial-info-wrap {
@@ -2066,7 +2073,7 @@
   @media (max-width: 768px) {
     .topbar { padding: 0.75rem 1rem; }
     .logo-img { height: 30px; }
-    .hero { padding: 5rem 1.25rem 2rem; min-height: auto; }
+    .hero { padding: 5rem 1.25rem 2rem; min-height: 100svh; justify-content: center; }
     .hero h1 { font-size: 1.4rem; white-space: nowrap; }
     .hero-sub { font-size: 0.68rem; max-width: 100%; line-height: 1.55; }
 
@@ -2090,13 +2097,13 @@
       font-size: 0.6rem;
     }
 
-    .waitlist-tiers { max-width: 80%; margin: 0 auto; }
+    .waitlist-tiers { max-width: 90%; margin: 0 auto; text-align: center; }
     .tally-mark { width: 1.5px; height: 14px; }
     .tally-bar { gap: 1px; }
-    .waitlist-status { font-size: 0.5rem; margin-top: 0.3rem; }
+    .waitlist-status { font-size: 0.5rem; margin-top: 0.3rem; text-align: center; }
     .tier-name { font-size: 0.48rem; }
     .tier-badge { font-size: 0.38rem; padding: 0.15rem 0.4rem; }
-    .tier-header { margin-bottom: 0.4rem; }
+    .tier-header { margin-bottom: 0.4rem; justify-content: center; }
 
     .testimonial-section { padding: 2.5rem 1.25rem; }
     .testimonial-section-title { font-size: 1rem; }
@@ -2219,9 +2226,7 @@
   <div class="testimonial-section-label">What You Could Achieve</div>
   <h2 class="testimonial-section-title">This Barber Said Yes. Look What Happened.</h2>
   <div class="testimonial-video">
-    <video controls preload="metadata" playsinline muted poster="Testimonials/steven-thumbnail.jpg" id="stevenVideo">
-      <source src="Testimonials/steven-testimonial-2.mp4" type="video/mp4">
-    </video>
+    <iframe src="https://www.youtube.com/embed/7KiyLTVHI3s" title="Steven Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 
   <div class="testimonial-info-wrap">
@@ -3118,32 +3123,6 @@
   window.addEventListener('resize', matchPromiseHeight);
   matchPromiseHeight();
 
-  // ───── VIDEO: 3s thumbnail then autoplay with sound ─────
-  var stevenVideo = document.getElementById('stevenVideo');
-  if (stevenVideo) {
-    var videoTriggered = false;
-    var videoObs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting && !videoTriggered) {
-          videoTriggered = true;
-          // Show thumbnail for 3 seconds, then start playing
-          setTimeout(function() {
-            stevenVideo.muted = false;
-            stevenVideo.volume = 0.8;
-            stevenVideo.play().catch(function() {
-              // If unmuted autoplay blocked, try muted
-              stevenVideo.muted = true;
-              stevenVideo.play().catch(function() {});
-            });
-          }, 3000);
-        }
-        if (!entry.isIntersecting && videoTriggered) {
-          stevenVideo.pause();
-        }
-      });
-    }, { threshold: 0.3 });
-    videoObs.observe(stevenVideo);
-  }
 
   // ───── PRICE ROTATE ANIMATION ─────
   var priceValueEl = document.getElementById('priceValue');
