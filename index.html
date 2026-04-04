@@ -2226,7 +2226,7 @@
   <div class="testimonial-section-label">What You Could Achieve</div>
   <h2 class="testimonial-section-title">This Barber Said Yes. Look What Happened.</h2>
   <div class="testimonial-video">
-    <iframe src="https://www.youtube.com/embed/7KiyLTVHI3s" title="Steven Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe id="stevenYT" src="https://www.youtube.com/embed/7KiyLTVHI3s?enablejsapi=1" title="Steven Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
 
   <div class="testimonial-info-wrap">
@@ -3034,6 +3034,25 @@
   }
 
   const topbar = document.getElementById('topbar');
+
+  // ───── YOUTUBE AUTOPLAY ON SCROLL ─────
+  var stevenIframe = document.getElementById('stevenYT');
+  if (stevenIframe) {
+    var ytPlayed = false;
+    var ytObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !ytPlayed) {
+          ytPlayed = true;
+          stevenIframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:[]}), '*');
+        }
+        if (!entry.isIntersecting && ytPlayed) {
+          stevenIframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:[]}), '*');
+          ytPlayed = false;
+        }
+      });
+    }, { threshold: 0.4 });
+    ytObs.observe(stevenIframe);
+  }
 
   // ───── COUNTDOWN STICKY BANNER ─────
   var countdownWrap = document.getElementById('countdownWrap');
