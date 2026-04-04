@@ -2074,7 +2074,7 @@
     .topbar { padding: 0.75rem 1rem; }
     .logo-img { height: 30px; }
     .hero { padding: 5rem 1.5rem 2rem; min-height: 100svh; justify-content: center; }
-    .hero h1 { font-size: clamp(1.6rem, 7.5vw, 2.6rem); white-space: nowrap; margin-bottom: 1rem; text-align: center; }
+    .hero h1 { font-size: clamp(1.4rem, 5.8vw, 2.6rem); white-space: nowrap; margin-bottom: 1rem; text-align: center; }
     .hero-sub { font-size: 0.75rem; max-width: 100%; line-height: 1.6; margin-bottom: 1.5rem; }
     .badge { font-size: 0.42rem; padding: 0.3rem 0.75rem; margin-bottom: 1.8rem; }
 
@@ -2154,7 +2154,7 @@
   }
 
   @media (max-width: 480px) {
-    .hero h1 { font-size: clamp(1.4rem, 7vw, 2rem); }
+    .hero h1 { font-size: clamp(1.2rem, 5.5vw, 1.8rem); }
   }
 </style>
 </head>
@@ -3038,19 +3038,15 @@
   // ───── YOUTUBE AUTOPLAY ON SCROLL ─────
   var stevenIframe = document.getElementById('stevenYT');
   if (stevenIframe) {
-    var ytPlayed = false;
+    var ytTriggered = false;
     var ytObs = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        if (entry.isIntersecting && !ytPlayed) {
-          ytPlayed = true;
-          stevenIframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'playVideo',args:[]}), '*');
-        }
-        if (!entry.isIntersecting && ytPlayed) {
-          stevenIframe.contentWindow.postMessage(JSON.stringify({event:'command',func:'pauseVideo',args:[]}), '*');
-          ytPlayed = false;
+        if (entry.isIntersecting && !ytTriggered) {
+          ytTriggered = true;
+          stevenIframe.src = 'https://www.youtube.com/embed/7KiyLTVHI3s?autoplay=1&mute=0';
         }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.3 });
     ytObs.observe(stevenIframe);
   }
 
