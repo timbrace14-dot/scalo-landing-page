@@ -2074,8 +2074,8 @@
     .topbar { padding: 0.75rem 1rem; }
     .logo-img { height: 30px; }
     .hero { padding: 5rem 1.5rem 2rem; min-height: 100svh; justify-content: center; }
-    .hero h1 { font-size: 2.6rem; white-space: normal; margin-bottom: 1.2rem; text-align: center; }
-    .hero-sub { font-size: 0.82rem; max-width: 100%; line-height: 1.65; margin-bottom: 1.8rem; }
+    .hero h1 { font-size: clamp(1.6rem, 7.5vw, 2.6rem); white-space: nowrap; margin-bottom: 1rem; text-align: center; }
+    .hero-sub { font-size: 0.75rem; max-width: 100%; line-height: 1.6; margin-bottom: 1.5rem; }
     .badge { font-size: 0.42rem; padding: 0.3rem 0.75rem; margin-bottom: 1.8rem; }
 
     .waitlist-form {
@@ -2084,8 +2084,8 @@
       max-width: 100%;
     }
     .waitlist-form input[type="email"] {
-      padding: 0.75rem 0.9rem;
-      font-size: 0.75rem;
+      padding: 0.65rem 0.8rem;
+      font-size: 0.7rem;
       border-right: none;
       border-radius: 6px 0 0 6px;
     }
@@ -2094,11 +2094,11 @@
     }
     .waitlist-form button {
       border-radius: 0 6px 6px 0;
-      padding: 0.75rem 1rem;
-      font-size: 0.65rem;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.6rem;
     }
 
-    .waitlist-tiers { max-width: 100%; margin: 1.2rem auto 0; text-align: center; }
+    .waitlist-tiers { max-width: 100%; margin: 1rem auto 0; text-align: center; }
     .tally-mark { width: 2.5px; height: 18px; }
     .tally-bar { gap: 1.5px; justify-content: center; }
     .waitlist-status { font-size: 0.7rem; margin-top: 0.5rem; text-align: center; }
@@ -2154,7 +2154,7 @@
   }
 
   @media (max-width: 480px) {
-    .hero h1 { font-size: 2.2rem; }
+    .hero h1 { font-size: clamp(1.4rem, 7vw, 2rem); }
   }
 </style>
 </head>
