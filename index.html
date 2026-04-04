@@ -27,7 +27,7 @@
     --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
 
   body {
     font-family: var(--font-body);
@@ -35,7 +35,7 @@
     letter-spacing: -0.027em;
     background: var(--bg);
     color: var(--text-primary);
-    overflow-x: hidden;
+    overflow-x: clip;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -55,7 +55,7 @@
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 0;
-    height: 46px;
+    height: 52px;
     overflow: hidden;
     opacity: 1;
     transition: opacity 0.4s ease;
@@ -69,7 +69,7 @@
   .wins-label {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--white);
@@ -83,7 +83,7 @@
   .wins-amount {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     letter-spacing: -0.01em;
     color: var(--bg);
     background: var(--accent);
@@ -934,11 +934,18 @@
   }
 
   @media (max-width: 768px) {
-    .testimonial-info-wrap { padding: 1.5rem; }
-    .testimonial-content { grid-template-columns: 1fr; gap: 1.5rem; }
+    .testimonial-info-wrap { padding: 1.25rem; }
+    .testimonial-content { grid-template-columns: 1fr; gap: 1rem; }
+    .testimonial-headline { font-size: 1rem; }
+    .testimonial-body { font-size: 0.7rem; line-height: 1.6; }
+    .testimonial-body p { margin-bottom: 0.6rem; }
     .testimonial-stats { grid-template-columns: 1fr; }
+    .testimonial-stat { padding: 1.25rem 0; }
     .testimonial-stat:last-child { border-left-color: var(--accent); }
+    .stat-number { font-size: 2rem; }
     .testimonial-quote-row { grid-template-columns: 1fr; }
+    .testimonial-quote { font-size: 0.72rem; line-height: 1.55; }
+    .testimonial-section-title { font-size: 1.1rem; }
   }
 
   /* ───── MY PROMISE SECTION ───── */
@@ -1367,6 +1374,109 @@
     align-self: center;
   }
 
+  /* ───── SOCIAL PROOF MOSAIC ───── */
+  .mosaic-section {
+    padding: 3rem 0;
+    overflow: hidden;
+    background: var(--bg);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .mosaic-section .section-label {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    padding: 0 2rem;
+  }
+
+  .mosaic-grid {
+    display: flex;
+    gap: 12px;
+    padding: 0 12px;
+  }
+
+  .mosaic-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    will-change: transform;
+  }
+
+  .mosaic-item {
+    aspect-ratio: 0.75;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .mosaic-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.45);
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+
+  .mosaic-item:hover img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.05);
+  }
+
+  .mosaic-item:hover {
+    z-index: 2;
+  }
+
+  .mosaic-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .mosaic-item:hover .mosaic-overlay {
+    opacity: 1;
+  }
+
+  .mosaic-overlay .mosaic-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.3rem;
+  }
+
+  .mosaic-overlay .mosaic-desc {
+    font-size: 0.6rem;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.7);
+  }
+
+  @media (max-width: 768px) {
+    .mosaic-grid { gap: 4px; padding: 0 4px; }
+    .mosaic-col { gap: 4px; }
+    .mosaic-col:nth-child(5), .mosaic-col:nth-child(6) { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .mosaic-grid { gap: 3px; padding: 0 3px; }
+    .mosaic-col { gap: 3px; }
+    .mosaic-col:nth-child(4) { display: none; }
+  }
+
   /* ───── FAQ SECTION (white background) ───── */
   .faq-section {
     background: #F5F2ED;
@@ -1452,7 +1562,7 @@
   }
 
   .scalo-brand-footer p {
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.7;
     color: #5A574F;
     max-width: 550px;
@@ -1465,8 +1575,47 @@
 
   .footer-waitlist {
     display: flex;
-    max-width: 480px;
-    margin: 2rem auto 0;
+    max-width: 540px;
+    margin: 2.5rem auto 0;
+    border: 2px solid #1A1917;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .footer-waitlist input {
+    flex: 1;
+    padding: 1.15rem 1.5rem !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.9rem !important;
+    color: #1A1917 !important;
+    background: #FFFFFF !important;
+    outline: none !important;
+  }
+
+  .footer-waitlist input::placeholder {
+    color: #A09A90;
+  }
+
+  .footer-waitlist button {
+    padding: 1.15rem 2.5rem !important;
+    background: #1A1917 !important;
+    color: #F5F2ED !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-family: var(--font-body) !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: background 0.25s ease !important;
+  }
+
+  .footer-waitlist button:hover {
+    background: #333 !important;
   }
 
   /* ───── TOPBAR & BANNER LOGO ───── */
@@ -1488,22 +1637,27 @@
       min-height: auto;
     }
     .modules-number-col {
-      width: 100%;
-      position: relative;
-      height: auto;
-      padding: 2rem 2rem 0;
-      justify-content: flex-start;
-    }
-    .module-number-display {
-      font-size: 5rem;
+      display: none;
     }
     .modules-cards-col {
       width: 100%;
       padding: 1rem 1rem;
     }
-    .module-card { margin-bottom: 2rem; }
-    .module-card-header h3 { font-size: 1.15rem; }
-    .module-card-body { padding: 1.5rem; }
+    .module-card { margin-bottom: 1.5rem; }
+    .module-card-header h3 { font-size: 1rem; }
+    .module-card-body { padding: 1.25rem; position: relative; }
+    .module-card-body[data-module]::before {
+      content: attr(data-module);
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #1A1917;
+      line-height: 1;
+    }
+    .module-bullets { font-size: 0.68rem; }
   }
 
   /* ───── COUNTDOWN BANNER (thin, becomes sticky) ───── */
@@ -1516,11 +1670,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.4rem 2.5rem;
-    background: var(--bg-elevated);
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
+    padding: 1rem 2.5rem;
+    background: #1B2E20;
+    border-top: 1px solid rgba(184, 160, 110, 0.15);
+    border-bottom: 1px solid rgba(184, 160, 110, 0.15);
     transition: box-shadow 0.3s ease;
+  }
+
+  .cb-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
   }
 
   .countdown-banner.sticky {
@@ -1529,54 +1689,87 @@
     left: 0;
     right: 0;
     z-index: 150;
-    background: rgba(10, 10, 10, 0.95);
+    background: rgba(27, 46, 32, 0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
   }
 
-  .cb-left {
+  .cb-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(184, 160, 110, 0.5);
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
   }
 
-  .cb-brand {
+  .cb-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .cb-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    border-left: 1px solid rgba(184, 160, 110, 0.25);
+    padding-left: 1.25rem;
+  }
+
+  .cb-line1 {
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--white);
-    letter-spacing: -0.02em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    white-space: nowrap;
+    color: #C4A96A;
+    line-height: 1.45;
   }
 
-  .cb-brand span {
-    color: var(--accent);
-    margin-left: 0.2rem;
-  }
-
-  .cb-cta-text {
-    font-size: 0.72rem;
-    line-height: 1.55;
-    color: var(--text-secondary);
-    max-width: 340px;
-    border-left: 1px solid var(--border);
-    padding-left: 1.5rem;
-    font-weight: 500;
+  .cb-line1 strong {
+    font-weight: 800;
+    color: #D4BC7E;
   }
 
   .cb-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .cb-join-btn {
+    padding: 0.5rem 1.25rem;
+    border: 1.5px solid #C4A96A;
+    border-radius: 4px;
+    background: transparent;
+    color: #C4A96A;
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+  }
+
+  .cb-join-btn:hover {
+    background: #C4A96A;
+    color: #1B2E20;
   }
 
   .countdown-banner-label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: #C4A96A;
     font-weight: 700;
     white-space: nowrap;
   }
@@ -1596,23 +1789,23 @@
   .cb-num {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--white);
+    font-size: 1.35rem;
+    color: #D4BC7E;
     letter-spacing: -0.02em;
     min-width: 1.5em;
     text-align: center;
   }
 
   .cb-text {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: rgba(196, 169, 106, 0.5);
     margin-right: 0.4rem;
   }
 
   .cb-sep {
-    color: rgba(255,255,255,0.15);
+    color: rgba(196, 169, 106, 0.25);
     font-weight: 700;
     font-size: 1rem;
     margin: 0 0.1rem;
@@ -1624,12 +1817,157 @@
   }
 
   @media (max-width: 768px) {
-    .countdown-banner { flex-direction: column; gap: 0.6rem; padding: 0.85rem 1.25rem; }
-    .cb-left { gap: 0.75rem; }
-    .cb-cta-text { display: none; }
-    .cb-right { gap: 0.6rem; }
-    .cb-num { font-size: 1rem; }
-    .countdown-banner-wrap.is-sticky { padding-top: 80px; }
+    .countdown-banner { padding: 0.5rem 1rem; gap: 0.6rem; }
+    .countdown-banner.sticky { left: 0; right: 0; width: 100%; }
+    .cb-left { gap: 0.5rem; flex: 1; min-width: 0; }
+    .cb-icon { width: 26px; height: 26px; border-radius: 4px; flex-shrink: 0; }
+    .cb-icon img { border-radius: 4px; }
+    .cb-content { border-left: 1px solid rgba(184, 160, 110, 0.2); padding-left: 0.5rem; gap: 0.05rem; }
+    .cb-line1 { font-size: 0.42rem; letter-spacing: 0.03em; white-space: normal; line-height: 1.35; }
+    .cb-right { gap: 0.5rem; flex-shrink: 0; }
+    .cb-join-btn { padding: 0.3rem 0.5rem; font-size: 0.4rem; letter-spacing: 0.05em; }
+    .countdown-banner-label { display: none; }
+    .cb-num { font-size: 0.7rem; min-width: 1.2em; }
+    .cb-text { font-size: 0.35rem; margin-right: 0.15rem; }
+    .cb-sep { font-size: 0.6rem; }
+    .countdown-banner-wrap.is-sticky { padding-top: 48px; }
+  }
+
+  /* ───── WAITLIST NAME MODAL ───── */
+  .wl-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .wl-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .wl-modal {
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem 2rem;
+    max-width: 460px;
+    width: 92%;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wl-modal-overlay.active .wl-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .wl-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+  }
+
+  .wl-modal-close:hover {
+    color: var(--white);
+  }
+
+  .wl-modal h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .wl-modal p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .wl-modal-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .wl-modal-fields input {
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--white);
+    background: var(--bg-elevated);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  .wl-modal-fields input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .wl-modal-fields input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+
+  .wl-modal-row {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .wl-modal-row input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .wl-modal-submit {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    width: 100%;
+  }
+
+  .wl-modal-submit:hover {
+    background: #CDFF96;
+    box-shadow: 0 0 20px var(--accent-dim);
+  }
+
+  @media (max-width: 420px) {
+    .wl-modal { padding: 1.5rem 1.25rem; }
+    .wl-modal-row { flex-direction: column; }
   }
 
   /* ───── TRUST BAR ───── */
@@ -1728,32 +2066,40 @@
   @media (max-width: 768px) {
     .topbar { padding: 0.75rem 1rem; }
     .logo-img { height: 30px; }
-    .hero { padding: 6rem 1.25rem 2.5rem; min-height: auto; }
-    .hero h1 { font-size: 2rem; white-space: normal; }
-    .hero-sub { font-size: 0.88rem; max-width: 100%; }
+    .hero { padding: 5rem 1.25rem 2rem; min-height: auto; }
+    .hero h1 { font-size: 1.4rem; white-space: nowrap; }
+    .hero-sub { font-size: 0.68rem; max-width: 100%; line-height: 1.55; }
 
     .waitlist-form {
-      flex-direction: column;
-      gap: 0.75rem;
+      flex-direction: row;
+      gap: 0;
       max-width: 100%;
     }
     .waitlist-form input[type="email"] {
-      border-right: 1px solid var(--border);
-      border-radius: 6px;
+      padding: 0.65rem 0.8rem;
+      font-size: 0.65rem;
+      border-right: none;
+      border-radius: 6px 0 0 6px;
     }
     .waitlist-form input[type="email"]:focus {
       border-color: var(--accent);
     }
     .waitlist-form button {
-      border-radius: 6px;
-      padding: 1.05rem;
+      border-radius: 0 6px 6px 0;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.6rem;
     }
 
-    .waitlist-tiers { max-width: 100%; }
-    .tally-mark { width: 2px; }
+    .waitlist-tiers { max-width: 80%; margin: 0 auto; }
+    .tally-mark { width: 1.5px; height: 14px; }
+    .tally-bar { gap: 1px; }
+    .waitlist-status { font-size: 0.5rem; margin-top: 0.3rem; }
+    .tier-name { font-size: 0.48rem; }
+    .tier-badge { font-size: 0.38rem; padding: 0.15rem 0.4rem; }
+    .tier-header { margin-bottom: 0.4rem; }
 
-    .testimonial-section { padding: 3rem 1.25rem; }
-    .testimonial-section-title { font-size: 1.2rem; }
+    .testimonial-section { padding: 2.5rem 1.25rem; }
+    .testimonial-section-title { font-size: 1rem; }
 
     .modules-section { padding-top: 2.5rem; }
     .modules-header h2 { font-size: 1.4rem; }
@@ -1771,16 +2117,22 @@
     .faq-section { padding: 3rem 1.25rem; }
     .faq-section h2 { font-size: 1.5rem; }
 
-    .scalo-brand-footer { padding: 3rem 1.25rem; }
-    .scalo-brand-footer img { max-width: 250px; }
-    .footer-waitlist { flex-direction: column; }
-    .footer-waitlist input { border-right: 1px solid rgba(0,0,0,0.12) !important; border-radius: 6px !important; }
-    .footer-waitlist button { border-radius: 6px !important; }
+    .scalo-brand-footer { padding: 2.5rem 1.25rem; }
+    .scalo-brand-footer img { max-width: 180px; }
+    .scalo-brand-footer p { font-size: 0.75rem; line-height: 1.5; }
+    .footer-waitlist { flex-direction: row; max-width: 90%; border-width: 1.5px; }
+    .footer-waitlist input { padding: 0.65rem 0.8rem !important; font-size: 0.7rem !important; border-right: none !important; border-radius: 0 !important; }
+    .footer-waitlist button { padding: 0.65rem 0.9rem !important; font-size: 0.6rem !important; border-radius: 0 !important; }
 
+    .trust-section { padding: 2rem 0.75rem; }
     .trust-grid {
-      flex-direction: column;
-      gap: 1.25rem;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 0.6rem;
+      justify-content: center;
     }
+    .trust-item { font-size: 0.45rem; gap: 0.3rem; }
+    .trust-icon { width: 20px; height: 20px; font-size: 0.5rem; }
 
     .wins-tracker { height: 38px; bottom: 0.75rem; }
     .wins-label { font-size: 0.55rem; padding: 0 0.75rem; }
@@ -1794,8 +2146,8 @@
   }
 
   @media (max-width: 480px) {
-    .hero h1 { font-size: 1.65rem; }
-    .badge { font-size: 0.55rem; padding: 0.4rem 1rem; }
+    .hero h1 { font-size: 1.2rem; }
+    .badge { font-size: 0.5rem; padding: 0.3rem 0.8rem; }
   }
 </style>
 </head>
@@ -1838,10 +2190,16 @@
 <div class="countdown-banner-wrap" id="countdownWrap">
   <div class="countdown-banner" id="countdownBanner">
     <div class="cb-left">
-      <div class="cb-brand"><img class="cb-brand-img" src="Branding/Untitled design (34) copy.jpg" alt="SCALO" style="border-radius:5px;"></div>
-      <div class="cb-cta-text">Cohort doors don't open until students get the results acquired from the last cohort.</div>
+      <div class="cb-icon">
+        <img src="Branding/Untitled design (34) copy.jpg" alt="SCALO">
+      </div>
+      <div class="cb-content">
+        <div class="cb-line1">Cohort doesn't open until the previous</div>
+        <div class="cb-line1">cohort students <strong>hit the results required</strong></div>
+      </div>
     </div>
     <div class="cb-right">
+      <button class="cb-join-btn" id="cbJoinBtn">Join Waitlist</button>
       <span class="countdown-banner-label">Doors Close In</span>
       <div class="countdown-banner-timer">
         <div class="cb-unit"><span class="cb-num" id="cDays">07</span><span class="cb-text">d</span></div>
@@ -1923,7 +2281,7 @@
             <h3>Weekly Live Calls</h3>
             <div class="module-line"></div>
           </div>
-          <div class="module-card-body">
+          <div class="module-card-body" data-module="01">
             <p class="module-desc"><strong>Stay ahead. Stay sharp. Stay accountable.</strong></p>
             <p class="module-desc">Every week, you're plugged directly into what's working right now.</p>
             <p class="module-desc">These aren't generic coaching calls &mdash; this is where strategies get broken down, problems get solved live, and you get clarity on exactly what to do next in your business.</p>
@@ -1946,7 +2304,7 @@
             <h3>Direct Access to Tim</h3>
             <div class="module-line"></div>
           </div>
-          <div class="module-card-body">
+          <div class="module-card-body" data-module="02">
             <p class="module-desc"><strong>No gatekeeping. No delays. Just answers.</strong></p>
             <p class="module-desc">This is the part most people never get.</p>
             <p class="module-desc">Instead of trying to figure things out alone, you have direct access to me &mdash; so when something isn't working, we fix it fast.</p>
@@ -1969,7 +2327,7 @@
             <h3>The SCALO Community</h3>
             <div class="module-line"></div>
           </div>
-          <div class="module-card-body">
+          <div class="module-card-body" data-module="03">
             <p class="module-desc"><strong>You're surrounded by people who are actually moving.</strong></p>
             <p class="module-desc">Environment matters. When you're around barbers who are building, posting, improving, and winning &mdash; your standards change.</p>
             <p class="module-desc">This isn't a dead group chat. This is a space where people share wins, ideas, content, and momentum daily. And that energy pulls you forward whether you like it or not.</p>
@@ -1991,7 +2349,7 @@
             <h3>Your Business Dashboard</h3>
             <div class="module-line"></div>
           </div>
-          <div class="module-card-body">
+          <div class="module-card-body" data-module="04">
             <p class="module-desc"><strong>Track everything. Fix everything. Scale faster.</strong></p>
             <p class="module-desc">Most barbers rely on feeling. That's why they stay stuck.</p>
             <p class="module-desc">Inside SCALO, you'll have your own personal dashboard where you track your numbers, your content, and your growth &mdash; daily. So instead of guessing what's working&hellip; you'll know. And when you know, you can scale.</p>
@@ -2013,7 +2371,7 @@
             <h3>SCALO Intellectual Property</h3>
             <div class="module-line"></div>
           </div>
-          <div class="module-card-body">
+          <div class="module-card-body" data-module="05">
             <p class="module-desc"><strong>The systems that actually build the business.</strong></p>
             <p class="module-desc">This is the core of everything. You're not just getting information &mdash; you're getting proven systems that have already helped barbers build real income, real audiences, and real freedom.</p>
             <p class="module-desc">No fluff. No outdated theory. Just frameworks you can plug into your business immediately.</p>
@@ -2051,6 +2409,55 @@
     <span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span><span>JOIN TODAY</span><span>&bull;</span>
   </div>
 </div>
+
+<!-- SOCIAL PROOF MOSAIC -->
+<section class="mosaic-section">
+  <div class="section-label">The Proof Is in the Results</div>
+  <div class="mosaic-grid" id="mosaicGrid">
+    <!-- Col 1: scrolls up -->
+    <div class="mosaic-col" data-scroll="up">
+      <div class="mosaic-item"><img src="Testimonials/IMG_8779 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven &mdash; &pound;37K Month</div><div class="mosaic-desc">Back-to-back record months. Revenue spreadsheet showing consistent five-figure weeks.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_9475.jpg" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven &mdash; 114 Appointments</div><div class="mosaic-desc">Hit 114 appointments in a single week and $11K in revenue. Numbers he never thought possible.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_9903.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Chris &mdash; New Clients Flooding In</div><div class="mosaic-desc">First &euro;75+ haircut with tip and &euro;20 product sold. All from 1 hour's work.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_8767.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven &mdash; 86 FX Elite Clients</div><div class="mosaic-desc">Tracking premium client growth. On track for the 100th FX Elite client giveaway.</div></div></div>
+    </div>
+    <!-- Col 2: static -->
+    <div class="mosaic-col">
+      <div class="mosaic-item"><img src="Testimonials/IMG_8785 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Revenue Update</div><div class="mosaic-desc">Real-time revenue tracking inside SCALO. Consistent growth week over week.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_5418 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">George &mdash; Content Blowing Up</div><div class="mosaic-desc">Video content getting thousands of views. The content frameworks actually work.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_8780 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven &mdash; &pound;70K in 2 Months</div><div class="mosaic-desc">Two &pound;34K+ months back-to-back. Total over &pound;70K in just two months.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_9071.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Win</div><div class="mosaic-desc">Another SCALO member hitting milestones and sharing wins in the community.</div></div></div>
+    </div>
+    <!-- Col 3: scrolls down -->
+    <div class="mosaic-col" data-scroll="down">
+      <div class="mosaic-item"><img src="Testimonials/IMG_8768 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Revenue Breakthrough</div><div class="mosaic-desc">Tracking daily income and seeing the system deliver consistent results.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_8772 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Pricing Strategy Win</div><div class="mosaic-desc">Implementing the three-tier pricing strategy and landing higher-paying clients.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_5407 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Community Support</div><div class="mosaic-desc">Real-time feedback and accountability inside the private SCALO group.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_8890 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Growth Milestone</div><div class="mosaic-desc">Another student hitting personal bests using the clarity systems.</div></div></div>
+    </div>
+    <!-- Col 4: scrolls up -->
+    <div class="mosaic-col" data-scroll="up">
+      <div class="mosaic-item"><img src="Testimonials/IMG_9115 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Client Acquisition</div><div class="mosaic-desc">New premium clients coming in through the content strategy framework.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_8786 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Weekly Tracking</div><div class="mosaic-desc">Using the SCALO dashboard to track performance and identify what's working.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_9411.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Content Converting</div><div class="mosaic-desc">Content strategy turning views into booked appointments consistently.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_8788 2.jpg" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Brand Building</div><div class="mosaic-desc">Building a professional brand that attracts premium clients on repeat.</div></div></div>
+    </div>
+    <!-- Col 5: static -->
+    <div class="mosaic-col">
+      <div class="mosaic-item"><img src="Testimonials/IMG_8769.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Revenue Dashboard</div><div class="mosaic-desc">Data-driven decisions replacing guesswork. Tracking every metric that matters.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_9950.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Progress</div><div class="mosaic-desc">Consistent progress inside SCALO. The systems compound over time.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/Untitled design 5.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">JJ &mdash; &pound;6.1K Mid-Month</div><div class="mosaic-desc">Revenue still climbing and the month isn't even over. Content converting like crazy.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_6150 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Scaling Results</div><div class="mosaic-desc">Proof that the model works. Scaling income without adding more hours.</div></div></div>
+    </div>
+    <!-- Col 6: scrolls down -->
+    <div class="mosaic-col" data-scroll="down">
+      <div class="mosaic-item"><img src="Testimonials/IMG_6151 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Momentum Building</div><div class="mosaic-desc">When the systems click, the momentum is unstoppable.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_5522 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Community Wins</div><div class="mosaic-desc">Daily accountability and shared momentum inside the SCALO community.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_5523 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Business Growth</div><div class="mosaic-desc">Real results from real barbers who committed to the process.</div></div></div>
+      <div class="mosaic-item"><img src="Testimonials/IMG_5524 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">The SCALO Effect</div><div class="mosaic-desc">What happens when clarity meets systems meets community.</div></div></div>
+    </div>
+  </div>
+</section>
 
 <!-- MY PROMISE -->
 <section class="promise-section reveal">
@@ -2320,6 +2727,23 @@
   <p>&copy; 2026 SCALO. All rights reserved.</p>
 </footer>
 
+<!-- WAITLIST NAME MODAL -->
+<div class="wl-modal-overlay" id="wlModalOverlay">
+  <div class="wl-modal">
+    <button class="wl-modal-close" id="wlModalClose">&times;</button>
+    <h3>Almost There!</h3>
+    <p>Enter your name to secure your spot on the waitlist.</p>
+    <div class="wl-modal-fields">
+      <div class="wl-modal-row">
+        <input type="text" id="wlFirstName" placeholder="First name" required>
+        <input type="text" id="wlLastName" placeholder="Last name" required>
+      </div>
+      <input type="email" id="wlEmailDisplay" placeholder="Enter your email" required>
+      <button class="wl-modal-submit" id="wlModalSubmit">Secure My Spot</button>
+    </div>
+  </div>
+</div>
+
 <!-- STUDENT WINS TRACKER -->
 <div class="wins-tracker">
   <div class="wins-label">Student Wins Tracker</div>
@@ -2474,10 +2898,105 @@
   const emailInput = document.getElementById('emailInput');
   const formMessage = document.getElementById('formMessage');
 
+  // Modal elements
+  const wlOverlay = document.getElementById('wlModalOverlay');
+  const wlClose = document.getElementById('wlModalClose');
+  const wlFirstName = document.getElementById('wlFirstName');
+  const wlLastName = document.getElementById('wlLastName');
+  const wlEmailDisplay = document.getElementById('wlEmailDisplay');
+  const wlSubmit = document.getElementById('wlModalSubmit');
+  var pendingEmail = '';
+  var pendingSource = ''; // 'hero', 'footer', or 'banner'
+
   function showMessage(text, type) {
     formMessage.textContent = text;
     formMessage.className = 'form-message show ' + type;
     setTimeout(() => { formMessage.classList.remove('show'); }, 4000);
+  }
+
+  function openWaitlistModal(email, source) {
+    pendingEmail = email;
+    pendingSource = source;
+    wlFirstName.value = '';
+    wlLastName.value = '';
+    if (email) {
+      // Email provided from form — show it locked
+      wlEmailDisplay.value = email;
+      wlEmailDisplay.disabled = true;
+      wlEmailDisplay.style.opacity = '0.6';
+      wlEmailDisplay.style.cursor = 'not-allowed';
+    } else {
+      // Opened from banner — let them type email
+      wlEmailDisplay.value = '';
+      wlEmailDisplay.disabled = false;
+      wlEmailDisplay.style.opacity = '1';
+      wlEmailDisplay.style.cursor = '';
+    }
+    wlOverlay.classList.add('active');
+    setTimeout(function() { wlFirstName.focus(); }, 300);
+  }
+
+  function closeWaitlistModal() {
+    wlOverlay.classList.remove('active');
+    pendingEmail = '';
+    pendingSource = '';
+  }
+
+  wlClose.addEventListener('click', closeWaitlistModal);
+  wlOverlay.addEventListener('click', function(e) {
+    if (e.target === wlOverlay) closeWaitlistModal();
+  });
+
+  function completeWaitlistSignup() {
+    var firstName = wlFirstName.value.trim();
+    var lastName = wlLastName.value.trim();
+    var emailVal = wlEmailDisplay.value.trim().toLowerCase();
+    var hasErrors = false;
+    if (!firstName) { wlFirstName.style.borderColor = '#FF6B5A'; hasErrors = true; }
+    if (!lastName) { wlLastName.style.borderColor = '#FF6B5A'; hasErrors = true; }
+    if (!emailVal || !emailVal.includes('@')) { wlEmailDisplay.style.borderColor = '#FF6B5A'; hasErrors = true; }
+    if (hasErrors) return;
+    if (state.emails.includes(emailVal)) {
+      closeWaitlistModal();
+      showMessage("You're already on the waitlist!", 'error');
+      return;
+    }
+    // Save to state
+    pendingEmail = emailVal;
+    state.emails.push(pendingEmail);
+    state.filled++;
+    saveState(state);
+    closeWaitlistModal();
+    // Clear appropriate form
+    if (pendingSource === 'hero') {
+      emailInput.value = '';
+    } else if (pendingSource === 'footer') {
+      var footerInput = document.querySelector('.footer-waitlist input[type="email"]');
+      if (footerInput) footerInput.value = '';
+    }
+    showMessage("You're in, " + firstName + "! Check your inbox for next steps.", 'success');
+    updateSpotsUI(true);
+  }
+
+  wlSubmit.addEventListener('click', completeWaitlistSignup);
+  // Allow Enter key in modal
+  [wlFirstName, wlLastName, wlEmailDisplay].forEach(function(input) {
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); completeWaitlistSignup(); }
+    });
+    input.addEventListener('input', function() { input.style.borderColor = ''; });
+  });
+
+  // Banner "Join Waitlist" button
+  var cbJoinBtn = document.getElementById('cbJoinBtn');
+  if (cbJoinBtn) {
+    cbJoinBtn.addEventListener('click', function() {
+      if (state.filled >= TOTAL_SPOTS) {
+        showMessage('The waitlist is now closed.', 'error');
+        return;
+      }
+      openWaitlistModal('', 'banner');
+    });
   }
 
   form.addEventListener('submit', function(e) {
@@ -2493,13 +3012,21 @@
       emailInput.value = '';
       return;
     }
-    state.emails.push(email);
-    state.filled++;
-    saveState(state);
-    emailInput.value = '';
-    showMessage("You're in! Check your inbox for next steps.", 'success');
-    updateSpotsUI(true);
+    openWaitlistModal(email, 'hero');
   });
+
+  // Footer form handler
+  var footerForm = document.querySelector('.footer-waitlist');
+  if (footerForm) {
+    footerForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (state.filled >= TOTAL_SPOTS) return;
+      var footerEmail = footerForm.querySelector('input[type="email"]').value.trim().toLowerCase();
+      if (!footerEmail) return;
+      if (state.emails.includes(footerEmail)) return;
+      openWaitlistModal(footerEmail, 'footer');
+    });
+  }
 
   const topbar = document.getElementById('topbar');
 
@@ -2638,6 +3165,39 @@
       showingValue = !showingValue;
     }
     setInterval(togglePrice, 5000);
+  }
+
+  // ───── MOSAIC PARALLAX SCROLL ─────
+  var mosaicSection = document.querySelector('.mosaic-section');
+  var mosaicCols = document.querySelectorAll('.mosaic-col[data-scroll]');
+  if (mosaicSection && mosaicCols.length) {
+    var mosaicTicking = false;
+    function updateMosaicParallax() {
+      var rect = mosaicSection.getBoundingClientRect();
+      var winH = window.innerHeight;
+      // Only animate when section is in viewport
+      if (rect.bottom > 0 && rect.top < winH) {
+        // Progress: 0 when section enters bottom, 1 when it exits top
+        var progress = (winH - rect.top) / (winH + rect.height);
+        // Center at 0.5, range -0.5 to 0.5
+        var offset = (progress - 0.5) * 2; // range -1 to 1
+        var maxShift = 50; // max pixels to shift
+        mosaicCols.forEach(function(col) {
+          var dir = col.getAttribute('data-scroll');
+          var shift = dir === 'up' ? -offset * maxShift : offset * maxShift;
+          col.style.transform = 'translateY(' + shift + 'px)';
+        });
+      }
+      mosaicTicking = false;
+    }
+    window.addEventListener('scroll', function() {
+      if (!mosaicTicking) {
+        requestAnimationFrame(updateMosaicParallax);
+        mosaicTicking = true;
+      }
+    }, { passive: true });
+    // Initial call
+    updateMosaicParallax();
   }
 
   // ───── MODULE CARDS: scroll reveal + sticky number ─────
