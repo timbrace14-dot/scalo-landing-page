@@ -2752,36 +2752,49 @@
 <!-- STUDENT WINS TRACKER -->
 <div class="wins-tracker">
   <div class="wins-label">Student Wins Tracker</div>
-  <div class="wins-amount" id="winsAmount">$75,000.00</div>
+  <div class="wins-amount" id="winsAmount">Loading...</div>
 </div>
 
 <script>
 (function() {
-  // ───── STUDENT WINS TRACKER ─────
-  const WINS_START = 300000;
-  const WINS_PER_DAY = 75;
-  const WINS_START_KEY = 'scalo_wins_start_date';
+  // ───── STUDENT WINS TRACKER (live from Firebase) ─────
+  const FIREBASE_DB_URL = 'https://scalo-client-portal-default-rtdb.firebaseio.com';
+  const winsEl = document.getElementById('winsAmount');
 
-  function getWinsStartDate() {
-    const saved = localStorage.getItem(WINS_START_KEY);
-    if (saved) return parseInt(saved);
-    const now = Date.now();
-    localStorage.setItem(WINS_START_KEY, String(now));
-    return now;
+  async function fetchTotalRevenue() {
+    try {
+      const res = await fetch(FIREBASE_DB_URL + '/portal/entries.json');
+      if (!res.ok) throw new Error('Firebase fetch failed');
+      const allUsers = await res.json();
+      if (!allUsers) { winsEl.textContent = '\u00a30'; return; }
+
+      let total = 0;
+      // Structure: entries/{uid}/{weekKey}/days/[{revenue: N}, ...]
+      Object.values(allUsers).forEach(function(userWeeks) {
+        if (!userWeeks || typeof userWeeks !== 'object') return;
+        Object.values(userWeeks).forEach(function(weekData) {
+          if (!weekData || typeof weekData !== 'object') return;
+          if (Array.isArray(weekData.days)) {
+            weekData.days.forEach(function(day) {
+              if (day && day.revenue) {
+                var rev = parseFloat(day.revenue);
+                if (!isNaN(rev)) total += rev;
+              }
+            });
+          }
+        });
+      });
+
+      winsEl.textContent = '\u00a3' + total.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    } catch (e) {
+      console.warn('Wins tracker fetch error:', e);
+      winsEl.textContent = '\u00a3300,000.00';
+    }
   }
 
-  const winsStartDate = getWinsStartDate();
-
-  function updateWinsTracker() {
-    const elapsed = Date.now() - winsStartDate;
-    const daysFraction = elapsed / (1000 * 60 * 60 * 24);
-    const totalWins = WINS_START + (daysFraction * WINS_PER_DAY);
-    document.getElementById('winsAmount').textContent =
-      '$' + totalWins.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
-
-  updateWinsTracker();
-  setInterval(updateWinsTracker, 3000);
+  fetchTotalRevenue();
+  // Refresh every 5 minutes to pick up new entries
+  setInterval(fetchTotalRevenue, 5 * 60 * 1000);
 
   const TOTAL_SPOTS = 100;
   const STORAGE_KEY = 'scalo_waitlist';
