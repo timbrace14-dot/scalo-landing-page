@@ -2757,11 +2757,14 @@
 
 <script>
 (function() {
-  // ───── STUDENT WINS TRACKER (£300k baseline + live Firebase + slow counter) ─────
+  // ───── STUDENT WINS TRACKER (£300k baseline + live Firebase) ─────
   const FIREBASE_DB_URL = 'https://scalo-client-portal-default-rtdb.firebaseio.com';
   const winsEl = document.getElementById('winsAmount');
   const BASELINE = 300000;
-  let firebaseRevenue = 0;
+
+  // Slow penny counter — just ticks up pennies to look alive
+  let displayedTotal = BASELINE;
+  let realTotal = BASELINE;
 
   async function fetchTotalRevenue() {
     try {
@@ -2785,30 +2788,22 @@
           }
         });
       });
-      firebaseRevenue = total;
+      realTotal = BASELINE + total;
+      displayedTotal = realTotal;
     } catch (e) {
       console.warn('Wins tracker fetch error:', e);
     }
   }
 
-  // Slow ticking counter for visual effect
-  let displayedTotal = BASELINE;
   function updateWinsDisplay() {
-    var target = BASELINE + firebaseRevenue;
-    // Gently drift towards the real total, plus a small tick for visual movement
-    var diff = target - displayedTotal;
-    if (Math.abs(diff) > 0.1) {
-      displayedTotal += diff * 0.05;
-    } else {
-      // Once caught up, add a tiny random tick so it always looks alive
-      displayedTotal += (Math.random() * 0.4) + 0.01;
-    }
+    // Tick up by a tiny random amount (pennies) so it looks alive
+    displayedTotal += (Math.random() * 0.08) + 0.01;
     winsEl.textContent = '\u00a3' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
-  fetchTotalRevenue();
-  setInterval(fetchTotalRevenue, 5 * 60 * 1000);
-  updateWinsDisplay();
+  // Fetch real total on load, then refresh once a day (86400000ms)
+  fetchTotalRevenue().then(function() { updateWinsDisplay(); });
+  setInterval(fetchTotalRevenue, 86400000);
   setInterval(updateWinsDisplay, 3000);
 
   const TOTAL_SPOTS = 100;
