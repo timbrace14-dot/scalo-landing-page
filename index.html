@@ -2761,10 +2761,7 @@
   const FIREBASE_DB_URL = 'https://scalo-client-portal-default-rtdb.firebaseio.com';
   const winsEl = document.getElementById('winsAmount');
   const BASELINE = 300000;
-
-  // Slow penny counter — just ticks up pennies to look alive
-  let displayedTotal = BASELINE;
-  let realTotal = BASELINE;
+  let displayedTotal = 0;
 
   async function fetchTotalRevenue() {
     try {
@@ -2788,23 +2785,27 @@
           }
         });
       });
-      realTotal = BASELINE + total;
-      displayedTotal = realTotal;
+      displayedTotal = BASELINE + total;
+      winsEl.textContent = '\u00a3' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     } catch (e) {
       console.warn('Wins tracker fetch error:', e);
+      displayedTotal = BASELINE;
+      winsEl.textContent = '\u00a3' + BASELINE.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
   }
 
-  function updateWinsDisplay() {
-    // Tick up by a tiny random amount (pennies) so it looks alive
-    displayedTotal += (Math.random() * 0.08) + 0.01;
+  function tickCounter() {
+    if (displayedTotal === 0) return; // Wait until Firebase has loaded
+    displayedTotal += (Math.random() * 0.06) + 0.01;
     winsEl.textContent = '\u00a3' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
-  // Fetch real total on load, then refresh once a day (86400000ms)
-  fetchTotalRevenue().then(function() { updateWinsDisplay(); });
+  // Fetch real total first, then start the slow penny ticker
+  fetchTotalRevenue().then(function() {
+    setInterval(tickCounter, 3000);
+  });
+  // Refresh from Firebase once a day
   setInterval(fetchTotalRevenue, 86400000);
-  setInterval(updateWinsDisplay, 3000);
 
   const TOTAL_SPOTS = 100;
   const STORAGE_KEY = 'scalo_waitlist';
