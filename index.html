@@ -2757,19 +2757,20 @@
 
 <script>
 (function() {
-  // ───── STUDENT WINS TRACKER (live from Firebase) ─────
+  // ───── STUDENT WINS TRACKER (£300k baseline + live Firebase + slow counter) ─────
   const FIREBASE_DB_URL = 'https://scalo-client-portal-default-rtdb.firebaseio.com';
   const winsEl = document.getElementById('winsAmount');
+  const BASELINE = 300000;
+  let firebaseRevenue = 0;
 
   async function fetchTotalRevenue() {
     try {
       const res = await fetch(FIREBASE_DB_URL + '/portal/entries.json');
       if (!res.ok) throw new Error('Firebase fetch failed');
       const allUsers = await res.json();
-      if (!allUsers) { winsEl.textContent = '\u00a30'; return; }
+      if (!allUsers) return;
 
       let total = 0;
-      // Structure: entries/{uid}/{weekKey}/days/[{revenue: N}, ...]
       Object.values(allUsers).forEach(function(userWeeks) {
         if (!userWeeks || typeof userWeeks !== 'object') return;
         Object.values(userWeeks).forEach(function(weekData) {
@@ -2784,17 +2785,31 @@
           }
         });
       });
-
-      winsEl.textContent = '\u00a3' + total.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      firebaseRevenue = total;
     } catch (e) {
       console.warn('Wins tracker fetch error:', e);
-      winsEl.textContent = '\u00a3300,000.00';
     }
   }
 
+  // Slow ticking counter for visual effect
+  let displayedTotal = BASELINE;
+  function updateWinsDisplay() {
+    var target = BASELINE + firebaseRevenue;
+    // Gently drift towards the real total, plus a small tick for visual movement
+    var diff = target - displayedTotal;
+    if (Math.abs(diff) > 0.1) {
+      displayedTotal += diff * 0.05;
+    } else {
+      // Once caught up, add a tiny random tick so it always looks alive
+      displayedTotal += (Math.random() * 0.4) + 0.01;
+    }
+    winsEl.textContent = '\u00a3' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
   fetchTotalRevenue();
-  // Refresh every 5 minutes to pick up new entries
   setInterval(fetchTotalRevenue, 5 * 60 * 1000);
+  updateWinsDisplay();
+  setInterval(updateWinsDisplay, 3000);
 
   const TOTAL_SPOTS = 100;
   const STORAGE_KEY = 'scalo_waitlist';
