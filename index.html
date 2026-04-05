@@ -1678,9 +1678,9 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2.5rem;
-    background: #1B2E20;
-    border-top: 1px solid rgba(184, 160, 110, 0.15);
-    border-bottom: 1px solid rgba(184, 160, 110, 0.15);
+    background: #0A0A0A;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     transition: box-shadow 0.3s ease;
   }
 
@@ -1696,7 +1696,7 @@
     left: 0;
     right: 0;
     z-index: 150;
-    background: rgba(27, 46, 32, 0.97);
+    background: rgba(10, 10, 10, 0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
@@ -1706,7 +1706,7 @@
     width: 42px;
     height: 42px;
     border-radius: 6px;
-    border: 1.5px solid rgba(184, 160, 110, 0.5);
+    border: 1.5px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1725,7 +1725,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
-    border-left: 1px solid rgba(184, 160, 110, 0.25);
+    border-left: 1px solid var(--border);
     padding-left: 1.25rem;
   }
 
@@ -1735,13 +1735,13 @@
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #C4A96A;
+    color: var(--text-secondary);
     line-height: 1.45;
   }
 
   .cb-line1 strong {
     font-weight: 800;
-    color: #D4BC7E;
+    color: var(--accent);
   }
 
   .cb-right {
@@ -1753,10 +1753,10 @@
 
   .cb-join-btn {
     padding: 0.5rem 1.25rem;
-    border: 1.5px solid #C4A96A;
+    border: 1.5px solid var(--accent);
     border-radius: 4px;
     background: transparent;
-    color: #C4A96A;
+    color: var(--accent);
     font-family: var(--font-body);
     font-size: 0.65rem;
     font-weight: 700;
@@ -1768,15 +1768,15 @@
   }
 
   .cb-join-btn:hover {
-    background: #C4A96A;
-    color: #1B2E20;
+    background: var(--accent);
+    color: var(--bg);
   }
 
   .countdown-banner-label {
     font-size: 0.65rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: #C4A96A;
+    color: var(--text-muted);
     font-weight: 700;
     white-space: nowrap;
   }
@@ -1797,7 +1797,7 @@
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 1.35rem;
-    color: #D4BC7E;
+    color: var(--accent);
     letter-spacing: -0.02em;
     min-width: 1.5em;
     text-align: center;
@@ -1807,12 +1807,12 @@
     font-size: 0.5rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(196, 169, 106, 0.5);
+    color: rgba(184, 233, 134, 0.4);
     margin-right: 0.4rem;
   }
 
   .cb-sep {
-    color: rgba(196, 169, 106, 0.25);
+    color: rgba(184, 233, 134, 0.2);
     font-weight: 700;
     font-size: 1rem;
     margin: 0 0.1rem;
@@ -1829,7 +1829,7 @@
     .cb-left { gap: 0.5rem; flex: 1; min-width: 0; }
     .cb-icon { width: 26px; height: 26px; border-radius: 4px; flex-shrink: 0; }
     .cb-icon img { border-radius: 4px; }
-    .cb-content { border-left: 1px solid rgba(184, 160, 110, 0.2); padding-left: 0.5rem; gap: 0.05rem; }
+    .cb-content { border-left: 1px solid var(--border); padding-left: 0.5rem; gap: 0.05rem; }
     .cb-line1 { font-size: 0.42rem; letter-spacing: 0.03em; white-space: normal; line-height: 1.35; }
     .cb-right { gap: 0.5rem; flex-shrink: 0; }
     .cb-join-btn { padding: 0.3rem 0.5rem; font-size: 0.4rem; letter-spacing: 0.05em; }
@@ -2162,7 +2162,7 @@
 
 <!-- TOPBAR -->
 <nav class="topbar" id="topbar">
-  <div class="logo"><img class="logo-img" src="Branding/Untitled design (34) copy.jpg" alt="SCALO" style="border-radius:6px;"></div>
+  <div class="logo"><img class="logo-img" src="Branding/scalo v3.png" alt="SCALO" style="border-radius:6px;"></div>
   <div class="topbar-right">Early Access</div>
 </nav>
 
@@ -2198,7 +2198,7 @@
   <div class="countdown-banner" id="countdownBanner">
     <div class="cb-left">
       <div class="cb-icon">
-        <img src="Branding/Untitled design (34) copy.jpg" alt="SCALO">
+        <img src="Branding/scalo v3.png" alt="SCALO">
       </div>
       <div class="cb-content">
         <div class="cb-line1">Cohort doesn't open until the previous</div>
