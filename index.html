@@ -2012,24 +2012,6 @@
   .wl-success-overlay.active .wl-success {
     transform: translateY(0) scale(1);
   }
-  .wl-success-icon {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #0F0F0E;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 0 0 8px rgba(177, 247, 119, 0.12);
-    animation: wl-success-pop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-  }
-  @keyframes wl-success-pop {
-    0% { transform: scale(0.6); opacity: 0; }
-    60% { transform: scale(1.1); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
-  }
   .wl-success-title {
     font-family: var(--font-display);
     font-size: 2rem;
@@ -2856,14 +2838,9 @@
 <!-- WAITLIST SUCCESS OVERLAY -->
 <div class="wl-success-overlay" id="wlSuccessOverlay">
   <div class="wl-success">
-    <div class="wl-success-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="48" height="48">
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
-    </div>
     <h2 class="wl-success-title">You're in.</h2>
     <p class="wl-success-message">Check your inbox and confirm your subscription to lock in your spot on the waitlist.</p>
-    <p class="wl-success-note">Look for an email from <strong>SCALO</strong> within the next few minutes. If you don't see it, check your <strong>Promotions</strong> or <strong>Spam</strong> folder.</p>
+    <p class="wl-success-note">Look for an email from <strong>Tim</strong> within the next few minutes. If you don't see it, check your <strong>Promotions</strong> or <strong>Spam</strong> folder.</p>
     <button class="wl-success-close" id="wlSuccessClose">Got it</button>
   </div>
 </div>
