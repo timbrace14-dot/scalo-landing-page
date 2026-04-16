@@ -3105,6 +3105,13 @@
   });
 
   // ───── INTEGRATION HELPERS ─────
+  // Cohort = the month the lead signed up in (e.g. "April 2026")
+  function getCurrentCohort() {
+    var now = new Date();
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return months[now.getMonth()] + ' ' + now.getFullYear();
+  }
+
   function getUtmParams() {
     try {
       var p = new URLSearchParams(window.location.search);
@@ -3200,6 +3207,7 @@
       utm_source: utms.utm_source,
       utm_medium: utms.utm_medium,
       utm_campaign: utms.utm_campaign,
+      cohort: getCurrentCohort(),
       status: 'lead'
     };
 
