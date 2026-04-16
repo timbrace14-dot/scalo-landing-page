@@ -2737,13 +2737,15 @@
   <div class="wl-modal">
     <button class="wl-modal-close" id="wlModalClose">&times;</button>
     <h3>Almost There!</h3>
-    <p>Enter your name to secure your spot on the waitlist.</p>
+    <p>Enter your details to secure your spot on the waitlist.</p>
     <div class="wl-modal-fields">
       <div class="wl-modal-row">
-        <input type="text" id="wlFirstName" placeholder="First name" required>
-        <input type="text" id="wlLastName" placeholder="Last name" required>
+        <input type="text" id="wlFirstName" placeholder="First name" required autocomplete="given-name">
+        <input type="text" id="wlLastName" placeholder="Last name" required autocomplete="family-name">
       </div>
-      <input type="email" id="wlEmailDisplay" placeholder="Enter your email" required>
+      <input type="email" id="wlEmailDisplay" placeholder="Email address" required autocomplete="email">
+      <input type="text" id="wlInstagram" placeholder="Instagram handle (e.g. @yourname)" required autocomplete="off">
+      <input type="tel" id="wlPhone" placeholder="Phone number" required autocomplete="tel">
       <button class="wl-modal-submit" id="wlModalSubmit">Secure My Spot</button>
     </div>
   </div>
@@ -2806,6 +2808,12 @@
   });
   // Refresh from Firebase once a day
   setInterval(fetchTotalRevenue, 86400000);
+
+  // ───── INTEGRATIONS CONFIG (Kit + Supabase) ─────
+  const KIT_FORM_ID = '9334034';
+  const KIT_FORM_ENDPOINT = 'https://app.kit.com/forms/' + KIT_FORM_ID + '/subscriptions';
+  const SUPABASE_URL = 'https://kadgzthwuzzjwxxcbgzi.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthZGd6dGh3dXp6and4eGNiZ3ppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNjA0MjAsImV4cCI6MjA4OTkzNjQyMH0.7ebR6MOYE9YJf9ALefoZO_LkrkZ4jhD_booINh1j2K0';
 
   const TOTAL_SPOTS = 100;
   const STORAGE_KEY = 'scalo_waitlist';
@@ -2933,6 +2941,8 @@
   const wlFirstName = document.getElementById('wlFirstName');
   const wlLastName = document.getElementById('wlLastName');
   const wlEmailDisplay = document.getElementById('wlEmailDisplay');
+  const wlInstagram = document.getElementById('wlInstagram');
+  const wlPhone = document.getElementById('wlPhone');
   const wlSubmit = document.getElementById('wlModalSubmit');
   var pendingEmail = '';
   var pendingSource = ''; // 'hero', 'footer', or 'banner'
@@ -2948,6 +2958,12 @@
     pendingSource = source;
     wlFirstName.value = '';
     wlLastName.value = '';
+    wlInstagram.value = '';
+    wlPhone.value = '';
+    // Reset any red border states
+    [wlFirstName, wlLastName, wlEmailDisplay, wlInstagram, wlPhone].forEach(function(el) {
+      el.style.borderColor = '';
+    });
     if (email) {
       // Email provided from form — show it locked
       wlEmailDisplay.value = email;
@@ -2976,40 +2992,137 @@
     if (e.target === wlOverlay) closeWaitlistModal();
   });
 
+  // ───── INTEGRATION HELPERS ─────
+  function getUtmParams() {
+    try {
+      var p = new URLSearchParams(window.location.search);
+      return {
+        utm_source: p.get('utm_source') || null,
+        utm_medium: p.get('utm_medium') || null,
+        utm_campaign: p.get('utm_campaign') || null
+      };
+    } catch (e) {
+      return { utm_source: null, utm_medium: null, utm_campaign: null };
+    }
+  }
+
+  function postToSupabase(lead) {
+    return fetch(SUPABASE_URL + '/rest/v1/clients', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(lead)
+    }).then(function(res) {
+      if (!res.ok) {
+        return res.text().then(function(t) { throw new Error('Supabase ' + res.status + ': ' + t); });
+      }
+      return true;
+    }).catch(function(e) {
+      console.warn('[Supabase insert failed]', e);
+      return false;
+    });
+  }
+
+  function postToKit(firstName, lastName, email, instagram, phone) {
+    var fd = new FormData();
+    fd.append('email_address', email);
+    fd.append('fields[first_name]', firstName);
+    fd.append('fields[last_name]', lastName);
+    fd.append('fields[instagram_handle]', instagram);
+    fd.append('fields[phone_number]', phone);
+    return fetch(KIT_FORM_ENDPOINT, {
+      method: 'POST',
+      body: fd,
+      mode: 'no-cors' // Kit endpoint doesn't return CORS headers; opaque response is fine
+    }).then(function() { return true; })
+      .catch(function(e) {
+        console.warn('[Kit submission failed]', e);
+        return false;
+      });
+  }
+
   function completeWaitlistSignup() {
     var firstName = wlFirstName.value.trim();
     var lastName = wlLastName.value.trim();
     var emailVal = wlEmailDisplay.value.trim().toLowerCase();
+    var instagram = wlInstagram.value.trim().replace(/^@/, '');
+    var phone = wlPhone.value.trim();
+
     var hasErrors = false;
     if (!firstName) { wlFirstName.style.borderColor = '#FF6B5A'; hasErrors = true; }
     if (!lastName) { wlLastName.style.borderColor = '#FF6B5A'; hasErrors = true; }
     if (!emailVal || !emailVal.includes('@')) { wlEmailDisplay.style.borderColor = '#FF6B5A'; hasErrors = true; }
+    if (!instagram) { wlInstagram.style.borderColor = '#FF6B5A'; hasErrors = true; }
+    if (!phone) { wlPhone.style.borderColor = '#FF6B5A'; hasErrors = true; }
     if (hasErrors) return;
+
     if (state.emails.includes(emailVal)) {
       closeWaitlistModal();
       showMessage("You're already on the waitlist!", 'error');
       return;
     }
-    // Save to state
-    pendingEmail = emailVal;
-    state.emails.push(pendingEmail);
-    state.filled++;
-    saveState(state);
-    closeWaitlistModal();
-    // Clear appropriate form
-    if (pendingSource === 'hero') {
-      emailInput.value = '';
-    } else if (pendingSource === 'footer') {
-      var footerInput = document.querySelector('.footer-waitlist input[type="email"]');
-      if (footerInput) footerInput.value = '';
-    }
-    showMessage("You're in, " + firstName + "! Check your inbox for next steps.", 'success');
-    updateSpotsUI(true);
+
+    // Disable submit while we fire off the integrations
+    wlSubmit.disabled = true;
+    var originalBtnText = wlSubmit.textContent;
+    wlSubmit.textContent = 'Securing your spot...';
+
+    var utms = getUtmParams();
+    var leadRow = {
+      first_name: firstName,
+      last_name: lastName,
+      email: emailVal,
+      phone: phone,
+      instagram: instagram,
+      source: pendingSource || 'unknown',
+      utm_source: utms.utm_source,
+      utm_medium: utms.utm_medium,
+      utm_campaign: utms.utm_campaign,
+      status: 'lead'
+    };
+
+    // Fire both POSTs in parallel — never block the user if one fails
+    Promise.all([
+      postToSupabase(leadRow),
+      postToKit(firstName, lastName, emailVal, instagram, phone)
+    ]).then(function(results) {
+      var supabaseOk = results[0];
+      var kitOk = results[1];
+      if (!supabaseOk && !kitOk) {
+        // Both failed — let the user know
+        wlSubmit.disabled = false;
+        wlSubmit.textContent = originalBtnText;
+        showMessage("Something went wrong. Please try again or email tim@scalo.co", 'error');
+        return;
+      }
+
+      // At least one succeeded — proceed with success UX
+      pendingEmail = emailVal;
+      state.emails.push(pendingEmail);
+      state.filled++;
+      saveState(state);
+      closeWaitlistModal();
+      wlSubmit.disabled = false;
+      wlSubmit.textContent = originalBtnText;
+
+      if (pendingSource === 'hero') {
+        emailInput.value = '';
+      } else if (pendingSource === 'footer') {
+        var footerInput = document.querySelector('.footer-waitlist input[type="email"]');
+        if (footerInput) footerInput.value = '';
+      }
+      showMessage("You're in, " + firstName + "! Check your inbox for next steps.", 'success');
+      updateSpotsUI(true);
+    });
   }
 
   wlSubmit.addEventListener('click', completeWaitlistSignup);
   // Allow Enter key in modal
-  [wlFirstName, wlLastName, wlEmailDisplay].forEach(function(input) {
+  [wlFirstName, wlLastName, wlEmailDisplay, wlInstagram, wlPhone].forEach(function(input) {
     input.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') { e.preventDefault(); completeWaitlistSignup(); }
     });
