@@ -1977,6 +1977,108 @@
     .wl-modal-row { flex-direction: column; }
   }
 
+  /* ───── SUCCESS OVERLAY ───── */
+  .wl-success-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    padding: 1.5rem;
+  }
+  .wl-success-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  .wl-success {
+    background: linear-gradient(160deg, #0F0F0E 0%, #16201A 100%);
+    border: 1px solid rgba(177, 247, 119, 0.25);
+    border-radius: 16px;
+    padding: 3rem 2.5rem 2.5rem;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(177, 247, 119, 0.08);
+  }
+  .wl-success-overlay.active .wl-success {
+    transform: translateY(0) scale(1);
+  }
+  .wl-success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #0F0F0E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 0 0 8px rgba(177, 247, 119, 0.12);
+    animation: wl-success-pop 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  }
+  @keyframes wl-success-pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .wl-success-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .wl-success-message {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0 0 1rem;
+    line-height: 1.55;
+  }
+  .wl-success-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0 0 2rem;
+    line-height: 1.55;
+  }
+  .wl-success-note strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+  .wl-success-close {
+    padding: 0.95rem 2.5rem;
+    background: var(--accent);
+    color: #0F0F0E;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .wl-success-close:hover {
+    background: #CDFF96;
+    box-shadow: 0 0 24px var(--accent-dim);
+    transform: translateY(-1px);
+  }
+  @media (max-width: 480px) {
+    .wl-success { padding: 2.25rem 1.5rem 1.75rem; }
+    .wl-success-title { font-size: 1.6rem; }
+    .wl-success-message { font-size: 0.9rem; }
+  }
+
   /* ───── TRUST BAR ───── */
   .trust-section {
     padding: 4rem 2rem;
@@ -2751,6 +2853,21 @@
   </div>
 </div>
 
+<!-- WAITLIST SUCCESS OVERLAY -->
+<div class="wl-success-overlay" id="wlSuccessOverlay">
+  <div class="wl-success">
+    <div class="wl-success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="48" height="48">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <h2 class="wl-success-title">You're in.</h2>
+    <p class="wl-success-message">Check your inbox and confirm your subscription to lock in your spot on the waitlist.</p>
+    <p class="wl-success-note">Look for an email from <strong>SCALO</strong> within the next few minutes. If you don't see it, check your <strong>Promotions</strong> or <strong>Spam</strong> folder.</p>
+    <button class="wl-success-close" id="wlSuccessClose">Got it</button>
+  </div>
+</div>
+
 <!-- STUDENT WINS TRACKER -->
 <div class="wins-tracker">
   <div class="wins-label">Student Wins Tracker</div>
@@ -2944,8 +3061,26 @@
   const wlInstagram = document.getElementById('wlInstagram');
   const wlPhone = document.getElementById('wlPhone');
   const wlSubmit = document.getElementById('wlModalSubmit');
+  // Success overlay elements
+  const wlSuccessOverlay = document.getElementById('wlSuccessOverlay');
+  const wlSuccessClose = document.getElementById('wlSuccessClose');
   var pendingEmail = '';
   var pendingSource = ''; // 'hero', 'footer', or 'banner'
+
+  function showSuccessOverlay() {
+    if (!wlSuccessOverlay) return;
+    wlSuccessOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function hideSuccessOverlay() {
+    if (!wlSuccessOverlay) return;
+    wlSuccessOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  if (wlSuccessClose) wlSuccessClose.addEventListener('click', hideSuccessOverlay);
+  if (wlSuccessOverlay) wlSuccessOverlay.addEventListener('click', function(e) {
+    if (e.target === wlSuccessOverlay) hideSuccessOverlay();
+  });
 
   function showMessage(text, type) {
     formMessage.textContent = text;
@@ -3007,6 +3142,7 @@
   }
 
   function postToSupabase(lead) {
+    console.log('[Waitlist] POST to Supabase →', lead);
     return fetch(SUPABASE_URL + '/rest/v1/clients', {
       method: 'POST',
       headers: {
@@ -3017,12 +3153,14 @@
       },
       body: JSON.stringify(lead)
     }).then(function(res) {
+      console.log('[Waitlist] Supabase response status:', res.status);
       if (!res.ok) {
         return res.text().then(function(t) { throw new Error('Supabase ' + res.status + ': ' + t); });
       }
+      console.log('[Waitlist] Supabase insert OK ✓');
       return true;
     }).catch(function(e) {
-      console.warn('[Supabase insert failed]', e);
+      console.warn('[Waitlist] Supabase insert FAILED:', e);
       return false;
     });
   }
@@ -3034,15 +3172,18 @@
     fd.append('fields[last_name]', lastName);
     fd.append('fields[instagram_handle]', instagram);
     fd.append('fields[phone_number]', phone);
+    console.log('[Waitlist] POST to Kit form ' + KIT_FORM_ID + ' →', { email: email, first_name: firstName, last_name: lastName, instagram_handle: instagram, phone_number: phone });
     return fetch(KIT_FORM_ENDPOINT, {
       method: 'POST',
       body: fd,
       mode: 'no-cors' // Kit endpoint doesn't return CORS headers; opaque response is fine
-    }).then(function() { return true; })
-      .catch(function(e) {
-        console.warn('[Kit submission failed]', e);
-        return false;
-      });
+    }).then(function() {
+      console.log('[Waitlist] Kit POST sent (opaque response, check Kit Subscribers to confirm)');
+      return true;
+    }).catch(function(e) {
+      console.warn('[Waitlist] Kit submission FAILED:', e);
+      return false;
+    });
   }
 
   function completeWaitlistSignup() {
@@ -3085,6 +3226,8 @@
       status: 'lead'
     };
 
+    console.log('[Waitlist] Submit started — source:', pendingSource);
+
     // Fire both POSTs in parallel — never block the user if one fails
     Promise.all([
       postToSupabase(leadRow),
@@ -3092,10 +3235,13 @@
     ]).then(function(results) {
       var supabaseOk = results[0];
       var kitOk = results[1];
+      console.log('[Waitlist] Results — Supabase:', supabaseOk, '| Kit:', kitOk);
+
+      wlSubmit.disabled = false;
+      wlSubmit.textContent = originalBtnText;
+
       if (!supabaseOk && !kitOk) {
         // Both failed — let the user know
-        wlSubmit.disabled = false;
-        wlSubmit.textContent = originalBtnText;
         showMessage("Something went wrong. Please try again or email tim@scalo.co", 'error');
         return;
       }
@@ -3106,8 +3252,6 @@
       state.filled++;
       saveState(state);
       closeWaitlistModal();
-      wlSubmit.disabled = false;
-      wlSubmit.textContent = originalBtnText;
 
       if (pendingSource === 'hero') {
         emailInput.value = '';
@@ -3115,8 +3259,14 @@
         var footerInput = document.querySelector('.footer-waitlist input[type="email"]');
         if (footerInput) footerInput.value = '';
       }
-      showMessage("You're in, " + firstName + "! Check your inbox for next steps.", 'success');
       updateSpotsUI(true);
+      // Fullscreen success overlay
+      showSuccessOverlay();
+    }).catch(function(e) {
+      console.error('[Waitlist] Promise.all THREW (this should never happen):', e);
+      wlSubmit.disabled = false;
+      wlSubmit.textContent = originalBtnText;
+      showMessage("Something went wrong. Please try again or email tim@scalo.co", 'error');
     });
   }
 
