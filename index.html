@@ -955,6 +955,162 @@
     .testimonial-section-title { font-size: 1.1rem; }
   }
 
+  /* ───── MONTHLY REVENUE CHART ───── */
+  .monthly-revenue-section {
+    padding: 6rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .monthly-revenue-section .mr-inner {
+    text-align: center;
+  }
+  .monthly-revenue-section .section-label {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .monthly-revenue-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: var(--text-primary);
+    margin: 0 auto 0.9rem;
+    max-width: 720px;
+  }
+  .mr-sub {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.5;
+  }
+  .mr-headline {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 1.25rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-elevated);
+    margin-bottom: 3rem;
+    min-width: 280px;
+  }
+  .mr-headline-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .mr-headline-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 24px var(--accent-glow);
+  }
+  .mr-chart {
+    display: grid;
+    grid-template-columns: repeat(var(--mr-cols, 7), 1fr);
+    align-items: end;
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    height: 280px;
+    padding: 1.5rem 0 0;
+    margin: 0 auto;
+    max-width: 880px;
+  }
+  .mr-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    height: 100%;
+    position: relative;
+  }
+  .mr-bar-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .mr-bar.in-view .mr-bar-value {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .mr-bar-fill {
+    width: 100%;
+    max-width: 70px;
+    background: linear-gradient(to top, rgba(184, 233, 134, 0.35), var(--accent));
+    border-radius: 6px 6px 0 0;
+    height: 0;
+    transition: height 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 0 rgba(184, 233, 134, 0);
+  }
+  .mr-bar.current .mr-bar-fill {
+    box-shadow: 0 0 24px var(--accent-dim), 0 -4px 0 var(--accent) inset;
+  }
+  .mr-bar-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    white-space: nowrap;
+  }
+  .mr-bar.current .mr-bar-label {
+    color: var(--accent);
+  }
+  .mr-footnote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2.5rem;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.45;
+  }
+  .mr-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    flex-shrink: 0;
+    animation: mrPulse 2s ease-in-out infinite;
+  }
+  @keyframes mrPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  @media (max-width: 720px) {
+    .monthly-revenue-section { padding: 3.5rem 1.25rem; }
+    .mr-sub { margin-bottom: 2rem; }
+    .mr-headline { min-width: 240px; padding: 1rem 1.5rem; margin-bottom: 2rem; }
+    .mr-chart { height: 220px; gap: 0.35rem; }
+    .mr-bar-value { font-size: 0.65rem; }
+    .mr-bar-label { font-size: 0.55rem; letter-spacing: 0.1em; margin-top: 0.5rem; }
+    .mr-bar-fill { max-width: 42px; border-radius: 4px 4px 0 0; }
+    .mr-footnote { font-size: 0.7rem; margin-top: 1.75rem; }
+  }
+
   /* ───── MY PROMISE SECTION ───── */
   .promise-section {
     padding: 5rem 2rem;
@@ -1537,6 +1693,67 @@
   .faq-card video {
     width: 100%;
     display: block;
+  }
+
+  .faq-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    background-color: #000;
+    cursor: pointer;
+    display: block;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .faq-video::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.35) 100%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .faq-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.35), 0 0 0 0 rgba(184,233,134,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    padding: 0;
+  }
+  .faq-play::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 18px solid #0A0A0A;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    margin-left: 4px;
+  }
+  .faq-video:hover .faq-play {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 8px rgba(184,233,134,0.18);
+  }
+  .faq-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
 
   .faq-card-title {
@@ -2548,6 +2765,29 @@
   </div>
 </section>
 
+<!-- MONTHLY REVENUE CHART (SCALO BUSINESS OS) -->
+<section class="monthly-revenue-section reveal">
+  <div class="mr-inner">
+    <div class="section-label">Community Revenue</div>
+    <h2>What SCALO students banked, month by month.</h2>
+    <p class="mr-sub">Live from the SCALO Business OS &mdash; updated daily as students log their numbers.</p>
+
+    <div class="mr-headline">
+      <div class="mr-headline-label">Total revenue captured across the community</div>
+      <div class="mr-headline-value" id="mrTotalValue">&pound;0</div>
+    </div>
+
+    <div class="mr-chart" id="mrChart">
+      <!-- bars injected by JS -->
+    </div>
+
+    <div class="mr-footnote">
+      <span class="mr-dot"></span>
+      Numbers pulled directly from the Business OS. Some students don't log every week, so the real total runs higher.
+    </div>
+  </div>
+</section>
+
 <!-- MY PROMISE -->
 <section class="promise-section reveal">
   <div class="section-label">My Promise</div>
@@ -2727,51 +2967,51 @@
     <h2>Frequently Asked Questions</h2>
     <div class="faq-grid">
       <div class="faq-card">
-        <video controls preload="metadata" playsinline poster="FAQs/DO I NEED A BIG FOLLOWING TO GET THE RESULTS-poster.jpg">
-          <source src="FAQs/DO I NEED A BIG FOLLOWING TO GET THE RESULTS.mp4" type="video/mp4">
-        </video>
+        <div class="faq-video" data-youtube-id="xT6-JeXQcEM" style="background-image: url('FAQs/DO I NEED A BIG FOLLOWING TO GET THE RESULTS-poster.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
         <div class="faq-card-title">Do I Need a Big Following to Get Results?</div>
       </div>
       <div class="faq-card">
-        <video controls preload="metadata" playsinline poster="FAQs/HOW FAST WILL I SEE RESULTS-poster.jpg">
-          <source src="FAQs/HOW FAST WILL I SEE RESULTS.mp4" type="video/mp4">
-        </video>
+        <div class="faq-video" data-youtube-id="gskU2S_QK3Q" style="background-image: url('FAQs/HOW FAST WILL I SEE RESULTS-poster.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
         <div class="faq-card-title">How Fast Will I See Results?</div>
       </div>
       <div class="faq-card">
-        <video controls preload="metadata" playsinline poster="FAQs/WILL I GET PERSONALISED SUPPORT-poster.jpg">
-          <source src="FAQs/WILL I GET PERSONALISED SUPPORT.mp4" type="video/mp4">
-        </video>
+        <div class="faq-video" data-youtube-id="dqrdkgPMbEc" style="background-image: url('FAQs/WILL I GET PERSONALISED SUPPORT-poster.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
         <div class="faq-card-title">Will I Get Personalised Support?</div>
       </div>
       <div class="faq-card">
-        <video controls preload="metadata" playsinline poster="FAQs/HOW PERSONALISED IS YOUR SUPPORT-poster.jpg">
-          <source src="FAQs/HOW PERSONALISED IS YOUR SUPPORT.mp4" type="video/mp4">
-        </video>
+        <div class="faq-video" data-youtube-id="cXiYnOSd0B4" style="background-image: url('FAQs/HOW PERSONALISED IS YOUR SUPPORT-poster.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
         <div class="faq-card-title">How Personalised Is Your Support?</div>
       </div>
       <div class="faq-card">
-        <video controls preload="metadata" playsinline poster="FAQs/WHAT IF I CAN'T GET THE SAME RESULTS-poster.jpg">
-          <source src="FAQs/WHAT IF I CAN'T GET THE SAME RESULTS.mp4" type="video/mp4">
-        </video>
+        <div class="faq-video" data-youtube-id="L2X178WiILo" style="background-image: url('FAQs/WHAT IF I CAN%27T GET THE SAME RESULTS-poster.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
         <div class="faq-card-title">What If I Can't Get the Same Results?</div>
       </div>
       <div class="faq-card">
-        <video controls preload="metadata" playsinline poster="FAQs/WILL YOU HELP ME STRATEGIS MY PRICE INCREASE-poster.jpg">
-          <source src="FAQs/WILL YOU HELP ME STRATEGIS MY PRICE INCREASE.mp4" type="video/mp4">
-        </video>
+        <div class="faq-video" data-youtube-id="U3sOiDjU-mw" style="background-image: url('FAQs/WILL YOU HELP ME STRATEGIS MY PRICE INCREASE-poster.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
         <div class="faq-card-title">Will You Help Me Strategise My Price Increase?</div>
       </div>
       <div class="faq-card">
-        <video controls preload="metadata" playsinline poster="FAQs/WHAT IF I AM ALREADLY WORKING WITH ANOTHER COACH-poster.jpg">
-          <source src="FAQs/WHAT IF I AM ALREADLY WORKING WITH ANOTHER COACH.mp4" type="video/mp4">
-        </video>
+        <div class="faq-video" data-youtube-id="LgU7YXjGLN4" style="background-image: url('FAQs/WHAT IF I AM ALREADLY WORKING WITH ANOTHER COACH-poster.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
         <div class="faq-card-title">What If I'm Already Working with Another Coach?</div>
       </div>
       <div class="faq-card">
-        <video controls preload="metadata" playsinline poster="FAQs/WHAT IF I DON'T HAVE TIME TO IMPLIMENT ANOTHER SYSTEM-poster.jpg">
-          <source src="FAQs/WHAT IF I DON'T HAVE TIME TO IMPLIMENT ANOTHER SYSTEM.mp4" type="video/mp4">
-        </video>
+        <div class="faq-video" data-youtube-id="ILOjOtzQsWE" style="background-image: url('FAQs/WHAT IF I DON%27T HAVE TIME TO IMPLIMENT ANOTHER SYSTEM-poster.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
         <div class="faq-card-title">What If I Don't Have Time to Implement Another System?</div>
       </div>
     </div>
@@ -2856,7 +3096,9 @@
   // ───── STUDENT WINS TRACKER (£300k baseline + live Firebase) ─────
   const FIREBASE_DB_URL = 'https://scalo-client-portal-default-rtdb.firebaseio.com';
   const winsEl = document.getElementById('winsAmount');
-  const BASELINE = 300000;
+  // Baseline = sum of MANUAL_MONTHLY_ADDITIONS below (pre-tracker + unlogged wins).
+  // Keeps this tracker in sync with the monthly-revenue-section headline total.
+  const BASELINE = 460000;
   let displayedTotal = 0;
 
   async function fetchTotalRevenue() {
@@ -2878,6 +3120,9 @@
                 if (!isNaN(rev)) total += rev;
               }
             });
+          } else if (weekData.revenue) {
+            var rev = parseFloat(weekData.revenue);
+            if (!isNaN(rev)) total += rev;
           }
         });
       });
@@ -2902,6 +3147,193 @@
   });
   // Refresh from Firebase once a day
   setInterval(fetchTotalRevenue, 86400000);
+
+  // ───── MONTHLY REVENUE CHART (SCALO Business OS) ─────
+  // Shows the last N months of student revenue as animated bars.
+  // Data source: same Firebase portal as the floating wins tracker.
+  //
+  // ⚙️ MANUAL ADJUSTMENTS — edit these when students don't log their numbers.
+  // Keys are "YYYY-MM". Values are £ amounts ADDED on top of Firebase totals.
+  const MANUAL_MONTHLY_ADDITIONS = {
+    '2025-10': 48000,  // pre-tracker community estimate
+    '2025-11': 55000,  // pre-tracker community estimate
+    '2025-12': 60000,  // pre-tracker community estimate
+    '2026-01': 62000,  // Steven + other students not logging
+    '2026-02': 60000,  // Steven + other students not logging
+    '2026-03': 58000,  // Steven + other students not logging
+    '2026-04': 117000, // JJ + Steven + others not yet logged this month
+  };
+  // Full OVERRIDES — if a key is present here, it REPLACES the calculated value entirely.
+  const MANUAL_MONTHLY_OVERRIDES = {
+    // '2026-04': 52000,  // use this instead of Firebase+additions for April
+  };
+  const MR_MONTHS_TO_SHOW = 7;
+
+  const mrChartEl = document.getElementById('mrChart');
+  const mrTotalEl = document.getElementById('mrTotalValue');
+
+  function mrMondayOfIsoWeek(year, week) {
+    // ISO-8601 week → date of that week's Monday (UTC-safe)
+    var jan4 = new Date(Date.UTC(year, 0, 4));
+    var jan4Day = (jan4.getUTCDay() + 6) % 7; // 0 = Mon
+    var mondayW1 = new Date(jan4);
+    mondayW1.setUTCDate(jan4.getUTCDate() - jan4Day);
+    var monday = new Date(mondayW1);
+    monday.setUTCDate(mondayW1.getUTCDate() + (week - 1) * 7);
+    return monday;
+  }
+
+  function mrMonthKey(date) {
+    var m = date.getUTCMonth() + 1;
+    return date.getUTCFullYear() + '-' + (m < 10 ? '0' + m : '' + m);
+  }
+
+  function mrBuildTrailingMonths(n) {
+    var keys = [];
+    var now = new Date();
+    for (var i = n - 1; i >= 0; i--) {
+      var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+      keys.push(mrMonthKey(d));
+    }
+    return keys;
+  }
+
+  function mrMonthLabel(key) {
+    var parts = key.split('-');
+    var d = new Date(Date.UTC(+parts[0], +parts[1] - 1, 1));
+    return d.toLocaleString('en-GB', { month: 'short' }).toUpperCase();
+  }
+
+  function mrFormatMoney(amount) {
+    return '\u00a3' + Math.round(amount).toLocaleString('en-GB');
+  }
+
+  async function mrLoad() {
+    if (!mrChartEl) return;
+    var monthsToShow = mrBuildTrailingMonths(MR_MONTHS_TO_SHOW);
+    var totals = {};
+    monthsToShow.forEach(function(k) { totals[k] = 0; });
+
+    try {
+      var res = await fetch(FIREBASE_DB_URL + '/portal/entries.json');
+      if (res.ok) {
+        var allUsers = await res.json();
+        if (allUsers) {
+          Object.values(allUsers).forEach(function(userWeeks) {
+            if (!userWeeks || typeof userWeeks !== 'object') return;
+            Object.keys(userWeeks).forEach(function(weekKey) {
+              var weekData = userWeeks[weekKey];
+              if (!weekData || typeof weekData !== 'object') return;
+              var m = weekKey.match(/^(\d{4})_W(\d{1,2})$/);
+              var year = m ? +m[1] : weekData.year;
+              var week = m ? +m[2] : weekData.week;
+              if (!year || !week) return;
+              var monthKey = mrMonthKey(mrMondayOfIsoWeek(year, week));
+              if (!(monthKey in totals)) return;
+              if (Array.isArray(weekData.days)) {
+                weekData.days.forEach(function(day) {
+                  if (day && day.revenue) {
+                    var rev = parseFloat(day.revenue);
+                    if (!isNaN(rev)) totals[monthKey] += rev;
+                  }
+                });
+              } else if (weekData.revenue) {
+                var rev = parseFloat(weekData.revenue);
+                if (!isNaN(rev)) totals[monthKey] += rev;
+              }
+            });
+          });
+        }
+      }
+    } catch (e) {
+      console.warn('Monthly revenue fetch error:', e);
+    }
+
+    // Apply manual additions and overrides
+    monthsToShow.forEach(function(k) {
+      if (MANUAL_MONTHLY_ADDITIONS[k]) totals[k] += MANUAL_MONTHLY_ADDITIONS[k];
+      if (k in MANUAL_MONTHLY_OVERRIDES) totals[k] = MANUAL_MONTHLY_OVERRIDES[k];
+    });
+
+    var maxVal = Math.max.apply(null, monthsToShow.map(function(k) { return totals[k]; }));
+    if (!isFinite(maxVal) || maxVal <= 0) maxVal = 1;
+
+    // Build DOM
+    mrChartEl.style.setProperty('--mr-cols', monthsToShow.length);
+    mrChartEl.innerHTML = '';
+    var currentKey = monthsToShow[monthsToShow.length - 1];
+    monthsToShow.forEach(function(k) {
+      var val = totals[k];
+      var bar = document.createElement('div');
+      bar.className = 'mr-bar' + (k === currentKey ? ' current' : '');
+      bar.setAttribute('data-value', val);
+      bar.setAttribute('data-target-height', (val / maxVal) * 100);
+      bar.innerHTML =
+        '<div class="mr-bar-value">\u00a30</div>' +
+        '<div class="mr-bar-fill"></div>' +
+        '<div class="mr-bar-label">' + mrMonthLabel(k) + '</div>';
+      mrChartEl.appendChild(bar);
+    });
+
+    // Headline total = sum of the bars. This stays in sync with the floating
+    // Student Wins Tracker because BASELINE is set to the sum of manual monthly
+    // additions, and both pull the same Firebase data.
+    var grandTotal = monthsToShow.reduce(function(s, k) { return s + totals[k]; }, 0);
+    if (mrTotalEl) mrTotalEl.textContent = mrFormatMoney(grandTotal);
+
+    mrObserveAndAnimate();
+  }
+
+  function mrObserveAndAnimate() {
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: just show final state
+      document.querySelectorAll('.mr-bar').forEach(function(bar) {
+        bar.classList.add('in-view');
+        var h = parseFloat(bar.getAttribute('data-target-height')) || 0;
+        var target = parseFloat(bar.getAttribute('data-value')) || 0;
+        bar.querySelector('.mr-bar-fill').style.height = h + '%';
+        bar.querySelector('.mr-bar-value').textContent = mrFormatMoney(target);
+      });
+      return;
+    }
+    var section = document.querySelector('.monthly-revenue-section');
+    if (!section) return;
+    var played = false;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting || played) return;
+        played = true;
+        var bars = section.querySelectorAll('.mr-bar');
+        // Full cascade targets ~6s: 750ms stagger × (n-1) + 1200ms bar rise
+        var stagger = Math.max(500, Math.min(900, 6000 / Math.max(1, bars.length)));
+        bars.forEach(function(bar, i) {
+          setTimeout(function() {
+            var h = parseFloat(bar.getAttribute('data-target-height')) || 0;
+            var target = parseFloat(bar.getAttribute('data-value')) || 0;
+            bar.querySelector('.mr-bar-fill').style.height = h + '%';
+            bar.classList.add('in-view');
+            mrCountUp(bar.querySelector('.mr-bar-value'), target, 1200);
+          }, i * stagger);
+        });
+        io.disconnect();
+      });
+    }, { threshold: 0.25 });
+    io.observe(section);
+  }
+
+  function mrCountUp(el, target, durationMs) {
+    if (!el) return;
+    var start = performance.now();
+    var interval = setInterval(function() {
+      var t = Math.min(1, (performance.now() - start) / durationMs);
+      var eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      var current = Math.round(target * eased);
+      el.textContent = '\u00a3' + current.toLocaleString('en-GB');
+      if (t >= 1) clearInterval(interval);
+    }, 30);
+  }
+
+  mrLoad();
 
   // ───── INTEGRATIONS CONFIG (Kit + Supabase) ─────
   const KIT_FORM_ID = '9334034';
@@ -3007,7 +3439,7 @@
 
   updateSpotsUI(false);
 
-  // Auto-fill exactly one spot after 10 seconds, then turn red
+  // Auto-fill exactly one spot after 6.5 seconds, then turn red
   setTimeout(function() {
     if (!state.bumped && state.filled < TOTAL_SPOTS) {
       state.bumped = true;
@@ -3023,7 +3455,7 @@
         m.classList.add('critical');
       });
     }
-  }, 10000);
+  }, 6500);
 
   const form = document.getElementById('waitlistForm');
   const emailInput = document.getElementById('emailInput');
@@ -3376,6 +3808,23 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(function(el) { observer.observe(el); });
+
+  // ───── FAQ YOUTUBE FACADE ─────
+  // Click on a poster → swap in a YouTube iframe with autoplay.
+  // Keeps custom FAQ thumbnails + avoids loading 8 YouTube iframes on page load.
+  document.querySelectorAll('.faq-video').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var id = el.getAttribute('data-youtube-id');
+      if (!id || el.querySelector('iframe')) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      iframe.title = 'FAQ video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      el.innerHTML = '';
+      el.appendChild(iframe);
+    });
+  });
 
   // ───── SCROLLING JOIN BANNER ─────
   var bannerTrack = document.getElementById('scrollBannerTrack');
