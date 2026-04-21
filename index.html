@@ -3098,7 +3098,7 @@
   const winsEl = document.getElementById('winsAmount');
   // Baseline = sum of MANUAL_MONTHLY_ADDITIONS below (pre-tracker + unlogged wins).
   // Keeps this tracker in sync with the monthly-revenue-section headline total.
-  const BASELINE = 460000;
+  const BASELINE = 515000;
   let displayedTotal = 0;
 
   async function fetchTotalRevenue() {
@@ -3157,11 +3157,11 @@
   const MANUAL_MONTHLY_ADDITIONS = {
     '2025-10': 48000,  // pre-tracker community estimate
     '2025-11': 55000,  // pre-tracker community estimate
-    '2025-12': 60000,  // pre-tracker community estimate
-    '2026-01': 62000,  // Steven + other students not logging
-    '2026-02': 60000,  // Steven + other students not logging
-    '2026-03': 58000,  // Steven + other students not logging
-    '2026-04': 117000, // JJ + Steven + others not yet logged this month
+    '2025-12': 62000,  // pre-tracker community estimate
+    '2026-01': 68000,  // Steven + other students not logging
+    '2026-02': 76000,  // Steven + other students not logging
+    '2026-03': 88000,  // Steven + other students not logging
+    '2026-04': 118000, // JJ + Steven + others not yet logged this month
   };
   // Full OVERRIDES — if a key is present here, it REPLACES the calculated value entirely.
   const MANUAL_MONTHLY_OVERRIDES = {
