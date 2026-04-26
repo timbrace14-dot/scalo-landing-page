@@ -3714,8 +3714,8 @@
         if (footerInput) footerInput.value = '';
       }
       updateSpotsUI(true);
-      // Fullscreen success overlay
-      showSuccessOverlay();
+      // Send them to the post-signup page (with confetti + the watch-this video)
+      window.location.href = '/youre-on-the-list.html';
     }).catch(function(e) {
       console.error('[Waitlist] Promise.all THREW (this should never happen):', e);
       wlSubmit.disabled = false;

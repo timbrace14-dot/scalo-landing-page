@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're on the list — SCALO</title>
+<meta name="robots" content="noindex">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #000000;
+    --bg-card: #111111;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --text-primary: #E6E8DA;
+    --text-secondary: rgba(230, 232, 218, 0.6);
+    --text-muted: rgba(255, 255, 255, 0.35);
+    --accent: #B8E986;
+    --accent-glow: rgba(184, 233, 134, 0.08);
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  html { overflow-x: clip; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: -0.027em;
+    background: var(--bg);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    width: 100%;
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 5;
+  }
+  .logo-img { height: 36px; border-radius: 6px; display: block; }
+  .topbar-right {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .wrap::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    max-width: 100vw;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .inner { position: relative; z-index: 1; max-width: 780px; width: 100%; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(184, 233, 134, 0.08);
+    border: 1px solid rgba(184, 233, 134, 0.25);
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1.75rem;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  h1 {
+    font-size: clamp(2.1rem, 5.8vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    margin-bottom: 1.1rem;
+    color: var(--text-primary);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .subhead {
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    letter-spacing: -0.025em;
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+  }
+  .subhead em { font-style: normal; color: var(--accent); font-weight: 600; }
+
+  .video-card {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    text-decoration: none;
+  }
+  .video-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(184, 233, 134, 0.35);
+    box-shadow: 0 20px 60px rgba(184, 233, 134, 0.12);
+  }
+  .video-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.3s ease;
+  }
+  .video-card:hover img {
+    transform: scale(1.03);
+    filter: brightness(1.05);
+  }
+  .video-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+  }
+  .play-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 62px; height: 62px;
+    border-radius: 50%;
+    background: rgba(15, 15, 15, 0.55);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(184, 233, 134, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+    box-shadow:
+      0 6px 24px rgba(0, 0, 0, 0.45),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+      0 0 22px rgba(184, 233, 134, 0.18);
+  }
+  .video-card:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.06);
+    background: rgba(184, 233, 134, 0.18);
+    border-color: var(--accent);
+    box-shadow:
+      0 8px 28px rgba(0, 0, 0, 0.5),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 0 36px rgba(184, 233, 134, 0.4);
+  }
+  .play-btn svg {
+    width: 20px; height: 20px;
+    fill: var(--accent);
+    margin-left: 3px;
+    filter: drop-shadow(0 0 6px rgba(184, 233, 134, 0.4));
+    transition: transform 0.3s ease;
+  }
+  .video-card:hover .play-btn svg {
+    transform: scale(1.05);
+  }
+
+  .video-meta {
+    margin-top: 1rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .reminder {
+    margin: 3rem auto 0;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 560px;
+  }
+  .reminder strong { color: var(--text-primary); font-weight: 700; }
+
+  footer {
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  #confetti {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  @media (max-width: 640px) {
+    .topbar { padding: 1.1rem 1.25rem; }
+    .logo-img { height: 30px; }
+    .topbar-right { display: none; }
+    .wrap { padding: 3rem 1.25rem 4rem; }
+    .play-btn { width: 52px; height: 52px; }
+    .play-btn svg { width: 17px; height: 17px; }
+    .reminder { padding: 1.1rem 1.2rem; font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div><img class="logo-img" src="Branding/scalo v3.png" alt="SCALO"></div>
+  <div class="topbar-right">Waitlist confirmed</div>
+</nav>
+
+<main class="wrap">
+  <div class="inner">
+    <div class="eyebrow"><span class="dot"></span>You're on the list</div>
+
+    <h1>Whilst they wait, you watch.</h1>
+
+    <p class="subhead">How to build a six-figure barbering business, step by step, <em>in under 30 minutes.</em></p>
+
+    <a class="video-card"
+       href="https://youtu.be/UVYiTgBA6QM"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Watch on YouTube: How to build a six-figure barbering business in under 30 minutes">
+      <img
+        src="https://img.youtube.com/vi/UVYiTgBA6QM/maxresdefault.jpg"
+        alt="How to build a six-figure barbering business"
+        onerror="this.onerror=null; this.src='https://img.youtube.com/vi/UVYiTgBA6QM/hqdefault.jpg';"
+        loading="eager">
+      <div class="play-btn" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </a>
+    <div class="video-meta">Click to watch on YouTube</div>
+
+    <div class="reminder">
+      While you're at it, check your inbox for a confirmation email from <strong>Tim</strong>. Click the link inside to lock in your spot. If you can't see it, check <strong>Promotions</strong> or <strong>Spam</strong>.
+    </div>
+  </div>
+</main>
+
+<footer>© SCALO · buildwithscalo.com</footer>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(function() {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var canvas = document.getElementById('confetti');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    canvas.width = window.innerWidth * DPR;
+    canvas.height = window.innerHeight * DPR;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var COLORS = ['#B8E986', '#9BD46B', '#E6E8DA', '#FFFFFF', '#FFD17A'];
+  var particles = [];
+  var MAX_PARTICLES = 110;
+
+  function W() { return window.innerWidth; }
+  function H() { return window.innerHeight; }
+
+  function makeParticle(x, y, vx, vy) {
+    return {
+      x: x, y: y,
+      vx: vx, vy: vy,
+      w: 5 + Math.random() * 5,
+      h: 8 + Math.random() * 6,
+      rot: Math.random() * Math.PI * 2,
+      vrot: (Math.random() - 0.5) * 0.04,
+      sway: Math.random() * Math.PI * 2,
+      swaySpeed: 0.012 + Math.random() * 0.018,
+      swayAmp: 0.25 + Math.random() * 0.55,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      life: 0
+    };
+  }
+
+  function spawnSide(side, count) {
+    var dirSign = side === 'left' ? 1 : -1;
+    var fromX = side === 'left' ? -12 : W() + 12;
+    for (var i = 0; i < count; i++) {
+      if (particles.length >= MAX_PARTICLES) break;
+      var fromY = Math.random() * H() * 0.85;
+      var vx = dirSign * (0.4 + Math.random() * 0.9);
+      var vy = -0.15 + Math.random() * 0.3;
+      particles.push(makeParticle(fromX, fromY, vx, vy));
+    }
+  }
+
+  function spawnTop() {
+    if (particles.length >= MAX_PARTICLES) return;
+    particles.push(makeParticle(
+      Math.random() * W(),
+      -20,
+      (Math.random() - 0.5) * 0.5,
+      0.15 + Math.random() * 0.3
+    ));
+  }
+
+  var running = false;
+  function tick() {
+    ctx.clearRect(0, 0, W(), H());
+    for (var i = particles.length - 1; i >= 0; i--) {
+      var p = particles[i];
+      p.vy += 0.014;
+      if (p.vy > 1.0) p.vy = 1.0;
+      p.vx *= 0.998;
+      p.sway += p.swaySpeed;
+      p.x += p.vx + Math.sin(p.sway) * p.swayAmp;
+      p.y += p.vy;
+      p.rot += p.vrot;
+      p.life++;
+
+      var alpha = 1;
+      if (p.y > H() - 80) {
+        alpha = Math.max(0, (H() + 20 - p.y) / 100);
+      }
+      if (p.x < -40 || p.x > W() + 40 || p.y > H() + 30 || alpha <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    }
+    if (particles.length > 0) {
+      requestAnimationFrame(tick);
+    } else {
+      running = false;
+      ctx.clearRect(0, 0, W(), H());
+    }
+  }
+
+  function ensureRunning() {
+    if (!running && particles.length > 0) {
+      running = true;
+      requestAnimationFrame(tick);
+    }
+  }
+
+  function start() {
+    spawnSide('left', 28);
+    spawnSide('right', 28);
+    ensureRunning();
+
+    setInterval(function() {
+      if (document.hidden) return;
+      var roll = Math.random();
+      if (roll < 0.4) spawnSide('left', 1);
+      else if (roll < 0.8) spawnSide('right', 1);
+      else spawnTop();
+      ensureRunning();
+    }, 420);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(start, 250); });
+  } else {
+    setTimeout(start, 250);
+  }
+})();
+</script>
+
+</body>
+</html>
