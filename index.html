@@ -3602,6 +3602,41 @@
     });
   }
 
+  // Third POST: Business OS waitlist tab (real-time, idempotent by email).
+  // Worker endpoint is open CORS so this works from any landing-page domain.
+  // Payload mirrors the Supabase row so setters see the same lead in both places.
+  var BIZOS_WAITLIST_ENDPOINT = 'https://scalo-stripe.timbrace14.workers.dev/waitlist-signup';
+  function postToBusinessOS(firstName, lastName, email, instagram, phone, source, utms, cohort) {
+    var payload = {
+      email: email,
+      first_name: firstName,
+      last_name: lastName,
+      name: (firstName + ' ' + lastName).trim(),
+      phone: phone,
+      instagram: instagram,
+      source: source || 'landing_page',
+      utm_source: (utms && utms.utm_source) || '',
+      utm_medium: (utms && utms.utm_medium) || '',
+      utm_campaign: (utms && utms.utm_campaign) || '',
+      cohort: cohort
+    };
+    console.log('[Waitlist] POST to Business OS →', payload);
+    return fetch(BIZOS_WAITLIST_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function(data) {
+      console.log('[Waitlist] Business OS POST ok:', data);
+      return true;
+    }).catch(function(e) {
+      console.warn('[Waitlist] Business OS submission FAILED:', e);
+      return false;
+    });
+  }
+
   function completeWaitlistSignup() {
     var firstName = wlFirstName.value.trim();
     var lastName = wlLastName.value.trim();
@@ -3645,20 +3680,22 @@
 
     console.log('[Waitlist] Submit started — source:', pendingSource);
 
-    // Fire both POSTs in parallel — never block the user if one fails
+    // Fire all three POSTs in parallel — never block the user if any fails
     Promise.all([
       postToSupabase(leadRow),
-      postToKit(firstName, lastName, emailVal, instagram, phone)
+      postToKit(firstName, lastName, emailVal, instagram, phone),
+      postToBusinessOS(firstName, lastName, emailVal, instagram, phone, pendingSource, utms, leadRow.cohort)
     ]).then(function(results) {
       var supabaseOk = results[0];
       var kitOk = results[1];
-      console.log('[Waitlist] Results — Supabase:', supabaseOk, '| Kit:', kitOk);
+      var bizOsOk = results[2];
+      console.log('[Waitlist] Results — Supabase:', supabaseOk, '| Kit:', kitOk, '| BusinessOS:', bizOsOk);
 
       wlSubmit.disabled = false;
       wlSubmit.textContent = originalBtnText;
 
-      if (!supabaseOk && !kitOk) {
-        // Both failed — let the user know
+      if (!supabaseOk && !kitOk && !bizOsOk) {
+        // All three failed — let the user know
         showMessage("Something went wrong. Please try again or email tim@scalo.co", 'error');
         return;
       }
