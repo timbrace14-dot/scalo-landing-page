@@ -1,0 +1,27 @@
+{
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "book.buildwithscalo.com" }],
+      "destination": "/book/index.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "host", "value": "book.buildwithscalo.com" }],
+      "destination": "/book/index.html"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "post-booking.buildwithscalo.com" }],
+      "destination": "/post-booking/index.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "host", "value": "post-booking.buildwithscalo.com" }],
+      "destination": "/post-booking/index.html"
+    },
+    { "source": "/", "destination": "/sales/index.html" },
+    { "source": "/index.html", "destination": "/sales/index.html" }
+  ]
+}

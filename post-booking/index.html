@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your call isn't yet confirmed — SCALO</title>
+<meta name="description" content="Watch this short video and prepare for your SCALO strategy call.">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="../Branding/scalo v3.png">
+<style>
+  :root {
+    --bg: #000000;
+    --bg-elevated: #0A0A0A;
+    --bg-card: #111111;
+    --bg-card-hover: #161616;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-strong: rgba(255, 255, 255, 0.22);
+    --text-primary: #E6E8DA;
+    --text-secondary: rgba(230, 232, 218, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.4);
+    --white: #FFFFFF;
+    --accent: #B8E986;
+    --accent-dim: rgba(184, 233, 134, 0.15);
+    --accent-glow: rgba(184, 233, 134, 0.08);
+    --accent-strong: rgba(184, 233, 134, 0.35);
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: -0.027em;
+    background: var(--bg);
+    color: var(--text-primary);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ───── GRAIN OVERLAY ───── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ───── TOPBAR ───── */
+  .topbar {
+    width: 100%;
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 5;
+  }
+  .logo-img { height: 36px; border-radius: 6px; display: block; }
+  .topbar-right {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ───── SHARED UTILS ───── */
+  .section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    position: relative;
+  }
+  .section--narrow { max-width: 820px; }
+
+  .eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .eyebrow-accent { color: var(--accent); }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+  h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); letter-spacing: -0.045em; }
+  h2 { font-size: clamp(1.8rem, 4.2vw, 3rem); letter-spacing: -0.04em; line-height: 1.1; }
+  h3 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); }
+  h4 { font-size: clamp(1.05rem, 1.8vw, 1.25rem); }
+
+  p { margin: 0 0 1rem; color: var(--text-secondary); }
+  p strong { color: var(--text-primary); font-weight: 700; }
+  p em { font-style: normal; color: var(--accent); font-weight: 700; }
+
+  .center { text-align: center; }
+  .divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 0 auto;
+    max-width: 1120px;
+  }
+
+  /* ───── POST-BOOKING HERO ───── */
+  .post-hero {
+    position: relative;
+    text-align: center;
+    padding: 5rem 1.5rem 3rem;
+    overflow: hidden;
+  }
+  .post-hero::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 800px;
+    max-width: 100vw;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .post-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .eyebrow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(184, 233, 134, 0.08);
+    border: 1px solid rgba(184, 233, 134, 0.25);
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1.75rem;
+  }
+  .eyebrow-pill .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .post-hero h1 {
+    font-size: clamp(2.1rem, 5.8vw, 3.6rem);
+    margin-bottom: 1.1rem;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .post-hero .subhead {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--text-secondary);
+    line-height: 1.45;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .post-hero .subhead em { color: var(--accent); font-weight: 600; }
+
+  /* ───── VSL ───── */
+  .vsl-section {
+    padding: 1rem 1.5rem 4rem;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  .vsl-wrap { width: 100%; }
+  .vsl-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 60px var(--accent-glow);
+  }
+  .vsl-frame iframe,
+  .vsl-frame #vslPlayer {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+    pointer-events: none;
+  }
+  /* Full-frame transparent click blocker — prevents any click reaching YouTube,
+     so the user cannot pause, scrub, or interact in any way. */
+  .vsl-fullblock {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    cursor: default;
+  }
+  .vsl-unmute {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+  }
+  .vsl-unmute span {
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.45);
+    box-shadow: 0 0 24px rgba(184, 233, 134, 0.25);
+  }
+  .vsl-unmute.hidden { opacity: 0; pointer-events: none; }
+
+  .vsl-meta {
+    text-align: center;
+    margin-top: 1.25rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ───── PREPARE FOR CALL ───── */
+  .prep-section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+  }
+  .prep-list {
+    list-style: none;
+    padding: 0;
+    margin: 2.5rem 0 0;
+    display: grid;
+    gap: 1rem;
+  }
+  .prep-list li {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    padding: 1.4rem 1.6rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-elevated);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .prep-list li:hover {
+    border-color: rgba(184, 233, 134, 0.35);
+    transform: translateY(-1px);
+  }
+  .prep-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(184, 233, 134, 0.1);
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: 1px solid rgba(184, 233, 134, 0.3);
+  }
+  .prep-list li > div {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    padding-top: 0.35rem;
+  }
+  .prep-list li > div strong {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  /* ───── FAQ SECTION (white background, video tiles) ───── */
+  .faq-section {
+    background: #F5F2ED;
+    padding: 5rem 2rem;
+    color: #1A1917;
+  }
+  .faq-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .faq-section .section-label {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8A8478;
+    margin-bottom: 1rem;
+  }
+  .faq-section h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: #1A1917;
+    text-align: center;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .faq-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #FFFFFF;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .faq-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  }
+  .faq-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    background-color: #000;
+    cursor: pointer;
+    display: block;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .faq-video::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.35) 100%);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .faq-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.35), 0 0 0 0 rgba(184,233,134,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    padding: 0;
+    z-index: 1;
+  }
+  .faq-play::before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 18px solid #0A0A0A;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    margin-left: 4px;
+  }
+  .faq-video:hover .faq-play {
+    transform: translate(-50%, -50%) scale(1.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 8px rgba(184,233,134,0.18);
+  }
+  .faq-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .faq-card-title {
+    padding: 1rem 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #1A1917;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  @media (max-width: 768px) {
+    .faq-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── FEATURED TESTIMONIAL (STEVEN) ───── */
+  .feature-testimonial {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .feature-testimonial-label {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .feature-testimonial h2 {
+    text-align: center;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .feature-video {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto 3rem;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 60px var(--accent-glow);
+  }
+  .feature-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .feature-info {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .feature-headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+  }
+  .feature-body p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.9rem;
+  }
+  .feature-stats {
+    display: grid;
+    gap: 1rem;
+  }
+  .feature-stat {
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-elevated);
+  }
+  .feature-stat-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .feature-stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ───── JJ SHORT CLIPS ───── */
+  .jj-shorts {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .jj-shorts h2 {
+    text-align: center;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    margin-bottom: 2.5rem;
+  }
+  .jj-shorts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .jj-short-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .jj-short-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .jj-short-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .jj-short-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .jj-short-label {
+    padding: 1rem 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    text-align: center;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  /* ───── LONG-FORM INTERVIEWS ───── */
+  .interviews-section {
+    padding: 5rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .interviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 3rem auto 0;
+    max-width: 880px;
+  }
+  .interview-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    transition: border-color 0.25s ease;
+  }
+  .interview-card:hover { border-color: var(--accent); }
+  .interview-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .interview-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+    display: block;
+  }
+  .interview-video.placeholder {
+    cursor: default;
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+  }
+  .interview-video.placeholder::after {
+    content: "Full interview, coming soon";
+    position: absolute;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+  .interview-play {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .interview-play::before {
+    content: "";
+    width: 0; height: 0;
+    border-left: 18px solid #0A0A0A;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    margin-left: 4px;
+  }
+  .interview-body { padding: 1.5rem 1.75rem 1.75rem; }
+  .interview-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+  .interview-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+  }
+  .interview-story {
+    padding: 0 1.75rem 1.75rem;
+  }
+  .interview-story h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    margin: 0 0 0.65rem;
+    line-height: 1.3;
+  }
+  .interview-story p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  .interview-story p em {
+    color: var(--text-primary);
+    font-style: italic;
+    font-weight: 600;
+  }
+  .interview-story p strong {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  /* ───── SOCIAL PROOF MOSAIC ───── */
+  .mosaic-section {
+    padding: 4rem 0;
+    overflow: hidden;
+    background: var(--bg);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .mosaic-section .eyebrow { margin-bottom: 2.5rem; padding: 0 2rem; }
+  .mosaic-grid {
+    display: flex;
+    gap: 10px;
+    padding: 0 10px;
+  }
+  .mosaic-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    will-change: transform;
+  }
+  .mosaic-item {
+    aspect-ratio: 0.75;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
+  .mosaic-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.45);
+    transition: filter 0.4s ease, transform 0.4s ease;
+    display: block;
+  }
+  .mosaic-item:hover img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.05);
+  }
+  .mosaic-item:hover { z-index: 2; }
+  .mosaic-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+  .mosaic-item:hover .mosaic-overlay { opacity: 1; }
+  .mosaic-overlay .mosaic-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .mosaic-overlay .mosaic-desc {
+    font-size: 0.6rem;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.75);
+  }
+  @media (max-width: 768px) {
+    .mosaic-grid { gap: 5px; padding: 0 5px; }
+    .mosaic-col { gap: 5px; }
+    .mosaic-col:nth-child(5), .mosaic-col:nth-child(6) { display: none; }
+  }
+  @media (max-width: 480px) {
+    .mosaic-col:nth-child(4) { display: none; }
+  }
+
+  /* ───── STUDENT STORIES ───── */
+  .stories-section {
+    padding: 5rem 2rem;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+  .story-card {
+    background: var(--bg-elevated);
+    border: 1px solid rgba(184, 233, 134, 0.2);
+    box-shadow: 0 0 20px rgba(184, 233, 134, 0.04);
+    border-radius: 12px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+  .story-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(184, 233, 134, 0.08), 0 10px 40px rgba(0,0,0,0.25);
+  }
+  .story-card-top {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .story-card-top h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .story-card-top .story-desc {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  .story-card-top .story-desc em {
+    color: var(--text-primary);
+    font-style: italic;
+  }
+  .story-stat-row {
+    display: flex;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .story-stat {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--accent);
+  }
+  .story-stat:last-child {
+    border-left-color: var(--border);
+  }
+  .story-stat-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    color: var(--white);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .story-stat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .story-card-quote {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+  }
+  .story-card-quote blockquote {
+    font-size: 0.78rem;
+    line-height: 1.75;
+    color: var(--text-primary);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    flex: 1;
+    margin: 0;
+  }
+  .story-author {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .story-author img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+  .story-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: var(--white);
+  }
+  .story-handle {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--text-muted);
+  }
+  .story-role {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--text-secondary);
+  }
+
+  /* ───── MONTHLY REVENUE CHART ───── */
+  .monthly-revenue-section {
+    padding: 6rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .mr-inner { text-align: center; }
+  .monthly-revenue-section h2 {
+    margin: 0 auto 0.9rem;
+    max-width: 720px;
+  }
+  .mr-sub {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.5;
+  }
+  .mr-headline {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 1.25rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-elevated);
+    margin-bottom: 3rem;
+    min-width: 280px;
+  }
+  .mr-headline-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .mr-headline-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 24px var(--accent-glow);
+  }
+  .mr-chart {
+    display: grid;
+    grid-template-columns: repeat(var(--mr-cols, 7), 1fr);
+    align-items: end;
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    height: 280px;
+    padding: 1.5rem 0 0;
+    margin: 0 auto;
+    max-width: 880px;
+  }
+  .mr-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    height: 100%;
+    position: relative;
+  }
+  .mr-bar-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .mr-bar.in-view .mr-bar-value {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .mr-bar-fill {
+    width: 100%;
+    max-width: 70px;
+    background: linear-gradient(to top, rgba(184, 233, 134, 0.35), var(--accent));
+    border-radius: 6px 6px 0 0;
+    height: 0;
+    transition: height 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .mr-bar.current .mr-bar-fill {
+    box-shadow: 0 0 24px var(--accent-dim), 0 -4px 0 var(--accent) inset;
+  }
+  .mr-bar-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    white-space: nowrap;
+  }
+  .mr-bar.current .mr-bar-label { color: var(--accent); }
+  .mr-footnote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2.5rem;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.45;
+  }
+  .mr-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* ───── WINS TRACKER (floating) ───── */
+  .wins-tracker {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0;
+    height: 52px;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+  .wins-tracker.faded { opacity: 0.12; }
+  .wins-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 0 1.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  .wins-amount {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0 1.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* ───── FOOTER ───── */
+  footer.site-footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 2rem;
+  }
+
+  /* ───── CONFETTI ───── */
+  #confetti {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* ───── RESPONSIVE ───── */
+  @media (max-width: 860px) {
+    .topbar { padding: 1.1rem 1.25rem; }
+    .logo-img { height: 30px; }
+    .topbar-right { display: none; }
+    .post-hero { padding: 3.5rem 1.25rem 2rem; }
+    .vsl-section { padding: 0.5rem 1rem 3rem; }
+    .prep-section { padding: 3rem 1.25rem 4rem; }
+    .prep-list li { padding: 1.1rem 1.25rem; gap: 1rem; grid-template-columns: 36px 1fr; }
+    .prep-num { width: 32px; height: 32px; font-size: 0.85rem; }
+    .feature-testimonial, .interviews-section, .stories-section, .jj-shorts { padding: 3.5rem 1.25rem; }
+    .feature-info { grid-template-columns: 1fr; gap: 1.5rem; }
+    .jj-shorts-grid { gap: 1.5rem; max-width: 100%; }
+    .stories-grid { grid-template-columns: 1fr; }
+    .section { padding: 3.5rem 1.25rem; }
+  }
+  @media (max-width: 720px) {
+    .monthly-revenue-section { padding: 3.5rem 1.25rem; }
+    .mr-chart { height: 220px; gap: 0.35rem; }
+    .mr-bar-value { font-size: 0.65rem; }
+    .mr-bar-label { font-size: 0.55rem; }
+    .mr-bar-fill { max-width: 42px; }
+    .wins-tracker { height: 40px; bottom: 1rem; }
+    .wins-label { font-size: 0.58rem; padding: 0 1rem; }
+    .wins-amount { font-size: 0.8rem; padding: 0 1rem; }
+  }
+  @media (min-width: 861px) and (max-width: 960px) {
+    .stories-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div><img class="logo-img" src="../Branding/scalo v3.png" alt="SCALO"></div>
+  <div class="topbar-right">Booking received</div>
+</nav>
+
+<!-- ───── HERO ───── -->
+<main class="post-hero">
+  <div class="post-hero-inner">
+    <div class="eyebrow-pill"><span class="dot"></span>Almost complete</div>
+    <h1>Your call isn't yet confirmed.</h1>
+    <p class="subhead">Watch the short video below. It walks you through what to expect on the call and how we'll use the time. <em>Lock it in by watching to the end.</em></p>
+  </div>
+</main>
+
+<!-- ───── VSL (no skip, no pause) ───── -->
+<section class="vsl-section">
+  <div class="vsl-wrap">
+    <div class="vsl-frame">
+      <div id="vslPlayer"></div>
+      <div class="vsl-fullblock" id="vslFullBlock" aria-hidden="true"></div>
+      <div class="vsl-unmute" id="vslUnmute" role="button" tabindex="0" aria-label="Tap for sound">
+        <span>Tap for sound</span>
+      </div>
+    </div>
+    <div class="vsl-meta">Watch the full video to confirm your call</div>
+  </div>
+</section>
+
+<!-- ───── PREPARE FOR YOUR CALL ───── -->
+<section class="prep-section">
+  <div class="eyebrow">Next Steps</div>
+  <h2 class="center">Prepare for your call by</h2>
+  <ul class="prep-list">
+    <li>
+      <span class="prep-num">1</span>
+      <div><strong>Watch the video above.</strong> It explains our process and funnel so we don't waste time covering it on the call.</div>
+    </li>
+    <li>
+      <span class="prep-num">2</span>
+      <div><strong>Be in a quiet place</strong> where you won't be interrupted.</div>
+    </li>
+    <li>
+      <span class="prep-num">3</span>
+      <div><strong>Take this on a call where you can turn your camera off</strong> and have a real, focused conversation.</div>
+    </li>
+    <li>
+      <span class="prep-num">4</span>
+      <div><strong>Check our client results</strong> &mdash; watch the testimonials below to see how we've scaled their businesses.</div>
+    </li>
+  </ul>
+</section>
+
+<!-- ───── MONTHLY REVENUE CHART ───── -->
+<section class="monthly-revenue-section">
+  <div class="mr-inner">
+    <div class="eyebrow">Community Revenue</div>
+    <h2>What SCALO students have added to their annual revenue, month by month.</h2>
+    <p class="mr-sub">Live from the SCALO Business OS, updated daily as students log their numbers.</p>
+
+    <div class="mr-headline">
+      <div class="mr-headline-label">Total revenue captured across the community</div>
+      <div class="mr-headline-value" id="mrTotalValue">&pound;0</div>
+    </div>
+
+    <div class="mr-chart" id="mrChart"></div>
+
+    <div class="mr-footnote">
+      <span class="mr-dot"></span>
+      Numbers pulled directly from the Business OS.
+    </div>
+  </div>
+</section>
+
+<!-- ───── FAQ (video tiles) ───── -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-label">Got Questions?</div>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-grid">
+      <div class="faq-card">
+        <div class="faq-video" data-youtube-id="xT6-JeXQcEM" style="background-image: url('https://img.youtube.com/vi/xT6-JeXQcEM/maxresdefault.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
+        <div class="faq-card-title">Do I Need a Big Following to Get Results?</div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-video" data-youtube-id="gskU2S_QK3Q" style="background-image: url('https://img.youtube.com/vi/gskU2S_QK3Q/maxresdefault.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
+        <div class="faq-card-title">How Fast Will I See Results?</div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-video" data-youtube-id="dqrdkgPMbEc" style="background-image: url('https://img.youtube.com/vi/dqrdkgPMbEc/maxresdefault.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
+        <div class="faq-card-title">Will I Get Personalised Support?</div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-video" data-youtube-id="cXiYnOSd0B4" style="background-image: url('https://img.youtube.com/vi/cXiYnOSd0B4/maxresdefault.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
+        <div class="faq-card-title">How Personalised Is Your Support?</div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-video" data-youtube-id="L2X178WiILo" style="background-image: url('https://img.youtube.com/vi/L2X178WiILo/maxresdefault.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
+        <div class="faq-card-title">What If I Can't Get the Same Results?</div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-video" data-youtube-id="U3sOiDjU-mw" style="background-image: url('https://img.youtube.com/vi/U3sOiDjU-mw/maxresdefault.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
+        <div class="faq-card-title">Will You Help Me Strategise My Price Increase?</div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-video" data-youtube-id="LgU7YXjGLN4" style="background-image: url('https://img.youtube.com/vi/LgU7YXjGLN4/maxresdefault.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
+        <div class="faq-card-title">What If I'm Already Working with Another Coach?</div>
+      </div>
+      <div class="faq-card">
+        <div class="faq-video" data-youtube-id="ILOjOtzQsWE" style="background-image: url('https://img.youtube.com/vi/ILOjOtzQsWE/maxresdefault.jpg')">
+          <button class="faq-play" aria-label="Play video"></button>
+        </div>
+        <div class="faq-card-title">What If I Don't Have Time to Implement Another System?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── FEATURED TESTIMONIAL: STEVEN ───── -->
+<section class="feature-testimonial">
+  <div class="feature-testimonial-label">What You Could Achieve</div>
+  <h2>This barber said yes. Look what happened.</h2>
+  <div class="feature-video">
+    <iframe src="https://www.youtube-nocookie.com/embed/7KiyLTVHI3s?rel=0&modestbranding=1&playsinline=1" title="Steven Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="feature-info">
+    <div>
+      <div class="feature-headline">From &pound;24K/month to back-to-back &pound;35K+ months, on track for &pound;50K.</div>
+      <div class="feature-body">
+        <p>Steven was already a successful barber doing <em>&pound;24K a month</em>. Most barbers would think that's the ceiling. What we focused on was building a cult audience and a brand within his local area.</p>
+        <p>Within the first month, we increased his revenue by &pound;10K, resulting in a <em>&pound;34K month</em>. The second month we did the same again, hitting <em>&pound;37K</em>. Back-to-back &pound;35K+ months.</p>
+        <p>He's since raised prices in January and is now going into a second price increase of the year. We've increased his revenue by <em>50% over the past four months</em>, on track to hit &pound;40K to &pound;50K a month.</p>
+      </div>
+    </div>
+    <div class="feature-stats">
+      <div class="feature-stat">
+        <div class="feature-stat-num">&pound;37K</div>
+        <div class="feature-stat-label">Record Month Since Joining</div>
+      </div>
+      <div class="feature-stat">
+        <div class="feature-stat-num">150+</div>
+        <div class="feature-stat-label">New Clients Added</div>
+      </div>
+      <div class="feature-stat">
+        <div class="feature-stat-num">+50%</div>
+        <div class="feature-stat-label">Revenue Growth in 4 Months</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── LONG-FORM INTERVIEWS ───── -->
+<section class="interviews-section">
+  <div class="eyebrow">Student Interviews</div>
+  <h2 class="center">Hear it straight from the students inside.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 1rem; font-size: 1rem;">Unedited long-form conversations with the barbers who've done the work.</p>
+
+  <div class="interviews-grid">
+    <div class="interview-card">
+      <div class="interview-video" data-youtube-id="SLPU0f2qzKU">
+        <img class="interview-thumb" src="https://img.youtube.com/vi/SLPU0f2qzKU/maxresdefault.jpg" alt="Steven's interview thumbnail" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/SLPU0f2qzKU/hqdefault.jpg';">
+        <div class="interview-play"></div>
+      </div>
+      <div class="interview-body">
+        <div class="interview-name">Steven's Interview</div>
+        <div class="interview-subtitle">The 3-month transformation, in his own words.</div>
+      </div>
+      <div class="interview-story">
+        <h4>From $24K to $40K/m in 3 months.</h4>
+        <p>Steven was already doing <em>$24K/m</em> before SCALO. The kind of number most barbers call a ceiling. Inside the first month we added $8K. Month two, another $5K. By month three he was sitting on <em>$40K months</em>, and raising his prices for the second time. <strong>The growth didn't slow down. It compounded.</strong></p>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <div class="interview-video placeholder" data-youtube-id="[JJ_INTERVIEW_ID]">
+        <div class="interview-play"></div>
+      </div>
+      <div class="interview-body">
+        <div class="interview-name">JJ's Interview</div>
+        <div class="interview-subtitle">Zero to &pound;20K/m in 2 months</div>
+      </div>
+      <div class="interview-story">
+        <h4>15 years deep, and still levelling up.</h4>
+        <p>JJ has <em>15 years</em> in the industry. The place where most barbers feel like they know everything, and that's exactly where they start to plateau. Inside SCALO we took him from <em>&pound;0 to &pound;20K/m in two months</em>, while rebuilding the business around the lifestyle he actually wanted. <strong>Skill was never the issue. The system was.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── JJ SHORT WINS ───── -->
+<section class="jj-shorts">
+  <div class="eyebrow">More Wins</div>
+  <h2 class="center">Inside SCALO With JJ</h2>
+  <div class="jj-shorts-grid">
+    <div class="jj-short-card">
+      <div class="jj-short-video">
+        <iframe src="https://www.youtube-nocookie.com/embed/2eVAtRRNYBE?rel=0&modestbranding=1&playsinline=1" title="Scaled JJ to £21K in 10 days" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="jj-short-label">Scaled JJ to &pound;21K in 10 days</div>
+    </div>
+    <div class="jj-short-card">
+      <div class="jj-short-video">
+        <iframe src="https://www.youtube-nocookie.com/embed/2oNMBU64dRU?rel=0&modestbranding=1&playsinline=1" title="JJ hitting his first £10k week" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="jj-short-label">JJ's first &pound;10K week</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── SOCIAL PROOF MOSAIC ───── -->
+<section class="mosaic-section">
+  <div class="eyebrow">The Proof Is in the Results</div>
+  <div class="mosaic-grid" id="mosaicGrid">
+    <div class="mosaic-col" data-scroll="up">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8779 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven: &pound;37K Month</div><div class="mosaic-desc">Back-to-back record months. Revenue spreadsheet showing consistent five-figure weeks.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9475.jpg" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven: 114 Appointments</div><div class="mosaic-desc">Hit 114 appointments in a single week and $11K in revenue.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9903.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Chris: New Clients Flooding In</div><div class="mosaic-desc">First &euro;75+ haircut with tip and &euro;20 product sold, all from one hour's work.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8767.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven: 86 FX Elite Clients</div><div class="mosaic-desc">Tracking premium client growth. On track for the 100th FX Elite client.</div></div></div>
+    </div>
+    <div class="mosaic-col">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8785 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Revenue Update</div><div class="mosaic-desc">Real-time revenue tracking inside SCALO. Consistent growth week over week.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5418 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">George: Content Blowing Up</div><div class="mosaic-desc">Video content getting thousands of views. The content frameworks actually work.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8780 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven: &pound;70K in 2 Months</div><div class="mosaic-desc">Two &pound;34K+ months back-to-back. Total over &pound;70K in just two months.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9071.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Win</div><div class="mosaic-desc">Another SCALO member hitting milestones and sharing wins in the community.</div></div></div>
+    </div>
+    <div class="mosaic-col" data-scroll="down">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8768 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Revenue Breakthrough</div><div class="mosaic-desc">Tracking daily income and seeing the system deliver consistent results.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8772 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Pricing Strategy Win</div><div class="mosaic-desc">Implementing the three-tier pricing strategy and landing higher-paying clients.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5407 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Community Support</div><div class="mosaic-desc">Real-time feedback and accountability inside the private SCALO group.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8890 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Growth Milestone</div><div class="mosaic-desc">Another student hitting personal bests using the clarity systems.</div></div></div>
+    </div>
+    <div class="mosaic-col" data-scroll="up">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9115 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Client Acquisition</div><div class="mosaic-desc">New premium clients coming in through the content strategy framework.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8786 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Weekly Tracking</div><div class="mosaic-desc">Using the SCALO dashboard to track performance and identify what's working.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9411.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Content Converting</div><div class="mosaic-desc">Content strategy turning views into booked appointments consistently.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8788 2.jpg" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Brand Building</div><div class="mosaic-desc">Building a professional brand that attracts premium clients on repeat.</div></div></div>
+    </div>
+    <div class="mosaic-col">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8769.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Revenue Dashboard</div><div class="mosaic-desc">Data-driven decisions replacing guesswork. Tracking every metric that matters.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9950.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Progress</div><div class="mosaic-desc">Consistent progress inside SCALO. The systems compound over time.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/Untitled design 5.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">JJ: &pound;6.1K Mid-Month</div><div class="mosaic-desc">Revenue still climbing and the month isn't even over.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_6150 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Scaling Results</div><div class="mosaic-desc">Proof that the model works. Scaling income without adding more hours.</div></div></div>
+    </div>
+    <div class="mosaic-col" data-scroll="down">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_6151 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Momentum Building</div><div class="mosaic-desc">When the systems click, the momentum is unstoppable.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5522 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Community Wins</div><div class="mosaic-desc">Daily accountability and shared momentum inside the SCALO community.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5523 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Business Growth</div><div class="mosaic-desc">Real results from real barbers who committed to the process.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5524 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">The SCALO Effect</div><div class="mosaic-desc">What happens when clarity meets systems meets community.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── STUDENT STORIES (written) ───── -->
+<section class="stories-section">
+  <div class="eyebrow">Real Results</div>
+  <h2 class="center">Student wins inside of SCALO</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 1rem; font-size: 1rem;">These aren't cherry-picked. Real barbers you can message inside the SCALO community right now.</p>
+
+  <div class="stories-grid">
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>From &pound;24K to back-to-back &pound;35K+ months.</h4>
+        <p class="story-desc">Steven was already doing <em>&pound;24K/month</em>. Within the first month inside SCALO, we increased his revenue by &pound;10K. The second month we did it again, hitting <em>&pound;37K</em>. His highest-paying client is now <em>$325 per visit</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;37K</div><div class="story-stat-label">Record Month</div></div>
+        <div class="story-stat"><div class="story-stat-num">$325</div><div class="story-stat-label">Highest Paying Client</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"The super week continues bro. 114 appointments so far and just hit $11k. Honestly I'm dumbfounded. I didn't ever think numbers like this were even possible as a barber."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/Stevens Profile Picture.png" alt="Steven">
+          <div><span class="story-name">Steven Colo</span><span class="story-handle">@ColoFX_studios</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>Added &pound;50K+ to his revenue since joining SCALO.</h4>
+        <p class="story-desc">Dillion was already running a solid salon but knew there was another level. Inside SCALO, we rebuilt his content strategy and positioning. The result? <em>&pound;50K+ added to his revenue</em> and <em>17,000 new followers in just four months</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;50K+</div><div class="story-stat-label">Added Revenue</div></div>
+        <div class="story-stat"><div class="story-stat-num">17K</div><div class="story-stat-label">New Followers</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"The positioning piece changed everything. I went from being just another good barber to being the obvious choice in my city. The content strategy is doing the selling for me."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/dillions profile pictur.png" alt="Dillion Field">
+          <div><span class="story-name">Dillion Field</span><span class="story-handle">@dillionfield</span><span class="story-role">Salon Owner &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>&pound;6.1K revenue, and the month isn't even over.</h4>
+        <p class="story-desc">JJ has <em>15 years of experience</em> in the game. He knew the craft inside out, but the business side needed a system. Inside SCALO, the content strategy started converting and the revenue became predictable. Now <em>on track to add &pound;50K+ this year</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;6.1K</div><div class="story-stat-label">Mid-Month Revenue</div></div>
+        <div class="story-stat"><div class="story-stat-num">&pound;50K+</div><div class="story-stat-label">On Track This Year</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Make that &pound;6.1k revenue and still not ended the month. A heavy 2 weeks of sales. The content strategy is actually converting like crazy now."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/JJ savani.png" alt="JJ Savani">
+          <div><span class="story-name">JJ Savani</span><span class="story-handle">@jjsavani</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>From overworked to &euro;100+ clients, with time to spare.</h4>
+        <p class="story-desc">Chris was overworked behind the chair, trading every hour for money. We structured a <em>three-tier pricing strategy</em> that now lets him land <em>&euro;100+ clients consistently</em>, giving him more free time to spend with the people who matter.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&euro;100+</div><div class="story-stat-label">Per Client</div></div>
+        <div class="story-stat"><div class="story-stat-num">3-Tier</div><div class="story-stat-label">Pricing Strategy</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"It's mental busy with work and has a lot of new clients coming through the door. Had my first haircut premier today &euro;75 + &euro;10 tip and sold a &euro;20 product. All from 1 hours work."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/Chris profile picture.png" alt="Chris Riordan">
+          <div><span class="story-name">Chris Riordan</span><span class="story-handle">@chrisoriordanhair</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>9 million views in 3 months, education dates sold out.</h4>
+        <p class="story-desc">George added over <em>&pound;12,000 to his annual income</em> while selling out one-on-one education dates quicker than you could ever imagine. His content went from invisible to <em>9 million views in just 3 months</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">9M</div><div class="story-stat-label">Views in 3 Months</div></div>
+        <div class="story-stat"><div class="story-stat-num">&pound;12K+</div><div class="story-stat-label">Added Annual Income</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Recent video blowing up haha. The content frameworks from SCALO made me actually understand what works on social media instead of just posting and hoping."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/george profile picture.png" alt="George Hughes">
+          <div><span class="story-name">George Hughes</span><span class="story-handle">@georgehugheshair</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>New city. Zero clients. 37 booked in two weeks.</h4>
+        <p class="story-desc">Mateo moved to a <em>brand new city</em>, starting completely from scratch. No existing clients, no reputation, nothing. Using the SCALO systems, he added <em>37 new clients in his first two weeks</em> and hasn't looked back since.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;19K</div><div class="story-stat-label">Added in 2 Weeks</div></div>
+        <div class="story-stat"><div class="story-stat-num">200+</div><div class="story-stat-label">New Clients</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Moved to a completely new city with nothing. No clients, no connections. Within two weeks I had 37 new bookings. The systems just work. If you follow them, the results come."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/mateo profile picture.png" alt="Mateo Strang">
+          <div><span class="story-name">Mateo Strang</span><span class="story-handle">@Mataper</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">© SCALO · buildwithscalo.com</footer>
+
+<!-- ───── FLOATING WINS TRACKER ───── -->
+<div class="wins-tracker">
+  <div class="wins-label">Student Wins Tracker</div>
+  <div class="wins-amount" id="winsAmount">Loading...</div>
+</div>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<!-- ───── YouTube IFrame API ───── -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<!-- ───── VSL: no skip, no pause ───── -->
+<script>
+(function() {
+  var VIDEO_ID = 'EddPzP5a8LU';
+  var SEEK_TOLERANCE = 1.5;
+  var player;
+  var watchedTo = 0;
+  var ended = false;
+
+  function initPlayer() {
+    player = new YT.Player('vslPlayer', {
+      videoId: VIDEO_ID,
+      playerVars: {
+        autoplay: 1,
+        mute: 1,
+        controls: 0,
+        modestbranding: 1,
+        rel: 0,
+        playsinline: 1,
+        disablekb: 1,
+        fs: 0,
+        iv_load_policy: 3
+      },
+      events: {
+        onReady: function(e) {
+          e.target.playVideo();
+          setInterval(function() {
+            if (!player || !player.getCurrentTime) return;
+            var t = player.getCurrentTime();
+            if (t - watchedTo > SEEK_TOLERANCE) {
+              player.seekTo(watchedTo, true);
+              return;
+            }
+            if (t > watchedTo) watchedTo = t;
+          }, 400);
+        },
+        onStateChange: function(e) {
+          if (e.data === YT.PlayerState.ENDED) {
+            ended = true;
+            return;
+          }
+          if (e.data === YT.PlayerState.PAUSED && !ended) {
+            try { e.target.playVideo(); } catch (err) {}
+          }
+        }
+      }
+    });
+  }
+
+  if (window.YT && window.YT.Player) {
+    initPlayer();
+  } else {
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function() {
+      if (typeof prev === 'function') prev();
+      initPlayer();
+    };
+  }
+
+  var unmute = document.getElementById('vslUnmute');
+  if (unmute) {
+    var handle = function() {
+      if (player && player.unMute) {
+        player.unMute();
+        player.setVolume(100);
+        player.playVideo();
+      }
+      unmute.classList.add('hidden');
+    };
+    unmute.addEventListener('click', handle);
+    unmute.addEventListener('keydown', function(ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); handle(); }
+    });
+  }
+})();
+</script>
+
+<!-- ───── WINS TRACKER + MONTHLY REVENUE CHART ───── -->
+<script>
+(function() {
+  const FIREBASE_DB_URL = 'https://scalo-client-portal-default-rtdb.firebaseio.com';
+
+  // ───── Floating Student Wins Tracker ─────
+  const winsEl = document.getElementById('winsAmount');
+  const BASELINE = 515000;
+  let displayedTotal = 0;
+
+  async function fetchTotalRevenue() {
+    try {
+      const res = await fetch(FIREBASE_DB_URL + '/portal/entries.json');
+      if (!res.ok) throw new Error('Firebase fetch failed');
+      const allUsers = await res.json();
+      if (!allUsers) return;
+      let total = 0;
+      Object.values(allUsers).forEach(function(userWeeks) {
+        if (!userWeeks || typeof userWeeks !== 'object') return;
+        Object.values(userWeeks).forEach(function(weekData) {
+          if (!weekData || typeof weekData !== 'object') return;
+          if (Array.isArray(weekData.days)) {
+            weekData.days.forEach(function(day) {
+              if (day && day.revenue) {
+                var rev = parseFloat(day.revenue);
+                if (!isNaN(rev)) total += rev;
+              }
+            });
+          } else if (weekData.revenue) {
+            var rev = parseFloat(weekData.revenue);
+            if (!isNaN(rev)) total += rev;
+          }
+        });
+      });
+      displayedTotal = BASELINE + total;
+    } catch (e) {
+      displayedTotal = BASELINE;
+    }
+    if (winsEl) {
+      winsEl.textContent = '£' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  }
+  function tickCounter() {
+    if (displayedTotal === 0 || !winsEl) return;
+    displayedTotal += (Math.random() * 0.06) + 0.01;
+    winsEl.textContent = '£' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  fetchTotalRevenue().then(function() { setInterval(tickCounter, 3000); });
+
+  // Fade on scroll
+  var winsTracker = document.querySelector('.wins-tracker');
+  var scrollTimer;
+  window.addEventListener('scroll', function() {
+    if (!winsTracker) return;
+    winsTracker.classList.add('faded');
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function() {
+      winsTracker.classList.remove('faded');
+    }, 300);
+  });
+
+  // ───── Monthly Revenue Chart ─────
+  const MANUAL_MONTHLY_ADDITIONS = {
+    '2025-10': 48000,
+    '2025-11': 55000,
+    '2025-12': 62000,
+    '2026-01': 68000,
+    '2026-02': 76000,
+    '2026-03': 88000,
+    '2026-04': 118000,
+  };
+  const MR_MONTHS_TO_SHOW = 7;
+  const mrChartEl = document.getElementById('mrChart');
+  const mrTotalEl = document.getElementById('mrTotalValue');
+
+  function mrMondayOfIsoWeek(year, week) {
+    var jan4 = new Date(Date.UTC(year, 0, 4));
+    var jan4Day = (jan4.getUTCDay() + 6) % 7;
+    var mondayW1 = new Date(jan4);
+    mondayW1.setUTCDate(jan4.getUTCDate() - jan4Day);
+    var monday = new Date(mondayW1);
+    monday.setUTCDate(mondayW1.getUTCDate() + (week - 1) * 7);
+    return monday;
+  }
+  function mrMonthKey(date) {
+    var m = date.getUTCMonth() + 1;
+    return date.getUTCFullYear() + '-' + (m < 10 ? '0' + m : '' + m);
+  }
+  function mrBuildTrailingMonths(n) {
+    var keys = [];
+    var now = new Date();
+    for (var i = n - 1; i >= 0; i--) {
+      var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+      keys.push(mrMonthKey(d));
+    }
+    return keys;
+  }
+  function mrMonthLabel(key) {
+    var parts = key.split('-');
+    var d = new Date(Date.UTC(+parts[0], +parts[1] - 1, 1));
+    return d.toLocaleString('en-GB', { month: 'short' }).toUpperCase();
+  }
+  function mrFormatMoney(amount) {
+    return '£' + Math.round(amount).toLocaleString('en-GB');
+  }
+
+  async function mrLoad() {
+    if (!mrChartEl) return;
+    var monthsToShow = mrBuildTrailingMonths(MR_MONTHS_TO_SHOW);
+    var totals = {};
+    monthsToShow.forEach(function(k) { totals[k] = 0; });
+    try {
+      var res = await fetch(FIREBASE_DB_URL + '/portal/entries.json');
+      if (res.ok) {
+        var allUsers = await res.json();
+        if (allUsers) {
+          Object.values(allUsers).forEach(function(userWeeks) {
+            if (!userWeeks || typeof userWeeks !== 'object') return;
+            Object.keys(userWeeks).forEach(function(weekKey) {
+              var weekData = userWeeks[weekKey];
+              if (!weekData || typeof weekData !== 'object') return;
+              var m = weekKey.match(/^(\d{4})_W(\d{1,2})$/);
+              var year = m ? +m[1] : weekData.year;
+              var week = m ? +m[2] : weekData.week;
+              if (!year || !week) return;
+              var monthKey = mrMonthKey(mrMondayOfIsoWeek(year, week));
+              if (!(monthKey in totals)) return;
+              if (Array.isArray(weekData.days)) {
+                weekData.days.forEach(function(day) {
+                  if (day && day.revenue) {
+                    var rev = parseFloat(day.revenue);
+                    if (!isNaN(rev)) totals[monthKey] += rev;
+                  }
+                });
+              } else if (weekData.revenue) {
+                var rev = parseFloat(weekData.revenue);
+                if (!isNaN(rev)) totals[monthKey] += rev;
+              }
+            });
+          });
+        }
+      }
+    } catch (e) {}
+    monthsToShow.forEach(function(k) {
+      if (MANUAL_MONTHLY_ADDITIONS[k]) totals[k] += MANUAL_MONTHLY_ADDITIONS[k];
+    });
+    var maxVal = Math.max.apply(null, monthsToShow.map(function(k) { return totals[k]; }));
+    if (!isFinite(maxVal) || maxVal <= 0) maxVal = 1;
+    mrChartEl.style.setProperty('--mr-cols', monthsToShow.length);
+    mrChartEl.innerHTML = '';
+    var currentKey = monthsToShow[monthsToShow.length - 1];
+    monthsToShow.forEach(function(k) {
+      var val = totals[k];
+      var bar = document.createElement('div');
+      bar.className = 'mr-bar' + (k === currentKey ? ' current' : '');
+      bar.setAttribute('data-value', val);
+      bar.setAttribute('data-target-height', (val / maxVal) * 100);
+      bar.innerHTML =
+        '<div class="mr-bar-value">£0</div>' +
+        '<div class="mr-bar-fill"></div>' +
+        '<div class="mr-bar-label">' + mrMonthLabel(k) + '</div>';
+      mrChartEl.appendChild(bar);
+    });
+    var grandTotal = monthsToShow.reduce(function(s, k) { return s + totals[k]; }, 0);
+    if (mrTotalEl) mrTotalEl.textContent = mrFormatMoney(grandTotal);
+    mrObserveAndAnimate();
+  }
+  function mrObserveAndAnimate() {
+    var section = document.querySelector('.monthly-revenue-section');
+    if (!section) return;
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.mr-bar').forEach(function(bar) {
+        bar.classList.add('in-view');
+        var h = parseFloat(bar.getAttribute('data-target-height')) || 0;
+        var target = parseFloat(bar.getAttribute('data-value')) || 0;
+        bar.querySelector('.mr-bar-fill').style.height = h + '%';
+        bar.querySelector('.mr-bar-value').textContent = mrFormatMoney(target);
+      });
+      return;
+    }
+    var played = false;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting || played) return;
+        played = true;
+        var bars = section.querySelectorAll('.mr-bar');
+        var stagger = Math.max(500, Math.min(900, 6000 / Math.max(1, bars.length)));
+        bars.forEach(function(bar, i) {
+          setTimeout(function() {
+            var h = parseFloat(bar.getAttribute('data-target-height')) || 0;
+            var target = parseFloat(bar.getAttribute('data-value')) || 0;
+            bar.querySelector('.mr-bar-fill').style.height = h + '%';
+            bar.classList.add('in-view');
+            mrCountUp(bar.querySelector('.mr-bar-value'), target, 1200);
+          }, i * stagger);
+        });
+        io.disconnect();
+      });
+    }, { threshold: 0.25 });
+    io.observe(section);
+  }
+  function mrCountUp(el, target, durationMs) {
+    if (!el) return;
+    var start = performance.now();
+    var interval = setInterval(function() {
+      var t = Math.min(1, (performance.now() - start) / durationMs);
+      var eased = 1 - Math.pow(1 - t, 3);
+      var current = Math.round(target * eased);
+      el.textContent = '£' + current.toLocaleString('en-GB');
+      if (t >= 1) clearInterval(interval);
+    }, 30);
+  }
+  mrLoad();
+})();
+</script>
+
+<!-- ───── INTERVIEW + FAQ LAZY-LOAD (click thumbnail to load iframe) ───── -->
+<script>
+(function() {
+  document.querySelectorAll('.interview-video:not(.placeholder)').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var id = el.getAttribute('data-youtube-id');
+      if (!id) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
+      el.innerHTML = '';
+      el.appendChild(iframe);
+      el.style.cursor = 'default';
+    });
+  });
+
+  document.querySelectorAll('.faq-video').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var id = el.getAttribute('data-youtube-id');
+      if (!id || el.querySelector('iframe')) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      iframe.title = 'FAQ video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      el.innerHTML = '';
+      el.appendChild(iframe);
+    });
+  });
+})();
+</script>
+
+<!-- ───── CONFETTI ───── -->
+<script>
+(function() {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var canvas = document.getElementById('confetti');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    canvas.width = window.innerWidth * DPR;
+    canvas.height = window.innerHeight * DPR;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var COLORS = ['#B8E986', '#9BD46B', '#E6E8DA', '#FFFFFF', '#FFD17A'];
+  var particles = [];
+  var MAX_PARTICLES = 110;
+
+  function W() { return window.innerWidth; }
+  function H() { return window.innerHeight; }
+
+  function makeParticle(x, y, vx, vy) {
+    return {
+      x: x, y: y,
+      vx: vx, vy: vy,
+      w: 5 + Math.random() * 5,
+      h: 8 + Math.random() * 6,
+      rot: Math.random() * Math.PI * 2,
+      vrot: (Math.random() - 0.5) * 0.04,
+      sway: Math.random() * Math.PI * 2,
+      swaySpeed: 0.012 + Math.random() * 0.018,
+      swayAmp: 0.25 + Math.random() * 0.55,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      life: 0
+    };
+  }
+
+  function spawnSide(side, count) {
+    var dirSign = side === 'left' ? 1 : -1;
+    var fromX = side === 'left' ? -12 : W() + 12;
+    for (var i = 0; i < count; i++) {
+      if (particles.length >= MAX_PARTICLES) break;
+      var fromY = Math.random() * H() * 0.85;
+      var vx = dirSign * (0.4 + Math.random() * 0.9);
+      var vy = -0.15 + Math.random() * 0.3;
+      particles.push(makeParticle(fromX, fromY, vx, vy));
+    }
+  }
+
+  function spawnTop() {
+    if (particles.length >= MAX_PARTICLES) return;
+    particles.push(makeParticle(
+      Math.random() * W(),
+      -20,
+      (Math.random() - 0.5) * 0.5,
+      0.15 + Math.random() * 0.3
+    ));
+  }
+
+  var running = false;
+  function tick() {
+    ctx.clearRect(0, 0, W(), H());
+    for (var i = particles.length - 1; i >= 0; i--) {
+      var p = particles[i];
+      p.vy += 0.014;
+      if (p.vy > 1.0) p.vy = 1.0;
+      p.vx *= 0.998;
+      p.sway += p.swaySpeed;
+      p.x += p.vx + Math.sin(p.sway) * p.swayAmp;
+      p.y += p.vy;
+      p.rot += p.vrot;
+      p.life++;
+
+      var alpha = 1;
+      if (p.y > H() - 80) {
+        alpha = Math.max(0, (H() + 20 - p.y) / 100);
+      }
+      if (p.x < -40 || p.x > W() + 40 || p.y > H() + 30 || alpha <= 0) {
+        particles.splice(i, 1);
+        continue;
+      }
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+    }
+    if (particles.length > 0) {
+      requestAnimationFrame(tick);
+    } else {
+      running = false;
+      ctx.clearRect(0, 0, W(), H());
+    }
+  }
+
+  function ensureRunning() {
+    if (!running && particles.length > 0) {
+      running = true;
+      requestAnimationFrame(tick);
+    }
+  }
+
+  function start() {
+    spawnSide('left', 28);
+    spawnSide('right', 28);
+    ensureRunning();
+
+    setInterval(function() {
+      if (document.hidden) return;
+      var roll = Math.random();
+      if (roll < 0.4) spawnSide('left', 1);
+      else if (roll < 0.8) spawnSide('right', 1);
+      else spawnTop();
+      ensureRunning();
+    }, 420);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(start, 250); });
+  } else {
+    setTimeout(start, 250);
+  }
+})();
+</script>
+
+</body>
+</html>

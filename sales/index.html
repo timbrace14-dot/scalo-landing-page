@@ -1,0 +1,2921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCALO | Join the Program</title>
+<meta name="description" content="Join SCALO. The system UK barbers are using to scale from £3-5K/m to £10-15K/m.">
+<link rel="icon" type="image/png" href="../Branding/scalo v3.png">
+
+<style>
+  :root {
+    --bg: #000000;
+    --bg-elevated: #0A0A0A;
+    --bg-card: #111111;
+    --bg-card-hover: #161616;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-strong: rgba(255, 255, 255, 0.22);
+    --text-primary: #E6E8DA;
+    --text-secondary: rgba(230, 232, 218, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.4);
+    --white: #FFFFFF;
+    --accent: #B8E986;
+    --accent-dim: rgba(184, 233, 134, 0.15);
+    --accent-glow: rgba(184, 233, 134, 0.08);
+    --accent-strong: rgba(184, 233, 134, 0.35);
+    --red: #FF6B5A;
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: -0.027em;
+    background: var(--bg);
+    color: var(--text-primary);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ───── GRAIN OVERLAY ───── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ───── TOPBAR ───── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.9rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .topbar-logo { display: flex; align-items: center; gap: 0.75rem; }
+  .topbar-logo img { height: 34px; width: auto; }
+  .topbar-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .topbar-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px var(--accent-dim);
+  }
+
+  /* ───── COUNTDOWN (inside topbar) ───── */
+  .topbar-countdown {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-family: var(--font-display);
+    flex-shrink: 0;
+  }
+  .countdown-banner-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .countdown-banner-timer {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .cb-unit {
+    display: flex;
+    align-items: baseline;
+    gap: 0.1rem;
+  }
+  .cb-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .cb-text {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .cb-sep {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+  @media (max-width: 860px) {
+    .countdown-banner-label { display: none; }
+    .topbar-countdown { gap: 0.45rem; }
+    .cb-num { font-size: 0.8rem; }
+  }
+  @media (max-width: 540px) {
+    .topbar { padding: 0.65rem 0.85rem; gap: 0.5rem; }
+    .topbar-countdown .cb-text { display: none; }
+    .cb-sep { font-size: 0.7rem; }
+    .topbar-logo img { height: 24px; }
+  }
+
+  /* ───── SHARED UTILS ───── */
+  .section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    position: relative;
+  }
+  .section--narrow { max-width: 820px; }
+  .section--wide { max-width: 1280px; }
+
+  .eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .eyebrow-left { text-align: left; }
+  .eyebrow-accent { color: var(--accent); }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+  h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); letter-spacing: -0.045em; }
+  h2 { font-size: clamp(1.8rem, 4.2vw, 3rem); letter-spacing: -0.04em; line-height: 1.1; }
+  h3 { font-size: clamp(1.25rem, 2.4vw, 1.6rem); }
+  h4 { font-size: clamp(1.05rem, 1.8vw, 1.25rem); }
+
+  p { margin: 0 0 1rem; color: var(--text-secondary); }
+  p strong { color: var(--text-primary); font-weight: 700; }
+  p em { font-style: normal; color: var(--accent); font-weight: 700; }
+
+  .center { text-align: center; }
+  .divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 0 auto;
+    max-width: 1120px;
+  }
+
+  /* ───── CTA BUTTON ───── */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.1rem 2.2rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px var(--accent-dim);
+  }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.1rem 2.2rem;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  /* ───── HERO ───── */
+  .hero {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem 5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    height: 1000px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent-strong);
+    background: var(--accent-glow);
+    border-radius: 999px;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2.25rem;
+  }
+  .hero-badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    max-width: none;
+    margin: 0 auto 1.75rem;
+  }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero-sub {
+    font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+    color: var(--text-secondary);
+    max-width: 660px;
+    margin: 0 auto 2.75rem;
+    line-height: 1.5;
+  }
+  .hero-cta-row {
+    display: inline-flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-proof {
+    margin-top: 3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* ───── CREDIBILITY STRIP ───── */
+  .cred-strip {
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-elevated);
+    position: relative;
+    z-index: 1;
+  }
+  .cred-grid {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .cred-stat-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .cred-stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ───── TEXT BLOCK SECTIONS ───── */
+  .prose {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+  .prose p { margin-bottom: 1.15rem; }
+  .prose p:first-child { font-size: 1.15rem; }
+  .prose .pullquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.4rem;
+    margin: 2rem 0;
+    color: var(--text-primary);
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  /* ───── SCROLLING BRAND BANNER ───── */
+  .scroll-banner {
+    overflow: hidden;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.75rem 0;
+    background: var(--bg);
+  }
+  .scroll-banner-track {
+    display: flex;
+    gap: 2.5rem;
+    white-space: nowrap;
+    will-change: transform;
+    width: max-content;
+  }
+  .scroll-banner-track span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3.8vw, 2.8rem);
+    color: rgba(255, 255, 255, 0.25);
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .scroll-banner-track span:nth-child(even) {
+    color: rgba(184, 233, 134, 0.35);
+    font-size: clamp(1rem, 2.2vw, 1.6rem);
+    align-self: center;
+  }
+
+  /* ───── FEATURED TESTIMONIAL (STEVEN) ───── */
+  .feature-testimonial {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .feature-testimonial-label {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .feature-testimonial h2 {
+    text-align: center;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    margin-bottom: 2.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .feature-video {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto 3rem;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 60px var(--accent-glow);
+  }
+  .feature-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .feature-info {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .feature-headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+  }
+  .feature-body p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.9rem;
+  }
+  .feature-stats {
+    display: grid;
+    gap: 1rem;
+  }
+  .feature-stat {
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-elevated);
+  }
+  .feature-stat-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .feature-stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ───── SOCIAL PROOF MOSAIC ───── */
+  .mosaic-section {
+    padding: 4rem 0;
+    overflow: hidden;
+    background: var(--bg);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .mosaic-section .eyebrow { margin-bottom: 2.5rem; padding: 0 2rem; }
+  .mosaic-grid {
+    display: flex;
+    gap: 10px;
+    padding: 0 10px;
+  }
+  .mosaic-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    will-change: transform;
+  }
+  .mosaic-item {
+    aspect-ratio: 0.75;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
+  .mosaic-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.45);
+    transition: filter 0.4s ease, transform 0.4s ease;
+    display: block;
+  }
+  .mosaic-item:hover img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.05);
+  }
+  .mosaic-item:hover { z-index: 2; }
+  .mosaic-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+  .mosaic-item:hover .mosaic-overlay { opacity: 1; }
+  .mosaic-overlay .mosaic-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--white);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .mosaic-overlay .mosaic-desc {
+    font-size: 0.6rem;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.75);
+  }
+  @media (max-width: 768px) {
+    .mosaic-grid { gap: 5px; padding: 0 5px; }
+    .mosaic-col { gap: 5px; }
+    .mosaic-col:nth-child(5), .mosaic-col:nth-child(6) { display: none; }
+  }
+  @media (max-width: 480px) {
+    .mosaic-col:nth-child(4) { display: none; }
+  }
+
+  /* ───── STUDENT STORIES (ported from landing page) ───── */
+  .stories-section {
+    padding: 5rem 2rem;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 3rem;
+  }
+  .story-card {
+    background: var(--bg-elevated);
+    border: 1px solid rgba(184, 233, 134, 0.2);
+    box-shadow: 0 0 20px rgba(184, 233, 134, 0.04);
+    border-radius: 12px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+  .story-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(184, 233, 134, 0.08), 0 10px 40px rgba(0,0,0,0.25);
+  }
+  .story-card-top {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .story-card-top h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .story-card-top .story-desc {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  .story-card-top .story-desc em {
+    color: var(--text-primary);
+    font-style: italic;
+  }
+  .story-stat-row {
+    display: flex;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .story-stat {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--accent);
+  }
+  .story-stat:last-child {
+    border-left-color: var(--border);
+  }
+  .story-stat-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    color: var(--white);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .story-stat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .story-card-quote {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+  }
+  .story-card-quote blockquote {
+    font-size: 0.78rem;
+    line-height: 1.75;
+    color: var(--text-primary);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    flex: 1;
+    margin: 0;
+  }
+  .story-author {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .story-author img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+  .story-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: var(--white);
+  }
+  .story-handle {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--text-muted);
+  }
+  .story-role {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--text-secondary);
+  }
+  @media (max-width: 960px) {
+    .stories-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .stories-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ───── LONG-FORM INTERVIEWS ───── */
+  .interviews-section {
+    padding: 5rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .interviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 3rem auto 0;
+    max-width: 880px;
+  }
+  .interview-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    transition: border-color 0.25s ease;
+  }
+  .interview-card:hover { border-color: var(--accent); }
+  .interview-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .interview-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #000;
+    display: block;
+  }
+  .interview-video.placeholder {
+    cursor: default;
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+  }
+  .interview-video.placeholder::after {
+    content: "Full interview, coming soon";
+    position: absolute;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+  .interview-play {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 2;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .interview-play::before {
+    content: "";
+    width: 0; height: 0;
+    border-left: 18px solid #0A0A0A;
+    border-top: 11px solid transparent;
+    border-bottom: 11px solid transparent;
+    margin-left: 4px;
+  }
+  .interview-body { padding: 1.5rem 1.75rem 1.75rem; }
+  .interview-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+  .interview-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+  }
+  .interview-quote {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .interview-story {
+    padding: 0 1.75rem 1.75rem;
+  }
+  .interview-story h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    margin: 0 0 0.65rem;
+    line-height: 1.3;
+  }
+  .interview-story p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+  .interview-story p em {
+    color: var(--text-primary);
+    font-style: italic;
+    font-weight: 600;
+  }
+  .interview-story p strong {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  /* ───── GROWTH GRAPH (per-interview line chart) ───── */
+  .growth-graph {
+    padding: 1.5rem 1.75rem 1.75rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .growth-graph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .growth-graph-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .growth-graph-change {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: -0.01em;
+  }
+  .growth-line-wrap {
+    position: relative;
+    width: 100%;
+    height: 120px;
+  }
+  .growth-line-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+  .growth-line-svg .growth-area {
+    opacity: 0;
+    transition: opacity 0.6s ease 0.9s;
+  }
+  .growth-line-wrap.played .growth-area { opacity: 1; }
+  .growth-line-svg .growth-line {
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 6px var(--accent-dim));
+  }
+  .growth-line-svg .growth-dot {
+    fill: var(--bg);
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .growth-line-svg .growth-dot.in { opacity: 1; }
+  .growth-line-svg .growth-dot.peak {
+    fill: var(--accent);
+    filter: drop-shadow(0 0 8px var(--accent));
+  }
+  .growth-points {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+  .growth-label-col {
+    text-align: center;
+  }
+  .growth-label-col .v {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.72rem;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    opacity: 0;
+    transform: translateY(3px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    margin-bottom: 0.2rem;
+  }
+  .growth-label-col.peak .v { color: var(--accent); }
+  .growth-label-col.in .v { opacity: 1; transform: translateY(0); }
+  .growth-label-col .l {
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .growth-label-col.peak .l { color: var(--accent); }
+
+  /* ───── WHO IS / ISN'T FOR ───── */
+  .qualify-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .qualify-col {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--bg-elevated);
+  }
+  .qualify-col h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+  }
+  .qualify-col.no h3 { color: var(--red); }
+  .qualify-col.yes h3 { color: var(--accent); }
+  .qualify-list { list-style: none; padding: 0; margin: 0; }
+  .qualify-list li {
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-subtle);
+  }
+  .qualify-list li:first-child { border-top: none; }
+  .qualify-list li strong { color: var(--text-primary); margin-right: 0.4rem; }
+  .qualify-list .mark {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 900;
+    margin-top: 0.15rem;
+  }
+  .qualify-col.no .mark { background: rgba(255, 107, 90, 0.15); color: var(--red); }
+  .qualify-col.yes .mark { background: var(--accent-dim); color: var(--accent); }
+
+  /* ───── PHASE CARDS ───── */
+  .phases {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .phase {
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-elevated);
+    position: relative;
+    transition: border-color 0.25s ease;
+  }
+  .phase:hover { border-color: var(--border-strong); }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .phase-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--accent-strong);
+    background: var(--accent-glow);
+    border-radius: 999px;
+  }
+  .phase-window {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .phase h3 { margin-bottom: 0.65rem; }
+  .phase-desc { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1.25rem; }
+  .phase-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
+  .phase-list li {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .phase-list li::before {
+    content: "→";
+    color: var(--accent);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  /* ───── WHAT'S INSIDE (with images) ───── */
+  .modules-stack {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .module-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-elevated);
+    align-items: center;
+    transition: border-color 0.25s ease;
+  }
+  .module-row:hover { border-color: var(--accent-strong); }
+  .module-row.reverse { grid-template-columns: 1fr 1.4fr; }
+  .module-row.reverse .module-text { order: 2; }
+  .module-row.reverse .module-visual { order: 1; }
+  .module-text .module-num {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+  .module-text h3 { margin-bottom: 0.75rem; font-size: clamp(1.1rem, 2vw, 1.4rem); }
+  .module-text p { font-size: 0.98rem; line-height: 1.55; margin: 0; }
+  .module-visual {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    aspect-ratio: 4 / 3;
+    background: var(--bg-card);
+    position: relative;
+  }
+  .module-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .module-visual.gradient {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0A0A0A 0%, #141414 100%);
+    border: 1px solid var(--border);
+  }
+  .module-visual .placeholder-icon {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--accent);
+    letter-spacing: -0.04em;
+    opacity: 0.45;
+  }
+  @media (max-width: 860px) {
+    .module-row,
+    .module-row.reverse { grid-template-columns: 1fr; gap: 1.25rem; }
+    .module-row.reverse .module-text,
+    .module-row.reverse .module-visual { order: unset; }
+    .module-visual { aspect-ratio: 16 / 10; }
+  }
+
+  /* ───── FRAMEWORKS (SCALO METHOD) ───── */
+  .frameworks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    max-width: 1000px;
+    margin: 2.5rem auto 0;
+  }
+  .framework-card {
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--bg-elevated);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .framework-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .framework-num {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+  .framework-card h4 { margin-bottom: 0.75rem; }
+  .framework-card p { font-size: 0.95rem; margin: 0; line-height: 1.55; }
+
+  /* ───── MEET TIM ───── */
+  .meet-tim {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3.5rem;
+    align-items: center;
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+  .meet-tim-image {
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .meet-tim-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .meet-tim-image img { width: 100%; height: auto; display: block; }
+  .meet-tim-text p { font-size: 1rem; line-height: 1.65; }
+
+  /* ───── MONTHLY REVENUE CHART ───── */
+  .monthly-revenue-section {
+    padding: 6rem 2rem;
+    max-width: 1120px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .mr-inner { text-align: center; }
+  .monthly-revenue-section h2 {
+    margin: 0 auto 0.9rem;
+    max-width: 720px;
+  }
+  .mr-sub {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.5;
+  }
+  .mr-headline {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 1.25rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-elevated);
+    margin-bottom: 3rem;
+    min-width: 280px;
+  }
+  .mr-headline-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .mr-headline-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 24px var(--accent-glow);
+  }
+  .mr-chart {
+    display: grid;
+    grid-template-columns: repeat(var(--mr-cols, 7), 1fr);
+    align-items: end;
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    height: 280px;
+    padding: 1.5rem 0 0;
+    margin: 0 auto;
+    max-width: 880px;
+  }
+  .mr-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+    height: 100%;
+    position: relative;
+  }
+  .mr-bar-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .mr-bar.in-view .mr-bar-value {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .mr-bar-fill {
+    width: 100%;
+    max-width: 70px;
+    background: linear-gradient(to top, rgba(184, 233, 134, 0.35), var(--accent));
+    border-radius: 6px 6px 0 0;
+    height: 0;
+    transition: height 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .mr-bar.current .mr-bar-fill {
+    box-shadow: 0 0 24px var(--accent-dim), 0 -4px 0 var(--accent) inset;
+  }
+  .mr-bar-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.75rem;
+    white-space: nowrap;
+  }
+  .mr-bar.current .mr-bar-label { color: var(--accent); }
+  .mr-footnote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2.5rem;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.45;
+  }
+  .mr-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    flex-shrink: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @media (max-width: 720px) {
+    .monthly-revenue-section { padding: 3.5rem 1.25rem; }
+    .mr-chart { height: 220px; gap: 0.35rem; }
+    .mr-bar-value { font-size: 0.65rem; }
+    .mr-bar-label { font-size: 0.55rem; }
+    .mr-bar-fill { max-width: 42px; }
+  }
+
+  /* ───── BONUSES ───── */
+  .bonus-stack {
+    display: grid;
+    gap: 1rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .bonus-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.75rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--bg-elevated);
+    transition: border-color 0.25s ease, transform 0.25s ease;
+  }
+  .bonus-card:hover { border-color: var(--accent); transform: translateX(4px); }
+  .bonus-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+    width: 2.2rem;
+    text-align: center;
+  }
+  .bonus-body h4 { margin: 0 0 0.35rem; font-size: 1.1rem; }
+  .bonus-body p { margin: 0; font-size: 0.92rem; line-height: 1.5; }
+  .bonus-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--accent);
+    white-space: nowrap;
+    padding: 0.55rem 1rem;
+    background: var(--accent-glow);
+    border: 1px solid var(--accent-strong);
+    border-radius: 999px;
+  }
+  .bonus-total {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-top: 1px dashed var(--border);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text-primary);
+  }
+  .bonus-total em {
+    color: var(--accent);
+    font-style: normal;
+    font-size: 1.8rem;
+  }
+
+  /* ───── PRICING ───── */
+  .pricing-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3.5rem 2.5rem;
+    border: 1px solid var(--accent-strong);
+    border-radius: 22px;
+    background: linear-gradient(180deg, var(--accent-glow) 0%, var(--bg-elevated) 40%);
+    position: relative;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+  }
+  .pricing-value-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .pricing-value-row:last-of-type { border-bottom: none; }
+  .pricing-value-row strong { color: var(--text-primary); }
+  .pricing-value-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 1.2rem;
+    margin-top: 0.5rem;
+    border-top: 2px solid var(--border);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+  .pricing-value-total .amt { color: var(--accent); font-size: 1.85rem; }
+  .pricing-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+  .pricing-option {
+    padding: 2rem 1.75rem;
+    border-radius: 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .pricing-option:not(.selected):hover {
+    border-color: var(--accent-strong);
+    transform: translateY(-2px);
+  }
+  .pricing-option.selected {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, var(--accent-glow) 0%, var(--bg) 100%);
+    box-shadow: 0 0 0 1px var(--accent), 0 0 32px var(--accent-dim);
+  }
+  .pricing-option.has-discount::before {
+    content: "SAVE £1,500";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.35rem 0.9rem;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    border-radius: 999px;
+    z-index: 2;
+  }
+  .pricing-option-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .pricing-option-price {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.8rem;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    transition: color 0.25s ease;
+  }
+  .pricing-option.selected .pricing-option-price { color: var(--accent); }
+  .pricing-option-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    min-height: 2.6em;
+  }
+  .pricing-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1.1rem 2.2rem;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    text-align: center;
+  }
+  .pricing-option:not(.selected) .pricing-cta:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .pricing-option.selected .pricing-cta {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .pricing-option.selected .pricing-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px var(--accent-dim);
+  }
+
+  /* ───── PAYMENT SCHEDULE (inside payment plan card) ───── */
+  .pricing-option.pay-primary .pricing-option-price {
+    font-size: 3.2rem;
+  }
+  .payment-schedule {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed var(--border);
+    display: grid;
+    gap: 0.5rem;
+    text-align: left;
+  }
+  .payment-schedule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 0.15rem 0;
+  }
+  .payment-schedule-row .pay-date {
+    letter-spacing: 0.02em;
+  }
+  .payment-schedule-row .pay-amount {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .payment-schedule-row:first-child .pay-amount {
+    color: var(--accent);
+  }
+
+  /* ───── PRICING TERMS (below both options) ───── */
+  .pricing-terms {
+    max-width: 720px;
+    margin: 2rem auto 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .pricing-terms strong {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  /* ───── ANTI-GUARANTEE ───── */
+  .anti-guarantee {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-elevated);
+    text-align: center;
+  }
+  .anti-guarantee h3 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .anti-guarantee p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-width: 600px;
+    margin: 0 auto 1rem;
+  }
+  .anti-guarantee p:last-child { margin-bottom: 0; color: var(--text-primary); font-weight: 600; }
+
+  /* ───── FAQ ───── */
+  .faq-list {
+    max-width: 820px;
+    margin: 0 auto;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-elevated);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .faq-item:hover { border-color: var(--border-strong); }
+  .faq-item summary {
+    padding: 1.1rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: "+";
+    font-size: 1.4rem;
+    color: var(--accent);
+    line-height: 1;
+    transition: transform 0.25s ease;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-body {
+    padding: 0 1.5rem 1.25rem;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .faq-body p { margin: 0 0 0.8rem; }
+  .faq-body p:last-child { margin-bottom: 0; }
+
+  /* ───── FINAL CTA ───── */
+  .final-cta {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 6rem 2rem 8rem;
+    text-align: center;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .final-cta h2 { max-width: 20ch; margin: 0 auto 1.5rem; }
+  .final-cta p {
+    max-width: 560px;
+    margin: 0 auto 2.5rem;
+    font-size: 1.05rem;
+  }
+
+  /* ───── FOOTER ───── */
+  .footer {
+    border-top: 1px solid var(--border-subtle);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+  }
+  .footer a { color: var(--text-secondary); }
+  .footer a:hover { color: var(--accent); }
+
+  /* ───── WINS TRACKER (floating) ───── */
+  .wins-tracker {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0;
+    height: 52px;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+  .wins-tracker.faded { opacity: 0.12; }
+  .wins-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+    padding: 0 1.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  .wins-amount {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0 1.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-radius: 0 6px 6px 0;
+  }
+  @media (max-width: 768px) {
+    .wins-tracker { height: 40px; bottom: 1rem; }
+    .wins-label { font-size: 0.58rem; padding: 0 1rem; }
+    .wins-amount { font-size: 0.8rem; padding: 0 1rem; }
+  }
+
+  /* ───── SCROLL REVEAL ───── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ───── RESPONSIVE ───── */
+  @media (max-width: 860px) {
+    .topbar { padding: 0.7rem 1rem; }
+    .topbar-logo img { height: 28px; }
+    .topbar-cta { padding: 0.5rem 0.9rem; font-size: 0.65rem; }
+    .section { padding: 3.5rem 1.25rem; }
+    .hero { padding: 3.5rem 1.25rem 2.5rem; }
+    .qualify-grid { grid-template-columns: 1fr; }
+    .meet-tim { grid-template-columns: 1fr; gap: 1.75rem; }
+    .pricing-options { grid-template-columns: 1fr; }
+    .pricing-option.best::before { top: -10px; font-size: 0.6rem; padding: 0.25rem 0.7rem; }
+    .pricing-wrap { padding: 2.25rem 1.5rem; }
+    .bonus-card { grid-template-columns: 1fr; text-align: center; gap: 0.75rem; padding: 1.5rem; }
+    .bonus-value { justify-self: center; }
+    .bonus-num { width: auto; }
+    .phase { padding: 1.75rem 1.25rem; }
+    .hero-cta-row { flex-direction: column; width: 100%; }
+    .hero-cta-row .btn-primary,
+    .hero-cta-row .btn-secondary { width: 100%; }
+    .feature-info { grid-template-columns: 1fr; gap: 1.5rem; }
+    .interviews-section, .stories-section, .feature-testimonial { padding: 3.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR (logo + countdown + CTA, single sticky bar) -->
+<header class="topbar">
+  <a href="/" class="topbar-logo">
+    <img src="../Branding/SCALO.png" alt="SCALO">
+  </a>
+  <div class="topbar-countdown">
+    <span class="countdown-banner-label">Doors Close In</span>
+    <div class="countdown-banner-timer">
+      <div class="cb-unit"><span class="cb-num" id="cDays">07</span><span class="cb-text">d</span></div>
+      <span class="cb-sep">:</span>
+      <div class="cb-unit"><span class="cb-num" id="cHours">00</span><span class="cb-text">h</span></div>
+      <span class="cb-sep">:</span>
+      <div class="cb-unit"><span class="cb-num" id="cMins">00</span><span class="cb-text">m</span></div>
+      <span class="cb-sep">:</span>
+      <div class="cb-unit"><span class="cb-num" id="cSecs">00</span><span class="cb-text">s</span></div>
+    </div>
+  </div>
+  <a href="#pricing" class="topbar-cta">Join Now</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span>Enrolment is now open</span>
+    </div>
+    <h1>Install the <em>six-figure systems</em><br>into your barbering business.</h1>
+    <p class="hero-sub">The SCALO 6-month program, unlock the six-figure systems by implementing the business mechanics without spending 12 to 15 hours a day behind the chair. These exact systems have added over &pound;515K in annual recurring revenue for students inside.</p>
+    <div class="hero-cta-row">
+      <a href="#pricing" class="btn-primary">Join SCALO</a>
+      <a href="#whats-inside" class="btn-secondary">See What's Inside</a>
+    </div>
+    <div class="hero-proof">
+      <span class="hero-badge-dot"></span>
+      &pound;515K+ captured &middot; &pound;100+ per cut &middot; Live from the SCALO Business OS.
+    </div>
+  </div>
+</section>
+
+<!-- CREDIBILITY STRIP -->
+<section class="cred-strip">
+  <div class="cred-grid">
+    <div>
+      <div class="cred-stat-value">&pound;515K+</div>
+      <div class="cred-stat-label">Captured across the community</div>
+    </div>
+    <div>
+      <div class="cred-stat-value">&pound;100+</div>
+      <div class="cred-stat-label">Per cut, multiple students charging premium</div>
+    </div>
+    <div>
+      <div class="cred-stat-value">6 Months</div>
+      <div class="cred-stat-label">Program length</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SHIFT -->
+<section class="section reveal">
+  <div class="eyebrow">The Shift</div>
+  <h2 class="center">The barbering industry is changing.</h2>
+  <div class="prose">
+    <p>Here's what I'm seeing in 2026.</p>
+    <p>The barbers who are still doing <strong>&pound;3-5K a month</strong> are the ones running the old, outdated methods that worked five to ten years ago. Cutting hair. Waiting for word of mouth. Not using the biggest accelerator to growing a business today, <strong>social media</strong>.</p>
+    <p>And they're getting left behind. Fast.</p>
+    <p>On the other side of the industry, a small group of barbers are doing <em>&pound;10-15K, &pound;25K, even &pound;35K months</em>. It's not because they're better barbers. It's because they've stopped relying on luck and started running their shop like a business.</p>
+    <div class="pullquote">They've built a personal brand. They've priced their craft properly. They've got a system that fills their chair without begging for clients.</div>
+    <p>That's the shift. And that's what SCALO is built to install into your business.</p>
+  </div>
+</section>
+
+<!-- SCROLLING BRAND BANNER -->
+<div class="scroll-banner">
+  <div class="scroll-banner-track" id="scrollBannerTrack1">
+    <span>JOIN SCALO</span><span>&bull;</span><span>SCALE YOUR SHOP</span><span>&bull;</span><span>RAISE YOUR PRICES</span><span>&bull;</span><span>BUILD YOUR BRAND</span><span>&bull;</span><span>FILL YOUR CHAIR</span><span>&bull;</span><span>JOIN SCALO</span><span>&bull;</span><span>SCALE YOUR SHOP</span><span>&bull;</span><span>RAISE YOUR PRICES</span><span>&bull;</span><span>BUILD YOUR BRAND</span><span>&bull;</span><span>FILL YOUR CHAIR</span><span>&bull;</span>
+  </div>
+</div>
+
+<!-- FEATURED TESTIMONIAL: STEVEN -->
+<section class="feature-testimonial reveal">
+  <div class="feature-testimonial-label">What You Could Achieve</div>
+  <h2>This barber said yes. Look what happened.</h2>
+  <div class="feature-video">
+    <iframe src="https://www.youtube-nocookie.com/embed/7KiyLTVHI3s?rel=0&modestbranding=1&playsinline=1" title="Steven Testimonial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="feature-info">
+    <div>
+      <div class="feature-headline">From &pound;24K/month to back-to-back &pound;35K+ months, on track for &pound;50K.</div>
+      <div class="feature-body">
+        <p>Steven was already a successful barber doing <em>&pound;24K a month</em>. Most barbers would think that's the ceiling. What we focused on was building a cult audience and a brand within his local area.</p>
+        <p>Within the first month, we increased his revenue by &pound;10K, resulting in a <em>&pound;34K month</em>. The second month we did the same again, hitting <em>&pound;37K</em>. Back-to-back &pound;35K+ months.</p>
+        <p>He's since raised prices in January and is now going into a second price increase of the year. We've increased his revenue by <em>50% over the past four months</em>, on track to hit &pound;40K to &pound;50K a month.</p>
+      </div>
+    </div>
+    <div class="feature-stats">
+      <div class="feature-stat">
+        <div class="feature-stat-num">&pound;37K</div>
+        <div class="feature-stat-label">Record Month Since Joining</div>
+      </div>
+      <div class="feature-stat">
+        <div class="feature-stat-num">150+</div>
+        <div class="feature-stat-label">New Clients Added</div>
+      </div>
+      <div class="feature-stat">
+        <div class="feature-stat-num">+50%</div>
+        <div class="feature-stat-label">Revenue Growth in 4 Months</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF MOSAIC -->
+<section class="mosaic-section">
+  <div class="eyebrow">The Proof Is in the Results</div>
+  <div class="mosaic-grid" id="mosaicGrid">
+    <div class="mosaic-col" data-scroll="up">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8779 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven: &pound;37K Month</div><div class="mosaic-desc">Back-to-back record months. Revenue spreadsheet showing consistent five-figure weeks.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9475.jpg" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven: 114 Appointments</div><div class="mosaic-desc">Hit 114 appointments in a single week and $11K in revenue.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9903.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Chris: New Clients Flooding In</div><div class="mosaic-desc">First &euro;75+ haircut with tip and &euro;20 product sold, all from one hour's work.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8767.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven: 86 FX Elite Clients</div><div class="mosaic-desc">Tracking premium client growth. On track for the 100th FX Elite client.</div></div></div>
+    </div>
+    <div class="mosaic-col">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8785 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Revenue Update</div><div class="mosaic-desc">Real-time revenue tracking inside SCALO. Consistent growth week over week.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5418 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">George: Content Blowing Up</div><div class="mosaic-desc">Video content getting thousands of views. The content frameworks actually work.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8780 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Steven: &pound;70K in 2 Months</div><div class="mosaic-desc">Two &pound;34K+ months back-to-back. Total over &pound;70K in just two months.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9071.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Win</div><div class="mosaic-desc">Another SCALO member hitting milestones and sharing wins in the community.</div></div></div>
+    </div>
+    <div class="mosaic-col" data-scroll="down">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8768 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Revenue Breakthrough</div><div class="mosaic-desc">Tracking daily income and seeing the system deliver consistent results.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8772 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Pricing Strategy Win</div><div class="mosaic-desc">Implementing the three-tier pricing strategy and landing higher-paying clients.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5407 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Community Support</div><div class="mosaic-desc">Real-time feedback and accountability inside the private SCALO group.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8890 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Growth Milestone</div><div class="mosaic-desc">Another student hitting personal bests using the clarity systems.</div></div></div>
+    </div>
+    <div class="mosaic-col" data-scroll="up">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9115 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Client Acquisition</div><div class="mosaic-desc">New premium clients coming in through the content strategy framework.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8786 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Weekly Tracking</div><div class="mosaic-desc">Using the SCALO dashboard to track performance and identify what's working.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9411.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Content Converting</div><div class="mosaic-desc">Content strategy turning views into booked appointments consistently.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8788 2.jpg" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Brand Building</div><div class="mosaic-desc">Building a professional brand that attracts premium clients on repeat.</div></div></div>
+    </div>
+    <div class="mosaic-col">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_8769.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Revenue Dashboard</div><div class="mosaic-desc">Data-driven decisions replacing guesswork. Tracking every metric that matters.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_9950.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Student Progress</div><div class="mosaic-desc">Consistent progress inside SCALO. The systems compound over time.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/Untitled design 5.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">JJ: &pound;6.1K Mid-Month</div><div class="mosaic-desc">Revenue still climbing and the month isn't even over.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_6150 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Scaling Results</div><div class="mosaic-desc">Proof that the model works. Scaling income without adding more hours.</div></div></div>
+    </div>
+    <div class="mosaic-col" data-scroll="down">
+      <div class="mosaic-item"><img src="../Testimonials/IMG_6151 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Momentum Building</div><div class="mosaic-desc">When the systems click, the momentum is unstoppable.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5522 3.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Community Wins</div><div class="mosaic-desc">Daily accountability and shared momentum inside the SCALO community.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5523 2.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">Business Growth</div><div class="mosaic-desc">Real results from real barbers who committed to the process.</div></div></div>
+      <div class="mosaic-item"><img src="../Testimonials/IMG_5524 4.PNG" alt="Student win"><div class="mosaic-overlay"><div class="mosaic-title">The SCALO Effect</div><div class="mosaic-desc">What happens when clarity meets systems meets community.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDENT STORIES -->
+<section class="stories-section reveal">
+  <div class="eyebrow">Real Results</div>
+  <h2 class="center">Student Wins Inside of SCALO</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 1rem; font-size: 1rem;">These aren't cherry-picked. Real barbers you can message inside the SCALO community right now.</p>
+
+  <div class="stories-grid">
+
+    <!-- 1. STEVEN -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>From &pound;24K to back-to-back &pound;35K+ months.</h4>
+        <p class="story-desc">Steven was already doing <em>&pound;24K/month</em>. Within the first month inside SCALO, we increased his revenue by &pound;10K. The second month we did it again, hitting <em>&pound;37K</em>. His highest-paying client is now <em>$325 per visit</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;37K</div><div class="story-stat-label">Record Month</div></div>
+        <div class="story-stat"><div class="story-stat-num">$325</div><div class="story-stat-label">Highest Paying Client</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"The super week continues bro. 114 appointments so far and just hit $11k. Honestly I'm dumbfounded. I didn't ever think numbers like this were even possible as a barber."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/Stevens Profile Picture.png" alt="Steven">
+          <div><span class="story-name">Steven Colo</span><span class="story-handle">@ColoFX_studios</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DILLION -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>Added &pound;50K+ to his revenue since joining SCALO.</h4>
+        <p class="story-desc">Dillion was already running a solid salon but knew there was another level. Inside SCALO, we rebuilt his content strategy and positioning. The result? <em>&pound;50K+ added to his revenue</em> and <em>17,000 new followers in just four months</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;50K+</div><div class="story-stat-label">Added to Revenue</div></div>
+        <div class="story-stat"><div class="story-stat-num">17K</div><div class="story-stat-label">Followers in 4 Months</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"The content strategy completely changed the game. We went from posting randomly to having a system that actually brings people through the door. The numbers speak for themselves."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/dillions profile pictur.png" alt="Dillion Field">
+          <div><span class="story-name">Dillion Field</span><span class="story-handle">@DillionFieldHair / @MoveSalons</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. JJ -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>&pound;6.1K revenue, and the month isn't even over.</h4>
+        <p class="story-desc">JJ has <em>15 years of experience</em> in the game. He knew the craft inside out, but the business side needed a system. Inside SCALO, the content strategy started converting and the revenue became predictable. Now <em>on track to add &pound;50K+ this year</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;6.1K</div><div class="story-stat-label">Mid-Month Revenue</div></div>
+        <div class="story-stat"><div class="story-stat-num">&pound;50K+</div><div class="story-stat-label">On Track This Year</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Make that &pound;6.1k revenue and still not ended the month. A heavy 2 weeks of sales. The content strategy is actually converting like crazy now."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/JJ savani.png" alt="JJ Savani">
+          <div><span class="story-name">JJ Savani</span><span class="story-handle">@jjsavani</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CHRIS -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>From overworked to &euro;100+ clients, with time to spare.</h4>
+        <p class="story-desc">Chris was overworked behind the chair, trading every hour for money. We structured a <em>three-tier pricing strategy</em> that now lets him land <em>&euro;100+ clients consistently</em>, giving him more free time to spend with the people who matter.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&euro;100+</div><div class="story-stat-label">Per Client</div></div>
+        <div class="story-stat"><div class="story-stat-num">3-Tier</div><div class="story-stat-label">Pricing Strategy</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"It's mental busy with work and has a lot of new clients coming through the door. Had my first haircut premier today &euro;75 + &euro;10 tip and sold a &euro;20 product. All from 1 hours work."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/Chris profile picture.png" alt="Chris Riordan">
+          <div><span class="story-name">Chris Riordan</span><span class="story-handle">@chrisoriordanhair</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. GEORGE -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>9 million views in 3 months, education dates sold out.</h4>
+        <p class="story-desc">George added over <em>&pound;12,000 to his annual income</em> while selling out one-on-one education dates quicker than you could ever imagine. His content went from invisible to <em>9 million views in just 3 months</em>.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">9M</div><div class="story-stat-label">Views in 3 Months</div></div>
+        <div class="story-stat"><div class="story-stat-num">&pound;12K+</div><div class="story-stat-label">Added Annual Income</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Recent video blowing up haha. The content frameworks from SCALO made me actually understand what works on social media instead of just posting and hoping."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/george profile picture.png" alt="George Hughes">
+          <div><span class="story-name">George Hughes</span><span class="story-handle">@georgehugheshair</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. MATEO -->
+    <div class="story-card">
+      <div class="story-card-top">
+        <h4>New city. Zero clients. 37 booked in two weeks.</h4>
+        <p class="story-desc">Mateo moved to a <em>brand new city</em>, starting completely from scratch. No existing clients, no reputation, nothing. Using the SCALO systems, he added <em>37 new clients in his first two weeks</em> and hasn't looked back since.</p>
+      </div>
+      <div class="story-stat-row">
+        <div class="story-stat"><div class="story-stat-num">&pound;19K</div><div class="story-stat-label">Added in 2 Weeks</div></div>
+        <div class="story-stat"><div class="story-stat-num">200+</div><div class="story-stat-label">New Clients</div></div>
+      </div>
+      <div class="story-card-quote">
+        <blockquote>"Moved to a completely new city with nothing. No clients, no connections. Within two weeks I had 37 new bookings. The systems just work. If you follow them, the results come."</blockquote>
+        <div class="story-author">
+          <img src="../Testimonials/written testimonial example/mateo profile picture.png" alt="Mateo Strang">
+          <div><span class="story-name">Mateo Strang</span><span class="story-handle">@Mataper</span><span class="story-role">Barber &amp; SCALO Member</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LONG-FORM INTERVIEWS (placeholder spots Tim will fill) -->
+<section class="interviews-section reveal">
+  <div class="eyebrow">Student Interviews</div>
+  <h2 class="center">Hear it straight from the students inside.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 1rem; font-size: 1rem;">Unedited long-form conversations with the barbers who've done the work.</p>
+
+  <div class="interviews-grid">
+    <div class="interview-card">
+      <div class="interview-video" data-youtube-id="SLPU0f2qzKU">
+        <img class="interview-thumb" src="https://img.youtube.com/vi/SLPU0f2qzKU/maxresdefault.jpg" alt="Steven's interview thumbnail" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/SLPU0f2qzKU/hqdefault.jpg';">
+        <div class="interview-play"></div>
+      </div>
+      <div class="interview-body">
+        <div class="interview-name">Steven's Interview</div>
+        <div class="interview-subtitle">The 3-month transformation, in his own words.</div>
+      </div>
+      <div class="interview-story">
+        <h4>From $24K to $40K/m in 3 months.</h4>
+        <p>Steven was already doing <em>$24K/m</em> before SCALO. The kind of number most barbers call a ceiling. Inside the first month we added $8K. Month two, another $5K. By month three he was sitting on <em>$40K months</em>, and raising his prices for the second time. <strong>The growth didn't slow down. It compounded.</strong></p>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <div class="interview-video placeholder" data-youtube-id="[JJ_INTERVIEW_ID]">
+        <div class="interview-play"></div>
+      </div>
+      <div class="interview-body">
+        <div class="interview-name">JJ's Interview</div>
+        <div class="interview-subtitle">Zero to &pound;20K/m in 2 months</div>
+      </div>
+      <div class="interview-story">
+        <h4>15 years deep, and still levelling up.</h4>
+        <p>JJ has <em>15 years</em> in the industry. The place where most barbers feel like they know everything, and that's exactly where they start to plateau. Inside SCALO we took him from <em>&pound;0 to &pound;20K/m in two months</em>, while rebuilding the business around the lifestyle he actually wanted. <strong>Skill was never the issue. The system was.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THE PROBLEM -->
+<section class="section reveal">
+  <div class="eyebrow">The Problem</div>
+  <h2 class="center">Every barber coach is selling you the same one-size-fits-all approach.</h2>
+  <div class="prose">
+    <p>You've seen them. They've probably DM'd you.</p>
+    <p>The ones charging you <strong>upwards of &pound;6-10K</strong> to show you how to create content while you're roasting your clients. That's not a business. That's <em>five minutes of fame</em>. It stops the second the trend dies.</p>
+    <p>The <strong>Instagram gurus</strong> who'll teach you how to get 10K followers because it <em>looks</em> like proof. But they don't teach you how to build a business that lasts. The kind that lets you diversify your income across multiple avenues instead of relying on one hack that won't be here in six months.</p>
+    <p>And then there's the barbers who aren't even with a coach. The ones trying to piece it together off YouTube. Learning a bit here, a bit there. Nothing quite sticks. You feel like you're learning but the numbers don't move. You're going round in circles.</p>
+    <div class="pullquote">So the question you need to ask yourself is this: do you want a business built on five minutes of fame, or one that scales long-term and funds the lifestyle you actually want?</div>
+    <p>I know which one I picked.</p>
+    <p><strong>I've been where you are.</strong> I've built it. And I've helped <em>18+ barbers</em> do the same. The ones who were ready to stop chasing trends and start building something that lasts.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THE SCALO METHOD -->
+<section class="section reveal">
+  <div class="eyebrow eyebrow-accent">The Opportunity</div>
+  <h2 class="center">The SCALO method.</h2>
+  <div class="prose">
+    <p>SCALO isn't another "grow your Instagram" program. It's a <em>complete system injection</em> for your barbering business, built to help you scale to <strong>six figures a year</strong>.</p>
+    <p>We don't teach theory. We install three proprietary frameworks that work together:</p>
+  </div>
+  <div class="frameworks-grid">
+    <div class="framework-card">
+      <div class="framework-num">01</div>
+      <h4>Magnetic Personal Brand</h4>
+      <p>Stop being invisible. Build a brand that pulls clients to your chair instead of chasing them. This is what turns a barber into a name people pay a premium for.</p>
+    </div>
+    <div class="framework-card">
+      <div class="framework-num">02</div>
+      <h4>L.T.T.P.</h4>
+      <p>Our proprietary content engine. Every post, script and story working in harmony, turning viewers into followers, followers into clients, and clients into fans who support your business for the long run.</p>
+    </div>
+    <div class="framework-card">
+      <div class="framework-num">03</div>
+      <h4>Visual Architecture</h4>
+      <p>Plug-and-play hooks, post templates, and brand positioning assets. The visual language that makes your shop unmistakable online and premium-priced in person.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHO IS / ISN'T FOR -->
+<section class="section reveal">
+  <div class="eyebrow center">Read this carefully.</div>
+  <h2 class="center">SCALO isn't for everyone.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">I only work with a specific kind of barber. If you don't fit this, we'll both waste each other's time.</p>
+
+  <div class="qualify-grid">
+    <div class="qualify-col no">
+      <h3>Who this <u>isn't</u> for</h3>
+      <ul class="qualify-list">
+        <li><span class="mark">&times;</span><span><strong>Beginners.</strong> If you're not cutting hair full-time yet, or you're still doing under &pound;2K/m, build the basics first.</span></li>
+        <li><span class="mark">&times;</span><span><strong>Hobbyists.</strong> If you don't treat your shop as a serious business, this isn't for you.</span></li>
+        <li><span class="mark">&times;</span><span><strong>Passengers.</strong> If you want me to do it for you, or need your hand held every week, this won't work.</span></li>
+        <li><span class="mark">&times;</span><span><strong>Blamers.</strong> If every mentor you've ever had was "the problem," you're the problem.</span></li>
+        <li><span class="mark">&times;</span><span><strong>Overnight seekers.</strong> If you want to 10x in 30 days, go watch a guru on YouTube.</span></li>
+      </ul>
+    </div>
+    <div class="qualify-col yes">
+      <h3>Who this <u>is</u> for</h3>
+      <ul class="qualify-list">
+        <li><span class="mark">&check;</span><span><strong>Full-time barbers</strong> currently doing &pound;3-5K/m who want to hit &pound;10-15K/m within 6 months.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Shop owners or chair renters</strong> who know their craft but the business side is holding them back.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Implementers.</strong> Willing to post content, raise prices, and do the uncomfortable work.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Long-termers.</strong> Ready to build a brand over 6 months, not a spike of likes over a weekend.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Committed barbers</strong> who'll show up for every call and use what we build together.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THE PLAN -->
+<section class="section reveal">
+  <div class="eyebrow">The Plan</div>
+  <h2 class="center">Here's what we'll build together over 6 months.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">Three phases. Each one builds on the last. By month 6, you'll have a business that runs without you chasing it.</p>
+
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">Phase 1</span>
+        <span class="phase-window">Months 1-2 &middot; Foundation</span>
+      </div>
+      <h3>Clarity. Creative. Mechanics.</h3>
+      <p class="phase-desc">Get crystal clear on who you are as a business owner and the direction you want to take your shop. Once that's locked, we build out the creative side: how to create high-converting content that actually aligns with your vision. Then we install the business mechanics: the system injections that turn a low-converting basic barbering business into a <em>high-converting premium barberpreneur business</em>. The kind that attracts a clientele you never thought was possible.</p>
+      <ul class="phase-list">
+        <li>Crystal-clear direction for you and your shop</li>
+        <li>A creative approach aligned with where your business is going</li>
+        <li>System injections that transform the business side of your operation</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">Phase 2</span>
+        <span class="phase-window">Months 3-4 &middot; Creativity</span>
+      </div>
+      <h3>Build a content engine that does the heavy lifting.</h3>
+      <p class="phase-desc">This is where we go deep on a high-performing content strategy. Every piece of content working in harmony using our <em>Authority Flywheel</em>. Then we move into <em>Story to Status</em>, the new way barbers need to create content: converting your audience into fans who support your business, not just clients who book once. Finally, <em>Content to Cash</em>, the identification mechanism that shows you every bottleneck in your business, so you always know your next move.</p>
+      <ul class="phase-list">
+        <li>The Authority Flywheel: content that compounds</li>
+        <li>Story to Status: turn your audience into a fan base</li>
+        <li>Content to Cash: diagnose every bottleneck in real time</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">Phase 3</span>
+        <span class="phase-window">Months 5-6 &middot; Scale</span>
+      </div>
+      <h3>Raise prices. Multiply income. Open the next door.</h3>
+      <p class="phase-desc">This is where we effectively raise your prices without losing clients. We curate marketing campaigns that deliver real return on investment, not vanity numbers. And we open the doors to <em>what's next</em>: the possibilities you never thought were real inside the barbering industry. Second locations. Premium service tiers. A business that scales without your hands on every cut.</p>
+      <ul class="phase-list">
+        <li>Price-raise execution without losing clients</li>
+        <li>Marketing campaigns that actually return</li>
+        <li>The roadmap to what comes next, and how to build it</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MONTHLY REVENUE CHART -->
+<section class="monthly-revenue-section reveal">
+  <div class="mr-inner">
+    <div class="eyebrow">Community Revenue</div>
+    <h2>What SCALO students have added to their annual revenue, month by month.</h2>
+    <p class="mr-sub">Live from the SCALO Business OS, updated daily as students log their numbers.</p>
+
+    <div class="mr-headline">
+      <div class="mr-headline-label">Total revenue captured across the community</div>
+      <div class="mr-headline-value" id="mrTotalValue">&pound;0</div>
+    </div>
+
+    <div class="mr-chart" id="mrChart"></div>
+
+    <div class="mr-footnote">
+      <span class="mr-dot"></span>
+      Numbers pulled directly from the Business OS.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT'S INSIDE -->
+<section id="whats-inside" class="section reveal">
+  <div class="eyebrow">What's Inside</div>
+  <h2 class="center">Everything you get inside SCALO.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">This is what the &pound;3,000 gets you. Not a drip-fed course. A full program with direct access.</p>
+
+  <div class="modules-stack">
+    <div class="module-row">
+      <div class="module-text">
+        <div class="module-num">01 &middot; Weekly Live Coaching</div>
+        <h3>Every week, for 6 months.</h3>
+        <p>Live group calls where nothing gets left on the table. Bring your wins, your blockers, your content. Ask anything, get it answered.</p>
+      </div>
+      <div class="module-visual">
+        <img src="../images/DSC00280.JPG" alt="Weekly Live Coaching Calls">
+      </div>
+    </div>
+
+    <div class="module-row reverse">
+      <div class="module-text">
+        <div class="module-num">02 &middot; Direct Access to Tim</div>
+        <h3>No junior coaches. Just me.</h3>
+        <p>You get me. In the group, in the DMs, on calls. The same voice that built this program and the same standard that's taken every student to their next level.</p>
+      </div>
+      <div class="module-visual">
+        <img src="../What's inside the program pictures/direct access to tim.JPG" alt="Direct access to Tim">
+      </div>
+    </div>
+
+    <div class="module-row">
+      <div class="module-text">
+        <div class="module-num">03 &middot; The SCALO Community</div>
+        <h3>A private room of barbers actively scaling.</h3>
+        <p>The kind of room where every conversation moves your business forward. Daily wins, real-time feedback, no tyre-kickers.</p>
+      </div>
+      <div class="module-visual">
+        <img src="../What's inside the program pictures/The scalo community.JPG" alt="The SCALO Community">
+      </div>
+    </div>
+
+    <div class="module-row reverse">
+      <div class="module-text">
+        <div class="module-num">04 &middot; The SCALO Business OS</div>
+        <h3>Track every number that matters.</h3>
+        <p>The internal dashboard every student uses. Revenue, appointments, retention, prices, profit, all in one place. Know what's working before it's too late.</p>
+      </div>
+      <div class="module-visual">
+        <img src="../images/scalo-business-os.png" alt="SCALO Business OS dashboard">
+      </div>
+    </div>
+
+    <div class="module-row">
+      <div class="module-text">
+        <div class="module-num">05 &middot; The Complete IP Library</div>
+        <h3>10+ hours of proprietary material.</h3>
+        <p>Every framework, every recording, every template. The exact content my students are using to hit &pound;10K, &pound;15K, &pound;25K months right now.</p>
+      </div>
+      <div class="module-visual">
+        <img src="../What's inside the program pictures/SCALO interlectul property.jpg" alt="SCALO IP Library">
+      </div>
+    </div>
+
+    <div class="module-row reverse">
+      <div class="module-text">
+        <div class="module-num">06 &middot; Plug-and-Play Systems</div>
+        <h3>Ready on day one.</h3>
+        <p>Hooks, post templates, story scripts, brand positioning assets. Everything built so you can start posting content that converts the first week.</p>
+      </div>
+      <div class="module-visual">
+        <img src="../images/DSC00305.JPG" alt="SCALO Business Dashboard">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MEET TIM -->
+<section class="section reveal">
+  <div class="meet-tim">
+    <div class="meet-tim-image">
+      <img src="../my promise/my promise updated image 2.jpg" alt="Tim">
+    </div>
+    <div class="meet-tim-text">
+      <div class="eyebrow eyebrow-left">Meet Tim</div>
+      <h2>I've been where you are.</h2>
+      <p>I'm Tim. I run SCALO and I'm the one on every call.</p>
+      <p>I spent years in corporate as a Quantity Surveyor before I went all-in on barbering. I was doing <strong>&pound;3-4K/m</strong>, stuck, looking at every &pound;10K+ barber on Instagram wondering what they knew that I didn't.</p>
+      <p>Turns out, it wasn't one thing. It was a system. I built that system, and now my baseline is <em>&pound;24K/m</em> and growing.</p>
+      <p>Since then I've taught it to 18+ other barbers. Steven went from &pound;24K to &pound;37K months. Dillion added &pound;50K+ to his revenue in 4 months. JJ's already added &pound;50K this year and it's only April.</p>
+      <p>I built SCALO because the coaching space in this industry is full of people who can't actually do what they teach. I can. And now I want to help you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECOND SCROLLING BANNER -->
+<div class="scroll-banner">
+  <div class="scroll-banner-track" id="scrollBannerTrack2">
+    <span>JOIN THE COHORT</span><span>&bull;</span><span>BUILD YOUR BRAND</span><span>&bull;</span><span>FILL YOUR CHAIR</span><span>&bull;</span><span>RAISE YOUR PRICES</span><span>&bull;</span><span>JOIN THE COHORT</span><span>&bull;</span><span>BUILD YOUR BRAND</span><span>&bull;</span><span>FILL YOUR CHAIR</span><span>&bull;</span><span>RAISE YOUR PRICES</span><span>&bull;</span>
+  </div>
+</div>
+
+<!-- BONUSES -->
+<section class="section reveal">
+  <div class="eyebrow eyebrow-accent">Bonuses</div>
+  <h2 class="center">&pound;5,500 of bonuses, included.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">Every single one of these comes with the program. No upsells, no "optional add-ons." Just in the box.</p>
+
+  <div class="bonus-stack">
+    <div class="bonus-card">
+      <div class="bonus-num">01</div>
+      <div class="bonus-body">
+        <h4>The SCALO Portal</h4>
+        <p>A complete business suite for tracking every number that matters: revenue, appointments, retention, prices, profit. Know exactly what's working and what's not.</p>
+      </div>
+      <div class="bonus-value">&pound;2,000 value</div>
+    </div>
+
+    <div class="bonus-card">
+      <div class="bonus-num">02</div>
+      <div class="bonus-body">
+        <h4>The Complete SCALO IP Library</h4>
+        <p>10+ hours of recorded material covering every framework, every case study, every system I use. The full proprietary library.</p>
+      </div>
+      <div class="bonus-value">&pound;2,000 value</div>
+    </div>
+
+    <div class="bonus-card">
+      <div class="bonus-num">03</div>
+      <div class="bonus-body">
+        <h4>1:1 Roadmap Call with Tim</h4>
+        <p>A 60-minute private session in your first two weeks. We map your custom 6-month plan so you know exactly what to do from day one.</p>
+      </div>
+      <div class="bonus-value">&pound;1,000 value</div>
+    </div>
+
+    <div class="bonus-card">
+      <div class="bonus-num">04</div>
+      <div class="bonus-body">
+        <h4>Plug-and-Play Content + Brand Positioning Systems</h4>
+        <p>Done-for-you hooks, post templates, brand positioning assets and scripts. Everything you need to start posting content that converts on day one.</p>
+      </div>
+      <div class="bonus-value">&pound;500 value</div>
+    </div>
+  </div>
+
+  <div class="bonus-total">
+    Total bonus value: <em>&pound;5,500</em>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section id="pricing" class="section reveal">
+  <div class="eyebrow eyebrow-accent">The Offer</div>
+  <h2 class="center">Here's exactly what you're getting, and what it costs.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">No hidden fees. No "book a call to find out the price." Just the full breakdown.</p>
+
+  <div class="pricing-wrap">
+    <h3 class="center" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase;">What's included</h3>
+    <div class="pricing-value-row">
+      <span><strong>6 months of live weekly calls + direct access</strong></span>
+      <span>&pound;3,000 value</span>
+    </div>
+    <div class="pricing-value-row">
+      <span>The SCALO Portal (Bonus 1)</span>
+      <span>&pound;2,000</span>
+    </div>
+    <div class="pricing-value-row">
+      <span>The Complete SCALO IP Library (Bonus 2)</span>
+      <span>&pound;2,000</span>
+    </div>
+    <div class="pricing-value-row">
+      <span>1:1 Roadmap Call with Tim (Bonus 3)</span>
+      <span>&pound;1,000</span>
+    </div>
+    <div class="pricing-value-row">
+      <span>Plug-and-Play Content + Brand Systems (Bonus 4)</span>
+      <span>&pound;500</span>
+    </div>
+    <div class="pricing-value-total">
+      <span>Total value</span>
+      <span class="amt">&pound;8,500</span>
+    </div>
+
+    <div class="pricing-options">
+      <div class="pricing-option pay-primary selected has-discount">
+        <div class="pricing-option-label">Pay in full</div>
+        <div class="pricing-option-price">&pound;3,000</div>
+        <div class="pricing-option-sub">One payment.<br>&pound;1,500 less than the plan.</div>
+        <a href="https://buy.stripe.com/fZufZg8uA7mt0vJ22s5Ne09" class="pricing-cta">Pay &pound;3,000 and join</a>
+      </div>
+      <div class="pricing-option pay-secondary">
+        <div class="pricing-option-label">Payment plan</div>
+        <div class="pricing-option-price">&pound;1,500 today</div>
+        <div class="pricing-option-sub">Then &pound;500/month for 6 months.<br>&pound;4,500 total.</div>
+        <a href="https://buy.stripe.com/cNi3cu3aggX3guHcH65Ne0m" class="pricing-cta">Start with &pound;1,500</a>
+        <div class="payment-schedule">
+          <div class="payment-schedule-row"><span class="pay-date">Today</span><span class="pay-amount">&pound;1,500</span></div>
+          <div class="payment-schedule-row"><span class="pay-date">Month 1</span><span class="pay-amount">&pound;500</span></div>
+          <div class="payment-schedule-row"><span class="pay-date">Month 2</span><span class="pay-amount">&pound;500</span></div>
+          <div class="payment-schedule-row"><span class="pay-date">Month 3</span><span class="pay-amount">&pound;500</span></div>
+          <div class="payment-schedule-row"><span class="pay-date">Month 4</span><span class="pay-amount">&pound;500</span></div>
+          <div class="payment-schedule-row"><span class="pay-date">Month 5</span><span class="pay-amount">&pound;500</span></div>
+          <div class="payment-schedule-row"><span class="pay-date">Month 6</span><span class="pay-amount">&pound;500</span></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="pricing-terms">
+      7 spots available. Programme runs 1 June to 30 November 2026. All payments are non-refundable once the programme begins. <strong>Payment plan auto-completes after the 6th monthly payment. No further charges after that.</strong>
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ANTI-GUARANTEE -->
+<section class="section reveal section--narrow">
+  <div class="anti-guarantee">
+    <div class="eyebrow">Is there a guarantee?</div>
+    <h3>No. And here's why.</h3>
+    <p>If you don't do the work, you don't get the result. That's the guarantee.</p>
+    <p>Every barber I've ever worked with who hit &pound;10K, &pound;15K, &pound;25K months did it because <em>they</em> showed up. They posted the content. They raised the prices. They did the uncomfortable stuff.</p>
+    <p>I can hand you the exact system. I can be in the room with you every week for 6 months. But I can't implement it for you. That part's on you.</p>
+    <p>If you're looking for someone to save you, this isn't it. If you're ready to save yourself and you want the system that works, I'm in your corner.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="section reveal section--narrow">
+  <div class="eyebrow">FAQ</div>
+  <h2 class="center">Every question you're probably asking yourself.</h2>
+  <div style="margin-top: 3rem;"></div>
+
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Do I need to post content every single day?</summary>
+      <div class="faq-body"><p>No. But you need to post consistently. We'll map a cadence that fits your life, usually 3 to 5 posts a week, and give you the plug-and-play templates so you're never staring at a blank page.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What if I'm in a small town with not many people?</summary>
+      <div class="faq-body"><p>You'd be surprised. Some of my best students are in towns of 20,000 people. The Magnetic Personal Brand system works specifically because it makes you <em>the</em> barber in your area, not one of hundreds fighting for attention in a big city.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How quickly will I see results?</summary>
+      <div class="faq-body"><p>Results aren't typical, and I won't promise them. But inside SCALO, students typically see new client flow pick up within 30 to 60 days of implementing Phase 1 and 2. Steven added &pound;10K to his monthly revenue in his first month. Every student's timeline is different.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What if I don't have time?</summary>
+      <div class="faq-body"><p>Then this isn't for you yet, and that's fine. But if you can find 3 to 5 hours a week to implement, you've got enough. The whole system is designed to be installed around a full-time cutting schedule.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What if I already have a full book of clients?</summary>
+      <div class="faq-body"><p>Great. That's exactly the position to scale from. SCALO isn't about finding more clients who can't afford you. It's about replacing your lower-ticket clients with higher-ticket ones, raising prices without losing anyone, and building a brand that lets you keep scaling for years.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is this just for barbers, or for hairdressers / other services too?</summary>
+      <div class="faq-body"><p>The entire system is built for male grooming: barbers, barber shop owners, chair renters. The content, positioning, pricing and frameworks are tuned to that world. If you're outside that, it'll still work but you'll be doing some translation.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What happens if I fall behind?</summary>
+      <div class="faq-body"><p>You've got 6 months of calls, plus lifetime access to every bit of recorded material inside. If you miss a week, the content's there waiting. If you need to catch up in a call, bring it. I'll help you reset and get moving again.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I pay later if I can't afford it right now?</summary>
+      <div class="faq-body"><p>The payment plan is there exactly for that reason. &pound;1,500 down gets you in, then &pound;500/m for 6 months. If even &pound;1,500 is a stretch right now, be honest with yourself about whether this is the right time.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What if I want to cancel the payment plan halfway through?</summary>
+      <div class="faq-body"><p>The program is 6 months and the payment plan covers that period. Once you're in, you're committed to the 6 months. Full terms are in the Stripe checkout and the client agreement.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is this the same thing I saw on the waitlist page?</summary>
+      <div class="faq-body"><p>Yes. SCALO is one program, one cohort. The waitlist holds your seat until we open enrolments; this page is where you secure it.</p></div>
+    </details>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta reveal">
+  <div class="eyebrow eyebrow-accent">Last thing</div>
+  <h2>If you've read this far, you already know.</h2>
+  <p>The doors don't stay open forever. Cohorts fill. Prices will go up.</p>
+  <p>If you're ready, get in.</p>
+  <div class="hero-cta-row">
+    <a href="#pricing" class="btn-primary">Join SCALO Today</a>
+  </div>
+  <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--text-muted);">Questions? Email <a href="mailto:tim@usescalo.com" style="color: var(--accent);">tim@usescalo.com</a></p>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>&copy; 2026 SCALO &middot; <a href="/">Back to landing page</a></p>
+</footer>
+
+<!-- STUDENT WINS TRACKER (floating, same as landing page) -->
+<div class="wins-tracker">
+  <div class="wins-label">Student Wins Tracker</div>
+  <div class="wins-amount" id="winsAmount">Loading...</div>
+</div>
+
+<script>
+(function() {
+  // ───── STUDENT WINS TRACKER ─────
+  const FIREBASE_DB_URL = 'https://scalo-client-portal-default-rtdb.firebaseio.com';
+  const winsEl = document.getElementById('winsAmount');
+  const BASELINE = 515000;
+  let displayedTotal = 0;
+
+  async function fetchTotalRevenue() {
+    try {
+      const res = await fetch(FIREBASE_DB_URL + '/portal/entries.json');
+      if (!res.ok) throw new Error('Firebase fetch failed');
+      const allUsers = await res.json();
+      if (!allUsers) return;
+      let total = 0;
+      Object.values(allUsers).forEach(function(userWeeks) {
+        if (!userWeeks || typeof userWeeks !== 'object') return;
+        Object.values(userWeeks).forEach(function(weekData) {
+          if (!weekData || typeof weekData !== 'object') return;
+          if (Array.isArray(weekData.days)) {
+            weekData.days.forEach(function(day) {
+              if (day && day.revenue) {
+                var rev = parseFloat(day.revenue);
+                if (!isNaN(rev)) total += rev;
+              }
+            });
+          } else if (weekData.revenue) {
+            var rev = parseFloat(weekData.revenue);
+            if (!isNaN(rev)) total += rev;
+          }
+        });
+      });
+      displayedTotal = BASELINE + total;
+      winsEl.textContent = '\u00a3' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    } catch (e) {
+      displayedTotal = BASELINE;
+      winsEl.textContent = '\u00a3' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  }
+  function tickCounter() {
+    if (displayedTotal === 0) return;
+    displayedTotal += (Math.random() * 0.06) + 0.01;
+    winsEl.textContent = '\u00a3' + displayedTotal.toLocaleString('en-GB', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  fetchTotalRevenue().then(function() {
+    setInterval(tickCounter, 3000);
+  });
+
+  // ───── MONTHLY REVENUE CHART ─────
+  const MANUAL_MONTHLY_ADDITIONS = {
+    '2025-10': 48000,
+    '2025-11': 55000,
+    '2025-12': 62000,
+    '2026-01': 68000,
+    '2026-02': 76000,
+    '2026-03': 88000,
+    '2026-04': 118000,
+  };
+  const MR_MONTHS_TO_SHOW = 7;
+  const mrChartEl = document.getElementById('mrChart');
+  const mrTotalEl = document.getElementById('mrTotalValue');
+
+  function mrMondayOfIsoWeek(year, week) {
+    var jan4 = new Date(Date.UTC(year, 0, 4));
+    var jan4Day = (jan4.getUTCDay() + 6) % 7;
+    var mondayW1 = new Date(jan4);
+    mondayW1.setUTCDate(jan4.getUTCDate() - jan4Day);
+    var monday = new Date(mondayW1);
+    monday.setUTCDate(mondayW1.getUTCDate() + (week - 1) * 7);
+    return monday;
+  }
+  function mrMonthKey(date) {
+    var m = date.getUTCMonth() + 1;
+    return date.getUTCFullYear() + '-' + (m < 10 ? '0' + m : '' + m);
+  }
+  function mrBuildTrailingMonths(n) {
+    var keys = [];
+    var now = new Date();
+    for (var i = n - 1; i >= 0; i--) {
+      var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+      keys.push(mrMonthKey(d));
+    }
+    return keys;
+  }
+  function mrMonthLabel(key) {
+    var parts = key.split('-');
+    var d = new Date(Date.UTC(+parts[0], +parts[1] - 1, 1));
+    return d.toLocaleString('en-GB', { month: 'short' }).toUpperCase();
+  }
+  function mrFormatMoney(amount) {
+    return '\u00a3' + Math.round(amount).toLocaleString('en-GB');
+  }
+
+  async function mrLoad() {
+    if (!mrChartEl) return;
+    var monthsToShow = mrBuildTrailingMonths(MR_MONTHS_TO_SHOW);
+    var totals = {};
+    monthsToShow.forEach(function(k) { totals[k] = 0; });
+    try {
+      var res = await fetch(FIREBASE_DB_URL + '/portal/entries.json');
+      if (res.ok) {
+        var allUsers = await res.json();
+        if (allUsers) {
+          Object.values(allUsers).forEach(function(userWeeks) {
+            if (!userWeeks || typeof userWeeks !== 'object') return;
+            Object.keys(userWeeks).forEach(function(weekKey) {
+              var weekData = userWeeks[weekKey];
+              if (!weekData || typeof weekData !== 'object') return;
+              var m = weekKey.match(/^(\d{4})_W(\d{1,2})$/);
+              var year = m ? +m[1] : weekData.year;
+              var week = m ? +m[2] : weekData.week;
+              if (!year || !week) return;
+              var monthKey = mrMonthKey(mrMondayOfIsoWeek(year, week));
+              if (!(monthKey in totals)) return;
+              if (Array.isArray(weekData.days)) {
+                weekData.days.forEach(function(day) {
+                  if (day && day.revenue) {
+                    var rev = parseFloat(day.revenue);
+                    if (!isNaN(rev)) totals[monthKey] += rev;
+                  }
+                });
+              } else if (weekData.revenue) {
+                var rev = parseFloat(weekData.revenue);
+                if (!isNaN(rev)) totals[monthKey] += rev;
+              }
+            });
+          });
+        }
+      }
+    } catch (e) {}
+    monthsToShow.forEach(function(k) {
+      if (MANUAL_MONTHLY_ADDITIONS[k]) totals[k] += MANUAL_MONTHLY_ADDITIONS[k];
+    });
+    var maxVal = Math.max.apply(null, monthsToShow.map(function(k) { return totals[k]; }));
+    if (!isFinite(maxVal) || maxVal <= 0) maxVal = 1;
+    mrChartEl.style.setProperty('--mr-cols', monthsToShow.length);
+    mrChartEl.innerHTML = '';
+    var currentKey = monthsToShow[monthsToShow.length - 1];
+    monthsToShow.forEach(function(k) {
+      var val = totals[k];
+      var bar = document.createElement('div');
+      bar.className = 'mr-bar' + (k === currentKey ? ' current' : '');
+      bar.setAttribute('data-value', val);
+      bar.setAttribute('data-target-height', (val / maxVal) * 100);
+      bar.innerHTML =
+        '<div class="mr-bar-value">\u00a30</div>' +
+        '<div class="mr-bar-fill"></div>' +
+        '<div class="mr-bar-label">' + mrMonthLabel(k) + '</div>';
+      mrChartEl.appendChild(bar);
+    });
+    var grandTotal = monthsToShow.reduce(function(s, k) { return s + totals[k]; }, 0);
+    if (mrTotalEl) mrTotalEl.textContent = mrFormatMoney(grandTotal);
+    mrObserveAndAnimate();
+  }
+
+  function mrObserveAndAnimate() {
+    var section = document.querySelector('.monthly-revenue-section');
+    if (!section) return;
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.mr-bar').forEach(function(bar) {
+        bar.classList.add('in-view');
+        var h = parseFloat(bar.getAttribute('data-target-height')) || 0;
+        var target = parseFloat(bar.getAttribute('data-value')) || 0;
+        bar.querySelector('.mr-bar-fill').style.height = h + '%';
+        bar.querySelector('.mr-bar-value').textContent = mrFormatMoney(target);
+      });
+      return;
+    }
+    var played = false;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting || played) return;
+        played = true;
+        var bars = section.querySelectorAll('.mr-bar');
+        var stagger = Math.max(500, Math.min(900, 6000 / Math.max(1, bars.length)));
+        bars.forEach(function(bar, i) {
+          setTimeout(function() {
+            var h = parseFloat(bar.getAttribute('data-target-height')) || 0;
+            var target = parseFloat(bar.getAttribute('data-value')) || 0;
+            bar.querySelector('.mr-bar-fill').style.height = h + '%';
+            bar.classList.add('in-view');
+            mrCountUp(bar.querySelector('.mr-bar-value'), target, 1200);
+          }, i * stagger);
+        });
+        io.disconnect();
+      });
+    }, { threshold: 0.25 });
+    io.observe(section);
+  }
+  function mrCountUp(el, target, durationMs) {
+    if (!el) return;
+    var start = performance.now();
+    var interval = setInterval(function() {
+      var t = Math.min(1, (performance.now() - start) / durationMs);
+      var eased = 1 - Math.pow(1 - t, 3);
+      var current = Math.round(target * eased);
+      el.textContent = '\u00a3' + current.toLocaleString('en-GB');
+      if (t >= 1) clearInterval(interval);
+    }, 30);
+  }
+  mrLoad();
+
+  // ───── INTERVIEW VIDEO CLICK-TO-PLAY ─────
+  // Only fires on cards with a real YouTube ID (not placeholder).
+  document.querySelectorAll('.interview-video:not(.placeholder)').forEach(function(el) {
+    var id = el.getAttribute('data-youtube-id');
+    if (!id || id.indexOf('[') === 0) return;
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function() {
+      if (el.querySelector('iframe')) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      iframe.title = 'Student interview';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;';
+      el.innerHTML = '';
+      el.appendChild(iframe);
+      el.style.cursor = 'default';
+    });
+  });
+
+  // ───── INTERVIEW GROWTH GRAPHS (SVG LINE CHARTS) ─────
+  document.querySelectorAll('.growth-graph').forEach(function(graph, idx) {
+    var currency = graph.getAttribute('data-currency') || '\u00a3';
+    var pointEls = Array.from(graph.querySelectorAll('.growth-point'));
+    if (!pointEls.length) return;
+    var points = pointEls.map(function(el) {
+      return {
+        value: parseFloat(el.getAttribute('data-value')) || 0,
+        label: el.getAttribute('data-label') || '',
+        peak: el.classList.contains('peak')
+      };
+    });
+    var maxVal = Math.max.apply(null, points.map(function(p) { return p.value; }));
+    if (!isFinite(maxVal) || maxVal <= 0) maxVal = 1;
+
+    // SVG layout
+    var svgW = 300, svgH = 120;
+    var padX = 18, padTop = 12, padBottom = 8;
+    var plotW = svgW - padX * 2;
+    var plotH = svgH - padTop - padBottom;
+    var coords = points.map(function(p, i) {
+      var x = padX + (i / Math.max(1, points.length - 1)) * plotW;
+      var y = padTop + (1 - p.value / maxVal) * plotH;
+      return { x: x, y: y, point: p };
+    });
+    // Smooth path via Catmull-Rom-ish cubic Bezier
+    function buildPath(cs) {
+      if (cs.length === 0) return '';
+      if (cs.length === 1) return 'M ' + cs[0].x + ' ' + cs[0].y;
+      var d = 'M ' + cs[0].x + ' ' + cs[0].y;
+      for (var i = 0; i < cs.length - 1; i++) {
+        var p0 = cs[i - 1] || cs[i];
+        var p1 = cs[i];
+        var p2 = cs[i + 1];
+        var p3 = cs[i + 2] || p2;
+        var cp1x = p1.x + (p2.x - p0.x) / 6;
+        var cp1y = p1.y + (p2.y - p0.y) / 6;
+        var cp2x = p2.x - (p3.x - p1.x) / 6;
+        var cp2y = p2.y - (p3.y - p1.y) / 6;
+        d += ' C ' + cp1x + ' ' + cp1y + ' ' + cp2x + ' ' + cp2y + ' ' + p2.x + ' ' + p2.y;
+      }
+      return d;
+    }
+    var linePath = buildPath(coords);
+    var areaPath = linePath + ' L ' + coords[coords.length - 1].x + ' ' + (svgH - padBottom) +
+                   ' L ' + coords[0].x + ' ' + (svgH - padBottom) + ' Z';
+    var gradId = 'growthGrad' + idx;
+
+    var wrap = graph.querySelector('.growth-line-wrap');
+    if (!wrap) return;
+    var svgNS = 'http://www.w3.org/2000/svg';
+    wrap.innerHTML =
+      '<svg class="growth-line-svg" viewBox="0 0 ' + svgW + ' ' + svgH + '" preserveAspectRatio="none">' +
+        '<defs><linearGradient id="' + gradId + '" x1="0" x2="0" y1="0" y2="1">' +
+          '<stop offset="0%" stop-color="#B8E986" stop-opacity="0.3" />' +
+          '<stop offset="100%" stop-color="#B8E986" stop-opacity="0" />' +
+        '</linearGradient></defs>' +
+        '<path class="growth-area" d="' + areaPath + '" fill="url(#' + gradId + ')" />' +
+        '<path class="growth-line" d="' + linePath + '" />' +
+        coords.map(function(c) {
+          return '<circle class="growth-dot' + (c.point.peak ? ' peak' : '') +
+                 '" cx="' + c.x + '" cy="' + c.y + '" r="' + (c.point.peak ? 5.5 : 4) + '" />';
+        }).join('') +
+      '</svg>';
+
+    var pathEl = wrap.querySelector('.growth-line');
+    var lineLen = pathEl.getTotalLength();
+    pathEl.style.strokeDasharray = lineLen;
+    pathEl.style.strokeDashoffset = lineLen;
+    pathEl.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+
+    // Build label row below chart
+    var pointsRow = graph.querySelector('.growth-points');
+    pointsRow.style.gridTemplateColumns = 'repeat(' + points.length + ', 1fr)';
+    pointsRow.innerHTML = '';
+    points.forEach(function(p) {
+      var col = document.createElement('div');
+      col.className = 'growth-label-col' + (p.peak ? ' peak' : '');
+      col.setAttribute('data-value', p.value);
+      col.innerHTML = '<div class="v">' + currency + '0</div><div class="l">' + p.label + '</div>';
+      pointsRow.appendChild(col);
+    });
+    var labels = pointsRow.querySelectorAll('.growth-label-col');
+
+    function formatMoney(n) {
+      if (n >= 1000) return currency + (n / 1000).toFixed(n % 1000 === 0 ? 0 : 1).replace(/\.0$/, '') + 'K';
+      return currency + Math.round(n).toLocaleString('en-GB');
+    }
+    function countUp(el, target, durationMs) {
+      if (!el) return;
+      var start = performance.now();
+      var iv = setInterval(function() {
+        var t = Math.min(1, (performance.now() - start) / durationMs);
+        var eased = 1 - Math.pow(1 - t, 3);
+        var current = Math.round(target * eased);
+        el.textContent = formatMoney(current);
+        if (t >= 1) clearInterval(iv);
+      }, 30);
+    }
+
+    var played = false;
+    function play() {
+      if (played) return;
+      played = true;
+      wrap.classList.add('played');
+      setTimeout(function() { pathEl.style.strokeDashoffset = 0; }, 60);
+      var totalDraw = 1500;
+      var dots = wrap.querySelectorAll('.growth-dot');
+      var step = totalDraw / Math.max(1, points.length - 1);
+      dots.forEach(function(dot, i) {
+        setTimeout(function() { dot.classList.add('in'); }, 60 + i * step);
+      });
+      labels.forEach(function(lab, i) {
+        setTimeout(function() {
+          lab.classList.add('in');
+          countUp(lab.querySelector('.v'), parseFloat(lab.getAttribute('data-value')), 900);
+        }, 60 + i * step);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) { play(); return; }
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting || played) return;
+        play();
+        io.disconnect();
+      });
+    }, { threshold: 0.3 });
+    io.observe(graph);
+  });
+
+  // ───── MOSAIC AUTO-SCROLL ─────
+  var mosaicCols = document.querySelectorAll('.mosaic-col[data-scroll]');
+  mosaicCols.forEach(function(col) {
+    var direction = col.getAttribute('data-scroll');
+    var items = col.querySelectorAll('.mosaic-item');
+    items.forEach(function(item) { col.appendChild(item.cloneNode(true)); });
+    var totalHeight = col.scrollHeight / 2;
+    var start = performance.now();
+    var speed = direction === 'up' ? -15 : 15;
+    function animate(now) {
+      var elapsed = (now - start) / 1000;
+      var offset = (elapsed * speed) % totalHeight;
+      if (direction === 'up' && offset > 0) offset -= totalHeight;
+      if (direction === 'down' && offset < 0) offset += totalHeight;
+      col.style.transform = 'translateY(' + offset + 'px)';
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  });
+
+  // ───── SCROLL BANNER ANIMATION ─────
+  [document.getElementById('scrollBannerTrack1'), document.getElementById('scrollBannerTrack2')].forEach(function(track, idx) {
+    if (!track) return;
+    var children = Array.from(track.children);
+    children.forEach(function(child) { track.appendChild(child.cloneNode(true)); });
+    var start = performance.now();
+    var speed = idx === 0 ? 40 : 35;
+    function animate(now) {
+      var elapsed = (now - start) / 1000;
+      var trackWidth = track.scrollWidth / 2;
+      var offset = -(elapsed * speed) % trackWidth;
+      track.style.transform = 'translateX(' + offset + 'px)';
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  });
+
+  // ───── COUNTDOWN TIMER ─────
+  var COUNTDOWN_KEY = 'scalo_sales_countdown_end';
+  var now = Date.now();
+  var end = +localStorage.getItem(COUNTDOWN_KEY);
+  if (!end || end < now) {
+    end = now + (7 * 24 * 60 * 60 * 1000);
+    localStorage.setItem(COUNTDOWN_KEY, end);
+  }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function updateCountdown() {
+    var diff = end - Date.now();
+    if (diff < 0) diff = 0;
+    var days = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var mins = Math.floor((diff % 3600000) / 60000);
+    var secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cDays').textContent = pad(days);
+    document.getElementById('cHours').textContent = pad(hours);
+    document.getElementById('cMins').textContent = pad(mins);
+    document.getElementById('cSecs').textContent = pad(secs);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ───── SCROLL REVEAL ─────
+  var reveals = document.querySelectorAll('.reveal');
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el) { revealObs.observe(el); });
+
+  // ───── WINS TRACKER FADE ON SCROLL ─────
+  var winsTracker = document.querySelector('.wins-tracker');
+  var scrollTimer;
+  window.addEventListener('scroll', function() {
+    if (winsTracker) {
+      winsTracker.classList.add('faded');
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function() {
+        winsTracker.classList.remove('faded');
+      }, 300);
+    }
+  });
+
+  // ───── SMOOTH ANCHOR SCROLL ─────
+  document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var href = link.getAttribute('href');
+      if (href === '#') return;
+      var target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      var y = target.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
