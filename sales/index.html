@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SCALO | Join the Program</title>
-<meta name="description" content="Join SCALO. The system UK barbers are using to scale from £3-5K/m to £10-15K/m.">
+<meta name="description" content="Join SCALO. The system UK barbers are using to scale their business, build a brand, and raise prices. Founding member pricing from £499 + £199/m.">
 <link rel="icon" type="image/png" href="../Branding/scalo v3.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -378,17 +381,16 @@
     width: max-content;
   }
   .scroll-banner-track span {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(1.6rem, 3.8vw, 2.8rem);
-    color: rgba(255, 255, 255, 0.25);
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: var(--accent);
+    letter-spacing: -0.027em;
     flex-shrink: 0;
   }
   .scroll-banner-track span:nth-child(even) {
-    color: rgba(184, 233, 134, 0.35);
-    font-size: clamp(1rem, 2.2vw, 1.6rem);
+    font-size: clamp(1rem, 2vw, 1.5rem);
     align-self: center;
   }
 
@@ -1491,6 +1493,201 @@
     color: var(--text-muted);
     line-height: 1.6;
   }
+  /* ───── TIERED PRICING (founding + standard) ───── */
+  .pricing-tiers {
+    margin-top: 2rem;
+  }
+  .pricing-tier {
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2rem 2rem 2.25rem;
+    background: linear-gradient(180deg, var(--bg-card) 0%, #0c0c0c 100%);
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+  .pricing-tier-founding { border-color: var(--accent-strong); }
+  .pricing-tier-founding::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 18px;
+    pointer-events: none;
+    box-shadow: 0 0 0 1px var(--accent-strong), 0 0 32px var(--accent-glow);
+  }
+  .pricing-tier[hidden] { display: none !important; }
+
+  .pricing-tier-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-strong);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+  .pricing-tier-badge-standard {
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--border);
+  }
+  .pricing-tier-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: gsPulse 2s ease-in-out infinite;
+  }
+
+  .pricing-tier-counter { margin-bottom: 1.5rem; }
+  .pricing-tier-counter-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .pricing-tier-counter-num {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+  .pricing-tier-counter-divider {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 0 0.1rem;
+  }
+  .pricing-tier-counter-total {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 800;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+  .pricing-tier-counter-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-left: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .pricing-tier-progress {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+    position: relative;
+  }
+  .pricing-tier-progress-fill {
+    position: absolute;
+    inset: 0;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(184, 233, 134, 0.6) 100%);
+    border-radius: 4px;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 16px var(--accent-glow);
+  }
+
+  .pricing-tier-price-row {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .pricing-tier-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .pricing-tier-price-amt {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--white);
+    line-height: 1;
+  }
+  .pricing-tier-founding .pricing-tier-price-amt { color: var(--accent); }
+  .pricing-tier-price-sub {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+  }
+  .pricing-tier-plus {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .pricing-tier .pricing-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 1.1rem 1.5rem;
+    border-radius: 12px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+  .pricing-cta-founding {
+    background: var(--accent);
+    color: var(--bg);
+    border: 1px solid var(--accent);
+  }
+  .pricing-cta-founding:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(184, 233, 134, 0.35);
+  }
+  .pricing-cta-standard {
+    background: var(--white);
+    color: var(--bg);
+    border: 1px solid var(--white);
+  }
+  .pricing-cta-standard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(255, 255, 255, 0.18);
+  }
+
+  .pricing-tier-savings {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .pricing-tier-fullnotice {
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem 1rem;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-strong);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .pricing-tier { padding: 1.5rem 1.25rem 1.75rem; }
+    .pricing-tier-price-row { gap: 0.85rem; }
+    .pricing-tier-counter-label { width: 100%; margin-left: 0; }
+  }
+
   .pricing-terms strong {
     color: var(--text-primary);
     font-weight: 700;
@@ -1676,27 +1873,1010 @@
     .feature-info { grid-template-columns: 1fr; gap: 1.5rem; }
     .interviews-section, .stories-section, .feature-testimonial { padding: 3.5rem 1.25rem; }
   }
+
+  /* ───── VERTICAL VIDEO TESTIMONIALS (phone-frame swipe) ───── */
+  .vt-section {
+    padding: 5rem 2rem 6rem;
+    position: relative;
+  }
+  .vt-section .eyebrow { text-align: center; }
+  .vt-section h2 { text-align: center; }
+  .vt-section .vt-sub {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 3rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+  }
+
+  .vt-carousel {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 5rem;
+  }
+
+  .vt-stage {
+    overflow: hidden;
+    position: relative;
+    border-radius: 24px;
+  }
+
+  .vt-track {
+    display: flex;
+    transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .vt-slide {
+    flex: 0 0 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    padding: 1rem 0;
+  }
+
+  .vt-phone {
+    position: relative;
+    width: 320px;
+    aspect-ratio: 9 / 19.5;
+  }
+
+  .vt-phone-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 28px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .vt-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s ease, transform 0.6s ease;
+  }
+
+  .vt-phone-screen:hover .vt-thumb {
+    filter: brightness(0.92);
+    transform: scale(1.03);
+  }
+
+  .vt-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+  .vt-play svg { width: 30px; height: 30px; margin-left: 4px; }
+
+  .vt-phone-screen:hover .vt-play {
+    background: rgba(0, 0, 0, 0.65);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+
+  .vt-phone-screen.playing .vt-thumb,
+  .vt-phone-screen.playing .vt-play { display: none; }
+  .vt-phone-screen iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .vt-meta { text-align: center; max-width: 360px; padding: 0 1rem; }
+  .vt-name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+  .vt-quote {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+  .vt-handle {
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+  }
+
+  .vt-nav {
+    position: absolute;
+    top: 38%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.25s ease;
+    padding: 0;
+  }
+  .vt-nav:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-50%) scale(1.05);
+  }
+  .vt-nav svg { width: 22px; height: 22px; }
+  .vt-nav-prev { left: 0; }
+  .vt-nav-next { right: 0; }
+
+  .vt-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 2rem;
+  }
+  .vt-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .vt-dot.active {
+    background: var(--accent);
+    width: 26px;
+    border-radius: 4px;
+  }
+  .vt-dot:hover:not(.active) { background: rgba(255, 255, 255, 0.45); }
+
+  @media (max-width: 768px) {
+    .vt-section { padding: 4rem 1rem 5rem; }
+    .vt-carousel { padding: 0; }
+    .vt-phone { width: 260px; }
+    .vt-nav { display: none; }
+    .vt-name { font-size: 1.1rem; }
+    .vt-quote { font-size: 0.9rem; }
+  }
+
+  /* ───── GROWTH-STAT CARDS (Dillon, Mateo) ───── */
+  .gs-section {
+    padding: 5rem 2rem 6rem;
+    position: relative;
+  }
+  .gs-section .eyebrow { text-align: center; }
+  .gs-section h2 { text-align: center; }
+  .gs-section .gs-sub {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto 3.5rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+  }
+
+  .gs-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .gs-card {
+    display: grid;
+    grid-template-columns: minmax(220px, 380px) 1fr;
+    gap: 3rem;
+    align-items: center;
+    background: linear-gradient(180deg, var(--bg-card) 0%, #0c0c0c 100%);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s ease;
+  }
+  .gs-card:hover { border-color: var(--accent-strong); }
+  .gs-card::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 65%);
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    opacity: 0.6;
+  }
+  .gs-card:hover::before { opacity: 1; }
+
+  .gs-photo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+  }
+  .gs-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    display: block;
+  }
+  .gs-photo-empty {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  /* Stacked Instagram screenshots (Dillon variant) */
+  .gs-screenshots-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+  .gs-shot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .gs-shot img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 18px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+    display: block;
+  }
+  .gs-shot-empty {
+    width: 100%;
+    height: 260px;
+    border-radius: 18px;
+    background: var(--bg-elevated);
+    border: 1px dashed var(--border);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding: 1rem;
+    line-height: 1.5;
+  }
+  .gs-shot-empty code {
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 0.75rem;
+  }
+  .gs-shot-label {
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+  .gs-shot-label.highlight { color: var(--accent); }
+
+  /* Faux Instagram profile mock (Dillon) */
+  .ig-mock {
+    width: 100%;
+    background: #000;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: #fff;
+  }
+  .ig-mock-statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1.1rem 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .ig-mock-time { color: #fff; font-feature-settings: 'tnum'; }
+  .ig-mock-statusicons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .ig-mock-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 1rem 0.6rem;
+  }
+  .ig-mock-handle-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .ig-mock-handle {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+  .ig-mock-chevron { width: 11px; height: 11px; }
+  .ig-mock-newdot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff4444;
+    margin-left: 0.15rem;
+  }
+  .ig-mock-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: #fff;
+  }
+
+  .ig-mock-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.6rem 1rem 0.5rem;
+  }
+  .ig-mock-pic {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    padding: 3px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .ig-mock-pic img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2.5px solid #000;
+    display: block;
+  }
+  .ig-mock-pic-fallback {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2.5px solid #000;
+    background: #1a1a1a;
+    color: var(--text-muted);
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  .ig-mock-stats {
+    display: flex;
+    gap: 1.25rem;
+    flex: 1;
+    justify-content: space-around;
+  }
+  .ig-mock-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.05rem;
+  }
+  .ig-mock-stat-num {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    transition: color 0.5s ease 1.6s;
+  }
+  .ig-mock-stat.live .ig-mock-stat-num { color: var(--accent); }
+  .ig-mock-stat-label {
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  .ig-mock-bio {
+    padding: 0.5rem 1rem 1.1rem;
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+  .ig-mock-bio-name {
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.3rem;
+  }
+  .ig-mock-bio-text { color: rgba(255, 255, 255, 0.92); }
+  .ig-mock-link { color: #4d8ee5; }
+
+  /* IG screenshot crossfade frame (Dillon right column) */
+  .ig-shots-frame {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--border);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.55);
+    margin: 1.25rem 0 1.5rem;
+  }
+  .ig-shot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+  .ig-shot-before { z-index: 2; opacity: 1; }
+  .ig-shot-after  { z-index: 1; opacity: 0; }
+  .ig-shots-frame.in-view .ig-shot-before { animation: igShotOut 1s ease-in-out 1.6s forwards; }
+  .ig-shots-frame.in-view .ig-shot-after  { animation: igShotIn 1s ease-in-out 1.6s forwards; }
+  @keyframes igShotOut { to { opacity: 0; } }
+  @keyframes igShotIn  { to { opacity: 1; } }
+
+  .ig-shots-label {
+    position: absolute;
+    top: 0.7rem;
+    z-index: 5;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: opacity 0.6s ease;
+  }
+  .ig-shots-label-before {
+    left: 0.7rem;
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+  }
+  .ig-shots-label-after {
+    right: 0.7rem;
+    color: var(--accent);
+    border-color: var(--accent-strong);
+    opacity: 0;
+  }
+  .ig-shots-frame.in-view .ig-shots-label-before { animation: igShotOut 1s ease-in-out 1.6s forwards; }
+  .ig-shots-frame.in-view .ig-shots-label-after  { animation: igShotIn 1s ease-in-out 1.6s forwards; }
+
+  .ig-shots-fallback {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    padding: 1rem;
+    background: var(--bg-elevated);
+    border: 1px dashed var(--border);
+    border-radius: 18px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .ig-shots-fallback code {
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 0.72rem;
+  }
+  .ig-shots-frame.shots-missing .ig-shots-fallback { opacity: 1; }
+  .ig-shots-frame.shots-missing .ig-shots-label { opacity: 0; }
+
+  /* Two IG screenshots side-by-side with arrow + jump counter */
+  .ig-pair {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.25rem 0 1rem;
+    flex-wrap: nowrap;
+  }
+  .ig-pair-card {
+    flex: 1 1 0;
+    min-width: 0;
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  }
+  .ig-pair-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+  .ig-pair-empty {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.5;
+    padding: 0.75rem;
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+  }
+  .ig-pair-empty code {
+    color: var(--accent);
+    font-family: monospace;
+    font-size: 0.68rem;
+    margin-top: 0.25rem;
+  }
+  .ig-pair-tag {
+    position: absolute;
+    top: 0.55rem;
+    left: 0.55rem;
+    z-index: 4;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .ig-pair-tag.highlight {
+    color: var(--accent);
+    border-color: var(--accent-strong);
+    background: rgba(0, 0, 0, 0.55);
+  }
+  .ig-pair-arrow {
+    flex: 0 0 32px;
+    width: 32px;
+    height: 16px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: igPairPulse 2s ease-in-out infinite;
+  }
+  .ig-pair-arrow svg { width: 100%; height: 100%; }
+  @keyframes igPairPulse {
+    0%, 100% { transform: translateX(0); opacity: 0.7; }
+    50% { transform: translateX(3px); opacity: 1; }
+  }
+
+  .ig-jump {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin: 0 0 0.75rem;
+    padding: 0.85rem 1rem;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-strong);
+    border-radius: 12px;
+  }
+  .ig-jump-from {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .ig-jump-arrow {
+    width: 18px;
+    height: 18px;
+    color: var(--accent);
+  }
+  .ig-jump-to {
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .ig-jump-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-left: 0.25rem;
+  }
+  .ig-jump-label strong { color: var(--white); font-weight: 700; }
+
+  @media (max-width: 480px) {
+    .ig-pair { gap: 0.5rem; }
+    .ig-pair-arrow { flex-basis: 24px; width: 24px; }
+    .ig-jump-from { font-size: 1.15rem; }
+    .ig-jump-to { font-size: 1.4rem; }
+    .ig-jump-label { font-size: 0.78rem; flex-basis: 100%; margin-left: 0; margin-top: 0.2rem; }
+  }
+
+  /* ───── JJ BREAKTHROUGH SECTION ───── */
+  .jj-section {
+    padding: 5rem 2rem 6rem;
+  }
+  .jj-section .eyebrow { text-align: center; }
+  .jj-section h2 { text-align: center; }
+  .jj-section .jj-sub {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    font-size: 1rem;
+    color: var(--text-secondary);
+  }
+
+  .jj-stats-row {
+    max-width: 900px;
+    margin: 0 auto 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .jj-stat {
+    background: linear-gradient(180deg, var(--bg-card) 0%, #0c0c0c 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.75rem 2rem;
+    text-align: center;
+    transition: border-color 0.3s ease;
+  }
+  .jj-stat:hover { border-color: var(--accent-strong); }
+
+  .jj-stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.5rem;
+  }
+
+  .jj-stat-label {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .jj-stat-label strong { color: var(--white); font-weight: 700; }
+
+  .jj-stat-bar {
+    margin-top: 0.85rem;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    position: relative;
+  }
+  .jj-stat-bar-fill {
+    position: absolute;
+    inset: 0;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent) 0%, rgba(184, 233, 134, 0.5) 100%);
+    border-radius: 3px;
+    transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .jj-stat.in-view .jj-stat-bar-fill { width: var(--bar-fill, 100%); }
+
+  .jj-stats-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    width: 40px;
+    height: 40px;
+  }
+  .jj-stats-arrow svg { width: 100%; height: 100%; }
+
+  .jj-videos {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+
+  .jj-video {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .jj-video-frame {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+  }
+  .jj-video-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s ease, transform 0.6s ease;
+  }
+  .jj-video-frame:hover img { filter: brightness(0.9); transform: scale(1.03); }
+  .jj-video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .jj-video-frame .jj-video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  .jj-video-frame .jj-video-play svg { width: 28px; height: 28px; margin-left: 3px; }
+  .jj-video-frame:hover .jj-video-play {
+    background: rgba(0, 0, 0, 0.7);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+  .jj-video-frame.playing img,
+  .jj-video-frame.playing .jj-video-play { display: none; }
+
+  .jj-video-caption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .jj-video-caption strong { color: var(--white); font-weight: 700; }
+
+  @media (max-width: 768px) {
+    .jj-section { padding: 4rem 1rem 5rem; }
+    .jj-stats-row {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .jj-stats-arrow { transform: rotate(90deg); justify-self: center; width: 28px; height: 28px; }
+    .jj-videos { grid-template-columns: 1fr; gap: 1.25rem; }
+  }
+
+  @media (max-width: 768px) {
+    .ig-mock-profile-row { gap: 1rem; padding: 0.5rem 0.85rem; }
+    .ig-mock-pic { width: 72px; height: 72px; }
+    .ig-mock-stat-num { font-size: 1rem; }
+    .ig-mock-stat-label { font-size: 0.78rem; }
+  }
+
+  .gs-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gs-handle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 1.25rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--accent-dim);
+    border-radius: 999px;
+    border: 1px solid var(--accent-strong);
+    width: fit-content;
+  }
+  .gs-handle-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+    animation: gsPulse 2s ease-in-out infinite;
+  }
+  @keyframes gsPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .gs-headline {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .gs-counter-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .gs-counter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .gs-counter.dim .gs-counter-num {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .gs-counter-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4.5vw, 3.25rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--white);
+    line-height: 1;
+    transition: color 0.6s ease 1.6s;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gs-counter.live .gs-counter-num { color: var(--accent); }
+
+  .gs-counter-label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  .gs-counter-arrow {
+    font-size: 1.85rem;
+    color: var(--accent);
+    font-weight: 300;
+    line-height: 1;
+    margin-top: 0.4rem;
+  }
+
+  .gs-meta {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    line-height: 1.55;
+  }
+  .gs-meta strong { color: var(--white); font-weight: 700; }
+
+  .gs-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 1.5rem 0;
+  }
+
+  .gs-callout {
+    display: flex;
+    align-items: baseline;
+    gap: 1.1rem;
+  }
+  .gs-callout-num {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 3.6vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+  .gs-callout-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .gs-callout-label strong { color: var(--white); font-weight: 700; }
+
+  @media (max-width: 768px) {
+    .gs-section { padding: 4rem 1rem 5rem; }
+    .gs-card {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+      padding: 1.75rem;
+    }
+    .gs-photo { max-width: 260px; margin: 0 auto; }
+    .gs-counter-row { gap: 1rem; }
+    .gs-counter-arrow { font-size: 1.4rem; }
+    .gs-callout { flex-direction: column; gap: 0.5rem; }
+  }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR (logo + countdown + CTA, single sticky bar) -->
+<!-- TOPBAR (logo + CTA) -->
 <header class="topbar">
   <a href="/" class="topbar-logo">
     <img src="../Branding/SCALO.png" alt="SCALO">
   </a>
-  <div class="topbar-countdown">
-    <span class="countdown-banner-label">Doors Close In</span>
-    <div class="countdown-banner-timer">
-      <div class="cb-unit"><span class="cb-num" id="cDays">07</span><span class="cb-text">d</span></div>
-      <span class="cb-sep">:</span>
-      <div class="cb-unit"><span class="cb-num" id="cHours">00</span><span class="cb-text">h</span></div>
-      <span class="cb-sep">:</span>
-      <div class="cb-unit"><span class="cb-num" id="cMins">00</span><span class="cb-text">m</span></div>
-      <span class="cb-sep">:</span>
-      <div class="cb-unit"><span class="cb-num" id="cSecs">00</span><span class="cb-text">s</span></div>
-    </div>
-  </div>
   <a href="#pricing" class="topbar-cta">Join Now</a>
 </header>
 
@@ -1705,10 +2885,10 @@
   <div class="hero-inner">
     <div class="hero-badge">
       <span class="hero-badge-dot"></span>
-      <span>Enrolment is now open</span>
+      <span>Founding member pricing, limited spaces available</span>
     </div>
     <h1>Install the <em>six-figure systems</em><br>into your barbering business.</h1>
-    <p class="hero-sub">The SCALO 6-month program, unlock the six-figure systems by implementing the business mechanics without spending 12 to 15 hours a day behind the chair. These exact systems have added over &pound;515K in annual recurring revenue for students inside.</p>
+    <p class="hero-sub">Unlock the six-figure systems by implementing the business mechanics without spending 12 to 15 hours a day behind the chair. These exact systems have added over &pound;515K in annual recurring revenue for students inside.</p>
     <div class="hero-cta-row">
       <a href="#pricing" class="btn-primary">Join SCALO</a>
       <a href="#whats-inside" class="btn-secondary">See What's Inside</a>
@@ -1732,8 +2912,8 @@
       <div class="cred-stat-label">Per cut, multiple students charging premium</div>
     </div>
     <div>
-      <div class="cred-stat-value">6 Months</div>
-      <div class="cred-stat-label">Program length</div>
+      <div class="cred-stat-value">30 Days</div>
+      <div class="cred-stat-label">Money-back guarantee, no questions asked</div>
     </div>
   </div>
 </section>
@@ -1788,6 +2968,213 @@
         <div class="feature-stat-num">+50%</div>
         <div class="feature-stat-label">Revenue Growth in 4 Months</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICAL VIDEO TESTIMONIALS (phone-frame swipe) -->
+<section class="vt-section reveal">
+  <div class="eyebrow">Real Words. Real Wins.</div>
+  <h2>This is what the students have to say.</h2>
+  <p class="vt-sub">Short clips from barbers who joined SCALO and watched their numbers move.</p>
+
+  <div class="vt-carousel" data-active="0">
+    <button class="vt-nav vt-nav-prev" aria-label="Previous testimonial">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+
+    <div class="vt-stage">
+      <div class="vt-track">
+        <div class="vt-slide" data-index="0">
+          <div class="vt-phone">
+            <div class="vt-phone-screen" data-yt-id="8QSXAH6nZYA">
+              <img class="vt-thumb" src="https://i.ytimg.com/vi/8QSXAH6nZYA/oardefault.jpg"
+                   onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/8QSXAH6nZYA/hqdefault.jpg'"
+                   alt="George testimonial thumbnail" loading="lazy">
+              <button class="vt-play" aria-label="Play George's testimonial">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="vt-meta">
+            <div class="vt-name">George Hughes</div>
+            <div class="vt-quote">9M views in 3 months. Education dates sold out. £12K+ added in annual income.</div>
+            <div class="vt-handle">@georgehugheshair</div>
+          </div>
+        </div>
+
+        <div class="vt-slide" data-index="1">
+          <div class="vt-phone">
+            <div class="vt-phone-screen" data-yt-id="sFGTCz3wpY0">
+              <img class="vt-thumb" src="https://i.ytimg.com/vi/sFGTCz3wpY0/oardefault.jpg"
+                   onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/sFGTCz3wpY0/hqdefault.jpg'"
+                   alt="Chris testimonial thumbnail" loading="lazy">
+              <button class="vt-play" aria-label="Play Chris's testimonial">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="vt-meta">
+            <div class="vt-name">Chris Riordan</div>
+            <div class="vt-quote">From overworked to &euro;100+ clients. Three-tier pricing strategy installed.</div>
+            <div class="vt-handle">@chrisoriordanhair</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="vt-nav vt-nav-next" aria-label="Next testimonial">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+
+    <div class="vt-dots">
+      <button class="vt-dot active" data-index="0" aria-label="Show testimonial 1"></button>
+      <button class="vt-dot" data-index="1" aria-label="Show testimonial 2"></button>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH-STAT CARDS (Dillon, Mateo) -->
+<section class="gs-section reveal">
+  <div class="eyebrow">Real Numbers, Real Growth</div>
+  <h2>Watch the growth happen.</h2>
+  <p class="gs-sub">No screenshots, no cherry-picking. Just two students, two clear before and afters.</p>
+
+  <div class="gs-grid">
+
+    <!-- DILLON -->
+    <div class="gs-card">
+      <div class="gs-photo">
+        <img src="../Testimonials/written testimonial example/dillon profile picture.png"
+             alt="Dillon teaching his students"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="gs-photo-empty" style="display:none">Save Dillon group photo as<br><code>dillon profile picture.png</code></div>
+      </div>
+      <div class="gs-stats">
+        <div class="gs-handle">
+          <span class="gs-handle-dot"></span>
+          @dillonfield.hair
+        </div>
+        <div class="gs-headline">Instagram blew up. Education sold out.</div>
+
+        <!-- Two IG screenshots side-by-side with arrow -->
+        <div class="ig-pair">
+          <div class="ig-pair-card">
+            <img src="../Testimonials/IG screenshots/dillon-before.png"
+                 alt="Dillon's Instagram, 14.7K followers"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="ig-pair-empty" style="display:none">
+              Save as<br><code>dillon-before.png</code>
+            </div>
+            <div class="ig-pair-tag">14.7K</div>
+          </div>
+          <div class="ig-pair-arrow" aria-hidden="true">
+            <svg viewBox="0 0 32 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 8h26M22 2l6 6-6 6"/>
+            </svg>
+          </div>
+          <div class="ig-pair-card">
+            <img src="../Testimonials/IG screenshots/dillon-after.png"
+                 alt="Dillon's Instagram, 27.4K followers"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="ig-pair-empty" style="display:none">
+              Save as<br><code>dillon-after.png</code>
+            </div>
+            <div class="ig-pair-tag highlight">27.4K</div>
+          </div>
+        </div>
+
+        <!-- Animated counter underneath -->
+        <div class="ig-jump">
+          <span class="ig-jump-from">14.7K</span>
+          <svg class="ig-jump-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="ig-jump-to" data-from="14700" data-to="27400" data-format="k">14.7K</span>
+          <span class="ig-jump-label">followers in <strong>6 months</strong></span>
+        </div>
+
+        <div class="gs-divider"></div>
+        <div class="gs-callout">
+          <div class="gs-callout-num" data-from="0" data-to="50000" data-format="money-plus">&pound;0</div>
+          <div class="gs-callout-label">added in <strong>6 months</strong> from organic education sales</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MATEO -->
+    <div class="gs-card">
+      <div class="gs-photo">
+        <img src="../Testimonials/written testimonial example/mateo profile picture.png"
+             alt="Mateo Strang"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="gs-photo-empty" style="display:none">Photo missing</div>
+      </div>
+      <div class="gs-stats">
+        <div class="gs-handle">
+          <span class="gs-handle-dot"></span>
+          @Mataper
+        </div>
+        <div class="gs-headline">New city. Zero clients. 9x revenue.</div>
+        <div class="gs-counter-row">
+          <div class="gs-counter dim">
+            <div class="gs-counter-num">$1,000</div>
+            <div class="gs-counter-label">/month, starting</div>
+          </div>
+          <div class="gs-counter-arrow">&rarr;</div>
+          <div class="gs-counter">
+            <div class="gs-counter-num" data-from="1000" data-to="9000" data-format="dollar">$1,000</div>
+            <div class="gs-counter-label">/month, today</div>
+          </div>
+        </div>
+        <div class="gs-meta">In <strong>5 months</strong>. New city. Zero existing clients to start.</div>
+        <div class="gs-divider"></div>
+        <div class="gs-callout">
+          <div class="gs-callout-num" data-from="0" data-to="700" data-format="comma">0</div>
+          <div class="gs-callout-label">views per <strong>new client gained</strong></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- JJ BREAKTHROUGH (10K week + 21K in 10 days) -->
+<section class="jj-section reveal">
+  <div class="eyebrow">A SCALO Win Story</div>
+  <h2>JJ &mdash; from plateau to back-to-back five-figure weeks.</h2>
+  <p class="jj-sub">15 years deep in the game. Skill was never the issue. The system was. Watch what happened halfway through SCALO.</p>
+
+  <!-- Animated stat figures -->
+  <div class="jj-stats-row">
+    <div class="jj-stat">
+      <div class="jj-stat-num" data-from="0" data-to="10000" data-format="money">&pound;0</div>
+      <div class="jj-stat-label">in his first <strong>7-day week</strong></div>
+      <div class="jj-stat-bar" style="--bar-fill: 47.6%"><div class="jj-stat-bar-fill"></div></div>
+    </div>
+    <div class="jj-stats-arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </div>
+    <div class="jj-stat">
+      <div class="jj-stat-num" data-from="0" data-to="21000" data-format="money">&pound;0</div>
+      <div class="jj-stat-label">in just <strong>10 days</strong></div>
+      <div class="jj-stat-bar" style="--bar-fill: 100%"><div class="jj-stat-bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Two video embeds -->
+  <div class="jj-videos">
+    <div class="jj-video">
+      <div class="jj-video-frame" data-yt-id="2oNMBU64dRU">
+        <img src="https://img.youtube.com/vi/2oNMBU64dRU/maxresdefault.jpg" alt="JJ talks about his first £10K week" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/2oNMBU64dRU/hqdefault.jpg';">
+        <div class="jj-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="jj-video-caption">JJ on hitting his <strong>first &pound;10K week</strong></div>
+    </div>
+    <div class="jj-video">
+      <div class="jj-video-frame" data-yt-id="2eVAtRRNYBE">
+        <img src="https://img.youtube.com/vi/2eVAtRRNYBE/maxresdefault.jpg" alt="JJ on scaling to £21K in 10 days" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/2eVAtRRNYBE/hqdefault.jpg';">
+        <div class="jj-video-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="jj-video-caption">Halfway through SCALO: <strong>&pound;21K in 10 days</strong></div>
     </div>
   </div>
 </section>
@@ -1983,7 +3370,8 @@
     </div>
 
     <div class="interview-card">
-      <div class="interview-video placeholder" data-youtube-id="[JJ_INTERVIEW_ID]">
+      <div class="interview-video" data-youtube-id="vxuwO01YkYg">
+        <img class="interview-thumb" src="https://img.youtube.com/vi/vxuwO01YkYg/maxresdefault.jpg" alt="JJ's interview thumbnail" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/vxuwO01YkYg/hqdefault.jpg';">
         <div class="interview-play"></div>
       </div>
       <div class="interview-body">
@@ -1991,8 +3379,8 @@
         <div class="interview-subtitle">Zero to &pound;20K/m in 2 months</div>
       </div>
       <div class="interview-story">
-        <h4>15 years deep, and still levelling up.</h4>
-        <p>JJ has <em>15 years</em> in the industry. The place where most barbers feel like they know everything, and that's exactly where they start to plateau. Inside SCALO we took him from <em>&pound;0 to &pound;20K/m in two months</em>, while rebuilding the business around the lifestyle he actually wanted. <strong>Skill was never the issue. The system was.</strong></p>
+        <h4>15 years deep, debt-free, and still levelling up.</h4>
+        <p>JJ has <em>15 years</em> in the industry. The place where most barbers feel like they know everything, and that's exactly where they start to plateau. Inside SCALO we took him from <em>&pound;0 to &pound;20K/m in two months</em>, cleared the debt that had been weighing on him for years, and watched him <strong>chop up two of his credit cards on camera</strong>. That moment hit harder than any revenue stat. <strong>Skill was never the issue. The system was.</strong></p>
       </div>
     </div>
   </div>
@@ -2056,21 +3444,21 @@
     <div class="qualify-col no">
       <h3>Who this <u>isn't</u> for</h3>
       <ul class="qualify-list">
-        <li><span class="mark">&times;</span><span><strong>Beginners.</strong> If you're not cutting hair full-time yet, or you're still doing under &pound;2K/m, build the basics first.</span></li>
         <li><span class="mark">&times;</span><span><strong>Hobbyists.</strong> If you don't treat your shop as a serious business, this isn't for you.</span></li>
-        <li><span class="mark">&times;</span><span><strong>Passengers.</strong> If you want me to do it for you, or need your hand held every week, this won't work.</span></li>
+        <li><span class="mark">&times;</span><span><strong>Passengers.</strong> If you want me to do it for you, or need your hand held every step of the way, this won't work.</span></li>
         <li><span class="mark">&times;</span><span><strong>Blamers.</strong> If every mentor you've ever had was "the problem," you're the problem.</span></li>
         <li><span class="mark">&times;</span><span><strong>Overnight seekers.</strong> If you want to 10x in 30 days, go watch a guru on YouTube.</span></li>
+        <li><span class="mark">&times;</span><span><strong>Tyre kickers.</strong> If you're looking for an excuse not to commit, the 30-day refund won't save you. Mindset will.</span></li>
       </ul>
     </div>
     <div class="qualify-col yes">
       <h3>Who this <u>is</u> for</h3>
       <ul class="qualify-list">
-        <li><span class="mark">&check;</span><span><strong>Full-time barbers</strong> currently doing &pound;3-5K/m who want to hit &pound;10-15K/m within 6 months.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Barbers with the right mindset.</strong> You know you're capable of more, you're just missing the system.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Anyone serious about scaling,</strong> whether you're at &pound;1K, &pound;5K, or &pound;15K a month. The systems work at every level.</span></li>
         <li><span class="mark">&check;</span><span><strong>Shop owners or chair renters</strong> who know their craft but the business side is holding them back.</span></li>
         <li><span class="mark">&check;</span><span><strong>Implementers.</strong> Willing to post content, raise prices, and do the uncomfortable work.</span></li>
-        <li><span class="mark">&check;</span><span><strong>Long-termers.</strong> Ready to build a brand over 6 months, not a spike of likes over a weekend.</span></li>
-        <li><span class="mark">&check;</span><span><strong>Committed barbers</strong> who'll show up for every call and use what we build together.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Barbers who've been priced out</strong> of every other coaching program and want a real way in. Founding spots at &pound;499 + &pound;199/m are built for you.</span></li>
       </ul>
     </div>
   </div>
@@ -2081,14 +3469,14 @@
 <!-- THE PLAN -->
 <section class="section reveal">
   <div class="eyebrow">The Plan</div>
-  <h2 class="center">Here's what we'll build together over 6 months.</h2>
-  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">Three phases. Each one builds on the last. By month 6, you'll have a business that runs without you chasing it.</p>
+  <h2 class="center">Here's what we'll build together inside SCALO.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">Three stages of growth. Each one builds on the last. Move at the pace your business needs. No fixed timeline, just compounding momentum.</p>
 
   <div class="phases">
     <div class="phase">
       <div class="phase-header">
-        <span class="phase-num">Phase 1</span>
-        <span class="phase-window">Months 1-2 &middot; Foundation</span>
+        <span class="phase-num">Stage 1</span>
+        <span class="phase-window">Foundation</span>
       </div>
       <h3>Clarity. Creative. Mechanics.</h3>
       <p class="phase-desc">Get crystal clear on who you are as a business owner and the direction you want to take your shop. Once that's locked, we build out the creative side: how to create high-converting content that actually aligns with your vision. Then we install the business mechanics: the system injections that turn a low-converting basic barbering business into a <em>high-converting premium barberpreneur business</em>. The kind that attracts a clientele you never thought was possible.</p>
@@ -2101,8 +3489,8 @@
 
     <div class="phase">
       <div class="phase-header">
-        <span class="phase-num">Phase 2</span>
-        <span class="phase-window">Months 3-4 &middot; Creativity</span>
+        <span class="phase-num">Stage 2</span>
+        <span class="phase-window">Creativity</span>
       </div>
       <h3>Build a content engine that does the heavy lifting.</h3>
       <p class="phase-desc">This is where we go deep on a high-performing content strategy. Every piece of content working in harmony using our <em>Authority Flywheel</em>. Then we move into <em>Story to Status</em>, the new way barbers need to create content: converting your audience into fans who support your business, not just clients who book once. Finally, <em>Content to Cash</em>, the identification mechanism that shows you every bottleneck in your business, so you always know your next move.</p>
@@ -2115,8 +3503,8 @@
 
     <div class="phase">
       <div class="phase-header">
-        <span class="phase-num">Phase 3</span>
-        <span class="phase-window">Months 5-6 &middot; Scale</span>
+        <span class="phase-num">Stage 3</span>
+        <span class="phase-window">Scale</span>
       </div>
       <h3>Raise prices. Multiply income. Open the next door.</h3>
       <p class="phase-desc">This is where we effectively raise your prices without losing clients. We curate marketing campaigns that deliver real return on investment, not vanity numbers. And we open the doors to <em>what's next</em>: the possibilities you never thought were real inside the barbering industry. Second locations. Premium service tiers. A business that scales without your hands on every cut.</p>
@@ -2155,18 +3543,18 @@
 <!-- WHAT'S INSIDE -->
 <section id="whats-inside" class="section reveal">
   <div class="eyebrow">What's Inside</div>
-  <h2 class="center">Everything you get inside SCALO.</h2>
-  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">This is what the &pound;3,000 gets you. Not a drip-fed course. A full program with direct access.</p>
+  <h2 class="center">What you can expect inside the SCALO community.</h2>
+  <p class="center" style="max-width: 620px; margin: 0 auto 3rem; font-size: 1rem;">Instant access. No drip-fed course. The full system, the community, and direct access from day one.</p>
 
   <div class="modules-stack">
     <div class="module-row">
       <div class="module-text">
-        <div class="module-num">01 &middot; Weekly Live Coaching</div>
-        <h3>Every week, for 6 months.</h3>
+        <div class="module-num">01 &middot; Bi-Weekly Live Coaching</div>
+        <h3>Every other week, while you're inside.</h3>
         <p>Live group calls where nothing gets left on the table. Bring your wins, your blockers, your content. Ask anything, get it answered.</p>
       </div>
       <div class="module-visual">
-        <img src="../images/DSC00280.JPG" alt="Weekly Live Coaching Calls">
+        <img src="../images/DSC00280.JPG" alt="Bi-Weekly Live Coaching Calls">
       </div>
     </div>
 
@@ -2250,7 +3638,7 @@
 <!-- SECOND SCROLLING BANNER -->
 <div class="scroll-banner">
   <div class="scroll-banner-track" id="scrollBannerTrack2">
-    <span>JOIN THE COHORT</span><span>&bull;</span><span>BUILD YOUR BRAND</span><span>&bull;</span><span>FILL YOUR CHAIR</span><span>&bull;</span><span>RAISE YOUR PRICES</span><span>&bull;</span><span>JOIN THE COHORT</span><span>&bull;</span><span>BUILD YOUR BRAND</span><span>&bull;</span><span>FILL YOUR CHAIR</span><span>&bull;</span><span>RAISE YOUR PRICES</span><span>&bull;</span>
+    <span>Join SCALO</span><span>&bull;</span><span>Build your brand</span><span>&bull;</span><span>Fill your chair</span><span>&bull;</span><span>Raise your prices</span><span>&bull;</span><span>Join SCALO</span><span>&bull;</span><span>Build your brand</span><span>&bull;</span><span>Fill your chair</span><span>&bull;</span><span>Raise your prices</span><span>&bull;</span>
   </div>
 </div>
 
@@ -2283,7 +3671,7 @@
       <div class="bonus-num">03</div>
       <div class="bonus-body">
         <h4>1:1 Roadmap Call with Tim</h4>
-        <p>A 60-minute private session in your first two weeks. We map your custom 6-month plan so you know exactly what to do from day one.</p>
+        <p>A 60-minute private session in your first two weeks. We map your custom growth plan so you know exactly what to do from day one.</p>
       </div>
       <div class="bonus-value">&pound;1,000 value</div>
     </div>
@@ -2314,8 +3702,8 @@
   <div class="pricing-wrap">
     <h3 class="center" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase;">What's included</h3>
     <div class="pricing-value-row">
-      <span><strong>6 months of live weekly calls + direct access</strong></span>
-      <span>&pound;3,000 value</span>
+      <span><strong>Instant access to the community + everything that lives inside</strong></span>
+      <span>&pound;1,500 value</span>
     </div>
     <div class="pricing-value-row">
       <span>The SCALO Portal (Bonus 1)</span>
@@ -2335,35 +3723,67 @@
     </div>
     <div class="pricing-value-total">
       <span>Total value</span>
-      <span class="amt">&pound;8,500</span>
+      <span class="amt">&pound;7,000</span>
     </div>
 
-    <div class="pricing-options">
-      <div class="pricing-option pay-primary selected has-discount">
-        <div class="pricing-option-label">Pay in full</div>
-        <div class="pricing-option-price">&pound;3,000</div>
-        <div class="pricing-option-sub">One payment.<br>&pound;1,500 less than the plan.</div>
-        <a href="https://buy.stripe.com/fZufZg8uA7mt0vJ22s5Ne09" class="pricing-cta">Pay &pound;3,000 and join</a>
-      </div>
-      <div class="pricing-option pay-secondary">
-        <div class="pricing-option-label">Payment plan</div>
-        <div class="pricing-option-price">&pound;1,500 today</div>
-        <div class="pricing-option-sub">Then &pound;500/month for 6 months.<br>&pound;4,500 total.</div>
-        <a href="https://buy.stripe.com/cNi3cu3aggX3guHcH65Ne0m" class="pricing-cta">Start with &pound;1,500</a>
-        <div class="payment-schedule">
-          <div class="payment-schedule-row"><span class="pay-date">Today</span><span class="pay-amount">&pound;1,500</span></div>
-          <div class="payment-schedule-row"><span class="pay-date">Month 1</span><span class="pay-amount">&pound;500</span></div>
-          <div class="payment-schedule-row"><span class="pay-date">Month 2</span><span class="pay-amount">&pound;500</span></div>
-          <div class="payment-schedule-row"><span class="pay-date">Month 3</span><span class="pay-amount">&pound;500</span></div>
-          <div class="payment-schedule-row"><span class="pay-date">Month 4</span><span class="pay-amount">&pound;500</span></div>
-          <div class="payment-schedule-row"><span class="pay-date">Month 5</span><span class="pay-amount">&pound;500</span></div>
-          <div class="payment-schedule-row"><span class="pay-date">Month 6</span><span class="pay-amount">&pound;500</span></div>
+    <!-- TIERED PRICING: founding (first 10) → standard -->
+    <div class="pricing-tiers" id="pricingTiers" data-founding-total="10">
+
+      <!-- Founding tier: visible until 10 spots fill -->
+      <div class="pricing-tier pricing-tier-founding" data-tier="founding">
+        <div class="pricing-tier-badge"><span class="pricing-tier-dot"></span>Founding Member, limited to 10</div>
+        <div class="pricing-tier-counter">
+          <div class="pricing-tier-counter-row">
+            <span class="pricing-tier-counter-num" id="foundingCount">&mdash;</span>
+            <span class="pricing-tier-counter-divider">/</span>
+            <span class="pricing-tier-counter-total">10</span>
+            <span class="pricing-tier-counter-label">spots claimed</span>
+          </div>
+          <div class="pricing-tier-progress">
+            <div class="pricing-tier-progress-fill" id="foundingProgressFill"></div>
+          </div>
         </div>
+        <div class="pricing-tier-price-row">
+          <div class="pricing-tier-price">
+            <span class="pricing-tier-price-amt">&pound;499</span>
+            <span class="pricing-tier-price-sub">one-off, today</span>
+          </div>
+          <div class="pricing-tier-plus">+</div>
+          <div class="pricing-tier-price">
+            <span class="pricing-tier-price-amt">&pound;199</span>
+            <span class="pricing-tier-price-sub">per month, cancel anytime</span>
+          </div>
+        </div>
+        <a href="https://buy.stripe.com/7sYdR8fX2cGNa6j4aA5Ne0p" class="pricing-cta pricing-cta-founding" id="foundingCta">
+          Lock in your founding spot &rarr;
+        </a>
+        <div class="pricing-tier-savings">Save &pound;150 vs the standard price. Yours forever once you're in.</div>
       </div>
+
+      <!-- Standard tier: shown automatically when founding fills -->
+      <div class="pricing-tier pricing-tier-standard" data-tier="standard" hidden>
+        <div class="pricing-tier-badge pricing-tier-badge-standard">Standard pricing</div>
+        <div class="pricing-tier-fullnotice">All 10 founding spots have been claimed. Standard pricing now applies.</div>
+        <div class="pricing-tier-price-row">
+          <div class="pricing-tier-price">
+            <span class="pricing-tier-price-amt">&pound;649</span>
+            <span class="pricing-tier-price-sub">one-off, today</span>
+          </div>
+          <div class="pricing-tier-plus">+</div>
+          <div class="pricing-tier-price">
+            <span class="pricing-tier-price-amt">&pound;199</span>
+            <span class="pricing-tier-price-sub">per month, cancel anytime</span>
+          </div>
+        </div>
+        <a href="https://buy.stripe.com/5kQ8wO26c36dfqDfTi5Ne0q" class="pricing-cta pricing-cta-standard">
+          Join SCALO &rarr;
+        </a>
+      </div>
+
     </div>
 
     <p class="pricing-terms">
-      7 spots available. Programme runs 1 June to 30 November 2026. All payments are non-refundable once the programme begins. <strong>Payment plan auto-completes after the 6th monthly payment. No further charges after that.</strong>
+      Billed monthly. Cancel anytime. <strong>30-day money-back guarantee:</strong> if SCALO isn't what you expected, full refund within the first 30 days, no questions asked.
     </p>
   </div>
 </section>
@@ -2374,11 +3794,11 @@
 <section class="section reveal section--narrow">
   <div class="anti-guarantee">
     <div class="eyebrow">Is there a guarantee?</div>
-    <h3>No. And here's why.</h3>
-    <p>If you don't do the work, you don't get the result. That's the guarantee.</p>
-    <p>Every barber I've ever worked with who hit &pound;10K, &pound;15K, &pound;25K months did it because <em>they</em> showed up. They posted the content. They raised the prices. They did the uncomfortable stuff.</p>
-    <p>I can hand you the exact system. I can be in the room with you every week for 6 months. But I can't implement it for you. That part's on you.</p>
-    <p>If you're looking for someone to save you, this isn't it. If you're ready to save yourself and you want the system that works, I'm in your corner.</p>
+    <h3>Yes, and here's why.</h3>
+    <p>The barbering industry is wildly undervalued. Always has been. And the reason most barbers never scale isn't talent, it's that the price of decent coaching has been sitting at <strong>&pound;3K, &pound;5K, &pound;10K</strong> for years. That's gatekeeping, and it's the gap I'm trying to close.</p>
+    <p>SCALO is priced so any barber who's serious can actually get in. Founding spots at <strong>&pound;499 + &pound;199/m</strong> are a fraction of what every other coach charges, and you're getting the exact systems that have moved students from &pound;3K months to &pound;35K months.</p>
+    <p>And so you've got <em>nothing to lose:</em> <strong>30 days, risk-free.</strong> Join, watch the calls, use the IP, plug into the community. If it isn't what you thought, if you're not seeing the value, if it's just not for you, send me one message and every penny comes back. No questions, no friction, no chasing.</p>
+    <p>That's how confident I am in the system. All I need from you is to show up.</p>
   </div>
 </section>
 
@@ -2403,7 +3823,7 @@
 
     <details class="faq-item">
       <summary>How quickly will I see results?</summary>
-      <div class="faq-body"><p>Results aren't typical, and I won't promise them. But inside SCALO, students typically see new client flow pick up within 30 to 60 days of implementing Phase 1 and 2. Steven added &pound;10K to his monthly revenue in his first month. Every student's timeline is different.</p></div>
+      <div class="faq-body"><p>Results aren't typical, and I won't promise them. But inside SCALO, students typically see new client flow pick up within 30 to 60 days of implementing Stage 1 and 2. Steven added &pound;10K to his monthly revenue in his first month. JJ hit &pound;21K in 10 days. Every student's timeline is different. Show up, do the work, the results follow.</p></div>
     </details>
 
     <details class="faq-item">
@@ -2423,22 +3843,27 @@
 
     <details class="faq-item">
       <summary>What happens if I fall behind?</summary>
-      <div class="faq-body"><p>You've got 6 months of calls, plus lifetime access to every bit of recorded material inside. If you miss a week, the content's there waiting. If you need to catch up in a call, bring it. I'll help you reset and get moving again.</p></div>
+      <div class="faq-body"><p>Your access doesn't expire. You stay in for as long as you stay subscribed, with lifetime access to every recorded call and bit of material inside. If you miss a week, the content's there waiting. If you need to catch up in a live call, bring it. I'll help you reset and get moving again.</p></div>
     </details>
 
     <details class="faq-item">
-      <summary>Can I pay later if I can't afford it right now?</summary>
-      <div class="faq-body"><p>The payment plan is there exactly for that reason. &pound;1,500 down gets you in, then &pound;500/m for 6 months. If even &pound;1,500 is a stretch right now, be honest with yourself about whether this is the right time.</p></div>
+      <summary>How does the pricing work?</summary>
+      <div class="faq-body"><p>Founding members pay <strong>&pound;499 today</strong>, then <strong>&pound;199 a month</strong> after that. Once the first 10 founding spots are taken, the price moves to &pound;649 + &pound;199/m. Either way: cancel any time, no contract, no minimum term.</p></div>
     </details>
 
     <details class="faq-item">
-      <summary>What if I want to cancel the payment plan halfway through?</summary>
-      <div class="faq-body"><p>The program is 6 months and the payment plan covers that period. Once you're in, you're committed to the 6 months. Full terms are in the Stripe checkout and the client agreement.</p></div>
+      <summary>What if I want to cancel?</summary>
+      <div class="faq-body"><p>You can cancel any time straight from your account. No phone calls, no awkward retention emails, no contract to fight. And in the first 30 days, if you're not seeing the value, you get a <strong>full refund</strong>. That's the guarantee.</p></div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How is the 30-day money-back guarantee handled?</summary>
+      <div class="faq-body"><p>Send me one message in the first 30 days saying it's not for you and every penny comes back. No questions, no friction, no chasing. After 30 days you can still cancel any time, you just don't get the initial payment refunded.</p></div>
     </details>
 
     <details class="faq-item">
       <summary>Is this the same thing I saw on the waitlist page?</summary>
-      <div class="faq-body"><p>Yes. SCALO is one program, one cohort. The waitlist holds your seat until we open enrolments; this page is where you secure it.</p></div>
+      <div class="faq-body"><p>Yes. SCALO is one community. The waitlist holds your seat until you're ready to join; this page is where you secure it.</p></div>
     </details>
   </div>
 </section>
@@ -2447,7 +3872,7 @@
 <section class="final-cta reveal">
   <div class="eyebrow eyebrow-accent">Last thing</div>
   <h2>If you've read this far, you already know.</h2>
-  <p>The doors don't stay open forever. Cohorts fill. Prices will go up.</p>
+  <p>Founding spots are limited to 10. Once they're gone, the price goes up.</p>
   <p>If you're ready, get in.</p>
   <div class="hero-cta-row">
     <a href="#pricing" class="btn-primary">Join SCALO Today</a>
@@ -2542,9 +3967,12 @@
     return date.getUTCFullYear() + '-' + (m < 10 ? '0' + m : '' + m);
   }
   function mrBuildTrailingMonths(n) {
+    // Always end at the previous full month, so the current (in-progress)
+    // month never shows as £0 and the chart total stays in sync with the
+    // floating wins tracker baseline.
     var keys = [];
     var now = new Date();
-    for (var i = n - 1; i >= 0; i--) {
+    for (var i = n; i >= 1; i--) {
       var d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
       keys.push(mrMonthKey(d));
     }
@@ -2856,30 +4284,6 @@
     requestAnimationFrame(animate);
   });
 
-  // ───── COUNTDOWN TIMER ─────
-  var COUNTDOWN_KEY = 'scalo_sales_countdown_end';
-  var now = Date.now();
-  var end = +localStorage.getItem(COUNTDOWN_KEY);
-  if (!end || end < now) {
-    end = now + (7 * 24 * 60 * 60 * 1000);
-    localStorage.setItem(COUNTDOWN_KEY, end);
-  }
-  function pad(n) { return n < 10 ? '0' + n : '' + n; }
-  function updateCountdown() {
-    var diff = end - Date.now();
-    if (diff < 0) diff = 0;
-    var days = Math.floor(diff / 86400000);
-    var hours = Math.floor((diff % 86400000) / 3600000);
-    var mins = Math.floor((diff % 3600000) / 60000);
-    var secs = Math.floor((diff % 60000) / 1000);
-    document.getElementById('cDays').textContent = pad(days);
-    document.getElementById('cHours').textContent = pad(hours);
-    document.getElementById('cMins').textContent = pad(mins);
-    document.getElementById('cSecs').textContent = pad(secs);
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
   // ───── SCROLL REVEAL ─────
   var reveals = document.querySelectorAll('.reveal');
   var revealObs = new IntersectionObserver(function(entries) {
@@ -2914,6 +4318,244 @@
       window.scrollTo({ top: y, behavior: 'smooth' });
     });
   });
+
+  // ───── VERTICAL VIDEO TESTIMONIALS (phone-frame swipe) ─────
+  var vtCarousel = document.querySelector('.vt-carousel');
+  if (vtCarousel) {
+    var vtTrack = vtCarousel.querySelector('.vt-track');
+    var vtSlides = vtCarousel.querySelectorAll('.vt-slide');
+    var vtPrevBtn = vtCarousel.querySelector('.vt-nav-prev');
+    var vtNextBtn = vtCarousel.querySelector('.vt-nav-next');
+    var vtDots = vtCarousel.querySelectorAll('.vt-dot');
+    var vtTotal = vtSlides.length;
+    var vtIndex = 0;
+
+    function vtUpdate(newIndex) {
+      // Stop the previous slide's video if it's playing so it doesn't keep audio going off-screen
+      var prevScreen = vtSlides[vtIndex].querySelector('.vt-phone-screen');
+      if (prevScreen.classList.contains('playing')) {
+        prevScreen.classList.remove('playing');
+        var existing = prevScreen.querySelector('iframe');
+        if (existing) existing.remove();
+      }
+
+      vtIndex = ((newIndex % vtTotal) + vtTotal) % vtTotal;
+      vtTrack.style.transform = 'translateX(-' + (vtIndex * 100) + '%)';
+      vtDots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === vtIndex);
+      });
+      vtCarousel.dataset.active = vtIndex;
+    }
+
+    if (vtPrevBtn) vtPrevBtn.addEventListener('click', function() { vtUpdate(vtIndex - 1); });
+    if (vtNextBtn) vtNextBtn.addEventListener('click', function() { vtUpdate(vtIndex + 1); });
+    vtDots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        vtUpdate(parseInt(dot.dataset.index, 10));
+      });
+    });
+
+    // Click-to-play: lazy-mount the YouTube iframe only when the user taps play
+    vtSlides.forEach(function(slide) {
+      var screen = slide.querySelector('.vt-phone-screen');
+      if (!screen) return;
+      screen.addEventListener('click', function(e) {
+        if (screen.classList.contains('playing')) return;
+        e.preventDefault();
+        var ytId = screen.dataset.ytId;
+        if (!ytId) return;
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + ytId + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        iframe.title = 'YouTube testimonial';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+        screen.appendChild(iframe);
+        screen.classList.add('playing');
+      });
+    });
+
+    // Touch swipe on mobile
+    var vtTouchStart = 0;
+    vtTrack.addEventListener('touchstart', function(e) {
+      vtTouchStart = e.changedTouches[0].screenX;
+    }, { passive: true });
+    vtTrack.addEventListener('touchend', function(e) {
+      var diff = vtTouchStart - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) vtUpdate(vtIndex + (diff > 0 ? 1 : -1));
+    }, { passive: true });
+
+    // Keyboard arrows when carousel is focused
+    vtCarousel.setAttribute('tabindex', '0');
+    vtCarousel.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') vtUpdate(vtIndex - 1);
+      else if (e.key === 'ArrowRight') vtUpdate(vtIndex + 1);
+    });
+  }
+
+  // ───── GROWTH-STAT COUNT-UP ANIMATIONS ─────
+  function gsFormat(val, format) {
+    if (format === 'k') return (val / 1000).toFixed(1) + 'K';
+    if (format === 'money-plus') return '£' + Math.round(val).toLocaleString('en-GB') + '+';
+    if (format === 'money') return '£' + Math.round(val).toLocaleString('en-GB');
+    if (format === 'dollar') return '$' + Math.round(val).toLocaleString('en-US');
+    if (format === 'comma') return Math.round(val).toLocaleString('en-GB');
+    return Math.round(val).toString();
+  }
+
+  function gsRunCounter(el) {
+    var from = parseFloat(el.dataset.from || '0');
+    var to = parseFloat(el.dataset.to);
+    var format = el.dataset.format || '';
+    var duration = 1800;
+    var start = performance.now();
+    var counter = el.closest('.gs-counter') || el.closest('.gs-callout') || el.closest('.ig-mock-stat');
+
+    function tick(now) {
+      var t = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - t, 4); // easeOutQuart
+      var current = from + (to - from) * eased;
+      el.textContent = gsFormat(current, format);
+      if (t < 1) requestAnimationFrame(tick);
+      else if (counter && (counter.classList.contains('gs-counter') || counter.classList.contains('ig-mock-stat'))) {
+        counter.classList.add('live');
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // IG screenshot crossfade: trigger once on scroll into view
+  var igShotsFrames = document.querySelectorAll('.ig-shots-frame');
+  if (igShotsFrames.length && 'IntersectionObserver' in window) {
+    var igShotsIo = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in-view');
+        igShotsIo.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+    igShotsFrames.forEach(function(f) { igShotsIo.observe(f); });
+  }
+
+  // JJ stat bar reveal on scroll into view
+  var jjStats = document.querySelectorAll('.jj-stat');
+  if (jjStats.length && 'IntersectionObserver' in window) {
+    var jjStatsIo = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in-view');
+        jjStatsIo.unobserve(entry.target);
+      });
+    }, { threshold: 0.35 });
+    jjStats.forEach(function(s) { jjStatsIo.observe(s); });
+  }
+
+  // ───── FOUNDING-MEMBER LIVE COUNTER ─────
+  // Polls a Worker endpoint and updates the counter, progress bar, and
+  // automatically switches the visible tier from "founding" to "standard"
+  // once 10 spots have been claimed.
+  var FOUNDING_COUNT_ENDPOINT = 'https://scalo-stripe.timbrace14.workers.dev/founding-count';
+  var pricingTiers = document.getElementById('pricingTiers');
+  if (pricingTiers) {
+    var foundingTotal = parseInt(pricingTiers.dataset.foundingTotal || '10', 10);
+    var foundingCountEl = document.getElementById('foundingCount');
+    var foundingProgressFill = document.getElementById('foundingProgressFill');
+    var foundingTier = pricingTiers.querySelector('[data-tier="founding"]');
+    var standardTier = pricingTiers.querySelector('[data-tier="standard"]');
+    var foundingDisplayed = null;
+
+    function pricingFormat(n) { return Math.max(0, Math.min(foundingTotal, n)).toString(); }
+
+    function pricingAnimateNumber(target) {
+      if (!foundingCountEl) return;
+      var from = foundingDisplayed === null ? 0 : foundingDisplayed;
+      foundingDisplayed = target;
+      if (from === target) {
+        foundingCountEl.textContent = pricingFormat(target);
+        return;
+      }
+      var start = performance.now();
+      var duration = 800;
+      function tick(now) {
+        var t = Math.min(1, (now - start) / duration);
+        var eased = 1 - Math.pow(1 - t, 3);
+        var current = Math.round(from + (target - from) * eased);
+        foundingCountEl.textContent = pricingFormat(current);
+        if (t < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function pricingApplyCount(count) {
+      var clamped = Math.max(0, Math.min(foundingTotal, count));
+      pricingAnimateNumber(clamped);
+      if (foundingProgressFill) {
+        foundingProgressFill.style.width = (clamped / foundingTotal * 100) + '%';
+      }
+      if (clamped >= foundingTotal) {
+        if (foundingTier) foundingTier.hidden = true;
+        if (standardTier) standardTier.hidden = false;
+      } else {
+        if (foundingTier) foundingTier.hidden = false;
+        if (standardTier) standardTier.hidden = true;
+      }
+    }
+
+    function pricingFetchCount() {
+      fetch(FOUNDING_COUNT_ENDPOINT, { cache: 'no-store' })
+        .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function(data) {
+          var count = parseInt(data && data.count, 10);
+          if (isNaN(count)) throw new Error('Bad payload');
+          pricingApplyCount(count);
+        })
+        .catch(function() {
+          // Worker not deployed yet, or offline. Show 0 so the founding tier
+          // is visible and the page still works.
+          if (foundingDisplayed === null) pricingApplyCount(0);
+        });
+    }
+
+    pricingFetchCount();
+    setInterval(pricingFetchCount, 30000); // refresh every 30s for live updates
+  }
+
+  // JJ video click-to-play
+  document.querySelectorAll('.jj-video-frame').forEach(function(frame) {
+    frame.addEventListener('click', function() {
+      if (frame.classList.contains('playing')) return;
+      var ytId = frame.dataset.ytId;
+      if (!ytId) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + ytId + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      iframe.title = 'JJ testimonial';
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      frame.appendChild(iframe);
+      frame.classList.add('playing');
+    });
+  });
+
+  var gsTargets = document.querySelectorAll('.gs-counter-num[data-to], .gs-callout-num[data-to], .ig-mock-stat-num[data-to], .ig-jump-to[data-to], .jj-stat-num[data-to]');
+  if (gsTargets.length) {
+    if ('IntersectionObserver' in window) {
+      var gsObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          if (el.dataset.played) return;
+          el.dataset.played = '1';
+          gsRunCounter(el);
+          gsObserver.unobserve(el);
+        });
+      }, { threshold: 0.4 });
+      gsTargets.forEach(function(el) { gsObserver.observe(el); });
+    } else {
+      // No IO support: just set final values
+      gsTargets.forEach(function(el) {
+        el.textContent = gsFormat(parseFloat(el.dataset.to), el.dataset.format || '');
+      });
+    }
+  }
 })();
 </script>
 
