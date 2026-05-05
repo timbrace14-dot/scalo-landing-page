@@ -246,6 +246,10 @@
     padding: 6rem 2rem 5rem;
     text-align: center;
     overflow: hidden;
+    min-height: calc(100svh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .hero::before {
     content: "";
@@ -285,10 +289,30 @@
     50% { opacity: 0.4; }
   }
   .hero h1 {
+    font-size: clamp(1.05rem, 4vw, 3rem);
+    letter-spacing: -0.035em;
+    line-height: 1.2;
     max-width: none;
     margin: 0 auto 1.75rem;
+    white-space: nowrap;
   }
-  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero h1 em {
+    color: var(--accent);
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.4em;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .hero-sub em {
+    color: var(--accent);
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.08em;
+    letter-spacing: -0.01em;
+  }
   .hero-sub {
     font-size: clamp(1.05rem, 1.9vw, 1.3rem);
     color: var(--text-secondary);
@@ -2868,6 +2892,63 @@
     .gs-counter-arrow { font-size: 1.4rem; }
     .gs-callout { flex-direction: column; gap: 0.5rem; }
   }
+
+  /* ───── VSL SECTION ───── */
+  .vsl-section {
+    padding: 4rem 2rem 5rem;
+    position: relative;
+  }
+  .vsl-section .eyebrow { text-align: center; }
+  .vsl-section h2 { text-align: center; }
+  .vsl-section .vsl-sub {
+    text-align: center;
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+  .vsl-frame {
+    max-width: 920px;
+    margin: 0 auto;
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--accent-strong);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 36px var(--accent-glow);
+  }
+  .vsl-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .vsl-aftercta {
+    max-width: 540px;
+    margin: 2.25rem auto 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    pointer-events: none;
+  }
+  .vsl-aftercta.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .vsl-aftercta-label {
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+  }
+  @media (max-width: 768px) {
+    .vsl-section { padding: 3rem 1rem 4rem; }
+  }
 </style>
 </head>
 <body>
@@ -2887,8 +2968,8 @@
       <span class="hero-badge-dot"></span>
       <span>Founding member pricing, limited spaces available</span>
     </div>
-    <h1>Install the <em>six-figure systems</em><br>into your barbering business.</h1>
-    <p class="hero-sub">Unlock the six-figure systems by implementing the business mechanics without spending 12 to 15 hours a day behind the chair. These exact systems have added over &pound;515K in annual recurring revenue for students inside.</p>
+    <h1>From burnt out, confused and undervalued<br>to fulfilled, progressing and <em>earning more.</em></h1>
+    <p class="hero-sub">SCALO helps you grow a barbering business that customers <em>trust</em>, and <em>pay</em> you more for. <em>Consistent</em> &pound;8K+ months, whether you've got 1,000 followers or 100,000.</p>
     <div class="hero-cta-row">
       <a href="#pricing" class="btn-primary">Join SCALO</a>
       <a href="#whats-inside" class="btn-secondary">See What's Inside</a>
@@ -2897,6 +2978,27 @@
       <span class="hero-badge-dot"></span>
       &pound;515K+ captured &middot; &pound;100+ per cut &middot; Live from the SCALO Business OS.
     </div>
+  </div>
+</section>
+
+<!-- VSL -->
+<section class="vsl-section reveal">
+  <div class="eyebrow">Watch this</div>
+  <h2>Why SCALO exists, and what's actually inside.</h2>
+  <p class="vsl-sub">A few minutes from me to you. No fluff, no pitch theatre. Just the system, who it's for, and what changes when you're in.</p>
+
+  <div class="vsl-frame">
+    <iframe
+      id="vslPlayer"
+      src="https://www.youtube-nocookie.com/embed/KgcBm2mdyt0?enablejsapi=1&rel=0&modestbranding=1&playsinline=1"
+      title="SCALO VSL"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+  </div>
+
+  <div class="vsl-aftercta" id="vslAfterCta">
+    <div class="vsl-aftercta-label">Now you've seen it. Ready to lock in your founding spot?</div>
+    <a href="#pricing" class="btn-primary">Claim your founding spot &darr;</a>
   </div>
 </section>
 
@@ -4283,6 +4385,30 @@
     }
     requestAnimationFrame(animate);
   });
+
+  // ───── VSL: reveal post-video CTA when the video ends ─────
+  // Loads the YouTube IFrame API and listens for the ENDED state on the
+  // VSL player. No gating. The Pay button stays clickable from page load,
+  // this just adds positive reinforcement once a viewer finishes the video.
+  if (document.getElementById('vslPlayer')) {
+    var vslApiTag = document.createElement('script');
+    vslApiTag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(vslApiTag);
+
+    window.onYouTubeIframeAPIReady = function() {
+      if (typeof YT === 'undefined' || !YT.Player) return;
+      new YT.Player('vslPlayer', {
+        events: {
+          onStateChange: function(e) {
+            if (e.data === YT.PlayerState.ENDED) {
+              var cta = document.getElementById('vslAfterCta');
+              if (cta) cta.classList.add('visible');
+            }
+          }
+        }
+      });
+    };
+  }
 
   // ───── SCROLL REVEAL ─────
   var reveals = document.querySelectorAll('.reveal');
