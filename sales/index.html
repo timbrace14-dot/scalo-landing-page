@@ -328,7 +328,8 @@
   }
   .hero-proof {
     margin-top: 3rem;
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
     align-items: center;
     gap: 0.6rem;
     font-size: 0.82rem;
@@ -1881,7 +1882,12 @@
     .topbar-logo img { height: 28px; }
     .topbar-cta { padding: 0.5rem 0.9rem; font-size: 0.65rem; }
     .section { padding: 3.5rem 1.25rem; }
-    .hero { padding: 3.5rem 1.25rem 2.5rem; }
+    .hero { padding: 3.5rem 1rem 2.5rem; }
+    .hero h1 { font-size: 1.2rem; line-height: 1.25; letter-spacing: -0.06em; }
+    .hero h1 em { font-size: 1.3em; }
+    .hero-sub { font-size: 0.78rem; margin-bottom: 2rem; line-height: 1.55; }
+    .hero-cta-row .btn-primary,
+    .hero-cta-row .btn-secondary { padding: 0.7rem 1.2rem; font-size: 0.72rem; }
     .qualify-grid { grid-template-columns: 1fr; }
     .meet-tim { grid-template-columns: 1fr; gap: 1.75rem; }
     .pricing-options { grid-template-columns: 1fr; }
@@ -1891,7 +1897,7 @@
     .bonus-value { justify-self: center; }
     .bonus-num { width: auto; }
     .phase { padding: 1.75rem 1.25rem; }
-    .hero-cta-row { flex-direction: column; width: 100%; }
+    .hero-cta-row { flex-direction: column; width: 100%; max-width: 280px; margin: 0 auto; }
     .hero-cta-row .btn-primary,
     .hero-cta-row .btn-secondary { width: 100%; }
     .feature-info { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -3364,7 +3370,7 @@
       <div class="story-card-quote">
         <blockquote>"The content strategy completely changed the game. We went from posting randomly to having a system that actually brings people through the door. The numbers speak for themselves."</blockquote>
         <div class="story-author">
-          <img src="../Testimonials/written testimonial example/dillions profile pictur.png" alt="Dillion Field">
+          <img src="../Testimonials/written testimonial example/dillon profile picture.png" alt="Dillion Field">
           <div><span class="story-name">Dillion Field</span><span class="story-handle">@DillionFieldHair / @MoveSalons</span><span class="story-role">Barber &amp; SCALO Member</span></div>
         </div>
       </div>
