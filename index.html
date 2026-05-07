@@ -3552,13 +3552,12 @@
   }
 
   // ───── ANONYMOUS PAGEVIEW TRACKING ─────
-  // Fires once per session. Writes a row to Supabase utm_clicks for every
-  // visit to the landing page (not just opt-ins). This is what powers the
-  // Link Tracker dashboard in the Business OS.
+  // Fires on every page load. Writes a row to Supabase utm_clicks for every
+  // visit (not just opt-ins). Dedupe by visitor_id at query time if needed —
+  // never gate at write time, otherwise UTM-tagged loads after an untagged
+  // load in the same session would be silently dropped.
   (function trackPageview() {
     try {
-      if (sessionStorage.getItem('scalo_pageview_logged') === '1') return;
-
       var visitorId = localStorage.getItem('scalo_visitor_id');
       if (!visitorId) {
         visitorId = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
@@ -3597,7 +3596,6 @@
         body: JSON.stringify(row)
       }).then(function(res) {
         if (res.ok) {
-          sessionStorage.setItem('scalo_pageview_logged', '1');
           console.log('[Pageview] Tracked OK');
         } else {
           console.warn('[Pageview] Track failed: HTTP', res.status);
