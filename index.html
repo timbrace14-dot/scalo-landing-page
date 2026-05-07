@@ -3551,6 +3551,65 @@
     }
   }
 
+  // ───── ANONYMOUS PAGEVIEW TRACKING ─────
+  // Fires once per session. Writes a row to Supabase utm_clicks for every
+  // visit to the landing page (not just opt-ins). This is what powers the
+  // Link Tracker dashboard in the Business OS.
+  (function trackPageview() {
+    try {
+      if (sessionStorage.getItem('scalo_pageview_logged') === '1') return;
+
+      var visitorId = localStorage.getItem('scalo_visitor_id');
+      if (!visitorId) {
+        visitorId = 'v_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem('scalo_visitor_id', visitorId);
+      }
+
+      var utms = getUtmParams();
+      var p = new URLSearchParams(window.location.search);
+      var ua = navigator.userAgent || '';
+      var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+      var isBot = /bot|crawler|spider|crawling|googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|linkedinbot/i.test(ua);
+
+      var row = {
+        utm_source: utms.utm_source,
+        utm_medium: utms.utm_medium,
+        utm_campaign: utms.utm_campaign,
+        utm_content: p.get('utm_content') || null,
+        visitor_id: visitorId,
+        referrer: document.referrer || null,
+        landing_path: window.location.pathname + window.location.search,
+        user_agent: ua.slice(0, 500),
+        device: isMobile ? 'mobile' : 'desktop',
+        is_bot: isBot
+      };
+
+      console.log('[Pageview] Tracking visit →', { source: row.utm_source, medium: row.utm_medium, visitor: visitorId.slice(0, 12) });
+
+      fetch(SUPABASE_URL + '/rest/v1/utm_clicks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(row)
+      }).then(function(res) {
+        if (res.ok) {
+          sessionStorage.setItem('scalo_pageview_logged', '1');
+          console.log('[Pageview] Tracked OK');
+        } else {
+          console.warn('[Pageview] Track failed: HTTP', res.status);
+        }
+      }).catch(function(e) {
+        console.warn('[Pageview] Track failed:', e);
+      });
+    } catch (e) {
+      console.warn('[Pageview] Tracking errored:', e);
+    }
+  })();
+
   function postToSupabase(lead) {
     console.log('[Waitlist] POST to Supabase →', lead);
     return fetch(SUPABASE_URL + '/rest/v1/clients', {
