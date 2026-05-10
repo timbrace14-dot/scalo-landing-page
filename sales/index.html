@@ -6,6 +6,15 @@
 <title>SCALO | Join the Program</title>
 <meta name="description" content="Join SCALO. The system UK barbers are using to scale their business, build a brand, and raise prices. Founding member pricing from £499 + £199/m.">
 <link rel="icon" type="image/png" href="../Branding/scalo v3.png">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '980240057697179');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent', { content_name: 'SCALO Sales Page', content_category: 'sales' });
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=980240057697179&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -4688,6 +4697,24 @@
       });
     }
   }
+
+  // Meta Pixel: fire InitiateCheckout when user clicks a Stripe pricing CTA.
+  // Founding tier = £499 upfront, Standard tier = £649 upfront.
+  document.querySelectorAll('.pricing-cta').forEach(function(cta) {
+    cta.addEventListener('click', function() {
+      var isFounding = cta.classList.contains('pricing-cta-founding');
+      try {
+        if (typeof fbq === 'function') {
+          fbq('track', 'InitiateCheckout', {
+            content_name: isFounding ? 'SCALO Founding Tier' : 'SCALO Standard Tier',
+            content_category: 'checkout',
+            value: isFounding ? 499 : 649,
+            currency: 'GBP'
+          });
+        }
+      } catch (e) { console.warn('[Pixel] InitiateCheckout failed:', e); }
+    });
+  });
 })();
 </script>
 
