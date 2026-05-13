@@ -1,6 +1,6 @@
-# Exclude anything that would blow up the Vercel upload or isn't used by the sales page.
+# Exclude large files and tooling cruft that shouldn't be uploaded to Vercel.
 
-# Video files (11G+) — not referenced by sales/index.html
+# Video files (11G+)
 *.mov
 *.MOV
 *.mp4
@@ -18,15 +18,8 @@
 # Local notes / docs not needed in deploy
 master-context.md
 
-# Root-level waitlist page — we only want the /sales/ page on this Vercel project.
-# Leading slash matters: excludes only the root index.html, not sales/index.html.
-/index.html
-
 # CNAME is a GitHub Pages marker; Vercel uses its own domain config.
 /CNAME
-
-# Folders not referenced by the sales page (keeps upload small + fast)
-FAQs/
 
 # Unused raw photos (per existing .gitignore)
 images/DSC00281.JPG
