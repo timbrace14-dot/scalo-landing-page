@@ -30,6 +30,8 @@
       "source": "/index.html",
       "has": [{ "type": "host", "value": "post-booking.buildwithscalo.com" }],
       "destination": "/post-booking/index.html"
-    }
+    },
+    { "source": "/", "destination": "/waitlist.html" },
+    { "source": "/index.html", "destination": "/waitlist.html" }
   ]
 }
