@@ -97,9 +97,31 @@
     display: flex; align-items: center; justify-content: space-between;
     gap: 16px;
     border-bottom: 1px solid var(--border-subtle);
-    backdrop-filter: blur(8px);
-    background: rgba(0,0,0,0.45);
+    background: #000000;
     position: sticky; top: 0; z-index: 10;
+  }
+  /* CTA pill in the topbar — only shown on the saved roadmap page. */
+  .topbar-cta {
+    appearance: none; border: 0; cursor: pointer;
+    background: var(--accent);
+    color: #0A1606;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 10px 18px;
+    border-radius: 999px;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+    box-shadow: 0 4px 18px var(--accent-dim);
+  }
+  .topbar-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 24px var(--accent-dim); }
+  .topbar-cta:active { transform: translateY(0); }
+  .topbar-cta .arrow { display: inline-block; transition: transform 200ms ease; }
+  .topbar-cta:hover .arrow { transform: translateY(2px); }
+  .topbar-cta[hidden] { display: none; }
+  @media (max-width: 480px) {
+    .topbar-cta { padding: 8px 14px; font-size: 12px; }
   }
   .brand { display: inline-flex; align-items: center; text-decoration: none; }
   .brand-logo {
@@ -860,6 +882,7 @@
 <div class="stage">
   <header class="topbar">
     <a class="brand" href="/" aria-label="SCALO"><img class="brand-logo" src="/skill-sell-scale/logo.png?v=7" alt="SCALO" /></a>
+    <button class="topbar-cta" id="topbarCta" hidden>Next steps <span class="arrow">↓</span></button>
     <div class="progress-shell" id="progressShell" hidden>
       <div class="progress-meta">
         <span id="phaseLabel">Phase 1 of 3</span>
@@ -1056,6 +1079,18 @@ function renderShell(inner) {
   const main = $("#main");
   main.innerHTML = "";
   main.appendChild(el(inner));
+  // Topbar CTA hidden by default — only the results screen flips it on.
+  const cta = document.getElementById("topbarCta");
+  if (cta) cta.hidden = true;
+}
+
+function showTopbarCta() {
+  const cta = document.getElementById("topbarCta");
+  if (!cta) return;
+  cta.hidden = false;
+  cta.onclick = () => {
+    document.querySelector(".next-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 }
 
 // ---------- Screens ----------
@@ -1622,6 +1657,7 @@ function renderResults() {
   `);
 
   window.scrollTo({ top: 0, behavior: "smooth" });
+  showTopbarCta();
 }
 
 // ---------- Boot ----------
