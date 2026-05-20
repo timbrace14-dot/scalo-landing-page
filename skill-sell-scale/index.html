@@ -13,6 +13,9 @@
 <script src="https://fast.wistia.com/player.js" async></script>
 <script src="https://fast.wistia.com/embed/70c6vngscr.js" async type="module"></script>
 <style>wistia-player[media-id='70c6vngscr']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/70c6vngscr/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+<!-- Calendly inline-popup widget -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
   :root {
     --bg: #000000;
@@ -1648,7 +1651,7 @@ function renderResults() {
             <div class="cta-card">
               <div class="cta-headline">Book your <em>free</em> strategy call</div>
               <div class="cta-sub">We'll look at your roadmap together and map out exactly how SCALO can help you build this in 120 days.</div>
-              <a class="btn btn-primary" href="${escapeHtml(CONFIG.CALENDLY_URL)}" target="_blank" rel="noopener">Book my call <span class="arrow">→</span></a>
+              <a class="btn btn-primary" href="${escapeHtml(CONFIG.CALENDLY_URL)}" onclick="if (window.Calendly) { Calendly.initPopupWidget({url: this.href}); return false; }">Book my call <span class="arrow">→</span></a>
             </div>
           </div>
         </div>
