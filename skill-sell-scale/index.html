@@ -9,6 +9,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&display=swap">
+<!-- Wistia VSL player (loads async, used in the results page) -->
+<script src="https://fast.wistia.com/player.js" async></script>
+<script src="https://fast.wistia.com/embed/70c6vngscr.js" async type="module"></script>
+<style>wistia-player[media-id='70c6vngscr']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/70c6vngscr/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
 <style>
   :root {
     --bg: #000000;
@@ -757,37 +761,17 @@
   }
   .next-copy em { font-size: 1.15em; }
 
-  .video-placeholder {
-    border: 1.5px dashed var(--border-strong);
-    border-radius: var(--radius);
-    background: var(--bg-card);
-    aspect-ratio: 16 / 9;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 10px;
-    color: var(--text-muted);
+  .vsl-wrap {
     margin: 24px 0 36px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-soft);
   }
-  .video-placeholder .vp-icon {
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    background: var(--accent-glow);
-    color: var(--accent);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    border: 1px solid var(--accent-strong);
-  }
-  .video-placeholder .vp-label {
-    font-size: 14px;
-    letter-spacing: 0.04em;
-    color: var(--text-secondary);
-  }
-  .video-placeholder .vp-tag {
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 600;
+  .vsl-wrap wistia-player {
+    display: block;
+    width: 100%;
   }
 
   .cta-card {
@@ -895,7 +879,7 @@
 const CONFIG = {
   GENERATE_ROADMAP_URL: "https://generate-roadmap.timbrace14.workers.dev",
   SUBSCRIBE_URL: "https://subscribe-deploy.timbrace14.workers.dev",
-  CALENDLY_URL: "[CALENDLY LINK PLACEHOLDER]",
+  CALENDLY_URL: "https://calendly.com/timbrace14/scalo-discovery-call",
 };
 
 // ---------- Questions ----------
@@ -1622,10 +1606,8 @@ function renderResults() {
             <h2 class="section-title">What's <em>next</em></h2>
             <p class="next-copy">You've got the skill. You've got the offer. You've got the roadmap. The question is whether you build it alone — or with a <em>system</em> behind you.</p>
 
-            <div class="video-placeholder">
-              <div class="vp-icon">▶</div>
-              <div class="vp-label">[Insert 2–3 minute video from Tim here]</div>
-              <div class="vp-tag">Video placeholder</div>
+            <div class="vsl-wrap">
+              <wistia-player media-id="70c6vngscr" aspect="1.7777777777777777"></wistia-player>
             </div>
 
             <div class="cta-card">
