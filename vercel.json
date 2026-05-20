@@ -3,6 +3,16 @@
   "rewrites": [
     {
       "source": "/",
+      "has": [{ "type": "host", "value": "join.buildwithscalo.com" }],
+      "destination": "/sales/index.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "host", "value": "join.buildwithscalo.com" }],
+      "destination": "/sales/index.html"
+    },
+    {
+      "source": "/",
       "has": [{ "type": "host", "value": "book.buildwithscalo.com" }],
       "destination": "/book/index.html"
     },
@@ -36,7 +46,7 @@
       "has": [{ "type": "host", "value": "skill-sell-scale.buildwithscalo.com" }],
       "destination": "/skill-sell-scale/index.html"
     },
-    { "source": "/", "destination": "/sales/index.html" },
-    { "source": "/index.html", "destination": "/sales/index.html" }
+    { "source": "/", "destination": "/waitlist.html" },
+    { "source": "/index.html", "destination": "/waitlist.html" }
   ]
 }
