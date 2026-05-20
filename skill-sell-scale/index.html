@@ -875,7 +875,7 @@
 <body>
 <div class="stage">
   <header class="topbar">
-    <a class="brand" href="/" aria-label="SCALO"><img class="brand-logo" src="./logo.png?v=6" alt="SCALO" /></a>
+    <a class="brand" href="/" aria-label="SCALO"><img class="brand-logo" src="/skill-sell-scale/logo.png?v=7" alt="SCALO" /></a>
     <div class="progress-shell" id="progressShell" hidden>
       <div class="progress-meta">
         <span id="phaseLabel">Phase 1 of 3</span>
@@ -1354,8 +1354,8 @@ function renderGate() {
         </div>
         <input type="email" id="emailField" placeholder="Your email address" autocomplete="email" value="${escapeHtml(state.email)}" required />
         <div id="gateError"></div>
-        <button class="btn btn-primary" type="submit">Show me my roadmap <span class="arrow">→</span></button>
-        <p class="fine-print">We'll also send you the occasional email with advice on building your online business. Unsubscribe any time.</p>
+        <button class="btn btn-primary" type="submit">Send me my roadmap <span class="arrow">→</span></button>
+        <p class="fine-print">We'll send your custom roadmap to this inbox shortly. We'll also send the occasional email with advice on building your online business — unsubscribe any time.</p>
       </form>
     </section>
   `);
@@ -1438,6 +1438,8 @@ async function runGeneration() {
     state.slug = data.slug || null;
 
     // Fire subscribe — non-blocking. Pass the slug so the email link opens THEIR roadmap.
+    // ConvertKit holds the link in the `roadmap_link` custom field and the automation
+    // waits 30 minutes before delivering it via email.
     fetch(CONFIG.SUBSCRIBE_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -1449,13 +1451,8 @@ async function runGeneration() {
       }),
     }).catch(err => console.warn("subscribe error:", err));
 
-    // Update the URL to /r/{slug} so the user can bookmark or share their roadmap.
-    if (state.slug && history.pushState) {
-      history.pushState({ slug: state.slug }, "", `/r/${state.slug}`);
-    }
-
     clearInterval(state._loaderInterval);
-    renderResults();
+    renderConfirmation();
   } catch (err) {
     clearInterval(state._loaderInterval);
     state.error = err.message || "Something went wrong.";
@@ -1507,6 +1504,37 @@ function renderError() {
 
 function formatDate(d = new Date()) {
   return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function renderConfirmation() {
+  state.step = "confirmation";
+  setProgress(null);
+  const first = state.firstName || "you";
+  renderShell(`
+    <section class="screen gate">
+      <div class="gate-icon">✦</div>
+      <span class="hero-badge"><span class="hero-badge-dot"></span><span>You're in</span></span>
+      <h2 class="question">Hold tight, ${escapeHtml(first)}.<br>We're <em>building your roadmap</em>.</h2>
+      <p class="question-help" style="max-width: 520px; margin-left: auto; margin-right: auto;">
+        Your custom Skill, Sell, Scale roadmap is being prepared and will land in your inbox in the next <strong style="color: var(--text-primary);">30 minutes</strong>. Check <strong style="color: var(--text-primary);">${escapeHtml(state.email)}</strong> — including spam, just in case.
+      </p>
+      <div style="display: grid; gap: 14px; max-width: 460px; margin: 32px auto 0; text-align: left;">
+        <div style="display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius);">
+          <span style="font-family: var(--font-serif); font-style: italic; color: var(--accent); font-size: 18px; line-height: 1;">01</span>
+          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">A personalised offer with name, price and delivery format — built around your industry and audience.</span>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius);">
+          <span style="font-family: var(--font-serif); font-style: italic; color: var(--accent); font-size: 18px; line-height: 1;">02</span>
+          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">A 90-day action plan in three phases — exact steps you can start this week.</span>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius);">
+          <span style="font-family: var(--font-serif); font-style: italic; color: var(--accent); font-size: 18px; line-height: 1;">03</span>
+          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">An honest read on the 2–3 things most likely to trip you up — and how to close the gap.</span>
+        </div>
+      </div>
+      <p class="fine-print" style="margin-top: 32px;">No need to refresh — the email is already on its way.</p>
+    </section>
+  `);
 }
 
 function renderResults() {
