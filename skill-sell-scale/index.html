@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#000000" />
+<title>Skill, Sell, Scale — SCALO</title>
+<meta name="description" content="Find out exactly what you could sell online, what to charge, and how to build it into a business — in under 10 minutes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&display=swap">
+<style>
+  :root {
+    --bg: #000000;
+    --bg-elevated: #0A0A0A;
+    --bg-card: #111111;
+    --bg-card-hover: #161616;
+    --border: rgba(255, 255, 255, 0.12);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-strong: rgba(255, 255, 255, 0.22);
+    --accent: #B8E986;
+    --accent-dim: rgba(184, 233, 134, 0.15);
+    --accent-glow: rgba(184, 233, 134, 0.08);
+    --accent-strong: rgba(184, 233, 134, 0.35);
+    --text-primary: #E6E8DA;
+    --text-secondary: rgba(230, 232, 218, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.4);
+    --red: #FF6B5A;
+
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-serif: 'Instrument Serif', Georgia, serif;
+
+    --radius-sm: 6px;
+    --radius: 12px;
+    --radius-lg: 20px;
+    --shadow: 0 14px 40px var(--accent-dim);
+    --shadow-soft: 0 8px 24px rgba(0,0,0,0.4);
+
+    --max: 720px;
+    --max-wide: 960px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background: var(--bg);
+    line-height: 1.55;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(900px 500px at 80% -10%, var(--accent-glow), transparent 60%),
+      radial-gradient(700px 400px at 0% 110%, var(--accent-glow), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: var(--text-primary);
+  }
+  h1 em, h2 em, h3 em, .serif-em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  p { color: var(--text-secondary); }
+  p strong { color: var(--text-primary); font-weight: 700; }
+  a { color: var(--accent); text-decoration: none; }
+
+  /* Shell */
+  .stage {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex; flex-direction: column;
+  }
+  .topbar {
+    padding: 24px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.45);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .brand { display: inline-flex; align-items: center; text-decoration: none; }
+  .brand-logo {
+    display: block;
+    height: 38px;
+    width: auto;
+  }
+  @media (max-width: 480px) {
+    .brand-logo { height: 30px; }
+  }
+
+  /* Hero "Scale" — angled SVG pen-underline that draws itself in. */
+  .hero-scale {
+    position: relative;
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+    font-size: 1.15em;
+    letter-spacing: -0.02em;
+    padding: 0 0.02em 0.22em;
+  }
+  .hero-underline {
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    bottom: -0.04em;
+    width: 104%;
+    height: 0.34em;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .hero-underline path {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+    animation: penStroke 880ms cubic-bezier(0.45, 0.05, 0.55, 0.95) 700ms forwards;
+    filter: drop-shadow(0 0 8px var(--accent-strong));
+  }
+  @keyframes penStroke {
+    to { stroke-dashoffset: 0; }
+  }
+  .progress-shell { flex: 1; max-width: 260px; }
+  .progress-meta {
+    display: flex; justify-content: space-between;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .progress-track {
+    height: 2px; background: var(--border-subtle); border-radius: 999px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--accent);
+    border-radius: 999px;
+    width: 0%;
+    box-shadow: 0 0 12px var(--accent-strong);
+    transition: width 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .stage > main {
+    flex: 1;
+    display: flex; align-items: center; justify-content: center;
+    padding: 64px 24px 80px;
+  }
+  .screen {
+    width: 100%;
+    max-width: var(--max);
+    opacity: 0;
+    transform: translateY(12px);
+    animation: rise 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .screen-wide { max-width: var(--max-wide); }
+
+  /* Landing */
+  .landing { text-align: center; padding: 20px 0 0; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.02);
+    margin-bottom: 32px;
+  }
+  .hero-badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-strong);
+  }
+  h1.display {
+    font-size: clamp(48px, 8vw, 88px);
+    font-weight: 700;
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+    margin-bottom: 28px;
+  }
+  h1.display em { font-size: 1.15em; }
+  .lede {
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0 auto 44px;
+    line-height: 1.5;
+  }
+
+  /* Buttons */
+  .btn {
+    appearance: none; border: 0; cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 17px 30px;
+    border-radius: 999px;
+    transition: transform 220ms ease, background 200ms ease, box-shadow 220ms ease, border-color 200ms ease, color 200ms ease;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0A1606;
+    box-shadow: 0 8px 30px var(--accent-dim);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px var(--accent-dim); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+  }
+  .btn-secondary:hover { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    padding: 14px 18px;
+    font-weight: 500;
+  }
+  .btn-ghost:hover { color: var(--text-primary); }
+  .btn .arrow { transition: transform 240ms ease; display: inline-block; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Proof strip */
+  .proof {
+    margin-top: 72px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border-subtle);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    max-width: 720px;
+    margin-left: auto; margin-right: auto;
+  }
+  .proof-item {
+    background: var(--bg);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .proof-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 36px;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    display: block;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .proof-label {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* Question screen */
+  .phase-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+    font-weight: 600;
+  }
+  .phase-tag::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-strong);
+  }
+  .question {
+    font-size: clamp(28px, 4.4vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    margin-bottom: 16px;
+  }
+  .question-help {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  /* Inputs */
+  textarea, input[type="text"], input[type="email"] {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    line-height: 1.5;
+    resize: none;
+    transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
+    -webkit-appearance: none;
+  }
+  textarea { min-height: 140px; }
+  textarea:focus, input:focus {
+    outline: 0;
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+  }
+  textarea::placeholder, input::placeholder { color: var(--text-muted); }
+
+  .choice-group { display: grid; gap: 10px; }
+  .choice-group.pills {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 8px;
+  }
+  @media (max-width: 540px) {
+    .choice-group.pills { grid-auto-flow: row; grid-auto-columns: auto; }
+  }
+  .choice {
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: border-color 200ms ease, background 200ms ease, transform 200ms ease, opacity 200ms ease;
+    display: flex; align-items: center; gap: 14px;
+    font-size: 16px;
+    color: var(--text-primary);
+    font-weight: 500;
+    user-select: none;
+    min-height: 60px;
+  }
+  .choice.pill {
+    padding: 14px 16px;
+    justify-content: center;
+    text-align: center;
+    font-size: 15px;
+    min-height: 52px;
+  }
+  .choice.pill .marker { display: none; }
+  .choice:hover { border-color: var(--accent); background: var(--bg-card-hover); transform: translateY(-1px); }
+  .choice.selected {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+  .choice.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .choice.disabled:hover {
+    transform: none;
+    border-color: var(--border);
+    background: var(--bg-card);
+  }
+
+  /* Radio marker (single-select) */
+  .choice .marker {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-strong);
+    flex-shrink: 0;
+    transition: all 200ms ease;
+    position: relative;
+  }
+  .choice.selected .marker { border-color: var(--accent); }
+  .choice.selected .marker::after {
+    content: "";
+    position: absolute; inset: 3px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-strong);
+  }
+
+  /* Checkbox marker (multi-select) */
+  .choice.multi .marker {
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .choice.multi.selected .marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px var(--accent-strong);
+  }
+  .choice.multi.selected .marker::after {
+    content: "✓";
+    position: static;
+    inset: auto;
+    width: auto; height: auto;
+    color: #0A1606;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    transform: translateY(-0.5px);
+  }
+
+  /* Multi-select counter */
+  .choice-counter {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .choice-counter .count-strong { color: var(--accent); }
+  .choice-counter.maxed { color: var(--accent); }
+
+  /* Inline "Other" text field */
+  .other-input-wrap {
+    margin-top: 12px;
+    opacity: 0;
+    transform: translateY(-6px);
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 280ms ease, transform 320ms ease, max-height 320ms ease, margin 280ms ease;
+  }
+  .other-input-wrap.open {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 200px;
+  }
+
+  /* Double-single layout (Q5) */
+  .group { margin-bottom: 24px; }
+  .group:last-child { margin-bottom: 0; }
+  .group-label {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  /* Skip link for optional question */
+  .skip-link {
+    display: inline-block;
+    margin-top: 18px;
+    color: var(--text-muted);
+    font-size: 14px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(255,255,255,0.2);
+    cursor: pointer;
+    background: transparent; border: 0;
+    font-family: inherit;
+  }
+  .skip-link:hover { color: var(--text-primary); }
+
+  .nav-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 32px;
+  }
+
+  /* Email gate */
+  .gate { text-align: center; }
+  .gate-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    color: var(--accent);
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 28px;
+    border: 1px solid var(--accent-strong);
+  }
+  .gate-form {
+    max-width: 440px; margin: 32px auto 0;
+    display: grid; gap: 12px;
+  }
+  .gate-form .btn { width: 100%; }
+  .gate-name-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  @media (max-width: 380px) {
+    .gate-name-row { grid-template-columns: 1fr; }
+  }
+  .fine-print {
+    font-size: 13px; color: var(--text-muted);
+    margin-top: 18px; line-height: 1.5;
+  }
+
+  /* Loading */
+  .loader-screen { text-align: center; max-width: 480px; }
+  .loader-bar-wrap {
+    height: 3px;
+    background: var(--border-subtle);
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 40px auto 28px;
+    max-width: 320px;
+  }
+  .loader-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), rgba(184, 233, 134, 0.5));
+    border-radius: 999px;
+    width: 0;
+    box-shadow: 0 0 12px var(--accent-strong);
+    animation: load 14s cubic-bezier(0.32, 0.72, 0.36, 1) forwards;
+  }
+  @keyframes load {
+    0% { width: 0; }
+    40% { width: 52%; }
+    80% { width: 88%; }
+    100% { width: 97%; }
+  }
+  .loader-msg {
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    min-height: 1.2em;
+    transition: opacity 400ms ease;
+    color: var(--text-primary);
+  }
+  .loader-msg em { font-size: 1.1em; }
+  .loader-msg.fade { opacity: 0; }
+  .loader-sub {
+    color: var(--text-muted); font-size: 14px;
+    margin-top: 16px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Results document */
+  .results { max-width: 800px; }
+  .results-doc {
+    background: var(--bg-elevated);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+  .doc-header {
+    background:
+      radial-gradient(800px 400px at 50% -20%, var(--accent-glow), transparent 60%),
+      linear-gradient(180deg, #0F1208, var(--bg-elevated));
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 64px 48px 52px;
+    text-align: center;
+    position: relative;
+  }
+  .doc-header::after {
+    content: "";
+    position: absolute; bottom: -1px; left: 50%;
+    transform: translateX(-50%);
+    width: 80px; height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 16px var(--accent-strong);
+  }
+  .doc-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+  .doc-title {
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+    margin-bottom: 14px;
+  }
+  .doc-title em { font-size: 1.2em; }
+  .doc-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .doc-body { padding: 56px 48px 64px; }
+
+  .section + .section {
+    margin-top: 56px;
+    padding-top: 56px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  .section-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .section-title {
+    font-size: clamp(26px, 3.6vw, 36px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 28px;
+  }
+
+  .field { margin-bottom: 24px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .field-value {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .field-value.lead {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .field-value strong { color: var(--text-primary); font-weight: 700; }
+
+  /* Price card */
+  .price-card {
+    background:
+      radial-gradient(400px 200px at 0% 0%, var(--accent-glow), transparent 60%),
+      var(--bg-card);
+    border: 1px solid var(--accent-strong);
+    border-radius: var(--radius);
+    padding: 28px 30px;
+    margin: 20px 0;
+  }
+  .price-card .price {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 44px;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .price-card .price-why {
+    font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+  }
+
+  /* Phase cards */
+  .phase {
+    margin-bottom: 16px;
+    padding: 28px 30px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-subtle);
+    transition: border-color 200ms ease, background 200ms ease;
+  }
+  .phase:hover { border-color: var(--border); }
+  .phase:last-child { margin-bottom: 0; }
+  .phase-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+  }
+  .phase-steps {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+  }
+  .phase-steps li {
+    counter-increment: step;
+    padding: 14px 0 14px 44px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 15.5px;
+    line-height: 1.55;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .phase-steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .phase-steps li:first-child { padding-top: 0; }
+  .phase-steps li::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute;
+    left: 0; top: 14px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-size: 16px;
+  }
+  .phase-steps li:first-child::before { top: 0; }
+
+  /* Gap section — emphasised */
+  .gap-section {
+    position: relative;
+    background: linear-gradient(180deg, var(--accent-glow), transparent 80%), var(--bg-card);
+    border: 1px solid var(--accent-strong);
+    border-radius: var(--radius-lg);
+    padding: 48px 44px;
+    margin-top: 56px;
+    overflow: hidden;
+  }
+  .gap-section::before {
+    content: "";
+    position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--accent);
+    box-shadow: 0 0 20px var(--accent-strong);
+  }
+  .gap-section .gap-headline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(24px, 3.4vw, 30px);
+    line-height: 1.3;
+    color: var(--accent);
+    margin-bottom: 24px;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+  .gap-section .gap-body {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text-primary);
+  }
+
+  /* What's next + CTA card */
+  .next-section { margin-top: 56px; text-align: center; }
+  .next-copy {
+    font-size: clamp(22px, 3vw, 28px);
+    line-height: 1.3;
+    color: var(--text-primary);
+    max-width: 560px;
+    margin: 0 auto 36px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+  .next-copy em { font-size: 1.15em; }
+
+  .video-placeholder {
+    border: 1.5px dashed var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    aspect-ratio: 16 / 9;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+    color: var(--text-muted);
+    margin: 24px 0 36px;
+  }
+  .video-placeholder .vp-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    border: 1px solid var(--accent-strong);
+  }
+  .video-placeholder .vp-label {
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+  }
+  .video-placeholder .vp-tag {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .cta-card {
+    background:
+      radial-gradient(500px 250px at 50% 0%, var(--accent-glow), transparent 60%),
+      var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 44px 32px;
+    text-align: center;
+  }
+  .cta-card .cta-headline {
+    font-size: clamp(24px, 3.2vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 14px;
+  }
+  .cta-card .cta-headline em { font-size: 1.15em; }
+  .cta-card .cta-sub {
+    font-size: 15px; color: var(--text-secondary);
+    margin: 0 auto 28px; line-height: 1.55;
+    max-width: 440px;
+  }
+
+  /* Errors */
+  .error-box {
+    background: rgba(255, 107, 90, 0.12);
+    border: 1px solid rgba(255, 107, 90, 0.3);
+    color: var(--red);
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--border-subtle);
+    position: relative; z-index: 1;
+  }
+
+  /* Mobile */
+  @media (max-width: 720px) {
+    .topbar { padding: 18px 20px; }
+    .progress-shell { max-width: 170px; }
+    .stage > main { padding: 40px 18px 60px; }
+    .proof { grid-template-columns: 1fr; max-width: 360px; }
+    .proof-item { padding: 22px 16px; border-bottom: 1px solid var(--border-subtle); }
+    .proof-item:last-child { border-bottom: 0; }
+    .doc-header { padding: 44px 24px 36px; }
+    .doc-body { padding: 36px 24px 44px; }
+    .section + .section { margin-top: 44px; padding-top: 44px; }
+    .gap-section { padding: 36px 28px; margin-top: 44px; }
+    .phase { padding: 22px; }
+    .cta-card { padding: 32px 22px; }
+    .price-card { padding: 22px; }
+    .price-card .price { font-size: 36px; }
+    .question { font-size: 26px; }
+  }
+
+  @media (max-width: 420px) {
+    .topbar { padding: 16px; }
+    .brand { font-size: 14px; letter-spacing: 0.16em; }
+    .progress-shell { max-width: 120px; }
+    .progress-meta { font-size: 10px; }
+    .doc-header { padding: 36px 20px 30px; }
+    .doc-body { padding: 28px 20px 36px; }
+    .gap-section { padding: 28px 22px; }
+    .btn { padding: 15px 24px; font-size: 14px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="SCALO"><img class="brand-logo" src="./logo.png?v=6" alt="SCALO" /></a>
+    <div class="progress-shell" id="progressShell" hidden>
+      <div class="progress-meta">
+        <span id="phaseLabel">Phase 1 of 3</span>
+        <span id="phaseStep">Skill</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+  </header>
+
+  <main id="main"></main>
+
+  <footer class="footer">© <span id="year"></span> SCALO · buildwithscalo.com</footer>
+</div>
+
+<script>
+// ---------- Config ----------
+const CONFIG = {
+  GENERATE_ROADMAP_URL: "https://generate-roadmap.timbrace14.workers.dev",
+  SUBSCRIBE_URL: "https://subscribe-deploy.timbrace14.workers.dev",
+  CALENDLY_URL: "[CALENDLY LINK PLACEHOLDER]",
+};
+
+// ---------- Questions ----------
+// Types:
+//   "single"        — pick one
+//   "single-other"  — pick one; the "Other" option reveals an inline text input
+//   "multi"         — pick up to `max` options
+//   "multi-other"   — multi-select with an "Other" option that reveals a text input
+//   "double-single" — two separate single-selects on one screen (groups)
+//   "optional-text" — short free text, can be skipped
+const QUESTIONS = [
+  { id: "q1", phase: 1, phaseLabel: "Skill", n: 1, type: "single-other",
+    prompt: "What do you do for a living?",
+    help: "Pick the closest — if it's not here, hit Other and tell us in a few words.",
+    choices: [
+      "Hair, Barbering or Beauty",
+      "Fitness or Personal Training",
+      "Body work (massage, tattoo, lashes, physio…)",
+      "Coaching, Therapy or Wellness",
+      "Trades (plumber, sparky, builder…)",
+      "Creative (photo, video, design…)",
+      "Other",
+    ],
+    otherLabel: "Other",
+    otherPlaceholder: "Tell us what you do, in a few words",
+  },
+  { id: "q2a", phase: 1, phaseLabel: "Skill", n: 2, type: "single",
+    prompt: "How long have you been doing it?",
+    help: "Just a rough bracket — no need to be exact.",
+    choices: ["Under a year", "1–3 years", "3–5 years", "5–10 years", "10+ years"],
+  },
+  { id: "q2b", phase: 1, phaseLabel: "Skill", n: 3, type: "single",
+    prompt: "Roughly how much do you earn from it each month?",
+    help: "Honest answer — no judgment. This shapes how realistic your roadmap will be.",
+    choices: ["Under £2K", "£2–4K", "£4–6K", "£6–10K", "£10K+"],
+  },
+  { id: "q3", phase: 1, phaseLabel: "Skill", n: 4, type: "multi-other",
+    prompt: "What do people come to you for help with?",
+    help: "Pick up to 3. Think DMs, conversations, friends, clients — what do they keep asking?",
+    max: 3,
+    choices: [
+      "The craft itself — technique, doing what I do",
+      "Getting started in my field",
+      "Getting more clients or customers",
+      "Pricing or charging more",
+      "Confidence and mindset",
+      "Running the business side",
+      "Social media and personal brand",
+      "Something specific to my industry",
+    ],
+    otherLabel: "Something specific to my industry",
+    otherPlaceholder: "Tell us what they ask about",
+  },
+
+  { id: "q4", phase: 2, phaseLabel: "Sell", n: 5, type: "single",
+    prompt: "Have you ever taught, coached, or helped anyone with your skill?",
+    help: "Counts: friends, family, juniors at work, a one-off favour.",
+    choices: ["Yes", "A bit", "No"],
+  },
+  { id: "q5", phase: 2, phaseLabel: "Sell", n: 6, type: "double-single",
+    prompt: "Who would you most love to help?",
+    help: "Pick their age range and where they're at right now.",
+    groups: [
+      { id: "age", label: "Age", choices: ["18–25", "25–35", "35–45", "45+"] },
+      { id: "stage", label: "Where they're at", choices: [
+        "Total beginner",
+        "Just starting out",
+        "Stuck in the middle",
+        "Experienced but stuck",
+        "Established, wants more",
+      ]},
+    ],
+  },
+  { id: "q6", phase: 2, phaseLabel: "Sell", n: 7, type: "single-other",
+    prompt: "If you could fix ONE thing for them, what would it be?",
+    help: "The one thing that, if you solved it, would change everything for them.",
+    choices: [
+      "Help them get good faster",
+      "Help them earn more from work they already do",
+      "Help them stop undercharging",
+      "Help them attract better clients",
+      "Help them turn their skill into an online income",
+      "Help them build a personal brand",
+      "Other",
+    ],
+    otherLabel: "Other",
+    otherPlaceholder: "Tell us in one line",
+  },
+
+  { id: "q7", phase: 3, phaseLabel: "Scale", n: 8, type: "multi",
+    prompt: "In 2 years, the life you actually want…",
+    help: "Pick your top 2 — the things that matter most.",
+    max: 2,
+    choices: [
+      "More money, same hours",
+      "Same money, half the hours",
+      "Working from anywhere",
+      "Only clients I love",
+      "Stepping back from the day-to-day",
+      "Building a brand or team bigger than me",
+      "Recurring or passive income",
+    ],
+  },
+  { id: "q8", phase: 3, phaseLabel: "Scale", n: 9, type: "multi-other",
+    prompt: "What's the real blocker right now?",
+    help: "Pick up to 2 — be honest. Whatever's actually stopping you.",
+    max: 2,
+    choices: [
+      "I don't know where to start",
+      "I don't have the time",
+      "I'm not sure who'd pay me",
+      "I'm scared to charge proper money",
+      "I'm not confident on camera or online",
+      "I've started and stalled before",
+      "The tech overwhelms me",
+      "Other",
+    ],
+    otherLabel: "Other",
+    otherPlaceholder: "Tell us in one line",
+  },
+  { id: "q9", phase: 3, phaseLabel: "Scale", n: 10, type: "optional-text", optional: true,
+    prompt: "Anything else you want me to know?",
+    help: "Totally optional — skip if you want. One line if there's something specific (followers, a past attempt, a deadline, a constraint).",
+    placeholder: "e.g. \"I already have 5K Instagram followers\" or \"I tried this last year and stalled at the launch\"…",
+  },
+];
+const TOTAL_QUESTIONS = QUESTIONS.length;
+const MANDATORY_COUNT = QUESTIONS.filter(q => !q.optional).length;
+
+const LOADER_MESSAGES = [
+  "Analysing your skill set…",
+  "Mapping your online offer…",
+  "Pricing your programme…",
+  "Building your 90-day plan…",
+  "Almost there…",
+];
+
+// ---------- State ----------
+const state = {
+  step: "landing",
+  answers: {},
+  firstName: "",
+  lastName: "",
+  email: "",
+  roadmap: null,
+  slug: null,
+  error: null,
+};
+const fullName = () => [state.firstName, state.lastName].filter(Boolean).join(" ");
+
+// ---------- Helpers ----------
+const $ = (sel, root = document) => root.querySelector(sel);
+const el = (html) => {
+  const t = document.createElement("template");
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+};
+const escapeHtml = (s = "") => String(s)
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+function setProgress(phase, n) {
+  const shell = $("#progressShell");
+  if (!phase) { shell.hidden = true; return; }
+  shell.hidden = false;
+  // Cap progress at the mandatory count so Q9 (bonus) still shows as "almost done", not >100%.
+  const pct = Math.min(100, Math.round((n / MANDATORY_COUNT) * 100));
+  $("#progressFill").style.width = pct + "%";
+  $("#phaseLabel").textContent = `Phase ${phase} of 3`;
+  $("#phaseStep").textContent = ["Skill", "Sell", "Scale"][phase - 1];
+}
+
+function renderShell(inner) {
+  const main = $("#main");
+  main.innerHTML = "";
+  main.appendChild(el(inner));
+}
+
+// ---------- Screens ----------
+function renderLanding() {
+  state.step = "landing";
+  setProgress(null);
+  renderShell(`
+    <section class="screen landing">
+      <span class="hero-badge"><span class="hero-badge-dot"></span><span>A free roadmap from SCALO</span></span>
+      <h1 class="display">Skill, Sell,<br><span class="hero-scale">Scale.<svg class="hero-underline" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 11 Q 100 2 198 6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" /></svg></span></h1>
+      <p class="lede">Find out exactly what you could sell online, what to charge, and how to build it into a business — in under 10 minutes.</p>
+      <button class="btn btn-primary" id="startBtn">Build my roadmap <span class="arrow">→</span></button>
+      <div class="proof">
+        <div class="proof-item"><span class="proof-num">$500K</span><span class="proof-label">Added in ARR</span></div>
+        <div class="proof-item"><span class="proof-num">10 min</span><span class="proof-label">From answers to plan</span></div>
+        <div class="proof-item"><span class="proof-num">100%</span><span class="proof-label">Built around you</span></div>
+      </div>
+    </section>
+  `);
+  $("#startBtn").addEventListener("click", () => renderQuestion(0));
+}
+
+function renderQuestion(index) {
+  const q = QUESTIONS[index];
+  state.step = q.id;
+  setProgress(q.phase, q.n);
+
+  // Initialise answer shape per type, preserving prior answers.
+  if (!(q.id in state.answers)) {
+    if (q.type === "multi" || q.type === "multi-other") state.answers[q.id] = { values: [], custom: "" };
+    else if (q.type === "single-other") state.answers[q.id] = { value: "", custom: "" };
+    else if (q.type === "double-single") state.answers[q.id] = {};
+    else state.answers[q.id] = "";
+  }
+  const A = state.answers[q.id];
+
+  const isLast = index === QUESTIONS.length - 1;
+  const backDisabled = index === 0;
+
+  const stepLabel = q.optional
+    ? `Bonus · ${q.phaseLabel} · skip if you want`
+    : `Phase ${q.phase} · ${q.phaseLabel} · Question ${q.n} of ${MANDATORY_COUNT}`;
+
+  // ---- build the input block per type ----
+  let inputHtml = "";
+  if (q.type === "single" || q.type === "single-other") {
+    const sel = q.type === "single-other" ? A.value : A;
+    inputHtml = `
+      <div class="choice-group" id="choices">
+        ${q.choices.map(c => `
+          <label class="choice ${sel === c ? "selected" : ""}" data-value="${escapeHtml(c)}">
+            <span class="marker"></span>
+            <span>${escapeHtml(c)}</span>
+          </label>
+        `).join("")}
+      </div>
+    `;
+    if (q.type === "single-other") {
+      const open = sel === q.otherLabel;
+      inputHtml += `
+        <div class="other-input-wrap ${open ? "open" : ""}" id="otherWrap">
+          <input type="text" id="otherInput" placeholder="${escapeHtml(q.otherPlaceholder || "")}" value="${escapeHtml(A.custom || "")}" />
+        </div>
+      `;
+    }
+  } else if (q.type === "multi" || q.type === "multi-other") {
+    const sels = A.values || [];
+    inputHtml = `
+      <div class="choice-counter" id="counter">
+        <span>Pick up to ${q.max}</span>
+        <span><span class="count-strong" id="countNum">${sels.length}</span> of ${q.max} selected</span>
+      </div>
+      <div class="choice-group" id="choices">
+        ${q.choices.map(c => {
+          const isSel = sels.includes(c);
+          const disabled = !isSel && sels.length >= q.max;
+          return `
+            <label class="choice multi ${isSel ? "selected" : ""} ${disabled ? "disabled" : ""}" data-value="${escapeHtml(c)}">
+              <span class="marker"></span>
+              <span>${escapeHtml(c)}</span>
+            </label>
+          `;
+        }).join("")}
+      </div>
+    `;
+    if (q.type === "multi-other") {
+      const open = sels.includes(q.otherLabel);
+      inputHtml += `
+        <div class="other-input-wrap ${open ? "open" : ""}" id="otherWrap">
+          <input type="text" id="otherInput" placeholder="${escapeHtml(q.otherPlaceholder || "")}" value="${escapeHtml(A.custom || "")}" />
+        </div>
+      `;
+    }
+  } else if (q.type === "double-single") {
+    inputHtml = q.groups.map(g => {
+      const sel = A[g.id] || "";
+      const isAgeRow = g.id === "age";
+      return `
+        <div class="group">
+          <div class="group-label">${escapeHtml(g.label)}</div>
+          <div class="choice-group ${isAgeRow ? "pills" : ""}" data-group="${escapeHtml(g.id)}">
+            ${g.choices.map(c => `
+              <label class="choice ${isAgeRow ? "pill" : ""} ${sel === c ? "selected" : ""}" data-value="${escapeHtml(c)}">
+                ${isAgeRow ? "" : '<span class="marker"></span>'}
+                <span>${escapeHtml(c)}</span>
+              </label>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }).join("");
+  } else if (q.type === "optional-text") {
+    inputHtml = `<textarea id="answerInput" placeholder="${escapeHtml(q.placeholder || "")}" rows="3">${escapeHtml(A || "")}</textarea>`;
+  }
+
+  // ---- assemble screen ----
+  renderShell(`
+    <section class="screen">
+      <div class="phase-tag">${escapeHtml(stepLabel)}</div>
+      <h2 class="question">${escapeHtml(q.prompt)}</h2>
+      <p class="question-help">${escapeHtml(q.help)}</p>
+      ${inputHtml}
+      <div class="nav-row">
+        ${backDisabled ? "<span></span>" : `<button class="btn btn-ghost" id="backBtn">← Back</button>`}
+        <button class="btn btn-primary" id="nextBtn">${isLast ? "Build my roadmap" : "Continue"} <span class="arrow">→</span></button>
+      </div>
+      ${q.optional ? `<div style="text-align:center;"><button class="skip-link" id="skipBtn">Skip — I've said enough</button></div>` : ""}
+    </section>
+  `);
+
+  if (!backDisabled) $("#backBtn").addEventListener("click", () => renderQuestion(index - 1));
+
+  const goNext = () => {
+    if (isLast) renderGate();
+    else renderQuestion(index + 1);
+  };
+
+  // ---- wire interactions per type ----
+  if (q.type === "single" || q.type === "single-other") {
+    const choices = document.querySelectorAll("#choices .choice");
+    const otherWrap = $("#otherWrap");
+    const otherInput = $("#otherInput");
+
+    const selectValue = (v) => {
+      choices.forEach(x => x.classList.toggle("selected", x.dataset.value === v));
+      if (q.type === "single") {
+        state.answers[q.id] = v;
+      } else {
+        state.answers[q.id].value = v;
+        if (otherWrap) {
+          const showOther = v === q.otherLabel;
+          otherWrap.classList.toggle("open", showOther);
+          if (showOther && otherInput) setTimeout(() => otherInput.focus(), 280);
+        }
+      }
+    };
+
+    choices.forEach(c => c.addEventListener("click", () => selectValue(c.dataset.value)));
+
+    if (otherInput) {
+      otherInput.addEventListener("input", e => { state.answers[q.id].custom = e.target.value.trim(); });
+    }
+  }
+
+  if (q.type === "multi" || q.type === "multi-other") {
+    const choices = document.querySelectorAll("#choices .choice");
+    const counter = $("#counter");
+    const countNum = $("#countNum");
+    const otherWrap = $("#otherWrap");
+    const otherInput = $("#otherInput");
+
+    const refresh = () => {
+      const sels = state.answers[q.id].values;
+      choices.forEach(x => {
+        const v = x.dataset.value;
+        const isSel = sels.includes(v);
+        x.classList.toggle("selected", isSel);
+        x.classList.toggle("disabled", !isSel && sels.length >= q.max);
+      });
+      countNum.textContent = sels.length;
+      counter.classList.toggle("maxed", sels.length >= q.max);
+      if (q.type === "multi-other" && otherWrap) {
+        const showOther = sels.includes(q.otherLabel);
+        otherWrap.classList.toggle("open", showOther);
+        if (showOther && otherInput && document.activeElement !== otherInput) setTimeout(() => otherInput.focus(), 280);
+      }
+    };
+
+    choices.forEach(c => {
+      c.addEventListener("click", () => {
+        const v = c.dataset.value;
+        const sels = state.answers[q.id].values;
+        const i = sels.indexOf(v);
+        if (i >= 0) sels.splice(i, 1);
+        else if (sels.length < q.max) sels.push(v);
+        else { // already at max — flash counter
+          counter.style.color = "var(--red)";
+          setTimeout(() => { counter.style.color = ""; }, 700);
+          return;
+        }
+        refresh();
+      });
+    });
+
+    if (otherInput) {
+      otherInput.addEventListener("input", e => { state.answers[q.id].custom = e.target.value.trim(); });
+    }
+  }
+
+  if (q.type === "double-single") {
+    q.groups.forEach(g => {
+      const groupEl = document.querySelector(`[data-group="${g.id}"]`);
+      const choices = groupEl.querySelectorAll(".choice");
+      choices.forEach(c => {
+        c.addEventListener("click", () => {
+          choices.forEach(x => x.classList.toggle("selected", x === c));
+          state.answers[q.id][g.id] = c.dataset.value;
+        });
+      });
+    });
+  }
+
+  if (q.type === "optional-text") {
+    const ta = $("#answerInput");
+    ta.focus();
+    ta.addEventListener("input", e => { state.answers[q.id] = e.target.value.trim(); });
+    ta.addEventListener("keydown", e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); goNext(); }
+    });
+    $("#skipBtn").addEventListener("click", () => { state.answers[q.id] = ""; goNext(); });
+  }
+
+  // ---- validation ----
+  const flashError = (selector) => {
+    const elt = $(selector);
+    if (!elt) return;
+    const prev = elt.style.outline;
+    elt.style.outline = "1px solid var(--red)";
+    elt.style.outlineOffset = "4px";
+    elt.style.borderRadius = "10px";
+    setTimeout(() => { elt.style.outline = prev; }, 1400);
+    elt.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  $("#nextBtn").addEventListener("click", () => {
+    const a = state.answers[q.id];
+
+    if (q.optional) { goNext(); return; }
+
+    if (q.type === "single") {
+      if (!a) return flashError("#choices");
+    } else if (q.type === "single-other") {
+      if (!a.value) return flashError("#choices");
+      if (a.value === q.otherLabel && (!a.custom || a.custom.length < 2)) return flashError("#otherInput");
+    } else if (q.type === "multi") {
+      if (!a.values || a.values.length === 0) return flashError("#choices");
+    } else if (q.type === "multi-other") {
+      if (!a.values || a.values.length === 0) return flashError("#choices");
+      if (a.values.includes(q.otherLabel) && (!a.custom || a.custom.length < 2)) return flashError("#otherInput");
+    } else if (q.type === "double-single") {
+      const missing = q.groups.find(g => !a[g.id]);
+      if (missing) return flashError(`[data-group="${missing.id}"]`);
+    }
+    goNext();
+  });
+}
+
+function renderGate() {
+  state.step = "gate";
+  setProgress(3, 8);
+  renderShell(`
+    <section class="screen gate">
+      <div class="gate-icon">✦</div>
+      <h2 class="question" style="margin-bottom:8px;">Your roadmap is <em>ready</em>.</h2>
+      <p class="question-help">Where should we send your copy?</p>
+      <form class="gate-form" id="gateForm" novalidate>
+        <div class="gate-name-row">
+          <input type="text" id="firstNameField" placeholder="First name" autocomplete="given-name" value="${escapeHtml(state.firstName)}" required />
+          <input type="text" id="lastNameField" placeholder="Last name" autocomplete="family-name" value="${escapeHtml(state.lastName)}" required />
+        </div>
+        <input type="email" id="emailField" placeholder="Your email address" autocomplete="email" value="${escapeHtml(state.email)}" required />
+        <div id="gateError"></div>
+        <button class="btn btn-primary" type="submit">Show me my roadmap <span class="arrow">→</span></button>
+        <p class="fine-print">We'll also send you the occasional email with advice on building your online business. Unsubscribe any time.</p>
+      </form>
+    </section>
+  `);
+
+  $("#firstNameField").focus();
+  $("#gateForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const firstName = $("#firstNameField").value.trim();
+    const lastName = $("#lastNameField").value.trim();
+    const email = $("#emailField").value.trim();
+    const errBox = $("#gateError");
+    errBox.innerHTML = "";
+
+    if (!firstName || firstName.length < 2) {
+      errBox.innerHTML = `<div class="error-box">Please tell us your first name.</div>`;
+      $("#firstNameField").focus();
+      return;
+    }
+    if (!lastName || lastName.length < 2) {
+      errBox.innerHTML = `<div class="error-box">Please add your last name too.</div>`;
+      $("#lastNameField").focus();
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errBox.innerHTML = `<div class="error-box">That email doesn't look right. Mind checking it?</div>`;
+      $("#emailField").focus();
+      return;
+    }
+
+    state.firstName = firstName;
+    state.lastName = lastName;
+    state.email = email;
+
+    $("#gateForm").querySelector("button[type=submit]").disabled = true;
+    renderLoader();
+    runGeneration();
+  });
+}
+
+function renderLoader() {
+  state.step = "loading";
+  renderShell(`
+    <section class="screen loader-screen">
+      <div class="loader-msg" id="loaderMsg">${escapeHtml(LOADER_MESSAGES[0])}</div>
+      <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+      <div class="loader-sub">Building something personal — give us a moment.</div>
+    </section>
+  `);
+
+  let i = 0;
+  const msgEl = $("#loaderMsg");
+  state._loaderInterval = setInterval(() => {
+    i = (i + 1) % LOADER_MESSAGES.length;
+    if (!msgEl.isConnected) { clearInterval(state._loaderInterval); return; }
+    msgEl.classList.add("fade");
+    setTimeout(() => {
+      if (!msgEl.isConnected) return;
+      msgEl.textContent = LOADER_MESSAGES[i];
+      msgEl.classList.remove("fade");
+    }, 380);
+  }, 2400);
+}
+
+async function runGeneration() {
+  // Generate the roadmap FIRST so we have the slug to send to ConvertKit.
+  // Then fire the subscribe call so the email link can point to the saved roadmap.
+  try {
+    const res = await fetch(CONFIG.GENERATE_ROADMAP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ answers: state.answers, name: fullName(), email: state.email }),
+    });
+    if (!res.ok) {
+      const text = await res.text().catch(() => "");
+      throw new Error(`Roadmap generation failed (${res.status}): ${text.slice(0, 200)}`);
+    }
+    const data = await res.json();
+    if (!data || !data.skill_section) throw new Error("Roadmap response was malformed.");
+    state.roadmap = data;
+    state.slug = data.slug || null;
+
+    // Fire subscribe — non-blocking. Pass the slug so the email link opens THEIR roadmap.
+    fetch(CONFIG.SUBSCRIBE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        firstName: state.firstName,
+        lastName: state.lastName,
+        email: state.email,
+        roadmapSlug: state.slug,
+      }),
+    }).catch(err => console.warn("subscribe error:", err));
+
+    // Update the URL to /r/{slug} so the user can bookmark or share their roadmap.
+    if (state.slug && history.pushState) {
+      history.pushState({ slug: state.slug }, "", `/r/${state.slug}`);
+    }
+
+    clearInterval(state._loaderInterval);
+    renderResults();
+  } catch (err) {
+    clearInterval(state._loaderInterval);
+    state.error = err.message || "Something went wrong.";
+    renderError();
+  }
+}
+
+// Fetch a previously-saved roadmap by slug and render it.
+async function loadSavedRoadmap(slug) {
+  state.step = "loading";
+  setProgress(null);
+  renderShell(`
+    <section class="screen loader-screen">
+      <div class="loader-msg">Loading your roadmap…</div>
+      <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+    </section>
+  `);
+  try {
+    const res = await fetch(`${CONFIG.GENERATE_ROADMAP_URL}?slug=${encodeURIComponent(slug)}`);
+    if (!res.ok) throw new Error(`Could not load roadmap (${res.status}).`);
+    const data = await res.json();
+    state.roadmap = data;
+    state.slug = slug;
+    state.firstName = data.firstName || "";
+    renderResults();
+  } catch (err) {
+    state.error = err.message || "We couldn't find that roadmap.";
+    renderError();
+  }
+}
+
+function renderError() {
+  state.step = "error";
+  setProgress(null);
+  renderShell(`
+    <section class="screen" style="text-align:center;">
+      <span class="hero-badge"><span class="hero-badge-dot" style="background:var(--red);box-shadow:0 0 10px rgba(255,107,90,0.5);"></span><span>Something went wrong</span></span>
+      <h2 class="question">Your roadmap didn't finish building.</h2>
+      <p class="question-help">${escapeHtml(state.error || "Please try again — your answers are still here.")}</p>
+      <button class="btn btn-primary" id="retryBtn">Try again <span class="arrow">→</span></button>
+    </section>
+  `);
+  $("#retryBtn").addEventListener("click", () => {
+    state.error = null;
+    renderLoader();
+    runGeneration();
+  });
+}
+
+function formatDate(d = new Date()) {
+  return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function renderResults() {
+  state.step = "results";
+  setProgress(null);
+  const r = state.roadmap;
+  const first = state.firstName || "you";
+  const stepsHtml = (arr = []) => arr.map(s => `<li>${escapeHtml(s)}</li>`).join("");
+
+  renderShell(`
+    <section class="screen screen-wide results">
+      <div class="results-doc">
+        <div class="doc-header">
+          <div class="doc-eyebrow">Your Skill, Sell, Scale Roadmap</div>
+          <h1 class="doc-title">Built for ${escapeHtml(first)},<br><em>your move online.</em></h1>
+          <div class="doc-meta">${escapeHtml(formatDate())}</div>
+        </div>
+        <div class="doc-body">
+
+          <div class="section">
+            <div class="section-num">Section 01</div>
+            <h2 class="section-title">Your <em>Skill</em></h2>
+            <div class="field">
+              <div class="field-label">What you actually have</div>
+              <div class="field-value lead">${escapeHtml(r.skill_section.core_skill)}</div>
+            </div>
+            <div class="field">
+              <div class="field-label">Why it's valuable online</div>
+              <div class="field-value">${escapeHtml(r.skill_section.why_valuable_online)}</div>
+            </div>
+            <div class="field">
+              <div class="field-label">Who needs it most</div>
+              <div class="field-value">${escapeHtml(r.skill_section.ideal_client_description)}</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-num">Section 02</div>
+            <h2 class="section-title">Your <em>Offer</em></h2>
+            <div class="field">
+              <div class="field-label">What you could sell</div>
+              <div class="field-value lead">${escapeHtml(r.offer_section.offer_description)}</div>
+            </div>
+            <div class="field">
+              <div class="field-label">What to call it</div>
+              <div class="field-value"><strong>${escapeHtml(r.offer_section.suggested_offer_name)}</strong></div>
+            </div>
+            <div class="price-card">
+              <div class="field-label">What to charge</div>
+              <div class="price">${escapeHtml(r.offer_section.price_range)}</div>
+              <div class="price-why">${escapeHtml(r.offer_section.price_reasoning)}</div>
+            </div>
+            <div class="field">
+              <div class="field-label">How to deliver it</div>
+              <div class="field-value">${escapeHtml(r.offer_section.delivery_format)}</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-num">Section 03</div>
+            <h2 class="section-title">Your 90-day <em>Scale</em> Roadmap</h2>
+            <div class="phase">
+              <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_1.title)}</div>
+              <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_1.steps)}</ol>
+            </div>
+            <div class="phase">
+              <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_2.title)}</div>
+              <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_2.steps)}</ol>
+            </div>
+            <div class="phase">
+              <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_3.title)}</div>
+              <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_3.steps)}</ol>
+            </div>
+          </div>
+
+          <div class="gap-section">
+            <div class="section-num">Section 04</div>
+            <h2 class="section-title">Your <em>Gap</em></h2>
+            <div class="gap-headline">${escapeHtml(r.gap_section.headline)}</div>
+            <div class="gap-body">${escapeHtml(r.gap_section.honest_assessment)}</div>
+          </div>
+
+          <div class="next-section">
+            <div class="section-num">Section 05</div>
+            <h2 class="section-title">What's <em>next</em></h2>
+            <p class="next-copy">You've got the skill. You've got the offer. You've got the roadmap. The question is whether you build it alone — or with a <em>system</em> behind you.</p>
+
+            <div class="video-placeholder">
+              <div class="vp-icon">▶</div>
+              <div class="vp-label">[Insert 2–3 minute video from Tim here]</div>
+              <div class="vp-tag">Video placeholder</div>
+            </div>
+
+            <div class="cta-card">
+              <div class="cta-headline">Book your <em>free</em> strategy call</div>
+              <div class="cta-sub">We'll look at your roadmap together and map out exactly how SCALO can help you build this in 120 days.</div>
+              <a class="btn btn-primary" href="${escapeHtml(CONFIG.CALENDLY_URL)}" target="_blank" rel="noopener">Book my call <span class="arrow">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `);
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+// ---------- Boot ----------
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Saved-roadmap mode: visit /r/{slug} to load a previously-generated roadmap.
+const savedSlugMatch = location.pathname.match(/^\/r\/([a-z0-9]{8,32})$/i);
+
+// Preview mode: visit ?preview, ?preview=barber, ?preview=tattoo, ?preview=pt, ?preview=coach
+// Each shows a fully-rendered roadmap with stub data for a different profession,
+// so you can see how the design adapts to wildly different inputs.
+const PREVIEW_STUBS = {
+  barber: {
+    firstName: "Sam",
+    lastName: "Reid",
+    roadmap: {
+      skill_section: {
+        core_skill: "You're not just a barber — you're a confidence builder. Your real skill is reading what a man wants to feel about himself and delivering it with a haircut.",
+        why_valuable_online: "Most barbers teach technique. Almost no one teaches the chair-side game — consultation, reading the room, building loyalty. That's the gap younger barbers are starving to close and what no YouTube tutorial covers.",
+        ideal_client_description: "A 22–28 year old barber who's technically competent but stuck around £2.5–3K/month. They've got the hands. They don't have the chair-side game, the pricing nerve, or the personal brand."
+      },
+      offer_section: {
+        offer_description: "A 6-week coaching programme that takes new-ish barbers from £2.5K months to £5K+ months, by fixing the three things technique can't: consultation, pricing nerve, and client retention.",
+        suggested_offer_name: "Chair Game",
+        price_range: "£997–£1,497",
+        price_reasoning: "Anchored against the £4–6K/month uplift it pays back inside the first programme. Higher than a generic course (£297) because it's small-group and outcome-led. Lower than 1:1 coaching (£3K+) so it scales — you can run 10–15 in a cohort.",
+        delivery_format: "Hybrid: weekly 90-minute group call on Tuesday evenings, a WhatsApp community for daily nudges, and async video reviews of client interactions they record themselves."
+      },
+      scale_roadmap: {
+        phase_1: { title: "Days 1–30: Foundation", steps: [
+          "Pick the exact name and price for Chair Game and commit to it publicly on Instagram by end of week one.",
+          "Record three 60-second videos this week: one on consultation, one on pricing nerve, one on retention.",
+          "Build a one-page sales doc (a Google Doc is fine) outlining what's inside, who it's for, and the outcome.",
+          "DM 10 barbers who already follow you and ask what they'd want from a programme like this.",
+          "Open a separate Stripe account so online income stays clean from the shop."
+        ]},
+        phase_2: { title: "Days 31–60: First Sale", steps: [
+          "Soft-launch to 5 founding members at £497 in exchange for testimonials and case studies.",
+          "Run the first cohort live — week one consultation, week two pricing nerve, week three retention.",
+          "Record every session — you'll need it for the next cohort's marketing.",
+          "Collect a video testimonial from each founding member at week 6.",
+          "Raise the price to £997 for cohort two and announce the date in the community."
+        ]},
+        phase_3: { title: "Days 61–90: Scale", steps: [
+          "Post one short-form video every weekday using language and stories pulled from the first cohort.",
+          "Stand up a simple waitlist page and drive every piece of content to it.",
+          "Open cohort two with a 7-day window and a hard cap of 15 seats.",
+          "Build a 5-email welcome sequence that does the selling so you don't have to be on calls all day.",
+          "Hire a part-time VA for content scheduling and DMs once revenue clears £3K/month online."
+        ]}
+      },
+      gap_section: {
+        headline: "The thing likely to trip you up isn't the haircut — it's the positioning.",
+        honest_assessment: "You said confidence is the blocker, and that shows up in two ways most barbers at your stage get wrong. First, you'll undercharge for the first cohort because £997 feels heavy when you're used to £30 a cut. Second, you'll try to sell to every barber instead of the specific stuck-at-£3K barber that needs you most. Both kill momentum."
+      }
+    }
+  },
+  tattoo: {
+    firstName: "Mia",
+    lastName: "Carter",
+    roadmap: {
+      skill_section: {
+        core_skill: "You don't just tattoo — you read the story someone wants on their skin and translate it into something they'll wear with pride for 40 years. The real skill is the consultation, not the needle.",
+        why_valuable_online: "Apprentices are drowning in technique tutorials but starving for guidance on the human side: pricing your worth, screening clients, handling redraws, building a book that brings the right people through the door. Almost nobody teaches that.",
+        ideal_client_description: "A tattooist 2–4 years in, technically solid but charging shop-floor rates because they're scared to walk away from bad-fit clients. They're booking £3–4K months and could be at £8K with the same hands."
+      },
+      offer_section: {
+        offer_description: "An 8-week mentorship that walks tattooists through the business side they were never shown — pricing structure, client screening, building a magnetic portfolio, and learning to say no without losing income.",
+        suggested_offer_name: "The Book",
+        price_range: "£1,200–£1,800",
+        price_reasoning: "Roughly the price of one to two custom sleeves at your rate — and pays back inside the first month for anyone who follows it. Pricing it below £1K signals it's a course, not a mentorship.",
+        delivery_format: "Weekly 90-minute live call, a small private Discord, and a portfolio review of their last 10 pieces by you on week 4."
+      },
+      scale_roadmap: {
+        phase_1: { title: "Days 1–30: Foundation", steps: [
+          "Write down your three hardest client moments from the last year — they're the curriculum.",
+          "Record a 2-minute video explaining who The Book is for and who it's not for. Post it.",
+          "Build a simple Notion page that lists what's inside, the outcome, and how to apply.",
+          "Personally message 15 tattooists in your DMs and ask if they'd talk to you for 20 minutes about their pricing nerves.",
+          "Set up a separate business account for online income — keep it clean."
+        ]},
+        phase_2: { title: "Days 31–60: First Sale", steps: [
+          "Soft-launch to 4 founding members at £597. Make them apply, not buy.",
+          "Run cohort one live — pricing structure week one, client screening week two, portfolio building week three.",
+          "Record every call. Edit the best 60-second moments into Reels.",
+          "At week 6, ask each founding member for a video saying what changed.",
+          "Open cohort two at £1,297 with the testimonials front and centre."
+        ]},
+        phase_3: { title: "Days 61–90: Scale", steps: [
+          "Post 4 short-form videos a week using exact language from cohort one's struggles.",
+          "Build a one-question waitlist page: 'What's the price you wish you could charge?'",
+          "Run a 5-day launch with daily emails and a hard cap of 12 seats.",
+          "Write a 7-email welcome sequence that converts cold leads while you're tattooing.",
+          "Bring in a VA for DMs once you're booking £4K/month from The Book alone."
+        ]}
+      },
+      gap_section: {
+        headline: "The thing that'll trip you up isn't the curriculum — it's letting the wrong people in.",
+        honest_assessment: "You said the blocker is not knowing who'd pay. The trap most tattooists fall into is taking anyone who's curious, including people who'd rather argue about price than do the work. The Book has to be application-only from day one. If you don't filter, the first cohort will eat your time and the second cohort won't happen."
+      }
+    }
+  },
+  pt: {
+    firstName: "James",
+    lastName: "Okafor",
+    roadmap: {
+      skill_section: {
+        core_skill: "You're not a PT — you're a behaviour change specialist who happens to use weights. Your skill is getting people to do the boring stuff for 12 weeks straight.",
+        why_valuable_online: "The market is flooded with workout plans. What it's starving for is accountability and someone who actually understands why people quit. That's what you've solved for clients in person — it scales fine online with the right structure.",
+        ideal_client_description: "A 30–45 year old professional who has 'tried everything', knows what to do, but can't make themselves do it. They've got the money and zero time for fluff. They want results, not motivation."
+      },
+      offer_section: {
+        offer_description: "A 12-week 1:1 accountability programme — not a workout plan. Daily WhatsApp check-ins, weekly video calls, custom training built around their week, and a clear contract about what happens if they ghost.",
+        suggested_offer_name: "Stay The Course",
+        price_range: "£1,497–£2,497",
+        price_reasoning: "Priced at the rate that filters out 'want to try' people and attracts the 'I'm done failing' crowd. Below £1,500 you attract bargain hunters; above £2,500 you're competing with luxury concierge coaches.",
+        delivery_format: "Daily async (WhatsApp + Loom check-ins), weekly 30-minute Zoom, custom training in a private app, and a written commitment contract signed at week zero."
+      },
+      scale_roadmap: {
+        phase_1: { title: "Days 1–30: Foundation", steps: [
+          "Pick the exact ideal client (age, job, what they've already tried) and write a one-paragraph description.",
+          "Record three 90-second videos talking directly to that person — not to PTs.",
+          "Build a simple application form (Typeform is fine) with one question that screens out time-wasters.",
+          "Reach out to 10 ex-clients and ask if they know someone who fits the description.",
+          "Set up your own check-in workflow before you sell — practise on a friend for a week."
+        ]},
+        phase_2: { title: "Days 31–60: First Sale", steps: [
+          "Take 5 founding members at £797 for the 12-week pilot, on the condition they give a video testimonial.",
+          "Deliver the pilot like your business depends on it (because it does).",
+          "Run a 30-minute exit interview with each — that becomes your sales copy.",
+          "Use the case studies on Instagram with before/after screenshots and exact words they used.",
+          "Open the next round at £1,497."
+        ]},
+        phase_3: { title: "Days 61–90: Scale", steps: [
+          "Post 1 client-result reel per week, with permission, showing real behaviour change not just transformations.",
+          "Run a closed-application launch every 6 weeks — never open enrolment.",
+          "Build a 'why I quit personal training' Loom and use it as a sales asset.",
+          "Hire a junior coach to handle daily check-ins once you hit 10 active clients.",
+          "Cap your roster at 20 — you're a coach, not a content factory."
+        ]}
+      },
+      gap_section: {
+        headline: "The thing that'll trip you up is treating this like a fitness business.",
+        honest_assessment: "You said time is the blocker. It's actually positioning. As long as you market like a PT, you'll attract people who want a workout plan and complain about price. Sell behaviour change to professionals and you'll halve the client list and double the revenue inside 90 days. The gap is willingness to walk away from your old audience."
+      }
+    }
+  },
+  coach: {
+    firstName: "Priya",
+    lastName: "Shah",
+    roadmap: {
+      skill_section: {
+        core_skill: "You translate confusion into action. People come to you scattered and leave knowing exactly what to do next — that's the actual product, not the modality.",
+        why_valuable_online: "The coaching market is full of vague promises. What people are starving for is a specific, contained outcome they can point at and say 'that's what I bought'. Your existing client work already delivers that — it just needs a name and a price.",
+        ideal_client_description: "A 32–42 year old mid-career professional considering a leap (new role, side business, geographic move) who keeps stalling because they can't see the path clearly. They have the money. They don't have the clarity."
+      },
+      offer_section: {
+        offer_description: "A 6-week 1:1 coaching container called The Next Move — designed to take someone from 'I know something has to change' to a written 90-day plan they actually start.",
+        suggested_offer_name: "The Next Move",
+        price_range: "£2,000–£3,000",
+        price_reasoning: "Priced at what a senior professional pays for 6 weeks of decisive coaching — high enough to signal seriousness, low enough that anyone earning £70K+ can self-fund it without sign-off.",
+        delivery_format: "Six weekly 60-minute 1:1 calls, async voice notes between sessions, and a co-written 90-day action plan delivered at week six as the explicit deliverable."
+      },
+      scale_roadmap: {
+        phase_1: { title: "Days 1–30: Foundation", steps: [
+          "Write a one-page description of The Next Move: who it's for, what they walk away with, what it costs.",
+          "Record a 3-minute video explaining the framework you already use with clients.",
+          "List 25 people from your network who've ever asked you 'what should I do next' — that's your warm list.",
+          "Reach out personally to 10 of them and offer a free 30-min clarity call.",
+          "Stand up the simplest possible booking page (Calendly + Stripe is enough)."
+        ]},
+        phase_2: { title: "Days 31–60: First Sale", steps: [
+          "Run 5 paid pilots at £997 — explicitly framed as the founding cohort.",
+          "Deliver each one rigorously and document the framework.",
+          "At the end of each pilot, do a structured testimonial interview.",
+          "Write three case-study posts from the pilots with full permission.",
+          "Open enrolment at £1,997 with a 10-seat cap and a 7-day window."
+        ]},
+        phase_3: { title: "Days 61–90: Scale", steps: [
+          "Publish one essay a week on LinkedIn aimed at your ideal client's actual life, not the coaching industry.",
+          "Build a 4-email nurture sequence triggered when someone books a clarity call.",
+          "Add a referral bonus — current clients introduce one peer, both get something tangible.",
+          "Pilot a group cohort version at £997 to test whether group format holds the outcome.",
+          "Set a roster cap and a price ladder you can hold to without negotiation."
+        ]}
+      },
+      gap_section: {
+        headline: "Your gap isn't the work — it's letting strangers pay you.",
+        honest_assessment: "You said charging proper money is the blocker. Most coaches at your stage hide their price, take referrals at a discount, and tell themselves it's relationship building. It's avoidance. The Next Move only works if the price is on the page and you can sit with someone considering whether to spend £2K and not flinch. Six weeks of practising that — not new frameworks — is what changes the income."
+      }
+    }
+  }
+};
+
+if (location.search.includes("preview")) {
+  const params = new URLSearchParams(location.search);
+  const which = params.get("preview") || "barber";
+  const stub = PREVIEW_STUBS[which] || PREVIEW_STUBS.barber;
+  state.firstName = stub.firstName;
+  state.lastName = stub.lastName;
+  state.email = "preview@example.com";
+  state.roadmap = stub.roadmap;
+  renderResults();
+} else if (savedSlugMatch) {
+  loadSavedRoadmap(savedSlugMatch[1]);
+} else {
+  renderLanding();
+}
+</script>
+</body>
+</html>
