@@ -3851,13 +3851,13 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Sales Page', content_category
         <div class="pricing-tier-badge"><span class="pricing-tier-dot"></span>Founding Member, limited to 10</div>
         <div class="pricing-tier-counter">
           <div class="pricing-tier-counter-row">
-            <span class="pricing-tier-counter-num" id="foundingCount">&mdash;</span>
+            <span class="pricing-tier-counter-num" id="foundingCount">8</span>
             <span class="pricing-tier-counter-divider">/</span>
             <span class="pricing-tier-counter-total">10</span>
             <span class="pricing-tier-counter-label">spots claimed</span>
           </div>
           <div class="pricing-tier-progress">
-            <div class="pricing-tier-progress-fill" id="foundingProgressFill"></div>
+            <div class="pricing-tier-progress-fill" id="foundingProgressFill" style="width: 80%;"></div>
           </div>
         </div>
         <div class="pricing-tier-price-row">
@@ -4590,75 +4590,8 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Sales Page', content_category
     jjStats.forEach(function(s) { jjStatsIo.observe(s); });
   }
 
-  // ───── FOUNDING-MEMBER LIVE COUNTER ─────
-  // Polls a Worker endpoint and updates the counter, progress bar, and
-  // automatically switches the visible tier from "founding" to "standard"
-  // once 10 spots have been claimed.
-  var FOUNDING_COUNT_ENDPOINT = 'https://scalo-stripe.timbrace14.workers.dev/founding-count';
-  var pricingTiers = document.getElementById('pricingTiers');
-  if (pricingTiers) {
-    var foundingTotal = parseInt(pricingTiers.dataset.foundingTotal || '10', 10);
-    var foundingCountEl = document.getElementById('foundingCount');
-    var foundingProgressFill = document.getElementById('foundingProgressFill');
-    var foundingTier = pricingTiers.querySelector('[data-tier="founding"]');
-    var standardTier = pricingTiers.querySelector('[data-tier="standard"]');
-    var foundingDisplayed = null;
-
-    function pricingFormat(n) { return Math.max(0, Math.min(foundingTotal, n)).toString(); }
-
-    function pricingAnimateNumber(target) {
-      if (!foundingCountEl) return;
-      var from = foundingDisplayed === null ? 0 : foundingDisplayed;
-      foundingDisplayed = target;
-      if (from === target) {
-        foundingCountEl.textContent = pricingFormat(target);
-        return;
-      }
-      var start = performance.now();
-      var duration = 800;
-      function tick(now) {
-        var t = Math.min(1, (now - start) / duration);
-        var eased = 1 - Math.pow(1 - t, 3);
-        var current = Math.round(from + (target - from) * eased);
-        foundingCountEl.textContent = pricingFormat(current);
-        if (t < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }
-
-    function pricingApplyCount(count) {
-      var clamped = Math.max(0, Math.min(foundingTotal, count));
-      pricingAnimateNumber(clamped);
-      if (foundingProgressFill) {
-        foundingProgressFill.style.width = (clamped / foundingTotal * 100) + '%';
-      }
-      if (clamped >= foundingTotal) {
-        if (foundingTier) foundingTier.hidden = true;
-        if (standardTier) standardTier.hidden = false;
-      } else {
-        if (foundingTier) foundingTier.hidden = false;
-        if (standardTier) standardTier.hidden = true;
-      }
-    }
-
-    function pricingFetchCount() {
-      fetch(FOUNDING_COUNT_ENDPOINT, { cache: 'no-store' })
-        .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-        .then(function(data) {
-          var count = parseInt(data && data.count, 10);
-          if (isNaN(count)) throw new Error('Bad payload');
-          pricingApplyCount(count);
-        })
-        .catch(function() {
-          // Worker not deployed yet, or offline. Show 0 so the founding tier
-          // is visible and the page still works.
-          if (foundingDisplayed === null) pricingApplyCount(0);
-        });
-    }
-
-    pricingFetchCount();
-    setInterval(pricingFetchCount, 30000); // refresh every 30s for live updates
-  }
+  // Founding-member counter is hardcoded to 8/10 in the HTML; auto-switching
+  // to the standard tier is paused.
 
   // JJ video click-to-play
   document.querySelectorAll('.jj-video-frame').forEach(function(frame) {
