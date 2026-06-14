@@ -14,12 +14,12 @@
     {
       "source": "/",
       "has": [{ "type": "host", "value": "book.buildwithscalo.com" }],
-      "destination": "/book/index.html"
+      "destination": "/book-a-call/index.html"
     },
     {
       "source": "/index.html",
       "has": [{ "type": "host", "value": "book.buildwithscalo.com" }],
-      "destination": "/book/index.html"
+      "destination": "/book-a-call/index.html"
     },
     {
       "source": "/",

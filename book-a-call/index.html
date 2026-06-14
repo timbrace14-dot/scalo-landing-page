@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCALO | Book Your Call</title>
+<meta name="description" content="For service-based founders. Package your skill into an online business in 120 days with SCALO Online. Watch the training, then book your call.">
+<link rel="icon" type="image/png" href="/book-a-call/assets/logo-mark-black.png">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '980240057697179');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_category: 'booking' });
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=980240057697179&ev=PageView&noscript=1"/></noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<style>
+  /* ── SCALO brand faces, self-hosted ── */
+  @font-face{font-family:'Neue Haas Grotesk Display';src:url('/book-a-call/fonts/NeueHaasGrotDisp-55Roman-Trial.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;}
+  @font-face{font-family:'Neue Haas Grotesk Display';src:url('/book-a-call/fonts/NeueHaasGrotDisp-65Medium-Trial.otf') format('opentype');font-weight:500 800;font-style:normal;font-display:swap;}
+  @font-face{font-family:'Inter';src:url('/book-a-call/fonts/Inter-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal;font-display:swap;}
+  @font-face{font-family:'Inter';src:url('/book-a-call/fonts/Inter-Black.ttf') format('truetype');font-weight:700 900;font-style:normal;font-display:swap;}
+
+  :root{
+    --page:#E7E5DF; --cream:#F6F2E9; --surface:#FFFFFF; --surface-soft:#F2EDE0;
+    --ink:#0E0E0E; --muted:rgba(14,14,14,0.60); --subtle:rgba(14,14,14,0.38);
+    --border:rgba(14,14,14,0.10); --border-soft:rgba(14,14,14,0.06); --hover:rgba(14,14,14,0.035);
+    --green:#A8E020; --green-dark:#5A8000; --green-soft:rgba(168,224,32,0.14); --green-line:rgba(90,128,0,0.22);
+    --parchment:#EDE0CC; --warn:#B4452E;
+    --sans:'Neue Haas Grotesk Display','Inter',Helvetica,Arial,sans-serif;
+    --serif:'Playfair Display',Georgia,serif;
+    --r-pill:999px; --r-card:20px; --r-panel:16px;
+    --shadow-card:0 1px 0 rgba(14,14,14,0.03); --shadow-pop:0 30px 70px -30px rgba(14,14,14,0.30);
+  }
+  *{box-sizing:border-box;margin:0;}
+  html{scroll-behavior:smooth;overflow-x:clip;}
+  body{font-family:var(--sans);background:var(--page);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+
+  body.vsl-locked .book-cta{opacity:0.45;pointer-events:none;cursor:not-allowed;filter:grayscale(0.4);}
+
+  /* ── topbar ── */
+  .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:0.55rem 1.4rem;background:transparent;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+  .tb-logo{display:flex;align-items:center;}
+  .tb-logo img{height:20px;width:auto;display:block;}
+  .tb-logo .logo-light{display:none;}
+  .topbar{transition:background .25s ease;}
+  .topbar.on-dark{background:rgba(14,14,14,0.55);}
+  .topbar.on-dark .logo-dark{display:none;}
+  .topbar.on-dark .logo-light{display:block;}
+  .tb-mid{display:flex;align-items:center;gap:.7rem;font-variant-numeric:tabular-nums;}
+  .tb-mid .lab{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);}
+  .tb-timer{display:flex;align-items:baseline;gap:.3rem;font-weight:800;}
+  .tb-timer .u{font-size:.95rem;}
+  .tb-timer .s{color:var(--subtle);font-size:.8rem;}
+  .tb-timer .t{font-size:.55rem;color:var(--subtle);letter-spacing:.08em;text-transform:uppercase;margin-left:1px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--sans);font-weight:700;
+    cursor:pointer;border-radius:var(--r-pill);transition:all .18s ease;border:1px solid transparent;white-space:nowrap;letter-spacing:0.04em;}
+  .btn-primary{background:var(--green);color:var(--ink);border-color:var(--green);}
+  .btn-primary:hover{background:var(--green-dark);border-color:var(--green-dark);color:var(--parchment);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--border);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-sm{padding:.6rem 1.2rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;}
+  .btn-lg{padding:1.15rem 2.6rem;font-size:.95rem;}
+
+  /* ── layout ── */
+  .sec{max-width:1080px;margin:0 auto;padding:5.5rem 1.6rem;}
+  .sec--narrow{max-width:760px;}
+  .eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem;}
+  .eyebrow.c{text-align:center;}
+  h1,h2,h3,h4{font-family:var(--sans);font-weight:800;letter-spacing:-0.03em;line-height:1.04;}
+  .h-serif{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-0.04em;color:var(--green-dark);}
+  p{color:var(--muted);}
+  .center{text-align:center;}
+  .divider{height:1px;background:var(--border-soft);max-width:1080px;margin:0 auto;}
+
+  /* ── hero ── */
+  .hero{max-width:1000px;margin:0 auto;padding:1.2rem 1.6rem 1.4rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 52px);}
+  .hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border:1px solid var(--green-line);
+    background:var(--green-soft);border-radius:var(--r-pill);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green-dark);font-weight:700;margin-bottom:1.2rem;}
+  .hero-badge .d{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  /* L.A.U.N.C.H glow sweep */
+  .launch-glow{display:inline;}
+  .hero-title{font-weight:800;font-size:clamp(2rem,5vw,3.4rem);letter-spacing:-0.04em;line-height:1.06;color:var(--ink);}
+  .hero-title .ul{display:inline-block;border-bottom:clamp(4px,0.7vw,7px) solid var(--green);line-height:1.04;padding-bottom:.04em;}
+  .hero-sub .amt{font-weight:600;}
+  .hero-sub .amt .d{font-weight:400;font-size:0.82em;vertical-align:0.04em;margin-right:0.02em;}
+  .hero-sub{font-size:clamp(.9rem,1.4vw,1.05rem);color:var(--muted);max-width:580px;margin:.9rem auto 0;line-height:1.6;}
+  .hero-sub strong{color:var(--ink);font-weight:700;}
+
+  /* ── VSL ── */
+  .vsl{max-width:680px;margin:1.1rem auto 0;width:100%;}
+  .vsl-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-card);overflow:hidden;background:#0E0E0E;
+    border:1px solid var(--border);box-shadow:var(--shadow-pop);}
+  .vsl-ph{display:flex;align-items:center;justify-content:center;}
+  .vsl-ph-inner{display:flex;flex-direction:column;align-items:center;gap:1.1rem;}
+  .vsl-ph-play{width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.5);position:relative;}
+  .vsl-ph-play::after{content:"";position:absolute;left:54%;top:50%;transform:translate(-50%,-50%);border-left:17px solid rgba(255,255,255,0.82);border-top:11px solid transparent;border-bottom:11px solid transparent;}
+  .vsl-ph-label{color:rgba(237,224,204,.6);font-size:.78rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;}
+  .vsl-unmute{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(14,14,14,.5);
+    cursor:pointer;z-index:10;transition:opacity .25s;}
+  .vsl-unmute span{padding:.9rem 1.5rem;border-radius:var(--r-pill);background:var(--green);color:var(--ink);font-weight:700;
+    font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;}
+  .vsl-unmute.hidden{opacity:0;pointer-events:none;}
+  .vsl-cta-row{display:flex;flex-direction:column;align-items:center;gap:.55rem;margin-top:1rem;}
+  .vsl-status{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);}
+  .vsl-status .ready{color:var(--green-dark);font-weight:700;}
+  .book-cta.locked{background:var(--hover);color:var(--subtle);border-color:var(--border);pointer-events:none;}
+
+  /* ── proof strip ── */
+  .proof{background:var(--cream);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
+  .proof-grid{max-width:860px;margin:0 auto;padding:1.8rem 1.6rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;text-align:center;}
+  .proof-n{font-weight:800;font-size:clamp(1.4rem,2.4vw,1.95rem);letter-spacing:-0.03em;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .proof-l{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-top:.4rem;}
+
+  /* ── prose ── */
+  .prose{max-width:680px;margin:0 auto;font-size:1.05rem;line-height:1.7;}
+  .prose p{margin-bottom:1.1rem;}
+  .prose strong{color:var(--ink);font-weight:700;}
+  .prose em{font-style:normal;color:var(--green-dark);font-weight:700;}
+  .pullquote{font-family:var(--serif);font-style:italic;font-size:1.4rem;line-height:1.4;color:var(--ink);
+    border-left:3px solid var(--green);padding-left:1.4rem;margin:2rem 0;letter-spacing:-0.02em;}
+
+  /* ── qualify ── */
+  .qual{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;max-width:1000px;margin:0 auto;}
+  .qual-col{padding:2rem;border:1px solid var(--border);border-radius:var(--r-card);background:var(--surface);box-shadow:var(--shadow-card);}
+  .qual-col h3{display:flex;align-items:center;gap:.6rem;font-size:1.05rem;margin-bottom:1.3rem;}
+  .qual-col.no h3{color:var(--warn);} .qual-col.yes h3{color:var(--green-dark);}
+  .qual-list{list-style:none;padding:0;margin:0;}
+  .qual-list li{display:flex;gap:.7rem;padding:.7rem 0;font-size:.92rem;color:var(--muted);border-top:1px solid var(--border-soft);}
+  .qual-list li:first-child{border-top:none;}
+  .qual-list li strong{color:var(--ink);}
+  .mark{flex-shrink:0;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;margin-top:.1rem;}
+  .qual-col.no .mark{background:rgba(180,69,46,.12);color:var(--warn);}
+  .qual-col.yes .mark{background:var(--green-soft);color:var(--green-dark);}
+
+  /* ── stories ── */
+  .stories{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
+  .story{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden;box-shadow:var(--shadow-card);
+    display:flex;flex-direction:column;transition:transform .25s,border-color .25s;}
+  .story:hover{transform:translateY(-3px);border-color:var(--green-line);}
+  .story-top{padding:1.5rem;}
+  .story-top h4{font-size:1rem;line-height:1.25;margin-bottom:.7rem;}
+  .story-top p{font-size:.85rem;line-height:1.65;color:var(--muted);}
+  .story-top em{font-style:normal;color:var(--green-dark);font-weight:700;}
+  .story-stats{display:flex;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
+  .story-stat{flex:1;padding:1.1rem 1.4rem;}
+  .story-stat+.story-stat{border-left:1px solid var(--border-soft);}
+  .story-stat .n{font-weight:800;font-size:1.4rem;letter-spacing:-0.03em;color:var(--ink);}
+  .story-stat .l{font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--subtle);margin-top:.2rem;}
+  .story-q{padding:1.5rem;display:flex;flex-direction:column;gap:1rem;flex:1;}
+  .story-q blockquote{margin:0;font-size:.82rem;line-height:1.7;color:var(--ink);font-style:italic;
+    border-left:3px solid var(--green);padding-left:1rem;flex:1;}
+  .story-author{display:flex;align-items:center;gap:.6rem;padding-top:.8rem;border-top:1px solid var(--border-soft);}
+  .avatar{width:38px;height:38px;border-radius:50%;background:var(--green-soft);color:var(--green-dark);display:flex;
+    align-items:center;justify-content:center;font-weight:800;font-size:.85rem;flex-shrink:0;}
+  .story-name{font-weight:700;font-size:.78rem;display:block;}
+  .story-handle{font-size:.62rem;color:var(--subtle);display:block;}
+
+  /* ── meet tim ── */
+  .tim{display:grid;grid-template-columns:1fr 1.15fr;gap:3rem;align-items:stretch;max-width:1000px;margin:0 auto;}
+  .tim-img{position:relative;border-radius:var(--r-card);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-pop);min-height:520px;}
+  .tim-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;}
+  .tim-photo.active{opacity:1;}
+  .tim-text{display:flex;flex-direction:column;justify-content:center;}
+  .tim-text p{font-size:1rem;line-height:1.7;margin-bottom:1rem;}
+  .tim-text em{font-style:normal;color:var(--green-dark);font-weight:700;}
+  .tim-text strong{color:var(--ink);font-weight:700;}
+
+  /* ── faq ── */
+  .faq{max-width:760px;margin:3rem auto 0;display:grid;gap:.7rem;}
+  .faq-item{border:1px solid var(--border);border-radius:var(--r-panel);background:var(--surface);overflow:hidden;}
+  .faq-item summary{padding:1.15rem 1.5rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;
+    align-items:center;gap:1rem;font-weight:700;font-size:.95rem;}
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:"+";font-size:1.4rem;color:var(--green-dark);transition:transform .2s;}
+  .faq-item[open] summary::after{transform:rotate(45deg);}
+  .faq-body{padding:0 1.5rem 1.25rem;font-size:.92rem;line-height:1.65;color:var(--muted);}
+
+  /* ── final cta ── */
+  .final{background:#0E0E0E;color:var(--parchment);text-align:center;padding:6rem 1.6rem;}
+  .final .eyebrow{color:rgba(237,224,204,.5);}
+  .final h2{font-size:clamp(2rem,5vw,3.4rem);max-width:18ch;margin:0 auto 1rem;color:var(--parchment);}
+  .final h2 .big{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--green);letter-spacing:-0.04em;}
+  .final p{color:rgba(237,224,204,.6);max-width:42ch;margin:0 auto 2.2rem;font-size:1.05rem;}
+  .final .e2{margin-top:1.6rem;font-size:.82rem;color:rgba(237,224,204,.45);}
+  .final .e2 a{color:var(--green);}
+
+  /* ── footer ── */
+  .footer{padding:2.4rem 1.6rem;text-align:center;color:var(--subtle);font-size:.78rem;background:#0E0E0E;border-top:1px solid rgba(237,224,204,.08);}
+  .footer a{color:rgba(237,224,204,.6);}
+
+  /* ── reveal ── */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+
+  @media(max-width:860px){
+    .proof-grid{grid-template-columns:1fr 1fr;}
+    .qual{grid-template-columns:1fr;}
+    .stories{grid-template-columns:1fr;}
+    .tim{grid-template-columns:1fr;gap:1.6rem;}
+    .sec{padding:3.5rem 1.2rem;}
+    .tb-mid .lab{display:none;}
+  }
+</style>
+</head>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 56">
+  <rect width="80" height="56" fill="#EFE9D8"/>
+  <rect x="12" y="10" width="56" height="36" rx="6" fill="#0E0E0E"/>
+  <text x="40" y="32" font-family="sans-serif" font-weight="900" font-size="14" fill="#EDE0CC" text-anchor="middle">SCALO</text>
+  <rect x="24" y="38" width="32" height="5" rx="2.5" fill="#A8E020"/>
+</svg>
+</template>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="#" class="tb-logo"><img class="logo-dark" src="/book-a-call/assets/lockup-black.png" alt="SCALO"><img class="logo-light" src="/book-a-call/assets/lockup-white.png" alt="SCALO"></a>
+  <a href="#book" class="btn btn-primary btn-sm book-cta">Book a call</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-title">Turn Your Knowledge Into<br><span class="ul">An Online Business</span></h1>
+  <p class="hero-sub">We work 1-on-1 to install the exact system, <strong>The L.A.U.N.C.H Method</strong>, behind an <span class="amt"><span class="d">$</span>18k/mo</span> online business in 120 days. Your skill. Your brand. Your freedom.</p>
+
+  <div class="vsl">
+    <div class="vsl-frame vsl-ph">
+      <div class="vsl-ph-inner">
+        <div class="vsl-ph-play"></div>
+        <div class="vsl-ph-label">VSL will be placed here</div>
+      </div>
+    </div>
+    <div class="vsl-cta-row">
+      <a href="#book" class="btn btn-primary btn-lg book-cta" id="vslCta">Book your strategy call</a>
+      <div class="vsl-status" id="vslStatus">Free. Takes two minutes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof">
+  <div class="proof-grid">
+    <div><div class="proof-n">45 days</div><div class="proof-l">From zero to your first sale</div></div>
+    <div><div class="proof-n">Your offer</div><div class="proof-l">Packaged &amp; ready to sell</div></div>
+    <div><div class="proof-n">24 hrs</div><div class="proof-l">Portal live after you join</div></div>
+    <div><div class="proof-n">Any industry</div><div class="proof-l">Built for service founders</div></div>
+  </div>
+</div>
+
+<!-- THE PROBLEM -->
+<style>
+  .prob{background:#0E0E0E;color:var(--parchment);padding:clamp(4rem,7vw,7rem) 1.6rem;}
+  .prob-inner{max-width:920px;margin:0 auto;text-align:center;}
+  .prob-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(237,224,204,.42);margin-bottom:1.5rem;}
+  .prob-title{font-weight:800;font-size:clamp(1.9rem,4.4vw,3.2rem);letter-spacing:-0.03em;line-height:1.1;color:var(--parchment);}
+  .prob-accent{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--green);letter-spacing:-0.02em;}
+  .prob-card{max-width:700px;margin:2.8rem auto 0;background:rgba(237,224,204,0.04);border:1px solid rgba(237,224,204,0.12);border-radius:var(--r-card);padding:2.4rem;text-align:left;}
+  .prob-card p{font-size:1.05rem;line-height:1.75;color:rgba(237,224,204,0.68);margin:0 0 1.2rem;}
+  .prob-close{margin:1.7rem 0 0!important;font-size:1.2rem!important;font-weight:700;color:var(--parchment)!important;line-height:1.4;}
+  .prob-list{list-style:none;margin:0 0 1.2rem;padding:0;display:grid;gap:.55rem;}
+  .prob-list li{position:relative;padding-left:1.4rem;font-size:1.05rem;line-height:1.55;color:rgba(237,224,204,0.7);}
+  .prob-list li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--green);}
+  @media(max-width:600px){.prob-card{padding:1.7rem;}}
+</style>
+<section class="prob reveal">
+  <div class="prob-inner">
+    <div class="prob-eyebrow">Sound familiar?</div>
+    <h2 class="prob-title">You've built something real.<br>But you're still <span class="prob-accent">the bottleneck.</span></h2>
+    <div class="prob-card">
+      <p>Your skill works. The money comes in. But it only comes in <strong style="color:var(--parchment);font-weight:700;">when you show up.</strong></p>
+      <ul class="prob-list">
+        <li>Every client tied to your time.</li>
+        <li>Every pound tied to the room you're standing in.</li>
+        <li>The day you step away, it all stops.</li>
+      </ul>
+      <p>You're posting content, maybe. But it's just views and followers. What you really want is to diversify your income and actually get paid from it, and there's no system turning that attention into revenue.</p>
+      <p>Your knowledge is worth far more than the service you perform every day. You've just never packaged it into something you can sell, a high ticket programme people happily pay for.</p>
+      <p>So you stay on the tools. Trading hours for money. Watching the opportunity you know is there pass you by, because you have no way to capture it.</p>
+      <p class="prob-close">That's not an effort problem. It's a <span class="prob-accent">system problem.</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- QUALIFY -->
+<section class="sec reveal">
+  <div class="eyebrow c">Read this carefully</div>
+  <h2 class="center">SCALO isn't for everyone.</h2>
+  <p class="center" style="max-width:560px;margin:1rem auto 2.6rem;">I only work with a specific kind of founder. If you don't fit this, we'll both waste each other's time.</p>
+  <div class="qual">
+    <div class="qual-col no">
+      <h3>Who this isn't for</h3>
+      <ul class="qual-list">
+        <li><span class="mark">&times;</span><span><strong>Pre-revenue.</strong> Not self-employed yet, or under ~£5k/m from your skill. Build the base first.</span></li>
+        <li><span class="mark">&times;</span><span><strong>Hands-off seekers.</strong> If you want results with zero involvement. (A done-for-you tier exists separately.)</span></li>
+        <li><span class="mark">&times;</span><span><strong>No audience yet.</strong> Starting from zero online, this isn't the right entry point.</span></li>
+        <li><span class="mark">&times;</span><span><strong>Earners, not builders.</strong> If you only want more money, not something that scales without you.</span></li>
+      </ul>
+    </div>
+    <div class="qual-col yes">
+      <h3>Who this is for</h3>
+      <ul class="qual-list">
+        <li><span class="mark">&check;</span><span><strong>Self-employed founders</strong> earning £5 to 10k+/m from a skill or service.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Have an audience.</strong> 5 to 15k+ followers on a platform, already creating content.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Founder mindset.</strong> You invest in yourself and move fast once you have clarity.</span></li>
+        <li><span class="mark">&check;</span><span><strong>Want freedom.</strong> Location freedom and independence, not just a bigger number.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- STORIES -->
+<style>
+  .results-title{font-weight:800;font-size:clamp(2.4rem,5.4vw,3.8rem);letter-spacing:-0.035em;line-height:1.03;color:var(--ink);text-align:center;margin-top:.4rem;}
+  .results-sub{max-width:600px;margin:1.1rem auto 0;color:var(--muted);text-align:center;}
+  .rv-feature{margin:3rem auto 0;max-width:940px;display:grid;grid-template-columns:1.35fr 1fr;gap:1.6rem;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:1.4rem;box-shadow:var(--shadow-card);text-decoration:none;transition:border-color .18s,transform .18s;}
+  .rv-feature:hover{border-color:var(--green-line);transform:translateY(-2px);}
+  .rv-video{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0E0E0E;display:flex;align-items:center;justify-content:center;}
+  .rv-video .play{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.65);position:relative;transition:background .2s ease;}
+  .rv-video:hover .play{background:rgba(255,255,255,0.16);}
+  .rv-video .play::after{content:"";position:absolute;left:54%;top:50%;transform:translate(-50%,-50%);border-left:16px solid rgba(255,255,255,0.9);border-top:10px solid transparent;border-bottom:10px solid transparent;}
+  .rv-video .ph{position:absolute;bottom:11px;left:13px;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(237,224,204,.55);}
+  .rv-info .tag{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-dark);margin-bottom:.55rem;}
+  .rv-info h3{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1.4rem,2.4vw,1.7rem);letter-spacing:-0.02em;line-height:1.05;margin-bottom:.7rem;color:var(--ink);}
+  .rv-info p{font-size:.92rem;line-height:1.6;color:var(--muted);margin:0;}
+  .rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.6rem auto 0;max-width:940px;align-items:start;}
+  .wa{border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-card);display:block;transition:transform .18s,border-color .18s;}
+  .wa:hover{transform:translateY(-2px);border-color:var(--green-line);}
+  .wa img{width:100%;height:auto;display:block;}
+  .wa-item{display:flex;flex-direction:column;}
+  .wa-cap{font-size:.82rem;line-height:1.5;color:var(--muted);margin-top:.85rem;text-align:left;}
+  .wa-cap strong{color:var(--ink);font-weight:700;}
+  .results-disclaimer{max-width:680px;margin:1.6rem auto 0;text-align:center;}
+  .results-disclaimer .dt{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);margin-bottom:.6rem;}
+  .results-disclaimer p{font-size:.72rem;line-height:1.55;color:var(--subtle);font-style:italic;margin:0 auto .4rem;max-width:600px;}
+  .rv-clip{max-width:560px;margin:1.4rem auto 0;}
+  .rv-pinwrap{position:relative;height:200vh;margin-top:3.4rem;}
+  .rv-pin{position:sticky;top:78px;}
+  .rv-pin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.4rem;max-width:920px;margin:0 auto;width:100%;align-items:start;}
+  .rv-pin-left .rv-video{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0E0E0E;}
+  .rv-stack{position:relative;width:340px;height:380px;margin:0 auto;}
+  .wa-card{position:absolute;top:0;left:0;width:100%;transition:filter .5s ease,opacity .5s ease,transform .5s ease;}
+  .wa-card a{display:block;}
+  .wa-card img{width:100%;height:auto;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow-card);display:block;}
+  .wa-card .wa-cap{margin-top:.7rem;font-size:.8rem;line-height:1.5;color:var(--muted);}
+  .wa-card .wa-cap strong{color:var(--ink);font-weight:700;}
+  .wa-card[data-state="active"]{filter:none;opacity:1;transform:translateY(0) scale(1);z-index:3;}
+  .wa-card[data-state="passed"]{filter:blur(5px);opacity:.3;transform:translateY(-18px) scale(.93);z-index:1;pointer-events:none;}
+  .wa-card[data-state="upcoming"]{opacity:0;transform:translateY(34px) scale(.96);z-index:0;pointer-events:none;}
+  @media(max-width:760px){.rv-pinwrap{height:auto;margin-top:1rem;}.rv-pin{position:static;height:auto;}.rv-pin-grid{grid-template-columns:1fr;}.rv-stack{position:static;width:230px;height:auto;}.wa-card{position:relative;margin-bottom:1.4rem;}.wa-card[data-state]{filter:none;opacity:1;transform:none;}}
+  .rv-clip .rv-video{aspect-ratio:16/9;border-radius:14px;}
+  .rv-clipcap{text-align:center;font-size:.92rem;color:var(--muted);margin:.9rem auto 0;max-width:48ch;line-height:1.5;}
+  .rv-clipcap strong{color:var(--ink);font-weight:700;}
+  @media(max-width:760px){.rv-feature{grid-template-columns:1fr;}.rv-grid{grid-template-columns:1fr;max-width:340px;}}
+</style>
+<section class="sec reveal">
+  <div class="eyebrow c">Real results</div>
+  <h2 class="results-title">Founders who installed <span class="h-serif">the system.</span></h2>
+  <p class="results-sub">Real people, real numbers. The ones you can message inside the community right now.</p>
+
+  <div class="rv-feature">
+    <div class="rv-video" data-yt="vxuwO01YkYg" style="background-image:url('https://img.youtube.com/vi/vxuwO01YkYg/maxresdefault.jpg');background-size:cover;background-position:center;">
+      <div class="play"></div>
+    </div>
+    <div class="rv-info">
+      <div class="tag">Featured story · JJ</div>
+      <h3>0 to £21k in 10 days.</h3>
+      <p>He had the skill and the audience, but no offer and no system to sell it. We packaged his knowledge, built the engine behind it, and the first launch did the rest. Watch the full interview.</p>
+    </div>
+  </div>
+
+  <div class="rv-pinwrap">
+    <div class="rv-pin">
+      <div class="rv-pin-grid">
+        <div class="rv-pin-left">
+          <div class="rv-video"><iframe src="https://www.youtube-nocookie.com/embed/2oNMBU64dRU?rel=0&modestbranding=1&playsinline=1" title="JJ, first 10k week" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe></div>
+          <p class="rv-clipcap"><strong>JJ:</strong> his reaction to his first ever £10k week.</p>
+        </div>
+        <div class="rv-pin-right">
+          <div class="rv-stack">
+            <div class="wa-card" data-state="active"><a href="/book-a-call/assets/testimonials/wa-42nd-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-42nd-uni.png" alt="Levelling up on the 42nd floor"></a><p class="wa-cap">Three months in, a client levelling up his life. Celebrating another close on the 42nd floor in London with his wife.</p></div>
+            <div class="wa-card" data-state="upcoming"><a href="/book-a-call/assets/testimonials/wa-21k-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-21k-uni.png" alt="21.5k collected in 10 days"></a><p class="wa-cap">From zero a couple of months earlier to <strong>£21.5k collected in ten days</strong>, with clients happy to pay.</p></div>
+            <div class="wa-card" data-state="upcoming"><a href="/book-a-call/assets/testimonials/wa-payment-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-payment-uni.png" alt="Payment received"></a><p class="wa-cap">Leads coming in, happy to pay a high ticket price for the knowledge he packaged up.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="results-disclaimer">
+        <div class="dt">A note on results</div>
+        <p>Every story and message on this page comes from a real client, but these results are not typical and they are not a promise of what you will do. What you get out of this depends on your skill, your effort, and plenty of things none of us control.</p>
+        <p>SCALO is education and coaching. I show founders how to package their knowledge and build the systems behind it. I do not sell a get rich quick scheme, I do not guarantee income, and I cannot do the work for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHAT YOU GET -->
+<style>
+  .wy{background:#0E0E0E;color:var(--parchment);padding:clamp(4rem,7vw,7rem) 1.6rem;}
+  .wy-inner{max-width:1040px;margin:0 auto;}
+  .wy-head{text-align:center;margin-bottom:3rem;}
+  .wy-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(237,224,204,.42);margin-bottom:1.3rem;}
+  .wy-title{font-weight:800;font-size:clamp(2.1rem,4.6vw,3.4rem);letter-spacing:-0.03em;line-height:1.05;color:var(--parchment);}
+  .wy-title .ac{color:var(--green);}
+  .wy-sub{max-width:600px;margin:1.1rem auto 0;color:rgba(237,224,204,.6);font-size:1rem;line-height:1.6;}
+  .wy-cols{display:grid;grid-template-columns:1.3fr .9fr;gap:2.4rem;align-items:start;}
+  .wy-tl{position:relative;padding-left:34px;}
+  .wy-tl::before{content:"";position:absolute;left:6px;top:6px;bottom:10px;width:1.5px;background:rgba(237,224,204,.16);}
+  .wy-item{position:relative;padding-bottom:1.9rem;}
+  .wy-item:last-child{padding-bottom:0;}
+  .wy-node{position:absolute;left:-34px;top:3px;width:13px;height:13px;border-radius:50%;background:#0E0E0E;border:2.5px solid var(--green);}
+  .wy-item.now .wy-node{background:var(--green);box-shadow:0 0 0 4px rgba(168,224,32,.18);}
+  .wy-day{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);}
+  .wy-h{font-weight:700;font-size:1.15rem;letter-spacing:-0.01em;margin:.35rem 0 .4rem;color:var(--parchment);}
+  .wy-d{font-size:.92rem;line-height:1.6;color:rgba(237,224,204,.62);max-width:46ch;}
+  .wy-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;}
+  .wy-tag{font-size:.62rem;font-weight:600;letter-spacing:.04em;color:rgba(237,224,204,.7);background:rgba(237,224,204,.06);border:1px solid rgba(237,224,204,.14);border-radius:999px;padding:.3rem .7rem;}
+  .wy-side{display:grid;gap:1rem;position:sticky;top:80px;}
+  .wy-card{background:rgba(237,224,204,.04);border:1px solid rgba(237,224,204,.12);border-radius:var(--r-card);padding:1.6rem;}
+  .wy-card .ck{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;}
+  .wy-row{padding:.6rem 0;border-top:1px solid rgba(237,224,204,.08);}
+  .wy-row:first-of-type{border-top:none;padding-top:0;}
+  .wy-row .rt{font-weight:700;font-size:.92rem;color:var(--parchment);}
+  .wy-row .rd{font-size:.82rem;color:rgba(237,224,204,.55);line-height:1.5;margin-top:.15rem;}
+  .wy-list{list-style:none;margin:0;padding:0;display:grid;gap:.6rem;}
+  .wy-list li{position:relative;padding-left:1.3rem;font-size:.86rem;color:rgba(237,224,204,.72);line-height:1.45;}
+  .wy-list li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--green);}
+  @media(max-width:860px){.wy-cols{grid-template-columns:1fr;gap:1.6rem;}.wy-side{position:static;}}
+</style>
+<section class="wy reveal">
+  <div class="wy-inner">
+    <div class="wy-head">
+      <div class="wy-eyebrow">What you actually get</div>
+      <h2 class="wy-title">Everything is built and <span class="ac">waiting for you.</span></h2>
+      <p class="wy-sub">120 days, built around your life. Here is exactly what happens from the moment you join.</p>
+    </div>
+    <div class="wy-cols">
+      <div class="wy-tl">
+        <div class="wy-item now"><span class="wy-node"></span><div class="wy-day">Day 0</div><div class="wy-h">You join, the portal goes live</div><div class="wy-d">Within 24 hours your custom SCALO portal is live and your onboarding call is booked. We review where you are, set your targets, and lock the plan.</div><div class="wy-tags"><span class="wy-tag">Portal live</span><span class="wy-tag">Onboarding call</span></div></div>
+        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">Week 1 · Lay the foundations</div><div class="wy-h">Your direction, locked</div><div class="wy-d">Identity, positioning, and the one offer worth building. By the end of week one you know exactly who you help and what you are selling.</div></div>
+        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">Weeks 2 to 3 · Architect your offer</div><div class="wy-h">Your knowledge, packaged</div><div class="wy-d">We turn what you already know into a premium offer with a clear transformation and a price that reflects the value. Built and ready to sell.</div></div>
+        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">Weeks 3 to 5 · Unleash your assets</div><div class="wy-h">The engine that brings people in</div><div class="wy-d">A content system, a lead magnet, and distribution that turns attention into qualified conversations, all built around your voice.</div></div>
+        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">By day 45 · Convert and close</div><div class="wy-h">Your first online sale</div><div class="wy-d">The sales assets, the discovery call process, and the objection handling that close the first deal, without you stuck on the tools.</div></div>
+        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">Days 45 to 120 · Hand off and scale</div><div class="wy-h">A business that runs without you</div><div class="wy-d">Systems, tracking, and automation so the income no longer depends on you being in the room. This is the part that changes your life.</div></div>
+      </div>
+      <div class="wy-side">
+        <div class="wy-card">
+          <div class="ck">How we work together</div>
+          <div class="wy-row"><div class="rt">Weekly group coaching</div><div class="rd">Live calls with the cohort, the engine of the programme.</div></div>
+          <div class="wy-row"><div class="rt">1-on-1 calls</div><div class="rd">Private sessions at the key build moments.</div></div>
+          <div class="wy-row"><div class="rt">WhatsApp support</div><div class="rd">Direct access to me and the team, 24 hour response, all 120 days.</div></div>
+        </div>
+        <div class="wy-card">
+          <div class="ck">In your portal from day one</div>
+          <ul class="wy-list">
+            <li>Every framework, template, script and workflow, pre-built</li>
+            <li>Your full 120 day roadmap, personalised to you</li>
+            <li>10+ hours of recorded content across every phase</li>
+            <li>Every lead, client and number tracked in real time</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MEET TIM -->
+<section class="sec reveal">
+  <div class="tim">
+    <div class="tim-img">
+      <img class="tim-photo active" src="/book-a-call/assets/lifestyle/working-cafe.jpg" alt="Tim working">
+      <img class="tim-photo" src="/book-a-call/assets/lifestyle/working-coworking.jpg" alt="Tim working">
+      <img class="tim-photo" src="/book-a-call/assets/lifestyle/portrait-car.jpg" alt="Tim">
+      <img class="tim-photo" src="/book-a-call/assets/lifestyle/working-lamp.jpg" alt="Tim working">
+      <img class="tim-photo" src="/book-a-call/assets/lifestyle/travel-beach.jpg" alt="Tim on holiday">
+    </div>
+    <div class="tim-text">
+      <div class="eyebrow">Meet Tim</div>
+      <h2 style="margin-bottom:1.2rem;">I made the exact <span class="h-serif">transition you're about to.</span></h2>
+      <p>I'm Tim, and I cut hair for ten years.</p>
+      <p>I was good at it. Booked out, earning well. But after a decade behind the chair I had to admit something: a barbershop only scales so far. You are always trading your time and your location for money, and the day you stop, the money stops.</p>
+      <p>I knew I had more to offer than the haircut. So I started <em>packaging what I knew</em>, the systems, the brand, the way I filled my chair, into something I could sell online. I built it while still cutting full time, figured it out as I went, and passed <strong>six figures in my first year</strong>.</p>
+      <p>That shift changed my life, and it is the exact one I now build for other founders. SCALO Online exists because most coaching is run by people who have never actually done it. <strong>I have.</strong></p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section class="sec sec--narrow reveal">
+  <div class="eyebrow c">FAQ</div>
+  <h2 class="center" style="font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-0.03em;">The questions <span class="h-serif">founders ask.</span></h2>
+  <div class="faq">
+    <details class="faq-item"><summary>Does this work for my industry?</summary><div class="faq-body">Yes. SCALO is built for service based founders across industries, not one niche. Packaging your knowledge into an online offer and building the engine behind it works the same wherever your expertise sits.</div></details>
+    <details class="faq-item"><summary>I already run a business, where is the time?</summary><div class="faq-body">The whole programme installs around a full schedule. A few focused hours a week is enough. Your portal and the pre built frameworks mean you are never starting from a blank page, and the weekly calls keep you moving.</div></details>
+    <details class="faq-item"><summary>What exactly do I get on day one?</summary><div class="faq-body">Within 24 hours of joining, your portal is live with every framework, template and script, a 120 day roadmap personalised to you, over 10 hours of recorded content, WhatsApp access to me and the team, and an onboarding call to lock your plan.</div></details>
+    <details class="faq-item"><summary>Do I need a big audience already?</summary><div class="faq-body">You need a skill people value and a small audience to speak to. Most founders come in with a few thousand followers and momentum, not a million. We build the system that turns that attention into income.</div></details>
+    <details class="faq-item"><summary>Do you just hand me videos, or actually help?</summary><div class="faq-body">This is hands on. Weekly group coaching, one to one calls at the key moments, and WhatsApp support with a 24 hour response for the full 120 days. The content is there to support the work, not replace the guidance.</div></details>
+    <details class="faq-item"><summary>Is my first sale guaranteed?</summary><div class="faq-body">No, and anyone promising that is lying to you. What I guarantee is the system, the frameworks, and my time. What you get out of it depends on you doing the work. The founders who apply everything tend to see their first sale inside the first 45 days.</div></details>
+    <details class="faq-item"><summary>How does pricing work?</summary><div class="faq-body">We cover that on the call. Watch the training, book a slot, and we will walk through the investment, the options, and whether SCALO is the right fit for where you are right now. No pressure either way.</div></details>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<style>
+  .final h2 .big{font-family:var(--sans);font-weight:800;text-transform:uppercase;letter-spacing:-0.02em;color:var(--parchment);display:block;}
+  .final h2 .big b{color:var(--green);font-weight:800;}
+  .final-status{margin-top:1rem;font-size:.78rem;letter-spacing:.02em;color:rgba(237,224,204,.5);}
+</style>
+<section class="final reveal" id="book">
+  <div class="eyebrow c">Your move</div>
+  <h2>You have the skill.<br>Now build the <span class="big"><b>[business]</b> around it.</span></h2>
+  <p>Watch the training, then book your strategy call. We will look at where you are, where you want to be, and whether SCALO is the way to get there.</p>
+  <a href="#" class="btn btn-primary btn-lg book-cta">Book your strategy call</a>
+  <div class="final-status">Free. Takes two minutes.</div>
+  <div class="e2">Prefer to ask first? Email <a href="mailto:tim@usescalo.com">tim@usescalo.com</a></div>
+</section>
+
+<footer class="footer">
+  <p>&copy; 2026 SCALO &middot; Build the business behind your brand.</p>
+</footer>
+
+<script>
+/* (countdown removed, no deadline banner) */
+
+/* ── Calendly popup on every .book-cta (only when unlocked) ── */
+(function(){
+  var URL='https://calendly.com/timbrace14/new-meeting';
+  function open(){if(window.Calendly&&Calendly.initPopupWidget){Calendly.initPopupWidget({url:URL});return true;}return false;}
+  document.addEventListener('click',function(e){
+    var l=e.target.closest('.book-cta');if(!l)return;
+    e.preventDefault();
+    if(l.classList.contains('locked')||document.body.classList.contains('vsl-locked'))return;
+    // Meta Pixel: intent-to-book signal. Booked-call conversion fires as Schedule on /post-booking.
+    try{if(typeof fbq==='function'){fbq('track','InitiateCheckout',{content_name:'SCALO Strategy Call',content_category:'booking_intent'});}}catch(err){console.warn('[Pixel] InitiateCheckout failed:',err);}
+    if(!open()){var n=0,iv=setInterval(function(){if(open()||++n>20)clearInterval(iv);},100);}
+  },true);
+})();
+
+/* ── Adaptive top bar colour ── */
+(function(){
+  var bar=document.querySelector('.topbar');if(!bar)return;
+  var dark=[].slice.call(document.querySelectorAll('.prob,.wy,.final'));
+  function upd(){var y=bar.offsetHeight+2;var on=dark.some(function(el){var r=el.getBoundingClientRect();return r.top<=y&&r.bottom>=y;});bar.classList.toggle('on-dark',on);}
+  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+})();
+
+/* ── Meet Tim photo carousel ── */
+(function(){
+  var ph=document.querySelectorAll('.tim-photo');if(ph.length<2)return;var i=0;
+  setInterval(function(){ph[i].classList.remove('active');i=(i+1)%ph.length;ph[i].classList.add('active');},2800);
+})();
+
+/* ── Featured interview click to play ── */
+(function(){
+  document.querySelectorAll('.rv-video[data-yt]').forEach(function(v){
+    v.style.cursor='pointer';
+    v.addEventListener('click',function(){
+      var id=v.getAttribute('data-yt');
+      v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="Interview" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>';
+    });
+  });
+})();
+
+/* ── Results: scroll-pinned screenshot stack ── */
+(function(){
+  var wrap=document.querySelector('.rv-pinwrap');if(!wrap)return;
+  var cards=[].slice.call(wrap.querySelectorAll('.wa-card'));if(!cards.length)return;
+  function upd(){
+    if(window.innerWidth<=760){cards.forEach(function(c){c.setAttribute('data-state','active');});return;}
+    var r=wrap.getBoundingClientRect();
+    var total=wrap.offsetHeight-window.innerHeight;
+    var p=total>0?Math.min(1,Math.max(0,(-r.top)/total)):0;
+    var n=cards.length;
+    var active=Math.min(n-1,Math.floor(p*n*0.999));
+    cards.forEach(function(c,i){c.setAttribute('data-state', i===active?'active':(i<active?'passed':'upcoming'));});
+  }
+  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+})();
+
+/* ── Scroll reveal ── */
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>
