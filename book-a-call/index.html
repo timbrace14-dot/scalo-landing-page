@@ -318,6 +318,11 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   </div>
 </section>
 
+<div class="cta-strip reveal">
+  <a href="#book" class="btn btn-primary btn-lg book-cta">Book your strategy call</a>
+  <div class="cta-strip-note">Free. Takes two minutes.</div>
+</div>
+
 <div class="divider"></div>
 
 <!-- STORIES -->
@@ -476,6 +481,11 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   </div>
 </section>
 
+<div class="cta-strip reveal">
+  <a href="#book" class="btn btn-primary btn-lg book-cta">Book your strategy call</a>
+  <div class="cta-strip-note">Free. Takes two minutes.</div>
+</div>
+
 <div class="divider"></div>
 
 <!-- MEET TIM -->
@@ -521,18 +531,15 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .final h2 .big{font-family:var(--sans);font-weight:800;text-transform:uppercase;letter-spacing:-0.02em;color:var(--parchment);display:block;}
   .final h2 .big b{color:var(--green);font-weight:800;}
   .final-status{margin-top:1rem;font-size:.78rem;letter-spacing:.02em;color:rgba(237,224,204,.5);}
-  .cal-embed{max-width:760px;margin:2rem auto 0;border-radius:var(--r-card);overflow:hidden;border:1px solid rgba(237,224,204,.12);background:#141412;}
-  .cal-embed .calendly-inline-widget{min-width:320px;height:720px;}
-  @media(max-width:600px){.cal-embed .calendly-inline-widget{height:900px;}}
+  .cta-strip{text-align:center;padding:0 1.6rem 3.5rem;}
+  .cta-strip-note{margin-top:.75rem;font-size:.78rem;letter-spacing:.02em;color:var(--subtle);}
 </style>
 <section class="final reveal" id="book">
   <div class="eyebrow c">Your move</div>
   <h2>You have the skill.<br>Now build the <span class="big"><b>[business]</b> around it.</span></h2>
   <p>Watch the training, then book your strategy call. We will look at where you are, where you want to be, and whether SCALO is the way to get there.</p>
+  <a href="#book" class="btn btn-primary btn-lg book-cta">Book your strategy call</a>
   <div class="final-status">Free. Takes two minutes.</div>
-  <div class="cal-embed">
-    <div class="calendly-inline-widget" data-url="https://calendly.com/timbrace14/scalo-discovery-call?hide_gdpr_banner=1&background_color=141412&text_color=ede0cc&primary_color=a8e020"></div>
-  </div>
   <div class="e2">Prefer to ask first? Email <a href="mailto:tim@usescalo.com">tim@usescalo.com</a></div>
 </section>
 
@@ -543,15 +550,17 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <script>
 /* (countdown removed, no deadline banner) */
 
-/* ── Book CTAs scroll to the inline Calendly embed (robust vs popup/ad-blockers) ── */
+/* ── Calendly popup on every .book-cta ── */
 (function(){
+  var URL='https://calendly.com/timbrace14/scalo-discovery-call?hide_gdpr_banner=1&background_color=141412&text_color=ede0cc&primary_color=a8e020';
+  function open(){if(window.Calendly&&Calendly.initPopupWidget){Calendly.initPopupWidget({url:URL});return true;}return false;}
   document.addEventListener('click',function(e){
     var l=e.target.closest('.book-cta');if(!l)return;
     e.preventDefault();
     // Meta Pixel: intent-to-book signal. Booked-call conversion fires as Schedule on /post-booking.
     try{if(typeof fbq==='function'){fbq('track','InitiateCheckout',{content_name:'SCALO Strategy Call',content_category:'booking_intent'});}}catch(err){console.warn('[Pixel] InitiateCheckout failed:',err);}
-    var book=document.getElementById('book');
-    if(book){book.scrollIntoView({behavior:'smooth',block:'start'});}
+    // Open the popup; if widget.js is still loading, retry briefly until it is ready.
+    if(!open()){var n=0,iv=setInterval(function(){if(open()||++n>40)clearInterval(iv);},100);}
   },true);
 })();
 
