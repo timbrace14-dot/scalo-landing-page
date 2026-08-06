@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#000000" />
-<title>Skill, Sell, Scale — SCALO</title>
-<meta name="description" content="Find out exactly what you could sell online, what to charge, and how to build it into a business — in under 10 minutes." />
+<meta name="theme-color" content="#E7E5DF" />
+<title>Packaged · SCALO</title>
+<meta name="description" content="Learn how to package your knowledge into a six-figure online business, what to sell, what to charge, and how to build it. In under 10 minutes." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,400;1,500&display=swap">
 <!-- Wistia VSL player (loads async, used in the results page) -->
 <script src="https://fast.wistia.com/player.js" async></script>
 <script src="https://fast.wistia.com/embed/70c6vngscr.js" async type="module"></script>
@@ -18,30 +18,32 @@
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
   :root {
-    --bg: #000000;
-    --bg-elevated: #0A0A0A;
-    --bg-card: #111111;
-    --bg-card-hover: #161616;
-    --border: rgba(255, 255, 255, 0.12);
-    --border-subtle: rgba(255, 255, 255, 0.06);
-    --border-strong: rgba(255, 255, 255, 0.22);
-    --accent: #B8E986;
-    --accent-dim: rgba(184, 233, 134, 0.15);
-    --accent-glow: rgba(184, 233, 134, 0.08);
-    --accent-strong: rgba(184, 233, 134, 0.35);
-    --text-primary: #E6E8DA;
-    --text-secondary: rgba(230, 232, 218, 0.7);
-    --text-muted: rgba(255, 255, 255, 0.4);
-    --red: #FF6B5A;
+    /* Light "Packaged" theme, matched to book.buildwithscalo.com */
+    --bg: #E7E5DF;
+    --bg-elevated: #F0EEE8;
+    --bg-card: #FBFAF7;
+    --bg-card-hover: #FFFFFF;
+    --border: rgba(14, 14, 14, 0.14);
+    --border-subtle: rgba(14, 14, 14, 0.08);
+    --border-strong: rgba(14, 14, 14, 0.28);
+    --accent: #A8E020;
+    --accent-ink: #5E7D0F;                     /* readable green for small text on cream */
+    --accent-dim: rgba(168, 224, 32, 0.20);
+    --accent-glow: rgba(168, 224, 32, 0.16);
+    --accent-strong: rgba(168, 224, 32, 0.55);
+    --text-primary: #0E0E0E;
+    --text-secondary: rgba(14, 14, 14, 0.66);
+    --text-muted: rgba(14, 14, 14, 0.45);
+    --red: #C6402C;
 
-    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --font-serif: 'Instrument Serif', Georgia, serif;
+    --font-body: 'Neue Haas Grotesk Display', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
 
     --radius-sm: 6px;
     --radius: 12px;
     --radius-lg: 20px;
-    --shadow: 0 14px 40px var(--accent-dim);
-    --shadow-soft: 0 8px 24px rgba(0,0,0,0.4);
+    --shadow: 0 14px 40px rgba(14,14,14,0.10);
+    --shadow-soft: 0 8px 30px rgba(14,14,14,0.09);
 
     --max: 720px;
     --max-wide: 960px;
@@ -72,7 +74,7 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-body);
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 1.1;
     color: var(--text-primary);
@@ -80,13 +82,13 @@
   h1 em, h2 em, h3 em, .serif-em {
     font-family: var(--font-serif);
     font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
-    letter-spacing: -0.02em;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
   }
   p { color: var(--text-secondary); }
   p strong { color: var(--text-primary); font-weight: 700; }
-  a { color: var(--accent); text-decoration: none; }
+  a { color: var(--accent-ink); text-decoration: none; }
 
   /* Shell */
   .stage {
@@ -100,17 +102,17 @@
     display: flex; align-items: center; justify-content: space-between;
     gap: 16px;
     border-bottom: 1px solid var(--border-subtle);
-    background: #000000;
+    background: var(--bg);
     position: sticky; top: 0; z-index: 10;
     transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform;
   }
   .topbar.topbar-hidden { transform: translateY(-100%); }
-  /* CTA pill in the topbar — only shown on the saved roadmap page. */
+  /* CTA pill in the topbar, only shown on the saved roadmap page. */
   .topbar-cta {
     appearance: none; border: 0; cursor: pointer;
     background: var(--accent);
-    color: #0A1606;
+    color: #0E0E0E;
     font-family: var(--font-body);
     font-size: 13px;
     font-weight: 600;
@@ -139,16 +141,16 @@
     .brand-logo { height: 30px; }
   }
 
-  /* Hero "Scale" — angled SVG pen-underline that draws itself in. */
+  /* Hero "Scale", angled SVG pen-underline that draws itself in. */
   .hero-scale {
     position: relative;
     display: inline-block;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    color: var(--accent);
-    font-size: 1.15em;
-    letter-spacing: -0.02em;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: inherit;
+    color: inherit;
+    font-size: 1em;
+    letter-spacing: inherit;
     padding: 0 0.02em 0.22em;
   }
   .hero-underline {
@@ -162,10 +164,11 @@
     pointer-events: none;
   }
   .hero-underline path {
+    stroke: var(--accent);
     stroke-dasharray: 240;
     stroke-dashoffset: 240;
     animation: penStroke 880ms cubic-bezier(0.45, 0.05, 0.55, 0.95) 700ms forwards;
-    filter: drop-shadow(0 0 8px var(--accent-strong));
+    filter: drop-shadow(0 0 6px var(--accent-strong));
   }
   @keyframes penStroke {
     to { stroke-dashoffset: 0; }
@@ -212,7 +215,7 @@
     padding: 8px 14px;
     border: 1px solid var(--border);
     border-radius: 999px;
-    background: rgba(255,255,255,0.02);
+    background: var(--bg-card);
     margin-bottom: 32px;
   }
   .hero-badge-dot {
@@ -250,7 +253,7 @@
   }
   .btn-primary {
     background: var(--accent);
-    color: #0A1606;
+    color: #0E0E0E;
     box-shadow: 0 8px 30px var(--accent-dim);
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px var(--accent-dim); }
@@ -290,11 +293,11 @@
     text-align: center;
   }
   .proof-num {
-    font-family: var(--font-serif);
-    font-style: italic;
+    font-family: var(--font-body);
+    font-weight: 800;
     font-size: 36px;
-    color: var(--accent);
-    letter-spacing: -0.02em;
+    color: var(--text-muted);
+    letter-spacing: -0.03em;
     display: block;
     margin-bottom: 6px;
     line-height: 1;
@@ -312,7 +315,7 @@
     font-size: 11px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-ink);
     margin-bottom: 22px;
     font-weight: 600;
   }
@@ -439,7 +442,7 @@
     position: static;
     inset: auto;
     width: auto; height: auto;
-    color: #0A1606;
+    color: #0E0E0E;
     font-size: 14px;
     font-weight: 900;
     line-height: 1;
@@ -459,7 +462,7 @@
     margin-bottom: 14px;
     font-weight: 600;
   }
-  .choice-counter .count-strong { color: var(--accent); }
+  .choice-counter .count-strong { color: var(--accent-ink); }
   .choice-counter.maxed { color: var(--accent); }
 
   /* Inline "Other" text field */
@@ -515,7 +518,7 @@
     width: 56px; height: 56px;
     border-radius: 50%;
     background: var(--accent-glow);
-    color: var(--accent);
+    color: var(--accent-ink);
     display: inline-flex; align-items: center; justify-content: center;
     margin-bottom: 24px;
     font-family: var(--font-serif);
@@ -591,7 +594,7 @@
   .doc-header {
     background:
       radial-gradient(800px 400px at 50% -20%, var(--accent-glow), transparent 60%),
-      linear-gradient(180deg, #0F1208, var(--bg-elevated));
+      linear-gradient(180deg, #EDEBE4, var(--bg-elevated));
     border-bottom: 1px solid var(--border-subtle);
     padding: 64px 48px 52px;
     text-align: center;
@@ -609,7 +612,7 @@
     font-size: 11px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-ink);
     margin-bottom: 18px;
     font-weight: 600;
   }
@@ -630,6 +633,228 @@
 
   .doc-body { padding: 56px 48px 64px; }
 
+  /* Results tabs */
+  .doc-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 14px 20px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-elevated);
+    scroll-margin-top: 90px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .doc-tabs::-webkit-scrollbar { display: none; }
+  .doc-tab {
+    flex: 0 0 auto;
+    appearance: none; cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 9px 15px;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease, transform 150ms ease;
+  }
+  .doc-tab:hover { border-color: var(--border-strong); color: var(--text-primary); }
+  .doc-tab.active { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
+  .doc-tab.tab-cta {
+    margin-left: auto;
+    background: var(--accent);
+    color: #0E0E0E;
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px var(--accent-dim);
+  }
+  .doc-tab.tab-cta:hover { color: #0E0E0E; border-color: var(--accent); transform: translateY(-1px); }
+  .doc-tab.tab-cta.active { background: var(--accent); color: #0E0E0E; }
+  .doc-tab .arrow { display: inline-block; transition: transform 200ms ease; }
+  .doc-tab.tab-cta:hover .arrow { transform: translateX(3px); }
+  @media (max-width: 720px) {
+    .doc-tabs { padding: 12px 16px; }
+    .doc-tab.tab-cta { margin-left: 4px; }
+  }
+
+  .doc-panel { display: none; }
+  .doc-panel.active { display: block; animation: panelIn 380ms cubic-bezier(0.22, 1, 0.36, 1); }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* How to package: the method */
+  .method-intro { font-size: 17px; line-height: 1.6; color: var(--text-primary); margin-bottom: 28px; }
+  .method-step {
+    display: flex; gap: 20px; align-items: baseline;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .method-step:first-child { padding-top: 0; }
+  .method-step:last-child { border-bottom: 0; padding-bottom: 0; }
+  .method-num {
+    flex: 0 0 auto; width: 34px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--accent-ink);
+    line-height: 1;
+  }
+  .method-title {
+    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
+    color: var(--text-primary); margin-bottom: 6px;
+  }
+  .method-detail { color: var(--text-secondary); font-size: 15.5px; line-height: 1.6; }
+
+  /* 3x2 framework grid */
+  .framework {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 12px;
+  }
+  .fw-cell { background: var(--bg-card); padding: 20px 18px; }
+  .fw-k {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-ink); font-weight: 600; margin-bottom: 8px;
+  }
+  .fw-v { font-size: 16px; font-weight: 600; color: var(--text-primary); line-height: 1.4; letter-spacing: -0.01em; }
+  @media (max-width: 560px) { .framework { grid-template-columns: 1fr; } }
+
+  /* Customer journey roadmap */
+  .journey {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: stretch;
+    margin-top: 12px;
+  }
+  .journey-node {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 22px 16px;
+    text-align: center;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .journey-node.end {
+    border-color: var(--accent-strong);
+    background: radial-gradient(300px 150px at 50% 0%, var(--accent-glow), transparent 70%), var(--bg-card);
+  }
+  .jn-k {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--text-muted); font-weight: 600; margin-bottom: 8px;
+  }
+  .jn-v { font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1.3; letter-spacing: -0.01em; }
+  .jn-sub { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; }
+  .journey-arrow {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 22px; padding: 0 12px;
+  }
+  @media (max-width: 640px) {
+    .journey { grid-template-columns: 1fr; }
+    .journey-arrow { transform: rotate(90deg); padding: 10px 0; }
+  }
+
+  /* Stage map (the climb) — .st-node avoids collision with the app-shell .stage */
+  .stagemap {
+    display: flex;
+    margin: 18px 0 4px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+  .stagemap::-webkit-scrollbar { display: none; }
+  .st-node {
+    flex: 1 0 116px;
+    position: relative;
+    text-align: center;
+    padding-top: 34px;
+  }
+  .st-node::before {
+    content: "";
+    position: absolute;
+    top: 14px; left: 50%;
+    width: 100%; height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .st-node.done::before { background: var(--accent-ink); }
+  .st-node:last-child::before { display: none; }
+  .st-node .dot {
+    position: absolute;
+    top: 5px; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--border-strong);
+    z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; color: var(--bg);
+  }
+  .st-node.done .dot { background: var(--accent-ink); }
+  .st-node.active .dot { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-dim); }
+  .st-node.climb .dot { background: var(--bg-card); border: 2px solid var(--accent); }
+  .st-node.locked .dot { background: var(--border-strong); opacity: 0.5; }
+  .st-node .st-name {
+    font-size: 13px; font-weight: 600; line-height: 1.3; padding: 0 6px;
+    color: var(--text-secondary);
+  }
+  .st-node.active .st-name { color: var(--text-primary); }
+  .st-node.locked .st-name { color: var(--text-muted); }
+  .st-node .st-tag {
+    display: block; margin-top: 6px;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  }
+  .st-node.active .st-tag { color: var(--accent-ink); }
+  .st-node.climb .st-tag { color: var(--text-muted); }
+  @media (max-width: 640px) {
+    .stagemap { flex-direction: column; gap: 0; overflow: visible; margin: 14px 0 8px; }
+    .st-node { flex: none; text-align: left; padding: 13px 0 13px 40px; }
+    .st-node::before { top: 24px; left: 17px; width: 2px; height: 100%; }
+    .st-node:last-child::before { display: none; }
+    .st-node .dot { top: 14px; left: 8px; transform: none; }
+    .st-node .st-name { padding: 0; font-size: 15px; display: inline-block; }
+    .st-node .st-tag { display: inline-block; margin-top: 0; margin-left: 10px; }
+  }
+
+  .climb-note {
+    margin-top: 24px;
+    padding: 20px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    color: var(--text-secondary);
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+  .climb-note strong { color: var(--text-primary); }
+
+  /* Scorecard */
+  .scorecard { margin-top: 18px; display: grid; gap: 16px; }
+  .score-row { display: grid; grid-template-columns: 130px 1fr 44px; align-items: center; gap: 16px; }
+  .score-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); }
+  .score-row.focus .score-label { color: var(--text-primary); }
+  .score-fix {
+    display: inline-block; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 700; color: var(--red); margin-left: 6px;
+  }
+  .score-track { height: 10px; background: var(--border-subtle); border-radius: 999px; overflow: hidden; }
+  .score-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 600ms cubic-bezier(0.22,1,0.36,1); }
+  .score-row.focus .score-fill { background: var(--red); }
+  .score-pct { font-size: 13px; font-weight: 700; color: var(--text-muted); text-align: right; }
+  .score-row.focus .score-pct { color: var(--red); }
+  @media (max-width: 480px) {
+    .score-row { grid-template-columns: 92px 1fr 40px; gap: 10px; }
+    .score-label { font-size: 12px; }
+  }
+  .panel-next { margin-top: 40px; display: flex; justify-content: flex-end; }
+  @media (max-width: 720px) {
+    .panel-next .btn { width: 100%; }
+  }
+
   .section + .section {
     margin-top: 56px;
     padding-top: 56px;
@@ -639,7 +864,7 @@
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 16px;
-    color: var(--accent);
+    color: var(--accent-ink);
     margin-bottom: 10px;
     letter-spacing: 0.02em;
   }
@@ -738,12 +963,107 @@
     left: 0; top: 14px;
     font-family: var(--font-serif);
     font-style: italic;
-    color: var(--accent);
+    color: var(--accent-ink);
     font-size: 16px;
   }
   .phase-steps li:first-child::before { top: 0; }
 
-  /* Gap section — emphasised */
+  /* Positioning: who it's for / not for */
+  .pos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  @media (max-width: 560px) { .pos-grid { grid-template-columns: 1fr; } }
+  .pos-cell {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .pos-cell.for { border-left: 3px solid var(--accent); }
+  .pos-cell.not { border-left: 3px solid var(--red); }
+  .headline-card {
+    background:
+      radial-gradient(400px 200px at 0% 0%, var(--accent-glow), transparent 60%),
+      var(--bg-card);
+    border: 1px solid var(--accent-strong);
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    margin: 4px 0 24px;
+  }
+  .headline-card .headline-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(20px, 3vw, 26px);
+    line-height: 1.3;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  /* Curriculum, labelled outline */
+  .curriculum { list-style: none; padding: 0; }
+  .curriculum li {
+    display: flex; gap: 18px; align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .curriculum li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .curriculum li:first-child { padding-top: 0; }
+  .curriculum .cur-label {
+    flex-shrink: 0;
+    width: 78px;
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent-ink);
+    font-size: 16px;
+  }
+  .curriculum .cur-focus {
+    color: var(--text-secondary);
+    font-size: 15.5px;
+    line-height: 1.5;
+  }
+
+  /* Content starter hooks */
+  .hooks { display: grid; gap: 10px; }
+  .hook {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    color: var(--text-primary);
+    font-size: 15.5px;
+    line-height: 1.5;
+  }
+  .hook::before {
+    content: "“";
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--accent);
+    font-size: 26px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* Objection block inside the gap section */
+  .objection {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--accent-strong);
+  }
+  .objection .obj-q {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .objection .obj-a { color: var(--text-primary); font-size: 16px; line-height: 1.6; }
+
+  /* Gap section, emphasised */
   .gap-section {
     position: relative;
     background: linear-gradient(180deg, var(--accent-glow), transparent 80%), var(--bg-card);
@@ -765,7 +1085,7 @@
     font-style: italic;
     font-size: clamp(24px, 3.4vw, 30px);
     line-height: 1.3;
-    color: var(--accent);
+    color: var(--text-primary);
     margin-bottom: 24px;
     font-weight: 400;
     letter-spacing: -0.015em;
@@ -887,8 +1207,8 @@
 <body>
 <div class="stage">
   <header class="topbar">
-    <a class="brand" href="/" aria-label="SCALO"><img class="brand-logo" src="/skill-sell-scale/logo.png?v=7" alt="SCALO" /></a>
-    <button class="topbar-cta" id="topbarCta" hidden>Next steps <span class="arrow">↓</span></button>
+    <a class="brand" href="/" aria-label="SCALO"><img class="brand-logo" src="/skill-sell-scale/lockup-black.png?v=1" alt="SCALO" /></a>
+    <button class="topbar-cta" id="topbarCta" hidden>Next steps <span class="arrow">→</span></button>
     <div class="progress-shell" id="progressShell" hidden>
       <div class="progress-meta">
         <span id="phaseLabel">Phase 1 of 3</span>
@@ -913,16 +1233,16 @@ const CONFIG = {
 
 // ---------- Questions ----------
 // Types:
-//   "single"        — pick one
-//   "single-other"  — pick one; the "Other" option reveals an inline text input
-//   "multi"         — pick up to `max` options
-//   "multi-other"   — multi-select with an "Other" option that reveals a text input
-//   "double-single" — two separate single-selects on one screen (groups)
-//   "optional-text" — short free text, can be skipped
+//   "single"      , pick one
+//   "single-other", pick one; the "Other" option reveals an inline text input
+//   "multi"       , pick up to `max` options
+//   "multi-other" , multi-select with an "Other" option that reveals a text input
+//   "double-single", two separate single-selects on one screen (groups)
+//   "optional-text", short free text, can be skipped
 const QUESTIONS = [
   { id: "q1", phase: 1, phaseLabel: "Skill", n: 1, type: "single-other",
     prompt: "What do you do for a living?",
-    help: "Pick the closest — if it's not here, hit Other and tell us in a few words.",
+    help: "Pick the closest, if it's not here, hit Other and tell us in a few words.",
     choices: [
       "Hair, Barbering or Beauty",
       "Fitness or Personal Training",
@@ -937,20 +1257,20 @@ const QUESTIONS = [
   },
   { id: "q2a", phase: 1, phaseLabel: "Skill", n: 2, type: "single",
     prompt: "How long have you been doing it?",
-    help: "Just a rough bracket — no need to be exact.",
+    help: "Just a rough bracket, no need to be exact.",
     choices: ["Under a year", "1–3 years", "3–5 years", "5–10 years", "10+ years"],
   },
   { id: "q2b", phase: 1, phaseLabel: "Skill", n: 3, type: "single",
     prompt: "Roughly how much do you earn from it each month?",
-    help: "Honest answer — no judgment. This shapes how realistic your roadmap will be.",
+    help: "Honest answer, no judgment. This shapes how realistic your roadmap will be.",
     choices: ["Under £2K", "£2–4K", "£4–6K", "£6–10K", "£10K+"],
   },
   { id: "q3", phase: 1, phaseLabel: "Skill", n: 4, type: "multi-other",
     prompt: "What do people come to you for help with?",
-    help: "Pick up to 3. Think DMs, conversations, friends, clients — what do they keep asking?",
+    help: "Pick up to 3. Think DMs, conversations, friends, clients, what do they keep asking?",
     max: 3,
     choices: [
-      "The craft itself — technique, doing what I do",
+      "The craft itself, technique, doing what I do",
       "Getting started in my field",
       "Getting more clients or customers",
       "Pricing or charging more",
@@ -1000,7 +1320,7 @@ const QUESTIONS = [
 
   { id: "q7", phase: 3, phaseLabel: "Scale", n: 8, type: "multi",
     prompt: "In 2 years, the life you actually want…",
-    help: "Pick your top 2 — the things that matter most.",
+    help: "Pick your top 2, the things that matter most.",
     max: 2,
     choices: [
       "More money, same hours",
@@ -1014,7 +1334,7 @@ const QUESTIONS = [
   },
   { id: "q8", phase: 3, phaseLabel: "Scale", n: 9, type: "multi-other",
     prompt: "What's the real blocker right now?",
-    help: "Pick up to 2 — be honest. Whatever's actually stopping you.",
+    help: "Pick up to 2, be honest. Whatever's actually stopping you.",
     max: 2,
     choices: [
       "I don't know where to start",
@@ -1031,7 +1351,7 @@ const QUESTIONS = [
   },
   { id: "q9", phase: 3, phaseLabel: "Scale", n: 10, type: "optional-text", optional: true,
     prompt: "Anything else you want me to know?",
-    help: "Totally optional — skip if you want. One line if there's something specific (followers, a past attempt, a deadline, a constraint).",
+    help: "Totally optional, skip if you want. One line if there's something specific (followers, a past attempt, a deadline, a constraint).",
     placeholder: "e.g. \"I already have 5K Instagram followers\" or \"I tried this last year and stalled at the launch\"…",
   },
 ];
@@ -1085,18 +1405,16 @@ function renderShell(inner) {
   const main = $("#main");
   main.innerHTML = "";
   main.appendChild(el(inner));
-  // Topbar CTA hidden by default — only the results screen flips it on.
+  // Topbar CTA hidden by default, only the results screen flips it on.
   const cta = document.getElementById("topbarCta");
   if (cta) cta.hidden = true;
 }
 
-function showTopbarCta() {
+function showTopbarCta(onClick) {
   const cta = document.getElementById("topbarCta");
   if (!cta) return;
   cta.hidden = false;
-  cta.onclick = () => {
-    document.querySelector(".next-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  cta.onclick = typeof onClick === "function" ? onClick : (() => {});
 }
 
 // ---------- Screens ----------
@@ -1105,10 +1423,10 @@ function renderLanding() {
   setProgress(null);
   renderShell(`
     <section class="screen landing">
-      <span class="hero-badge"><span class="hero-badge-dot"></span><span>A free roadmap from SCALO</span></span>
-      <h1 class="display">Skill, Sell,<br><span class="hero-scale">Scale.<svg class="hero-underline" viewBox="0 0 200 14" preserveAspectRatio="none" aria-hidden="true"><path d="M2 11 Q 100 2 198 6" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke" /></svg></span></h1>
-      <p class="lede">Find out exactly what you could sell online, what to charge, and how to build it into a business — in under 10 minutes.</p>
-      <button class="btn btn-primary" id="startBtn">Build my roadmap <span class="arrow">→</span></button>
+      <span class="hero-badge"><span class="hero-badge-dot"></span><span>A free blueprint from SCALO</span></span>
+      <h1 class="display">Packaged.</h1>
+      <p class="lede">Learn how to package your knowledge into a six-figure online business, what to sell, what to charge, and how to build it. In under 10 minutes.</p>
+      <button class="btn btn-primary" id="startBtn">Build my blueprint <span class="arrow">→</span></button>
       <div class="proof">
         <div class="proof-item"><span class="proof-num">$500K</span><span class="proof-label">Added in ARR</span></div>
         <div class="proof-item"><span class="proof-num">10 min</span><span class="proof-label">From answers to plan</span></div>
@@ -1221,9 +1539,9 @@ function renderQuestion(index) {
       ${inputHtml}
       <div class="nav-row">
         ${backDisabled ? "<span></span>" : `<button class="btn btn-ghost" id="backBtn">← Back</button>`}
-        <button class="btn btn-primary" id="nextBtn">${isLast ? "Build my roadmap" : "Continue"} <span class="arrow">→</span></button>
+        <button class="btn btn-primary" id="nextBtn">${isLast ? "Build my blueprint" : "Continue"} <span class="arrow">→</span></button>
       </div>
-      ${q.optional ? `<div style="text-align:center;"><button class="skip-link" id="skipBtn">Skip — I've said enough</button></div>` : ""}
+      ${q.optional ? `<div style="text-align:center;"><button class="skip-link" id="skipBtn">Skip, I've said enough</button></div>` : ""}
     </section>
   `);
 
@@ -1292,7 +1610,7 @@ function renderQuestion(index) {
         const i = sels.indexOf(v);
         if (i >= 0) sels.splice(i, 1);
         else if (sels.length < q.max) sels.push(v);
-        else { // already at max — flash counter
+        else { // already at max, flash counter
           counter.style.color = "var(--red)";
           setTimeout(() => { counter.style.color = ""; }, 700);
           return;
@@ -1370,7 +1688,7 @@ function renderGate() {
   renderShell(`
     <section class="screen gate">
       <div class="gate-icon">✦</div>
-      <h2 class="question" style="margin-bottom:8px;">Your roadmap is <em>ready</em>.</h2>
+      <h2 class="question" style="margin-bottom:8px;">Your blueprint is <em>ready</em>.</h2>
       <p class="question-help">Where should we send your copy?</p>
       <form class="gate-form" id="gateForm" novalidate>
         <div class="gate-name-row">
@@ -1379,8 +1697,8 @@ function renderGate() {
         </div>
         <input type="email" id="emailField" placeholder="Your email address" autocomplete="email" value="${escapeHtml(state.email)}" required />
         <div id="gateError"></div>
-        <button class="btn btn-primary" type="submit">Send me my roadmap <span class="arrow">→</span></button>
-        <p class="fine-print">We'll send your custom roadmap to this inbox shortly. We'll also send the occasional email with advice on building your online business — unsubscribe any time.</p>
+        <button class="btn btn-primary" type="submit">Send me my blueprint <span class="arrow">→</span></button>
+        <p class="fine-print">We'll send your custom blueprint to this inbox shortly. We'll also send the occasional email with advice on building your online business, unsubscribe any time.</p>
       </form>
     </section>
   `);
@@ -1426,7 +1744,7 @@ function renderLoader() {
     <section class="screen loader-screen">
       <div class="loader-msg" id="loaderMsg">${escapeHtml(LOADER_MESSAGES[0])}</div>
       <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
-      <div class="loader-sub">Building something personal — give us a moment.</div>
+      <div class="loader-sub">Building something personal, give us a moment.</div>
     </section>
   `);
 
@@ -1462,7 +1780,7 @@ async function runGeneration() {
     state.roadmap = data;
     state.slug = data.slug || null;
 
-    // Fire subscribe — non-blocking. Pass the slug so the email link opens THEIR roadmap.
+    // Fire subscribe, non-blocking. Pass the slug so the email link opens THEIR roadmap.
     // ConvertKit holds the link in the `roadmap_link` custom field and the automation
     // waits 30 minutes before delivering it via email.
     fetch(CONFIG.SUBSCRIBE_URL, {
@@ -1477,7 +1795,10 @@ async function runGeneration() {
     }).catch(err => console.warn("subscribe error:", err));
 
     clearInterval(state._loaderInterval);
-    renderConfirmation();
+    // Show the full roadmap on-page immediately, this is the hottest moment we'll
+    // ever have with the lead. The email (fired above) is the permanent copy.
+    state._justGenerated = true;
+    renderResults();
   } catch (err) {
     clearInterval(state._loaderInterval);
     state.error = err.message || "Something went wrong.";
@@ -1491,7 +1812,7 @@ async function loadSavedRoadmap(slug) {
   setProgress(null);
   renderShell(`
     <section class="screen loader-screen">
-      <div class="loader-msg">Loading your roadmap…</div>
+      <div class="loader-msg">Loading your blueprint…</div>
       <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
     </section>
   `);
@@ -1515,8 +1836,8 @@ function renderError() {
   renderShell(`
     <section class="screen" style="text-align:center;">
       <span class="hero-badge"><span class="hero-badge-dot" style="background:var(--red);box-shadow:0 0 10px rgba(255,107,90,0.5);"></span><span>Something went wrong</span></span>
-      <h2 class="question">Your roadmap didn't finish building.</h2>
-      <p class="question-help">${escapeHtml(state.error || "Please try again — your answers are still here.")}</p>
+      <h2 class="question">Your blueprint didn't finish building.</h2>
+      <p class="question-help">${escapeHtml(state.error || "Please try again, your answers are still here.")}</p>
       <button class="btn btn-primary" id="retryBtn">Try again <span class="arrow">→</span></button>
     </section>
   `);
@@ -1539,25 +1860,25 @@ function renderConfirmation() {
     <section class="screen gate">
       <div class="gate-icon">✦</div>
       <span class="hero-badge"><span class="hero-badge-dot"></span><span>You're in</span></span>
-      <h2 class="question">Hold tight, ${escapeHtml(first)}.<br>We're <em>building your roadmap</em>.</h2>
+      <h2 class="question">Hold tight, ${escapeHtml(first)}.<br>We're <em>building your blueprint</em>.</h2>
       <p class="question-help" style="max-width: 520px; margin-left: auto; margin-right: auto;">
-        Your custom Skill, Sell, Scale roadmap is being prepared and will land in your inbox in the next <strong style="color: var(--text-primary);">30 minutes</strong>. Check <strong style="color: var(--text-primary);">${escapeHtml(state.email)}</strong> — including spam, just in case.
+        Your custom Packaged blueprint is being prepared and will land in your inbox in the next <strong style="color: var(--text-primary);">30 minutes</strong>. Check <strong style="color: var(--text-primary);">${escapeHtml(state.email)}</strong>, including spam, just in case.
       </p>
       <div style="display: grid; gap: 14px; max-width: 460px; margin: 32px auto 0; text-align: left;">
         <div style="display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius);">
           <span style="font-family: var(--font-serif); font-style: italic; color: var(--accent); font-size: 18px; line-height: 1;">01</span>
-          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">A personalised offer with name, price and delivery format — built around your industry and audience.</span>
+          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">A personalised offer with name, price and delivery format, built around your industry and audience.</span>
         </div>
         <div style="display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius);">
           <span style="font-family: var(--font-serif); font-style: italic; color: var(--accent); font-size: 18px; line-height: 1;">02</span>
-          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">A 90-day action plan in three phases — exact steps you can start this week.</span>
+          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">A 90-day action plan in three phases, exact steps you can start this week.</span>
         </div>
         <div style="display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius);">
           <span style="font-family: var(--font-serif); font-style: italic; color: var(--accent); font-size: 18px; line-height: 1;">03</span>
-          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">An honest read on the 2–3 things most likely to trip you up — and how to close the gap.</span>
+          <span style="color: var(--text-secondary); font-size: 15px; line-height: 1.55;">An honest read on the 2–3 things most likely to trip you up, and how to close the gap.</span>
         </div>
       </div>
-      <p class="fine-print" style="margin-top: 32px;">No need to refresh — the email is already on its way.</p>
+      <p class="fine-print" style="margin-top: 32px;">No need to refresh, the email is already on its way.</p>
     </section>
   `);
 }
@@ -1568,102 +1889,228 @@ function renderResults() {
   const r = state.roadmap;
   const first = state.firstName || "you";
   const stepsHtml = (arr = []) => arr.map(s => `<li>${escapeHtml(s)}</li>`).join("");
+  const curriculumHtml = (arr = []) => arr.map(c => `
+    <li>
+      <span class="cur-label">${escapeHtml(c.label || "")}</span>
+      <span class="cur-focus">${escapeHtml(c.focus || "")}</span>
+    </li>`).join("");
+  const hooksHtml = (arr = []) => arr.map(h => `<div class="hook"><span>${escapeHtml(h)}</span></div>`).join("");
+  const methodHtml = (arr = []) => arr.map((s, i) => `
+    <div class="method-step">
+      <div class="method-num">${String(i + 1).padStart(2, "0")}</div>
+      <div>
+        <div class="method-title">${escapeHtml((s.title || "").replace(/^\s*\d+[.)]\s*/, ""))}</div>
+        <div class="method-detail">${escapeHtml(s.detail || "")}</div>
+      </div>
+    </div>`).join("");
+  const STAGES = ["Behind the Chair", "Packaged", "First Sales", "Systemised", "Authority", "Scaled"];
+  const stageMapHtml = (current) => STAGES.map((name, i) => {
+    let cls = "locked", tag = "", dot = "🔒";
+    if (i < current) { cls = "done"; dot = "✓"; }
+    else if (i === current) { cls = "active"; tag = "You're here"; dot = ""; }
+    else if (i === current + 1) { cls = "climb"; tag = "Climb here"; dot = ""; }
+    return `<div class="st-node ${cls}"><span class="dot">${dot}</span><div class="st-name">${escapeHtml(name)}</div>${tag ? `<span class="st-tag">${tag}</span>` : ""}</div>`;
+  }).join("");
+
+  const justGenerated = state._justGenerated;
+  state._justGenerated = false;
+
+  const fw = (r.packaging_section && r.packaging_section.framework) || {};
+  const stageCurrent = Math.max(0, Math.min(5, parseInt((r.stage_map && r.stage_map.current_stage) || 1, 10)));
+  const stageLocked = Math.max(0, 4 - stageCurrent);
+  const stageHeadline = (r.stage_map && r.stage_map.headline) || "";
+  const sc = r.scorecard || {};
+  const scoreHtml = [["skill", "Skill"], ["positioning", "Positioning"], ["offer", "Offer"], ["audience", "Audience"], ["systems", "Systems"]].map(([k, label]) => {
+    const v = Math.max(0, Math.min(100, parseInt(sc[k], 10) || 0));
+    const isFocus = (sc.focus || "").toLowerCase() === label.toLowerCase();
+    return `<div class="score-row ${isFocus ? "focus" : ""}"><div class="score-label">${label}${isFocus ? ' <span class="score-fix">Fix first</span>' : ""}</div><div class="score-track"><div class="score-fill" style="width:${v}%;"></div></div><div class="score-pct">${v}%</div></div>`;
+  }).join("");
+
+  const panels = [
+    { label: "Skill", html: `
+      <div class="section-num">Section 01</div>
+      <h2 class="section-title">Your <em>Skill</em></h2>
+      <div class="field">
+        <div class="field-label">What you actually have</div>
+        <div class="field-value lead">${escapeHtml(r.skill_section.core_skill)}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Why it's valuable online</div>
+        <div class="field-value">${escapeHtml(r.skill_section.why_valuable_online)}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">Who needs it most</div>
+        <div class="field-value">${escapeHtml(r.skill_section.ideal_client_description)}</div>
+      </div>` },
+    { label: "How to Package", html: `
+      <div class="section-num">Section 02</div>
+      <h2 class="section-title">How to <em>package</em> it</h2>
+      <p class="method-intro">${escapeHtml(r.packaging_section.intro)}</p>
+      <div class="method">${methodHtml(r.packaging_section.steps)}</div>
+      <div class="field-label" style="margin-top:44px;">The framework at a glance</div>
+      <div class="framework">
+        <div class="fw-cell"><div class="fw-k">One Person</div><div class="fw-v">${escapeHtml(fw.person)}</div></div>
+        <div class="fw-cell"><div class="fw-k">One Problem</div><div class="fw-v">${escapeHtml(fw.problem)}</div></div>
+        <div class="fw-cell"><div class="fw-k">One Result</div><div class="fw-v">${escapeHtml(fw.result)}</div></div>
+        <div class="fw-cell"><div class="fw-k">The Offer</div><div class="fw-v">${escapeHtml(fw.offer)}</div></div>
+        <div class="fw-cell"><div class="fw-k">The Price</div><div class="fw-v">${escapeHtml(fw.price)}</div></div>
+        <div class="fw-cell"><div class="fw-k">The Format</div><div class="fw-v">${escapeHtml(fw.format)}</div></div>
+      </div>
+      <div class="field-label" style="margin-top:36px;">The customer journey</div>
+      <div class="journey">
+        <div class="journey-node"><div class="jn-k">They start</div><div class="jn-v">${escapeHtml(fw.person)}</div><div class="jn-sub">${escapeHtml(fw.problem)}</div></div>
+        <div class="journey-arrow">→</div>
+        <div class="journey-node"><div class="jn-k">Your offer</div><div class="jn-v">${escapeHtml(fw.offer)}</div><div class="jn-sub">${escapeHtml(fw.format)}</div></div>
+        <div class="journey-arrow">→</div>
+        <div class="journey-node end"><div class="jn-k">They end up</div><div class="jn-v">${escapeHtml(fw.result)}</div></div>
+      </div>` },
+    { label: "Positioning", html: `
+      <div class="section-num">Section 03</div>
+      <h2 class="section-title">Your <em>Positioning</em></h2>
+      <div class="field-label">The one line that sells it</div>
+      <div class="headline-card">
+        <div class="headline-quote">${escapeHtml(r.positioning_section.headline)}</div>
+      </div>
+      <div class="pos-grid">
+        <div class="pos-cell for">
+          <div class="field-label">Who it's for</div>
+          <div class="field-value">${escapeHtml(r.positioning_section.who_its_for)}</div>
+        </div>
+        <div class="pos-cell not">
+          <div class="field-label">Who it's not for</div>
+          <div class="field-value">${escapeHtml(r.positioning_section.who_its_not_for)}</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:24px;">
+        <div class="field-label">The promise</div>
+        <div class="field-value">${escapeHtml(r.positioning_section.the_promise)}</div>
+      </div>` },
+    { label: "Offer", html: `
+      <div class="section-num">Section 04</div>
+      <h2 class="section-title">Your <em>Offer</em></h2>
+      <div class="field">
+        <div class="field-label">What you could sell</div>
+        <div class="field-value lead">${escapeHtml(r.offer_section.offer_description)}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">What to call it</div>
+        <div class="field-value"><strong>${escapeHtml(r.offer_section.suggested_offer_name)}</strong></div>
+      </div>
+      <div class="price-card">
+        <div class="field-label">What to charge</div>
+        <div class="price">${escapeHtml(r.offer_section.price_range)}</div>
+        <div class="price-why">${escapeHtml(r.offer_section.price_reasoning)}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">How to deliver it</div>
+        <div class="field-value">${escapeHtml(r.offer_section.delivery_format)}</div>
+      </div>
+      <div class="field">
+        <div class="field-label">What's inside</div>
+        <div class="phase" style="margin-top:8px;">
+          <ul class="curriculum">${curriculumHtml(r.offer_section.curriculum)}</ul>
+        </div>
+      </div>` },
+    { label: "90-Day Plan", html: `
+      <div class="section-num">Section 05</div>
+      <h2 class="section-title">Your 90-day <em>Scale</em> Roadmap</h2>
+      <div class="phase">
+        <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_1.title)}</div>
+        <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_1.steps)}</ol>
+      </div>
+      <div class="phase">
+        <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_2.title)}</div>
+        <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_2.steps)}</ol>
+      </div>
+      <div class="phase">
+        <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_3.title)}</div>
+        <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_3.steps)}</ol>
+      </div>` },
+    { label: "First Posts", html: `
+      <div class="section-num">Section 06</div>
+      <h2 class="section-title">Your first <em>posts</em></h2>
+      <div class="field-label" style="margin-bottom:14px;">Six hooks in your voice to publish this week</div>
+      <div class="hooks">${hooksHtml(r.content_starters.hooks)}</div>` },
+    { label: "Gap", html: `
+      <div class="section-num">Section 07</div>
+      <h2 class="section-title">Your <em>Gap</em></h2>
+      <div class="gap-section" style="margin-top:0;">
+        <div class="gap-headline">${escapeHtml(r.gap_section.headline)}</div>
+        <div class="gap-body">${escapeHtml(r.gap_section.honest_assessment)}</div>
+        <div class="objection">
+          <div class="field-label">The objection you'll hear most</div>
+          <div class="obj-q">${escapeHtml(r.gap_section.biggest_objection)}</div>
+          <div class="field-label">How to answer it</div>
+          <div class="obj-a">${escapeHtml(r.gap_section.how_to_answer)}</div>
+        </div>
+      </div>` },
+    { label: "Scorecard", html: `
+      <div class="section-num">Section 08</div>
+      <h2 class="section-title">Your <em>scorecard</em></h2>
+      <p class="method-intro">Where you stand right now on the five things that turn a skill into an online business you can sell again and again. The red bar is the one to fix first.</p>
+      <div class="scorecard">${scoreHtml}</div>
+      <div class="climb-note" style="border-left-color: var(--red); margin-top: 28px;">Fix first: <strong>${escapeHtml(sc.focus || "")}</strong>. ${escapeHtml(sc.focus_note || "")}</div>` },
+    { label: "Next Steps", cta: true, html: `
+      <div class="section-num">Section 09</div>
+      <h2 class="section-title">Your <em>climb</em></h2>
+      <p class="method-intro">${escapeHtml(stageHeadline)}</p>
+      <div class="stagemap">${stageMapHtml(stageCurrent)}</div>
+      <div class="climb-note">The stages past this one stay locked for now. On your own, packaging and launching this properly takes most people the <strong>best part of a year</strong>, and plenty never crack it. With a system, a coach and a community behind you, it's <strong>120 days</strong>. That's what the call is for.</div>
+      <div class="next-section" style="margin-top:40px;">
+        <p class="next-copy">You've got the skill. You've got the offer. You've got the plan. The question is whether you climb it alone, or with a <em>system</em> behind you.</p>
+        <div class="vsl-wrap">
+          <wistia-player media-id="70c6vngscr" aspect="1.7777777777777777"></wistia-player>
+        </div>
+        <div class="cta-card">
+          <div class="cta-headline">Book your <em>free</em> discovery call</div>
+          <div class="cta-sub">We'll map your climb together and show you exactly how SCALO gets you there in 120 days.</div>
+          <a class="btn btn-primary" href="${escapeHtml(CONFIG.CALENDLY_URL)}" onclick="if (window.Calendly) { Calendly.initPopupWidget({url: this.href}); return false; }">Book my call <span class="arrow">→</span></a>
+        </div>
+      </div>` },
+  ];
+
+  const tabsHtml = panels.map((p, i) =>
+    `<button class="doc-tab ${p.cta ? "tab-cta" : ""} ${i === 0 ? "active" : ""}" data-tab="${i}">${escapeHtml(p.label)}${p.cta ? ' <span class="arrow">→</span>' : ""}</button>`
+  ).join("");
+
+  const panelsHtml = panels.map((p, i) => {
+    const nextBtn = i < panels.length - 1
+      ? `<div class="panel-next"><button class="btn btn-secondary panel-next-btn" data-goto="${i + 1}">Next: ${escapeHtml(panels[i + 1].label)} <span class="arrow">→</span></button></div>`
+      : "";
+    return `<div class="doc-panel ${i === 0 ? "active" : ""}" data-panel="${i}">${p.html}${nextBtn}</div>`;
+  }).join("");
 
   renderShell(`
     <section class="screen screen-wide results">
+      ${justGenerated ? `<div class="hero-badge" style="display:flex;width:fit-content;margin:0 auto 20px;"><span class="hero-badge-dot"></span><span>Done, a copy is on its way to ${escapeHtml(state.email)}</span></div>` : ""}
       <div class="results-doc">
         <div class="doc-header">
-          <div class="doc-eyebrow">Your Skill, Sell, Scale Roadmap</div>
+          <div class="doc-eyebrow">Your Packaged Blueprint</div>
           <h1 class="doc-title">Built for ${escapeHtml(first)},<br><em>your move online.</em></h1>
           <div class="doc-meta">${escapeHtml(formatDate())}</div>
         </div>
-        <div class="doc-body">
-
-          <div class="section">
-            <div class="section-num">Section 01</div>
-            <h2 class="section-title">Your <em>Skill</em></h2>
-            <div class="field">
-              <div class="field-label">What you actually have</div>
-              <div class="field-value lead">${escapeHtml(r.skill_section.core_skill)}</div>
-            </div>
-            <div class="field">
-              <div class="field-label">Why it's valuable online</div>
-              <div class="field-value">${escapeHtml(r.skill_section.why_valuable_online)}</div>
-            </div>
-            <div class="field">
-              <div class="field-label">Who needs it most</div>
-              <div class="field-value">${escapeHtml(r.skill_section.ideal_client_description)}</div>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-num">Section 02</div>
-            <h2 class="section-title">Your <em>Offer</em></h2>
-            <div class="field">
-              <div class="field-label">What you could sell</div>
-              <div class="field-value lead">${escapeHtml(r.offer_section.offer_description)}</div>
-            </div>
-            <div class="field">
-              <div class="field-label">What to call it</div>
-              <div class="field-value"><strong>${escapeHtml(r.offer_section.suggested_offer_name)}</strong></div>
-            </div>
-            <div class="price-card">
-              <div class="field-label">What to charge</div>
-              <div class="price">${escapeHtml(r.offer_section.price_range)}</div>
-              <div class="price-why">${escapeHtml(r.offer_section.price_reasoning)}</div>
-            </div>
-            <div class="field">
-              <div class="field-label">How to deliver it</div>
-              <div class="field-value">${escapeHtml(r.offer_section.delivery_format)}</div>
-            </div>
-          </div>
-
-          <div class="section">
-            <div class="section-num">Section 03</div>
-            <h2 class="section-title">Your 90-day <em>Scale</em> Roadmap</h2>
-            <div class="phase">
-              <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_1.title)}</div>
-              <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_1.steps)}</ol>
-            </div>
-            <div class="phase">
-              <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_2.title)}</div>
-              <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_2.steps)}</ol>
-            </div>
-            <div class="phase">
-              <div class="phase-title">${escapeHtml(r.scale_roadmap.phase_3.title)}</div>
-              <ol class="phase-steps">${stepsHtml(r.scale_roadmap.phase_3.steps)}</ol>
-            </div>
-          </div>
-
-          <div class="gap-section">
-            <div class="section-num">Section 04</div>
-            <h2 class="section-title">Your <em>Gap</em></h2>
-            <div class="gap-headline">${escapeHtml(r.gap_section.headline)}</div>
-            <div class="gap-body">${escapeHtml(r.gap_section.honest_assessment)}</div>
-          </div>
-
-          <div class="next-section">
-            <div class="section-num">Section 05</div>
-            <h2 class="section-title">What's <em>next</em></h2>
-            <p class="next-copy">You've got the skill. You've got the offer. You've got the roadmap. The question is whether you build it alone — or with a <em>system</em> behind you.</p>
-
-            <div class="vsl-wrap">
-              <wistia-player media-id="70c6vngscr" aspect="1.7777777777777777"></wistia-player>
-            </div>
-
-            <div class="cta-card">
-              <div class="cta-headline">Book your <em>free</em> discovery call</div>
-              <div class="cta-sub">We'll look at your roadmap together and map out exactly how SCALO can help you build this in 120 days.</div>
-              <a class="btn btn-primary" href="${escapeHtml(CONFIG.CALENDLY_URL)}" onclick="if (window.Calendly) { Calendly.initPopupWidget({url: this.href}); return false; }">Book my call <span class="arrow">→</span></a>
-            </div>
-          </div>
-        </div>
+        <div class="doc-tabs" id="docTabs">${tabsHtml}</div>
+        <div class="doc-body">${panelsHtml}</div>
       </div>
     </section>
   `);
 
+  const tabEls = Array.from(document.querySelectorAll(".doc-tab"));
+  const panelEls = Array.from(document.querySelectorAll(".doc-panel"));
+  const tabsBar = document.getElementById("docTabs");
+  const activatePanel = (i) => {
+    tabEls.forEach((t, j) => t.classList.toggle("active", j === i));
+    panelEls.forEach((p, j) => p.classList.toggle("active", j === i));
+    tabEls[i] && tabEls[i].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    tabsBar && tabsBar.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  tabEls.forEach((t, i) => t.addEventListener("click", () => activatePanel(i)));
+  document.querySelectorAll(".panel-next-btn").forEach(b =>
+    b.addEventListener("click", () => activatePanel(parseInt(b.dataset.goto, 10)))
+  );
+
   window.scrollTo({ top: 0, behavior: "smooth" });
-  showTopbarCta();
+  showTopbarCta(() => activatePanel(panels.length - 1));
 }
 
 // ---------- Auto-hide topbar on scroll down ----------
@@ -1703,21 +2150,155 @@ const savedSlugMatch = location.pathname.match(/^\/r\/([a-z0-9]{8,32})$/i);
 // Each shows a fully-rendered roadmap with stub data for a different profession,
 // so you can see how the design adapts to wildly different inputs.
 const PREVIEW_STUBS = {
+  barberpro: {
+    firstName: "Marcus",
+    lastName: "Ellis",
+    roadmap: {
+      skill_section: {
+        core_skill: "You're not a barber any more, you're a business owner who happens to know hair. You've built shops, filled chairs, and kept staff, and that operator knowledge is worth ten times the haircut.",
+        why_valuable_online: "Every barber can teach a fade. Almost nobody can teach another shop owner how to fill chairs, keep good staff, price a service list, and actually take money home. You've done it across multiple shops. That's the stuff no course covers and every stuck owner is desperate for.",
+        ideal_client_description: "An established barber or shop owner doing roughly £5K to £8K a month who's busy but stuck: drowning in the day-to-day, underpricing, and can't work out why the shop is full but the bank isn't. They've got a business, they just haven't got the systems."
+      },
+      packaging_section: {
+        intro: "You've already built shops. Packaging is just turning what you already know into a room other owners pay to be in. Here's exactly how.",
+        steps: [
+          { title: "1. Nail the one thing", detail: "Owners come to you for the same thing: a shop that's full but not profitable. That's your one thing, running the business, not cutting hair." },
+          { title: "2. One person, one problem, one result", detail: "One person: the owner stuck at £5K to £8K. One problem: busy but skint, no systems. One result: a shop that pays them and runs without them." },
+          { title: "3. Name it and put a price on it", detail: "Call it Off The Chair and price it at £3,000 to £5,000. At this level the price is the positioning." },
+          { title: "4. Build it once", detail: "Turn your pricing, hiring and numbers playbook into a six-module mastermind. Build it once, run each cohort off the same spine." },
+          { title: "5. Sell it before you build it", detail: "Open a founding cohort of 5 owners at £2,500 for case studies, run it live, then raise the price and go application-only." }
+        ],
+        framework: {
+          person: "Owners stuck at £5–8K",
+          problem: "Busy shop, empty bank, no systems",
+          result: "A shop that runs without them",
+          offer: "Off The Chair",
+          price: "£3,000–£5,000",
+          format: "Small-group mastermind"
+        }
+      },
+      positioning_section: {
+        headline: "I help shop owners stop cutting all day and start running a business that pays them.",
+        who_its_for: "Established barbers and shop owners doing £5K+ a month who are busy, stressed, and still stuck behind the chair with no systems and no time.",
+        who_its_not_for: "New barbers still building a column, or hobbyists who want tips instead of a business.",
+        the_promise: "In 90 days you'll have the pricing, the systems, and the hiring playbook to step off the chair, so the shop runs and pays you whether you're in it or not."
+      },
+      offer_section: {
+        offer_description: "A high-ticket mentorship for established shop owners: a pricing and service-list audit, a hiring and retention system, and a numbers dashboard to run the shop like a business, so you finally take money home and get off the chair.",
+        suggested_offer_name: "Off The Chair",
+        price_range: "£3,000–£5,000",
+        price_reasoning: "Priced against what one fixed service list or one right hire is worth over a year, which is tens of thousands, not against a haircut. At this level you're not selling technique, you're selling a shop that runs without you, and one good decision pays the fee back many times over.",
+        delivery_format: "A small mastermind of 6 to 8 owners: fortnightly 90-minute calls, a numbers dashboard you fill in weekly, a done-with-you hiring and pricing overhaul, and voice-note access to you between sessions.",
+        curriculum: [
+          { label: "Module 1", focus: "The numbers audit: what the shop actually makes you once you strip out your own chair." },
+          { label: "Module 2", focus: "The service-list rebuild: pricing every service so the shop is profitable, not just busy." },
+          { label: "Module 3", focus: "Hiring and retention: keeping good barbers instead of training your competitors." },
+          { label: "Module 4", focus: "Getting off the chair: replacing your own column without dropping revenue." },
+          { label: "Module 5", focus: "The owner's dashboard: running the shop on data, not gut feel." },
+          { label: "Module 6", focus: "Your next site or exit: building it so it could run without you or sell." }
+        ]
+      },
+      scale_roadmap: {
+        phase_1: { title: "Days 1–30: Foundation", steps: [
+          "Name and price Off The Chair and put it in front of the owners who already know you by end of week one.",
+          "Record three videos breaking down real numbers: why a full shop can still lose money.",
+          "Build a one-page mastermind doc: who it's for, the outcome, the format, the price.",
+          "Personally message 15 shop owners in your network and ask what's actually keeping them stuck.",
+          "Pull your own shop's numbers into a simple dashboard. That becomes your demo."
+        ]},
+        phase_2: { title: "Days 31–60: First Sale", steps: [
+          "Open the founding cohort at £2,500 to 5 owners in exchange for case studies.",
+          "Run the mastermind live: numbers audit, service-list rebuild, hiring.",
+          "Record every call and turn the best moments into authority content.",
+          "Bank a numbers-based case study from each founder (before and after take-home).",
+          "Raise the price to £3,500 for cohort two and open a waitlist."
+        ]},
+        phase_3: { title: "Days 61–90: Scale", steps: [
+          "Post one authority video a week using real owner numbers and wins.",
+          "Stand up an application page so you only speak to serious owners.",
+          "Run cohort two application-only with a hard cap of 8.",
+          "Bring in a coach or ops person so the mastermind can grow past your own hours.",
+          "Line up your own next site or exit so you're living the outcome you sell."
+        ]}
+      },
+      content_starters: {
+        hooks: [
+          "Your shop is full and you're still skint. Here's the number nobody shows you.",
+          "Why hiring more barbers made me less money, and what actually fixed it.",
+          "The service-list mistake costing most shops £2k a month.",
+          "I stopped cutting five days a week. The shop made more, not less.",
+          "Busy isn't the same as profitable. Most owners never learn the difference.",
+          "How to keep good barbers instead of training your own competition."
+        ]
+      },
+      gap_section: {
+        headline: "At your level, the thing that'll trip you up isn't the offer, it's believing owners will pay you at all.",
+        honest_assessment: "You've built real shops, but you'll still undercharge because a haircut is £30 in your head, so £3,000 feels mad. You'll also try to help every barber instead of the specific stuck owner doing £5K to £8K who actually needs you. The other trap is time: you'll try to run this off the side of a full column and it'll stall. You have to get off the chair to sell getting off the chair.",
+        biggest_objection: "\"I'm a barber, not a business coach. Why would another owner pay me thousands?\"",
+        how_to_answer: "Because you're not selling coaching, you're selling the exact playbook that took you from stuck to multi-shop: the pricing, the hiring, the numbers. They're not paying for your opinion, they're paying to skip the years of mistakes you already made. One right hire or one fixed price list pays your fee back inside a month."
+      },
+      stage_map: {
+        current_stage: 3,
+        headline: "You've already built shops, so you're ahead of most. You're at Systemised. The climb from here is Authority."
+      },
+      scorecard: {
+        skill: 95,
+        positioning: 55,
+        offer: 45,
+        audience: 40,
+        systems: 75,
+        focus: "Audience",
+        focus_note: "You've built the business, but almost nobody online knows it yet. Building an audience that sees you as the go-to is the lever that unlocks everything else."
+      }
+    }
+  },
   barber: {
     firstName: "Sam",
     lastName: "Reid",
     roadmap: {
       skill_section: {
-        core_skill: "You're not just a barber — you're a confidence builder. Your real skill is reading what a man wants to feel about himself and delivering it with a haircut.",
-        why_valuable_online: "Most barbers teach technique. Almost no one teaches the chair-side game — consultation, reading the room, building loyalty. That's the gap younger barbers are starving to close and what no YouTube tutorial covers.",
+        core_skill: "You're not just a barber, you're a confidence builder. Your real skill is reading what a man wants to feel about himself and delivering it with a haircut.",
+        why_valuable_online: "Most barbers teach technique. Almost no one teaches the chair-side game, consultation, reading the room, building loyalty. That's the gap younger barbers are starving to close and what no YouTube tutorial covers.",
         ideal_client_description: "A 22–28 year old barber who's technically competent but stuck around £2.5–3K/month. They've got the hands. They don't have the chair-side game, the pricing nerve, or the personal brand."
+      },
+      packaging_section: {
+        intro: "You've already done the hard part in the chair. Packaging is just turning what you already do into something you can sell again and again. Here's exactly how.",
+        steps: [
+          { title: "1. Nail the one thing", detail: "Barbers already ask you about pricing and getting clients. That's your one thing, the chair-side game, not the fade. Sell what they already come to you for." },
+          { title: "2. One person, one problem, one result", detail: "One person: the stuck-at-£3K barber. One problem: they undercharge and chase the wrong clients. One result: £5K months without cutting more heads." },
+          { title: "3. Name it and put a price on it", detail: "Call it Chair Game and price it around £997 to £1,497. A name makes it a product, a price makes it real." },
+          { title: "4. Build it once", detail: "Turn the way you already coach juniors into six weekly sessions. Build it once, run it for every cohort." },
+          { title: "5. Sell it before you build it", detail: "Take 5 founding barbers at £497 for testimonials, run it live, then raise the price. Proof before polish." }
+        ],
+        framework: {
+          person: "Stuck-at-£3K barbers",
+          problem: "Undercharging, chasing the wrong clients",
+          result: "£5K months, same hours",
+          offer: "Chair Game",
+          price: "£997–£1,497",
+          format: "6-week group programme"
+        }
+      },
+      positioning_section: {
+        headline: "I help stuck-at-£3K barbers double their money without cutting more heads.",
+        who_its_for: "Barbers 2–4 years in who are good with the clippers but underpaid, undercharging, and invisible online.",
+        who_its_not_for: "Total beginners still learning fades, or barbers happy at £30 a cut who don't want to change.",
+        the_promise: "In 6 weeks you'll charge what you're worth, screen for clients you actually want, and have a personal brand that books your chair out, without adding a single hour."
       },
       offer_section: {
         offer_description: "A 6-week coaching programme that takes new-ish barbers from £2.5K months to £5K+ months, by fixing the three things technique can't: consultation, pricing nerve, and client retention.",
         suggested_offer_name: "Chair Game",
         price_range: "£997–£1,497",
-        price_reasoning: "Anchored against the £4–6K/month uplift it pays back inside the first programme. Higher than a generic course (£297) because it's small-group and outcome-led. Lower than 1:1 coaching (£3K+) so it scales — you can run 10–15 in a cohort.",
-        delivery_format: "Hybrid: weekly 90-minute group call on Tuesday evenings, a WhatsApp community for daily nudges, and async video reviews of client interactions they record themselves."
+        price_reasoning: "Anchored against the £4–6K/month uplift it pays back inside the first programme. Higher than a generic course (£297) because it's small-group and outcome-led. Lower than 1:1 coaching (£3K+) so it scales, you can run 10–15 in a cohort.",
+        delivery_format: "Hybrid: weekly 90-minute group call on Tuesday evenings, a WhatsApp community for daily nudges, and async video reviews of client interactions they record themselves.",
+        curriculum: [
+          { label: "Week 1", focus: "The consultation that sells the £60 cut before you pick up the clippers." },
+          { label: "Week 2", focus: "Pricing nerve, how to raise your rate and lose the wrong clients on purpose." },
+          { label: "Week 3", focus: "Retention systems: turning a one-off into a monthly regular." },
+          { label: "Week 4", focus: "Your personal brand, the 3 content formats that fill a chair." },
+          { label: "Week 5", focus: "Screening and boundaries: only clients you love." },
+          { label: "Week 6", focus: "Your next 90 days, building the waitlist and raising the price again." }
+        ]
       },
       scale_roadmap: {
         phase_1: { title: "Days 1–30: Foundation", steps: [
@@ -1729,8 +2310,8 @@ const PREVIEW_STUBS = {
         ]},
         phase_2: { title: "Days 31–60: First Sale", steps: [
           "Soft-launch to 5 founding members at £497 in exchange for testimonials and case studies.",
-          "Run the first cohort live — week one consultation, week two pricing nerve, week three retention.",
-          "Record every session — you'll need it for the next cohort's marketing.",
+          "Run the first cohort live, week one consultation, week two pricing nerve, week three retention.",
+          "Record every session, you'll need it for the next cohort's marketing.",
           "Collect a video testimonial from each founding member at week 6.",
           "Raise the price to £997 for cohort two and announce the date in the community."
         ]},
@@ -1742,9 +2323,34 @@ const PREVIEW_STUBS = {
           "Hire a part-time VA for content scheduling and DMs once revenue clears £3K/month online."
         ]}
       },
+      content_starters: {
+        hooks: [
+          "The £30 haircut is killing your career. Here's the maths nobody shows you.",
+          "I doubled my prices and lost 40% of my clients. Best decision I ever made.",
+          "Your fade is fine. Your consultation is why you're broke.",
+          "3 things I'd tell every barber stuck at £3K a month.",
+          "How to sack a client without losing a night's sleep.",
+          "The 60-second conversation that turns a walk-in into a monthly regular."
+        ]
+      },
       gap_section: {
-        headline: "The thing likely to trip you up isn't the haircut — it's the positioning.",
-        honest_assessment: "You said confidence is the blocker, and that shows up in two ways most barbers at your stage get wrong. First, you'll undercharge for the first cohort because £997 feels heavy when you're used to £30 a cut. Second, you'll try to sell to every barber instead of the specific stuck-at-£3K barber that needs you most. Both kill momentum."
+        headline: "The thing likely to trip you up isn't the haircut, it's the positioning.",
+        honest_assessment: "You said confidence is the blocker, and that shows up in two ways most barbers at your stage get wrong. First, you'll undercharge for the first cohort because £997 feels heavy when you're used to £30 a cut. Second, you'll try to sell to every barber instead of the specific stuck-at-£3K barber that needs you most. Both kill momentum.",
+        biggest_objection: "\"Why would I pay you £997 when there's free barbering content everywhere?\"",
+        how_to_answer: "Because free content teaches the fade, the thing they can already do. You're not selling technique; you're selling the £2K/month they're leaving on the table by undercharging and chasing the wrong clients. Frame the price against that uplift, not a YouTube video."
+      },
+      stage_map: {
+        current_stage: 1,
+        headline: "You've spent years getting good behind the chair. This blueprint just moved you to Packaged. First sales is your next climb."
+      },
+      scorecard: {
+        skill: 90,
+        positioning: 30,
+        offer: 15,
+        audience: 45,
+        systems: 25,
+        focus: "Offer",
+        focus_note: "You've got the skill, you just haven't turned it into one clear, named, priced offer. That's the first thing to fix, and this blueprint just handed it to you."
       }
     }
   },
@@ -1753,28 +2359,60 @@ const PREVIEW_STUBS = {
     lastName: "Carter",
     roadmap: {
       skill_section: {
-        core_skill: "You don't just tattoo — you read the story someone wants on their skin and translate it into something they'll wear with pride for 40 years. The real skill is the consultation, not the needle.",
+        core_skill: "You don't just tattoo, you read the story someone wants on their skin and translate it into something they'll wear with pride for 40 years. The real skill is the consultation, not the needle.",
         why_valuable_online: "Apprentices are drowning in technique tutorials but starving for guidance on the human side: pricing your worth, screening clients, handling redraws, building a book that brings the right people through the door. Almost nobody teaches that.",
         ideal_client_description: "A tattooist 2–4 years in, technically solid but charging shop-floor rates because they're scared to walk away from bad-fit clients. They're booking £3–4K months and could be at £8K with the same hands."
       },
+      packaging_section: {
+        intro: "You've already done the hard part on skin. Packaging is just turning what you already know into something you can sell again and again. Here's exactly how.",
+        steps: [
+          { title: "1. Nail the one thing", detail: "Apprentices ask you about pricing and screening, not line work. That's your one thing, the business side, not the tattoo." },
+          { title: "2. One person, one problem, one result", detail: "One person: the tattooist 2 to 4 years in. One problem: shop-floor rates and bad-fit clients. One result: £8K months from the same hands." },
+          { title: "3. Name it and put a price on it", detail: "Call it The Book and price it at £1,200 to £1,800, the price of one or two sleeves. A name and a price make it real." },
+          { title: "4. Build it once", detail: "Turn the way you already mentor into an eight-week structure: pricing, screening, portfolio, boundaries. Build it once, run it for every intake." },
+          { title: "5. Sell it before you build it", detail: "Take 4 founding tattooists at £597, make them apply, run it live, then raise the price with their testimonials." }
+        ],
+        framework: {
+          person: "Tattooists 2–4 years in",
+          problem: "Shop-floor rates, bad-fit clients",
+          result: "£8K months, same hands",
+          offer: "The Book",
+          price: "£1,200–£1,800",
+          format: "8-week mentorship"
+        }
+      },
+      positioning_section: {
+        headline: "I help talented tattooists stop undercharging and build a book of clients worth saying yes to.",
+        who_its_for: "Tattooists 2–4 years in with real skill but shop-floor rates, a full diary of the wrong clients, and no nerve to raise prices.",
+        who_its_not_for: "Apprentices still finding their line, or artists who'd rather stay busy-and-cheap than selective-and-paid.",
+        the_promise: "In 8 weeks you'll price your worth, screen out the tyre-kickers, and build a portfolio that pulls the exact clients you want through the door."
+      },
       offer_section: {
-        offer_description: "An 8-week mentorship that walks tattooists through the business side they were never shown — pricing structure, client screening, building a magnetic portfolio, and learning to say no without losing income.",
+        offer_description: "An 8-week mentorship that walks tattooists through the business side they were never shown, pricing structure, client screening, building a magnetic portfolio, and learning to say no without losing income.",
         suggested_offer_name: "The Book",
         price_range: "£1,200–£1,800",
-        price_reasoning: "Roughly the price of one to two custom sleeves at your rate — and pays back inside the first month for anyone who follows it. Pricing it below £1K signals it's a course, not a mentorship.",
-        delivery_format: "Weekly 90-minute live call, a small private Discord, and a portfolio review of their last 10 pieces by you on week 4."
+        price_reasoning: "Roughly the price of one to two custom sleeves at your rate, and pays back inside the first month for anyone who follows it. Pricing it below £1K signals it's a course, not a mentorship.",
+        delivery_format: "Weekly 90-minute live call, a small private Discord, and a portfolio review of their last 10 pieces by you on week 4.",
+        curriculum: [
+          { label: "Week 1", focus: "Pricing structure: setting a day rate you're not scared to say out loud." },
+          { label: "Week 2", focus: "Client screening, the application that filters out the arguers." },
+          { label: "Week 3", focus: "Building a portfolio that attracts the work you actually want to do." },
+          { label: "Week 4", focus: "Your 1:1 portfolio teardown of your last 10 pieces." },
+          { label: "Weeks 5–6", focus: "Handling redraws, deposits and boundaries without losing the booking." },
+          { label: "Weeks 7–8", focus: "Filling your book from a waitlist so you never chase again." }
+        ]
       },
       scale_roadmap: {
         phase_1: { title: "Days 1–30: Foundation", steps: [
-          "Write down your three hardest client moments from the last year — they're the curriculum.",
+          "Write down your three hardest client moments from the last year, they're the curriculum.",
           "Record a 2-minute video explaining who The Book is for and who it's not for. Post it.",
           "Build a simple Notion page that lists what's inside, the outcome, and how to apply.",
           "Personally message 15 tattooists in your DMs and ask if they'd talk to you for 20 minutes about their pricing nerves.",
-          "Set up a separate business account for online income — keep it clean."
+          "Set up a separate business account for online income, keep it clean."
         ]},
         phase_2: { title: "Days 31–60: First Sale", steps: [
           "Soft-launch to 4 founding members at £597. Make them apply, not buy.",
-          "Run cohort one live — pricing structure week one, client screening week two, portfolio building week three.",
+          "Run cohort one live, pricing structure week one, client screening week two, portfolio building week three.",
           "Record every call. Edit the best 60-second moments into Reels.",
           "At week 6, ask each founding member for a video saying what changed.",
           "Open cohort two at £1,297 with the testimonials front and centre."
@@ -1787,9 +2425,34 @@ const PREVIEW_STUBS = {
           "Bring in a VA for DMs once you're booking £4K/month from The Book alone."
         ]}
       },
+      content_starters: {
+        hooks: [
+          "The tattoo took 4 hours. Learning to charge for it took 4 years.",
+          "Why your fully-booked diary is keeping you broke.",
+          "I started turning clients away. My income went up.",
+          "The deposit rule that ended no-shows for good.",
+          "Stop tattooing other people's flash. Here's what to do instead.",
+          "How to say 'no' to a bad-fit client without feeling like a diva."
+        ]
+      },
       gap_section: {
-        headline: "The thing that'll trip you up isn't the curriculum — it's letting the wrong people in.",
-        honest_assessment: "You said the blocker is not knowing who'd pay. The trap most tattooists fall into is taking anyone who's curious, including people who'd rather argue about price than do the work. The Book has to be application-only from day one. If you don't filter, the first cohort will eat your time and the second cohort won't happen."
+        headline: "The thing that'll trip you up isn't the curriculum, it's letting the wrong people in.",
+        honest_assessment: "You said the blocker is not knowing who'd pay. The trap most tattooists fall into is taking anyone who's curious, including people who'd rather argue about price than do the work. The Book has to be application-only from day one. If you don't filter, the first cohort will eat your time and the second cohort won't happen.",
+        biggest_objection: "\"I can just watch other artists' pricing videos for free, why pay for a mentorship?\"",
+        how_to_answer: "Because a video won't sit with you while you hold your nerve on a £1,200 quote, and it can't screen your actual applicants. You're paying for the reps and the accountability that turn 'I know I should charge more' into a book that actually does, inside a month, not a someday."
+      },
+      stage_map: {
+        current_stage: 1,
+        headline: "You've done the hard years on skin. This blueprint gets you to Packaged. First sales is the next climb."
+      },
+      scorecard: {
+        skill: 88,
+        positioning: 35,
+        offer: 20,
+        audience: 50,
+        systems: 25,
+        focus: "Offer",
+        focus_note: "You've got the hands and the reputation, you just haven't packaged the business side into something you can sell. Fix the offer first."
       }
     }
   },
@@ -1798,43 +2461,100 @@ const PREVIEW_STUBS = {
     lastName: "Okafor",
     roadmap: {
       skill_section: {
-        core_skill: "You're not a PT — you're a behaviour change specialist who happens to use weights. Your skill is getting people to do the boring stuff for 12 weeks straight.",
-        why_valuable_online: "The market is flooded with workout plans. What it's starving for is accountability and someone who actually understands why people quit. That's what you've solved for clients in person — it scales fine online with the right structure.",
+        core_skill: "You're not a PT, you're a behaviour change specialist who happens to use weights. Your skill is getting people to do the boring stuff for 12 weeks straight.",
+        why_valuable_online: "The market is flooded with workout plans. What it's starving for is accountability and someone who actually understands why people quit. That's what you've solved for clients in person, it scales fine online with the right structure.",
         ideal_client_description: "A 30–45 year old professional who has 'tried everything', knows what to do, but can't make themselves do it. They've got the money and zero time for fluff. They want results, not motivation."
       },
+      packaging_section: {
+        intro: "You've already done the hard part in person. Packaging is just turning your accountability system into something you can sell again and again. Here's exactly how.",
+        steps: [
+          { title: "1. Nail the one thing", detail: "Clients don't need another workout plan, they need to actually do it. That's your one thing, behaviour change, not programming." },
+          { title: "2. One person, one problem, one result", detail: "One person: the busy professional who's tried everything. One problem: they know what to do but can't stick to it. One result: 12 weeks done without quitting." },
+          { title: "3. Name it and put a price on it", detail: "Call it Stay The Course and price it at £1,497 to £2,497. The price filters out the 'want to try' crowd." },
+          { title: "4. Build it once", detail: "Turn your check-in and accountability process into a 12-week system. Build it once, run it for every client." },
+          { title: "5. Sell it before you build it", detail: "Take 5 founding clients at £797 for the pilot in exchange for testimonials, deliver hard, then open at full price." }
+        ],
+        framework: {
+          person: "Pros who've tried everything",
+          problem: "Know what to do, can't stick to it",
+          result: "12 weeks done, no quitting",
+          offer: "Stay The Course",
+          price: "£1,497–£2,497",
+          format: "12-week 1:1 accountability"
+        }
+      },
+      positioning_section: {
+        headline: "I help busy professionals who've 'tried everything' finally stick to it for 12 weeks straight.",
+        who_its_for: "30–45 year old professionals with money, no time, and a graveyard of abandoned fitness apps who are done failing.",
+        who_its_not_for: "People shopping for the cheapest plan, or anyone looking for motivation instead of accountability.",
+        the_promise: "In 12 weeks you'll do the boring stuff consistently, not because you're motivated, but because there's a system and a coach that won't let you ghost."
+      },
       offer_section: {
-        offer_description: "A 12-week 1:1 accountability programme — not a workout plan. Daily WhatsApp check-ins, weekly video calls, custom training built around their week, and a clear contract about what happens if they ghost.",
+        offer_description: "A 12-week 1:1 accountability programme, not a workout plan. Daily WhatsApp check-ins, weekly video calls, custom training built around their week, and a clear contract about what happens if they ghost.",
         suggested_offer_name: "Stay The Course",
         price_range: "£1,497–£2,497",
         price_reasoning: "Priced at the rate that filters out 'want to try' people and attracts the 'I'm done failing' crowd. Below £1,500 you attract bargain hunters; above £2,500 you're competing with luxury concierge coaches.",
-        delivery_format: "Daily async (WhatsApp + Loom check-ins), weekly 30-minute Zoom, custom training in a private app, and a written commitment contract signed at week zero."
+        delivery_format: "Daily async (WhatsApp + Loom check-ins), weekly 30-minute Zoom, custom training in a private app, and a written commitment contract signed at week zero.",
+        curriculum: [
+          { label: "Week 0", focus: "The commitment contract, what happens if they ghost, agreed up front." },
+          { label: "Weeks 1–2", focus: "Building the daily check-in habit before touching the training." },
+          { label: "Weeks 3–5", focus: "Fitting training around a real week, not a fantasy schedule." },
+          { label: "Weeks 6–8", focus: "The dip, the exact point people quit, and how you catch them." },
+          { label: "Weeks 9–11", focus: "Making it self-driven so results outlast the programme." },
+          { label: "Week 12", focus: "Exit interview, results review, and the renewal or referral ask." }
+        ]
       },
       scale_roadmap: {
         phase_1: { title: "Days 1–30: Foundation", steps: [
           "Pick the exact ideal client (age, job, what they've already tried) and write a one-paragraph description.",
-          "Record three 90-second videos talking directly to that person — not to PTs.",
+          "Record three 90-second videos talking directly to that person, not to PTs.",
           "Build a simple application form (Typeform is fine) with one question that screens out time-wasters.",
           "Reach out to 10 ex-clients and ask if they know someone who fits the description.",
-          "Set up your own check-in workflow before you sell — practise on a friend for a week."
+          "Set up your own check-in workflow before you sell, practise on a friend for a week."
         ]},
         phase_2: { title: "Days 31–60: First Sale", steps: [
           "Take 5 founding members at £797 for the 12-week pilot, on the condition they give a video testimonial.",
           "Deliver the pilot like your business depends on it (because it does).",
-          "Run a 30-minute exit interview with each — that becomes your sales copy.",
+          "Run a 30-minute exit interview with each, that becomes your sales copy.",
           "Use the case studies on Instagram with before/after screenshots and exact words they used.",
           "Open the next round at £1,497."
         ]},
         phase_3: { title: "Days 61–90: Scale", steps: [
           "Post 1 client-result reel per week, with permission, showing real behaviour change not just transformations.",
-          "Run a closed-application launch every 6 weeks — never open enrolment.",
+          "Run a closed-application launch every 6 weeks, never open enrolment.",
           "Build a 'why I quit personal training' Loom and use it as a sales asset.",
           "Hire a junior coach to handle daily check-ins once you hit 10 active clients.",
-          "Cap your roster at 20 — you're a coach, not a content factory."
+          "Cap your roster at 20, you're a coach, not a content factory."
         ]}
+      },
+      content_starters: {
+        hooks: [
+          "You don't need another workout plan. You need someone to stop you quitting in week 6.",
+          "Why 'motivation' is the reason you've failed 5 times.",
+          "I don't sell training. I sell showing up when you don't feel like it.",
+          "The uncomfortable contract every client signs before we start.",
+          "'I've tried everything' usually means you've quit everything at week 3.",
+          "How a 30-second daily text does what a £9 app never could."
+        ]
       },
       gap_section: {
         headline: "The thing that'll trip you up is treating this like a fitness business.",
-        honest_assessment: "You said time is the blocker. It's actually positioning. As long as you market like a PT, you'll attract people who want a workout plan and complain about price. Sell behaviour change to professionals and you'll halve the client list and double the revenue inside 90 days. The gap is willingness to walk away from your old audience."
+        honest_assessment: "You said time is the blocker. It's actually positioning. As long as you market like a PT, you'll attract people who want a workout plan and complain about price. Sell behaviour change to professionals and you'll halve the client list and double the revenue inside 90 days. The gap is willingness to walk away from your old audience.",
+        biggest_objection: "\"Why is this £2,000 when I can get a training plan for £30 a month?\"",
+        how_to_answer: "Because they've already bought the £30 plan, five times, and it's still sitting unused. You're not selling the plan; you're selling the one thing that's been missing every time: someone who makes them do it for 12 weeks straight. That's what the price protects."
+      },
+      stage_map: {
+        current_stage: 2,
+        headline: "You get real results in person. You're at First Sales. Systemising it so it runs without you is next."
+      },
+      scorecard: {
+        skill: 85,
+        positioning: 45,
+        offer: 25,
+        audience: 40,
+        systems: 30,
+        focus: "Offer",
+        focus_note: "You change behaviour brilliantly in person, you just haven't packaged it into one clear programme people can buy. That's the first fix."
       }
     }
   },
@@ -1843,27 +2563,59 @@ const PREVIEW_STUBS = {
     lastName: "Shah",
     roadmap: {
       skill_section: {
-        core_skill: "You translate confusion into action. People come to you scattered and leave knowing exactly what to do next — that's the actual product, not the modality.",
-        why_valuable_online: "The coaching market is full of vague promises. What people are starving for is a specific, contained outcome they can point at and say 'that's what I bought'. Your existing client work already delivers that — it just needs a name and a price.",
+        core_skill: "You translate confusion into action. People come to you scattered and leave knowing exactly what to do next, that's the actual product, not the modality.",
+        why_valuable_online: "The coaching market is full of vague promises. What people are starving for is a specific, contained outcome they can point at and say 'that's what I bought'. Your existing client work already delivers that, it just needs a name and a price.",
         ideal_client_description: "A 32–42 year old mid-career professional considering a leap (new role, side business, geographic move) who keeps stalling because they can't see the path clearly. They have the money. They don't have the clarity."
       },
+      packaging_section: {
+        intro: "You've already done the hard part one to one. Packaging is just turning the clarity you give into a contained thing people can buy. Here's exactly how.",
+        steps: [
+          { title: "1. Nail the one thing", detail: "People come to you to stop circling a decision. That's your one thing, clarity and a next move, not open-ended coaching." },
+          { title: "2. One person, one problem, one result", detail: "One person: the stalled mid-career professional. One problem: they can't see the path. One result: a written 90-day plan they actually start." },
+          { title: "3. Name it and put a price on it", detail: "Call it The Next Move and price it at £2,000 to £3,000. A name and a fixed outcome make it worth the money." },
+          { title: "4. Build it once", detail: "Turn your framework into a six-week container with one clear deliverable. Build it once, run it for every client." },
+          { title: "5. Sell it before you build it", detail: "Run 5 paid pilots at £997 as a founding cohort, document the framework, then open at full price." }
+        ],
+        framework: {
+          person: "Stalled mid-career pros",
+          problem: "Can't see the path, keep stalling",
+          result: "A 90-day plan they start",
+          offer: "The Next Move",
+          price: "£2,000–£3,000",
+          format: "6-week 1:1 container"
+        }
+      },
+      positioning_section: {
+        headline: "I help stalled mid-career professionals turn 'something has to change' into a plan they actually start.",
+        who_its_for: "32–42 year old professionals earning well but stuck at a crossroads, a new role, a side business, a move, who can't see the path.",
+        who_its_not_for: "People wanting open-ended life coaching, or anyone looking for reassurance rather than a decision.",
+        the_promise: "In 6 weeks you'll walk away with a written 90-day plan you've already started, not more journaling, an actual next move."
+      },
       offer_section: {
-        offer_description: "A 6-week 1:1 coaching container called The Next Move — designed to take someone from 'I know something has to change' to a written 90-day plan they actually start.",
+        offer_description: "A 6-week 1:1 coaching container called The Next Move, designed to take someone from 'I know something has to change' to a written 90-day plan they actually start.",
         suggested_offer_name: "The Next Move",
         price_range: "£2,000–£3,000",
-        price_reasoning: "Priced at what a senior professional pays for 6 weeks of decisive coaching — high enough to signal seriousness, low enough that anyone earning £70K+ can self-fund it without sign-off.",
-        delivery_format: "Six weekly 60-minute 1:1 calls, async voice notes between sessions, and a co-written 90-day action plan delivered at week six as the explicit deliverable."
+        price_reasoning: "Priced at what a senior professional pays for 6 weeks of decisive coaching, high enough to signal seriousness, low enough that anyone earning £70K+ can self-fund it without sign-off.",
+        delivery_format: "Six weekly 60-minute 1:1 calls, async voice notes between sessions, and a co-written 90-day action plan delivered at week six as the explicit deliverable.",
+        curriculum: [
+          { label: "Week 1", focus: "Naming the real decision under the noise, what's actually at stake." },
+          { label: "Week 2", focus: "Mapping the options and the fear attached to each one." },
+          { label: "Week 3", focus: "Pressure-testing the leading option against their real constraints." },
+          { label: "Week 4", focus: "The first irreversible step, small, concrete, this week." },
+          { label: "Week 5", focus: "Building the 90-day plan around momentum, not perfection." },
+          { label: "Week 6", focus: "Handover: the written plan, already in motion." }
+        ]
       },
       scale_roadmap: {
         phase_1: { title: "Days 1–30: Foundation", steps: [
           "Write a one-page description of The Next Move: who it's for, what they walk away with, what it costs.",
           "Record a 3-minute video explaining the framework you already use with clients.",
-          "List 25 people from your network who've ever asked you 'what should I do next' — that's your warm list.",
+          "List 25 people from your network who've ever asked you 'what should I do next', that's your warm list.",
           "Reach out personally to 10 of them and offer a free 30-min clarity call.",
           "Stand up the simplest possible booking page (Calendly + Stripe is enough)."
         ]},
         phase_2: { title: "Days 31–60: First Sale", steps: [
-          "Run 5 paid pilots at £997 — explicitly framed as the founding cohort.",
+          "Run 5 paid pilots at £997, explicitly framed as the founding cohort.",
           "Deliver each one rigorously and document the framework.",
           "At the end of each pilot, do a structured testimonial interview.",
           "Write three case-study posts from the pilots with full permission.",
@@ -1872,14 +2624,39 @@ const PREVIEW_STUBS = {
         phase_3: { title: "Days 61–90: Scale", steps: [
           "Publish one essay a week on LinkedIn aimed at your ideal client's actual life, not the coaching industry.",
           "Build a 4-email nurture sequence triggered when someone books a clarity call.",
-          "Add a referral bonus — current clients introduce one peer, both get something tangible.",
+          "Add a referral bonus, current clients introduce one peer, both get something tangible.",
           "Pilot a group cohort version at £997 to test whether group format holds the outcome.",
           "Set a roster cap and a price ladder you can hold to without negotiation."
         ]}
       },
+      content_starters: {
+        hooks: [
+          "You don't have a clarity problem. You have a decision you keep avoiding.",
+          "The reason smart people stay stuck for years.",
+          "I don't do open-ended coaching. I do one decision, made properly.",
+          "Journaling about your career isn't a strategy. Here's what is.",
+          "Six weeks to the move you've been circling for two years.",
+          "Why 'I need to think about it' is usually fear wearing a suit."
+        ]
+      },
       gap_section: {
-        headline: "Your gap isn't the work — it's letting strangers pay you.",
-        honest_assessment: "You said charging proper money is the blocker. Most coaches at your stage hide their price, take referrals at a discount, and tell themselves it's relationship building. It's avoidance. The Next Move only works if the price is on the page and you can sit with someone considering whether to spend £2K and not flinch. Six weeks of practising that — not new frameworks — is what changes the income."
+        headline: "Your gap isn't the work, it's letting strangers pay you.",
+        honest_assessment: "You said charging proper money is the blocker. Most coaches at your stage hide their price, take referrals at a discount, and tell themselves it's relationship building. It's avoidance. The Next Move only works if the price is on the page and you can sit with someone considering whether to spend £2K and not flinch. Six weeks of practising that, not new frameworks, is what changes the income.",
+        biggest_objection: "\"I'm not sure I can justify £2,000 for six conversations.\"",
+        how_to_answer: "They're not buying six conversations, they're buying the end of two years of circling the same decision. Put a number on what that indecision is already costing them (a role not taken, a business not started) and £2,000 stops being an expense and starts being the cheapest part of the whole thing."
+      },
+      stage_map: {
+        current_stage: 2,
+        headline: "You already change lives one to one. You're at First Sales. Making it repeatable and systemised is your next climb."
+      },
+      scorecard: {
+        skill: 88,
+        positioning: 25,
+        offer: 35,
+        audience: 45,
+        systems: 35,
+        focus: "Positioning",
+        focus_note: "Your gift is real but fuzzy, people can't tell in one line what you fix. Nail the positioning and everything downstream gets easier."
       }
     }
   }
