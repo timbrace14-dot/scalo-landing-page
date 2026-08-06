@@ -1434,7 +1434,7 @@ function renderLanding() {
       </div>
     </section>
   `);
-  $("#startBtn").addEventListener("click", () => renderQuestion(0));
+  $("#startBtn").addEventListener("click", () => renderGate());
 }
 
 function renderQuestion(index) {
@@ -1548,7 +1548,9 @@ function renderQuestion(index) {
   if (!backDisabled) $("#backBtn").addEventListener("click", () => renderQuestion(index - 1));
 
   const goNext = () => {
-    if (isLast) renderGate();
+    // Email was captured up front (renderGate before Q1), so the last answer
+    // goes straight to generation — no second gate at the end.
+    if (isLast) { renderLoader(); runGeneration(); }
     else renderQuestion(index + 1);
   };
 
@@ -1684,12 +1686,12 @@ function renderQuestion(index) {
 
 function renderGate() {
   state.step = "gate";
-  setProgress(3, 8);
+  setProgress(null);
   renderShell(`
     <section class="screen gate">
       <div class="gate-icon">✦</div>
-      <h2 class="question" style="margin-bottom:8px;">Your blueprint is <em>ready</em>.</h2>
-      <p class="question-help">Where should we send your copy?</p>
+      <h2 class="question" style="margin-bottom:8px;">Let's build your <em>blueprint</em>.</h2>
+      <p class="question-help">First, where should we send it? Then we'll ask a few quick questions and build your personal plan.</p>
       <form class="gate-form" id="gateForm" novalidate>
         <div class="gate-name-row">
           <input type="text" id="firstNameField" placeholder="First name" autocomplete="given-name" value="${escapeHtml(state.firstName)}" required />
@@ -1697,8 +1699,8 @@ function renderGate() {
         </div>
         <input type="email" id="emailField" placeholder="Your email address" autocomplete="email" value="${escapeHtml(state.email)}" required />
         <div id="gateError"></div>
-        <button class="btn btn-primary" type="submit">Send me my blueprint <span class="arrow">→</span></button>
-        <p class="fine-print">We'll send your custom blueprint to this inbox shortly. We'll also send the occasional email with advice on building your online business, unsubscribe any time.</p>
+        <button class="btn btn-primary" type="submit">Start, it takes 10 minutes <span class="arrow">→</span></button>
+        <p class="fine-print">We'll send your custom blueprint to this inbox. We'll also send the occasional email with advice on building your online business, unsubscribe any time.</p>
       </form>
     </section>
   `);
@@ -1732,9 +1734,22 @@ function renderGate() {
     state.lastName = lastName;
     state.email = email;
 
-    $("#gateForm").querySelector("button[type=submit]").disabled = true;
-    renderLoader();
-    runGeneration();
+    // Early capture: save the lead to Kit right now, before they answer a single
+    // question, so a mid-quiz drop-off is still captured. Uses stage:"start" (the
+    // "Started" tag) so it does NOT trigger the roadmap-delivery email — that fires
+    // at the end via stage:"complete" once the blueprint URL exists. Non-blocking.
+    fetch(CONFIG.SUBSCRIBE_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        stage: "start",
+        firstName: state.firstName,
+        lastName: state.lastName,
+        email: state.email,
+      }),
+    }).catch(err => console.warn("start-capture error:", err));
+
+    renderQuestion(0);
   });
 }
 
@@ -1787,6 +1802,7 @@ async function runGeneration() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
+        stage: "complete",
         firstName: state.firstName,
         lastName: state.lastName,
         email: state.email,
