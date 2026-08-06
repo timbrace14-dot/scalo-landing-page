@@ -46,6 +46,21 @@
       "has": [{ "type": "host", "value": "skill-sell-scale.buildwithscalo.com" }],
       "destination": "/skill-sell-scale/index.html"
     },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "packaged.buildwithscalo.com" }],
+      "destination": "/skill-sell-scale/index.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "host", "value": "packaged.buildwithscalo.com" }],
+      "destination": "/skill-sell-scale/index.html"
+    },
+    {
+      "source": "/r/:slug",
+      "has": [{ "type": "host", "value": "packaged.buildwithscalo.com" }],
+      "destination": "/skill-sell-scale/index.html"
+    },
     { "source": "/", "destination": "/waitlist.html" },
     { "source": "/index.html", "destination": "/waitlist.html" }
   ]
