@@ -49,3 +49,9 @@ images/DSC00304.JPG
 images/DSC00306.JPG
 images/DSC00307.JPG
 images/DSC00308.JPG
+
+# Source photo, the web version lives at book-a-call/assets/lifestyle/tim-about.jpg
+book-a-call/about me.png
+
+# Source images for the what-you-get cards, only the built JPEGs ship
+book-a-call/assets/whatyouget/_source/

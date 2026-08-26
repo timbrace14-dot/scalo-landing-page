@@ -27,7 +27,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   @font-face{font-family:'Inter';src:url('/book-a-call/fonts/Inter-Black.ttf') format('truetype');font-weight:700 900;font-style:normal;font-display:swap;}
 
   :root{
-    --page:#E7E5DF; --cream:#F6F2E9; --surface:#FFFFFF; --surface-soft:#F2EDE0;
+    --page:#FAF8F2; --cream:#F0EBDD; --surface:#FFFFFF; --surface-soft:#F2EDE0;
     --ink:#0E0E0E; --muted:rgba(14,14,14,0.60); --subtle:rgba(14,14,14,0.38);
     --border:rgba(14,14,14,0.10); --border-soft:rgba(14,14,14,0.06); --hover:rgba(14,14,14,0.035);
     --green:#A8E020; --green-dark:#5A8000; --green-soft:rgba(168,224,32,0.14); --green-line:rgba(90,128,0,0.22);
@@ -35,6 +35,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
     --sans:'Neue Haas Grotesk Display','Inter',Helvetica,Arial,sans-serif;
     --serif:'Playfair Display',Georgia,serif;
     --r-pill:999px; --r-card:20px; --r-panel:16px;
+    --bar:66px;
     --shadow-card:0 1px 0 rgba(14,14,14,0.03); --shadow-pop:0 30px 70px -30px rgba(14,14,14,0.30);
   }
   *{box-sizing:border-box;margin:0;}
@@ -46,15 +47,22 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   body.vsl-locked .book-cta{opacity:0.45;pointer-events:none;cursor:not-allowed;filter:grayscale(0.4);}
 
   /* ── topbar ── */
-  .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;
-    padding:0.55rem 1.4rem;background:transparent;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
-  .tb-logo{display:flex;align-items:center;}
-  .tb-logo img{height:20px;width:auto;display:block;}
+  .topbar{position:sticky;top:0;z-index:100;padding:.6rem 1.1rem 0;background:transparent;}
+  .tb-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    background:var(--surface);border-radius:17px;padding:.34rem .4rem .34rem 1.35rem;
+    box-shadow:0 12px 30px -22px rgba(14,14,14,0.45);}
+  .tb-logo{display:flex;align-items:center;flex:0 0 auto;}
+  .tb-logo img{height:17px;width:auto;display:block;}
   .tb-logo .logo-light{display:none;}
-  .topbar{transition:background .25s ease;}
-  .topbar.on-dark{background:rgba(14,14,14,0.55);}
-  .topbar.on-dark .logo-dark{display:none;}
-  .topbar.on-dark .logo-light{display:block;}
+  .tb-nav{display:flex;align-items:center;gap:.2rem;margin-left:1.9rem;margin-right:auto;}
+  .tb-nav a{font-size:.79rem;font-weight:700;letter-spacing:-0.01em;color:var(--ink);opacity:.72;
+    padding:.42rem .8rem;border-radius:var(--r-pill);transition:opacity .18s ease,background .18s ease,color .18s ease;}
+  .tb-nav a:hover{opacity:1;background:var(--hover);}
+  .tb-nav a.on{opacity:1;background:var(--ink);color:var(--parchment);}
+  .tb-nav a.on:hover{background:var(--ink);}
+  .tb-right{display:flex;align-items:center;gap:1.1rem;}
+  .tb-ask{font-size:.7rem;line-height:1.25;text-align:right;color:var(--muted);font-weight:500;max-width:144px;}
+  .btn-nav{padding:.68rem 1.4rem;font-size:.79rem;letter-spacing:-0.01em;text-transform:none;}
   .tb-mid{display:flex;align-items:center;gap:.7rem;font-variant-numeric:tabular-nums;}
   .tb-mid .lab{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);}
   .tb-timer{display:flex;align-items:baseline;gap:.3rem;font-weight:800;}
@@ -68,7 +76,18 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .btn-ghost{background:transparent;color:var(--ink);border-color:var(--border);}
   .btn-ghost:hover{border-color:var(--ink);}
   .btn-sm{padding:.6rem 1.2rem;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;}
-  .btn-lg{padding:1.15rem 2.6rem;font-size:.95rem;}
+  .btn-lg{padding:clamp(.72rem,1.5vh,1.1rem) clamp(1.8rem,4vw,2.6rem);font-size:clamp(.82rem,min(1.1vw,1.6vh),.95rem);}
+
+  /* ── tabbed views ── */
+  .view{display:none;}
+  .view.is-active{display:block;animation:viewIn .5s cubic-bezier(.22,.61,.36,1) both;}
+  @keyframes viewIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+
+  /* ── one screen per panel on the home view ── */
+  html.snap{scroll-snap-type:y proximity;scroll-padding-top:var(--bar);}
+  .panel{scroll-snap-align:start;}
+  .panel.full{min-height:calc(100vh - var(--bar));min-height:calc(100dvh - var(--bar));display:flex;flex-direction:column;justify-content:center;}
+  @media(prefers-reduced-motion:reduce){html.snap{scroll-snap-type:none;}.view.is-active{animation:none;}}
 
   /* ── layout ── */
   .sec{max-width:1080px;margin:0 auto;padding:5.5rem 1.6rem;}
@@ -82,23 +101,27 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .divider{height:1px;background:var(--border-soft);max-width:1080px;margin:0 auto;}
 
   /* ── hero ── */
-  .hero{max-width:1120px;margin:0 auto;padding:1.2rem 1.6rem 1.4rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 52px);min-height:calc(100dvh - 52px);}
-  .hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border:1px solid var(--green-line);
-    background:var(--green-soft);border-radius:var(--r-pill);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green-dark);font-weight:700;margin-bottom:1.2rem;}
-  .hero-badge .d{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+  .hero{position:relative;max-width:1180px;margin:0 auto;padding:clamp(2.1rem,5.2vh,3.2rem) 1.6rem .7rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    height:calc(100vh - var(--bar));height:calc(100dvh - var(--bar));}
+  .hero-badge{position:absolute;top:clamp(.4rem,1.6vh,1.1rem);left:50%;transform:translateX(-50%);
+    display:inline-flex;align-items:center;gap:.42rem;padding:.34rem .8rem;border:1px solid var(--ink);
+    background:var(--ink);border-radius:var(--r-pill);font-size:clamp(.48rem,min(.8vw,1.1vh),.58rem);letter-spacing:.1em;line-height:1.3;
+    text-transform:uppercase;color:var(--parchment);font-weight:700;text-align:center;margin:0;white-space:nowrap;}
+  .hero-badge .lbl{display:block;}
+  .hero-badge .d{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex:0 0 auto;}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 
   /* L.A.U.N.C.H glow sweep */
   .launch-glow{display:inline;}
-  .hero-title{font-weight:800;font-size:clamp(2rem,5.4vw,4.2rem);letter-spacing:-0.04em;line-height:1.06;color:var(--ink);}
+  .hero-title{font-weight:800;font-size:clamp(1.8rem,min(4.9vw,5.9vh),3.6rem);letter-spacing:-0.04em;line-height:1.05;color:var(--ink);}
   .hero-title .ul{display:inline-block;border-bottom:clamp(4px,0.7vw,7px) solid var(--green);line-height:1.04;padding-bottom:.04em;}
   .hero-sub .amt{font-weight:600;}
   .hero-sub .amt .d{font-weight:400;font-size:0.82em;vertical-align:0.04em;margin-right:0.02em;}
-  .hero-sub{font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--muted);max-width:660px;margin:1.1rem auto 0;line-height:1.6;}
+  .hero-sub{font-size:clamp(.85rem,min(1.4vw,1.95vh),1.05rem);color:var(--muted);max-width:640px;margin:clamp(.7rem,1.6vh,1.2rem) auto 0;line-height:1.6;}
   .hero-sub strong{color:var(--ink);font-weight:700;}
 
   /* ── VSL ── */
-  .vsl{max-width:820px;margin:1.3rem auto 0;width:100%;}
+  .vsl{width:100%;margin:clamp(1.2rem,3.4vh,2.8rem) auto 0;display:flex;flex-direction:column;align-items:center;}
   .vsl-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-card);overflow:hidden;background:#0E0E0E;
     border:1px solid var(--border);box-shadow:var(--shadow-pop);}
   .vsl-ph{display:flex;align-items:center;justify-content:center;}
@@ -111,16 +134,11 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .vsl-unmute span{padding:.9rem 1.5rem;border-radius:var(--r-pill);background:var(--green);color:var(--ink);font-weight:700;
     font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;}
   .vsl-unmute.hidden{opacity:0;pointer-events:none;}
-  .vsl-cta-row{display:flex;flex-direction:column;align-items:center;gap:.55rem;margin-top:1rem;}
+  .vsl-cta-row{display:flex;flex-direction:column;align-items:center;gap:.55rem;margin-top:clamp(.9rem,2.4vh,1.7rem);}
   .vsl-status{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--subtle);}
   .vsl-status .ready{color:var(--green-dark);font-weight:700;}
   .book-cta.locked{background:var(--hover);color:var(--subtle);border-color:var(--border);pointer-events:none;}
 
-  /* ── proof strip ── */
-  .proof{background:var(--cream);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
-  .proof-grid{max-width:860px;margin:0 auto;padding:1.8rem 1.6rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;text-align:center;}
-  .proof-n{font-weight:800;font-size:clamp(1.4rem,2.4vw,1.95rem);letter-spacing:-0.03em;color:var(--ink);font-variant-numeric:tabular-nums;}
-  .proof-l{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--subtle);margin-top:.4rem;}
 
   /* ── prose ── */
   .prose{max-width:680px;margin:0 auto;font-size:1.05rem;line-height:1.7;}
@@ -167,14 +185,6 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .story-handle{font-size:.62rem;color:var(--subtle);display:block;}
 
   /* ── meet tim ── */
-  .tim{display:grid;grid-template-columns:1fr 1.15fr;gap:3rem;align-items:stretch;max-width:1000px;margin:0 auto;}
-  .tim-img{position:relative;border-radius:var(--r-card);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-pop);min-height:520px;}
-  .tim-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;}
-  .tim-photo.active{opacity:1;}
-  .tim-text{display:flex;flex-direction:column;justify-content:center;}
-  .tim-text p{font-size:1rem;line-height:1.7;margin-bottom:1rem;}
-  .tim-text em{font-style:normal;color:var(--green-dark);font-weight:700;}
-  .tim-text strong{color:var(--ink);font-weight:700;}
 
   /* ── faq ── */
   .faq{max-width:760px;margin:3rem auto 0;display:grid;gap:.7rem;}
@@ -196,20 +206,27 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .final .e2 a{color:var(--green);}
 
   /* ── footer ── */
-  .footer{padding:2.4rem 1.6rem;text-align:center;color:var(--subtle);font-size:.78rem;background:#0E0E0E;border-top:1px solid rgba(237,224,204,.08);}
-  .footer a{color:rgba(237,224,204,.6);}
+  .footer{padding:2rem 1.6rem 2.4rem;text-align:center;color:var(--muted);font-size:.75rem;background:transparent;border-top:1px solid var(--border-soft);}
+  .footer a{color:var(--muted);}
 
   /* ── reveal ── */
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
   .reveal.in{opacity:1;transform:none;}
 
   @media(max-width:860px){
-    .proof-grid{grid-template-columns:1fr 1fr;}
     .qual{grid-template-columns:1fr;}
     .stories{grid-template-columns:1fr;}
-    .tim{grid-template-columns:1fr;gap:1.6rem;}
     .sec{padding:3.5rem 1.2rem;}
     .tb-mid .lab{display:none;}
+    .tb-ask{display:none;}
+    .tb-inner{flex-wrap:wrap;padding:.42rem .45rem .5rem;border-radius:18px;}
+    .tb-logo{margin-left:.75rem;}
+    .tb-nav{order:3;flex:1 0 100%;margin:.5rem 0 0;gap:.15rem;overflow-x:auto;scrollbar-width:none;}
+    .tb-nav::-webkit-scrollbar{display:none;}
+    .tb-nav a{flex:0 0 auto;font-size:.78rem;padding:.45rem .75rem;}
+    .btn-nav{padding:.68rem 1.15rem;font-size:.76rem;}
+    .topbar{padding:.6rem .8rem 0;}
+
   }
 </style>
 </head>
@@ -225,14 +242,30 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 
 <!-- TOPBAR -->
 <header class="topbar">
-  <a href="#" class="tb-logo"><img class="logo-dark" src="/book-a-call/assets/lockup-black.png" alt="SCALO"><img class="logo-light" src="/book-a-call/assets/lockup-white.png" alt="SCALO"></a>
-  <a href="#book" class="btn btn-primary btn-sm book-cta">Book a call</a>
+  <div class="tb-inner">
+    <a href="#home" data-view="home" class="tb-logo"><img class="logo-dark" src="/book-a-call/assets/lockup-black.png" alt="SCALO"><img class="logo-light" src="/book-a-call/assets/lockup-white.png" alt="SCALO"></a>
+    <nav class="tb-nav">
+      <a href="#home" data-view="home">Start here</a>
+      <a href="#about" data-view="about">Who is Tim?</a>
+      <a href="#inside" data-view="inside">What you get</a>
+      <a href="#results" data-view="results">Results</a>
+      <a href="#faq" data-view="faq">FAQ</a>
+    </nav>
+    <div class="tb-right">
+      <div class="tb-ask">Do you want to build an online business?</div>
+      <a href="#book" class="btn btn-primary btn-nav book-cta">Book a Call</a>
+    </div>
+  </div>
 </header>
 
+<main class="views">
+
+<div class="view is-active" id="view-home">
 <!-- HERO -->
-<section class="hero">
+<section class="hero panel">
+  <div class="hero-badge"><span class="d"></span><span class="lbl">For barbers doing &pound;5k plus a month</span></div>
   <h1 class="hero-title">Turn Your Knowledge Into<br><span class="ul">An Online Business</span></h1>
-  <p class="hero-sub">We work 1-on-1 to install the exact system, <strong>The L.A.U.N.C.H Method</strong>, behind an <span class="amt"><span class="d">$</span>18k/mo</span> online business in 120 days. Your skill. Your brand. Your freedom.</p>
+  <p class="hero-sub">I work with you one to one to package what you already know, using <strong>The L.A.U.N.C.H Method</strong>. 120 days, built to double what you're earning now, and built so you can run it from anywhere.</p>
 
   <div class="vsl">
     <div class="vsl-frame">
@@ -245,272 +278,611 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   </div>
 </section>
 
-<!-- PROOF STRIP -->
-<div class="proof">
-  <div class="proof-grid">
-    <div><div class="proof-n">45 days</div><div class="proof-l">From zero to your first sale</div></div>
-    <div><div class="proof-n">Your offer</div><div class="proof-l">Packaged &amp; ready to sell</div></div>
-    <div><div class="proof-n">24 hrs</div><div class="proof-l">Portal live after you join</div></div>
-    <div><div class="proof-n">Any industry</div><div class="proof-l">Built for service founders</div></div>
+
+<!-- SOUND FAMILIAR (mirror + who this is for, merged) -->
+<style>
+  .sf{background:#0E0E0E;color:var(--parchment);padding:clamp(3.5rem,6vw,6rem) 1.6rem;}
+  .sf-inner{max-width:1180px;margin:0 auto;width:100%;min-width:0;}
+  .sf-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(237,224,204,.42);margin-bottom:1.4rem;}
+  .sf-lede{text-align:center;}
+  .sf-title{font-weight:800;font-size:clamp(1.85rem,4.3vw,3.1rem);letter-spacing:-0.035em;line-height:1.14;color:var(--parchment);}
+  .sf-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.62fr);gap:clamp(1.4rem,2.6vw,2.2rem);
+    align-items:stretch;margin:clamp(2.2rem,4vw,3.2rem) auto 0;}
+  .sf-media{display:flex;align-items:center;justify-content:center;min-width:0;}
+  .sf-shot{width:100%;height:auto;display:block;border-radius:var(--r-card);}
+  @media(max-width:1000px){.sf-body{grid-template-columns:1fr;}.sf-media{max-width:520px;margin:0 auto;}}
+  .sf-accent{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--green);letter-spacing:-0.03em;}
+  .sf-intro{max-width:600px;margin:1.5rem auto 0;color:rgba(237,224,204,.68);font-size:1.02rem;line-height:1.7;}
+  .sf-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.25rem;align-items:stretch;align-content:start;min-width:0;}
+  .sf-card{background:rgba(237,224,204,0.04);border:1px solid rgba(237,224,204,0.12);border-radius:var(--r-card);padding:1.6rem;min-width:0;}
+  .sf-card h3{font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;line-height:1.3;color:var(--parchment);margin-bottom:.7rem;}
+  .sf-card p{font-size:.92rem;line-height:1.65;color:rgba(237,224,204,.66);margin:0;}
+  .sf-close{max-width:900px;text-wrap:balance;margin:2.6rem auto 0;text-align:center;font-size:clamp(1.1rem,2.3vw,1.5rem);line-height:1.5;
+    letter-spacing:-0.02em;color:var(--parchment);font-weight:700;}
+  .sf-fit{display:contents;}
+  .sf-col{background:rgba(237,224,204,0.04);border:1px solid rgba(237,224,204,0.12);border-radius:var(--r-card);padding:1.6rem;min-width:0;}
+  .sf-col h3{font-size:.66rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1rem;}
+  .sf-col.yes h3{color:var(--green);}
+  .sf-col.no h3{color:rgba(237,224,204,.5);}
+  .sf-col ul{list-style:none;margin:0;padding:0;display:grid;gap:.6rem;}
+  .sf-col li{position:relative;padding-left:1.4rem;font-size:.9rem;line-height:1.6;color:rgba(237,224,204,.66);}
+  .sf-col li::before{content:"";position:absolute;left:0;top:.58em;width:6px;height:6px;border-radius:50%;}
+  .sf-col.yes li::before{background:var(--green);}
+  .sf-col.no li::before{background:rgba(237,224,204,.32);}
+  @media(max-width:760px){.sf-grid{grid-template-columns:1fr;}.sf-card,.sf-col{padding:1.45rem;}}
+</style>
+<section class="sf reveal panel full" id="familiar">
+  <div class="sf-inner">
+    <div class="sf-lede">
+      <div class="sf-eyebrow">Sound familiar?</div>
+      <h2 class="sf-title">You've built something real.<br>But it only works when you're <span class="sf-accent">in the room.</span></h2>
+      <p class="sf-intro">Your skill works. The money comes in. It just only comes in when you show up.</p>
+    </div>
+
+    <div class="sf-body">
+    <div class="sf-grid">
+      <div class="sf-card">
+        <h3>Your column is full</h3>
+        <p>Your prices are as high as the area will take and the only way to earn more is to work another day. You've already done that maths.</p>
+      </div>
+      <div class="sf-card">
+        <h3>You already teach, you just don't charge for it</h3>
+        <p>Apprentices ask you things. Other barbers message you. You've walked people through it for free more times than you could count.</p>
+      </div>
+      <div class="sf-card">
+        <h3>You've thought about a second shop</h3>
+        <p>Then you've done the sums on rent, staff and the aggravation, and worked out it's the same job twice.</p>
+      </div>
+      <div class="sf-card">
+        <h3>You can't step away from it</h3>
+        <p>Two weeks off costs you two weeks' money. The business doesn't really exist without you stood in it.</p>
+      </div>
+      <div class="sf-col yes">
+        <h3>This is for you if</h3>
+        <ul>
+          <li>You're five to ten years in and the money is decent, but all of it comes out of your own hands.</li>
+          <li>Barbers already message you asking how you do things.</li>
+          <li>You want something you own that still earns when you're not at the chair.</li>
+        </ul>
+      </div>
+      <div class="sf-col no">
+        <h3>This isn't for you if</h3>
+        <ul>
+          <li>You're still building your column and the money isn't steady yet.</li>
+          <li>You want to hand it over and have somebody else do it for you.</li>
+          <li>You're after a quick bit of extra cash rather than something you keep.</li>
+        </ul>
+      </div>
+    </div>
+      <div class="sf-media">
+        <img class="sf-shot" src="/book-a-call/assets/diagram/value-stack.jpg" alt="What you already know could be a ten to fifteen thousand pound a month online business">
+      </div>
+    </div>
+    <p class="sf-close">None of that is a problem with your business. It's a problem with <span class="sf-accent">how it makes money.</span></p>
   </div>
+</section>
+
+
 </div>
 
-<!-- THE PROBLEM -->
+<div class="view" id="view-results">
+<!-- RESULTS: TWO CASE STUDIES -->
 <style>
-  .prob{background:#0E0E0E;color:var(--parchment);padding:clamp(4rem,7vw,7rem) 1.6rem;}
-  .prob-inner{max-width:920px;margin:0 auto;text-align:center;}
-  .prob-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(237,224,204,.42);margin-bottom:1.5rem;}
-  .prob-title{font-weight:800;font-size:clamp(1.9rem,4.4vw,3.2rem);letter-spacing:-0.03em;line-height:1.1;color:var(--parchment);}
-  .prob-accent{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--green);letter-spacing:-0.02em;}
-  .prob-card{max-width:700px;margin:2.8rem auto 0;background:rgba(237,224,204,0.04);border:1px solid rgba(237,224,204,0.12);border-radius:var(--r-card);padding:2.4rem;text-align:left;}
-  .prob-card p{font-size:1.05rem;line-height:1.75;color:rgba(237,224,204,0.68);margin:0 0 1.2rem;}
-  .prob-close{margin:1.7rem 0 0!important;font-size:1.2rem!important;font-weight:700;color:var(--parchment)!important;line-height:1.4;}
-  .prob-list{list-style:none;margin:0 0 1.2rem;padding:0;display:grid;gap:.55rem;}
-  .prob-list li{position:relative;padding-left:1.4rem;font-size:1.05rem;line-height:1.55;color:rgba(237,224,204,0.7);}
-  .prob-list li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--green);}
-  @media(max-width:600px){.prob-card{padding:1.7rem;}}
+  .cs-head{padding:clamp(3rem,5vw,4.5rem) 1.6rem clamp(1rem,2vw,1.6rem);text-align:center;}
+  .cs-head h2{font-weight:800;font-size:clamp(1.85rem,4.3vw,3.1rem);letter-spacing:-0.035em;line-height:1.14;color:var(--ink);}
+  .cs-head p{max-width:620px;margin:1.1rem auto 0;font-size:1rem;line-height:1.65;color:var(--muted);}
+
+  .cs{padding:clamp(1.4rem,2.2vw,2rem) 1.6rem;}
+  .cs-inner{max-width:1180px;margin:0 auto;width:100%;}
+
+  .cs-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);
+    padding:clamp(1.3rem,2.2vw,2rem);box-shadow:0 12px 30px -22px rgba(14,14,14,0.45);}
+  .cs-grid{display:grid;gap:clamp(1.4rem,2.6vw,2.2rem);align-items:start;}
+  #jj .cs-grid{grid-template-columns:48% 1fr;}
+  #kurtis .cs-grid{grid-template-columns:52% 1fr;}
+  /* his product shot is portrait, so cap the height and let the width follow. nothing is cropped */
+  #kurtis .cs-shot{max-height:356px;width:auto;}
+  .cs-portrait{width:100%;height:auto;border-radius:14px;display:block;}
+  .cs-meet{font-weight:800;font-size:clamp(1.35rem,2.7vw,2rem);letter-spacing:-0.035em;line-height:1.1;
+    color:var(--ink);margin:0 0 .5rem;}
+  .cs-role{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--green-dark);margin-bottom:.8rem;}
+  .cs-copy p{font-size:.95rem;line-height:1.65;color:var(--muted);margin:0 0 .7rem;}
+  .cs-stat{display:inline-flex;align-items:baseline;gap:.55rem;margin-top:.3rem;padding:.55rem 1rem;border-radius:var(--r-pill);
+    background:var(--green-soft);border:1px solid var(--green-line);}
+  .cs-stat .n{font-weight:800;font-size:1.1rem;letter-spacing:-0.03em;color:var(--ink);line-height:1;}
+  .cs-stat .l{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green-dark);font-weight:700;}
+
+  .cs-pack{margin-top:1.3rem;padding-top:1.3rem;border-top:1px solid var(--border-soft);}
+  .cs-pack h4{font-weight:800;font-size:clamp(1.35rem,2.7vw,2rem);letter-spacing:-0.035em;line-height:1.1;
+    color:var(--ink);margin:0 0 .3rem;}
+  .cs-pack .prod{font-size:1rem;font-weight:700;color:var(--green-dark);margin-bottom:.9rem;}
+  .cs-shot{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--border);}
+
+  .cs-results{margin-top:1.3rem;padding-top:1.3rem;border-top:1px solid var(--border-soft);}
+  .cs-results .lab{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--subtle);margin-bottom:.9rem;}
+  .cs-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;}
+  .cs-proof figure{margin:0;background:var(--surface-soft);border:1px solid var(--border-soft);border-radius:12px;padding:.7rem;}
+  .cs-proof img{width:100%;display:block;border-radius:8px;}
+  .cs-proof figcaption{font-size:.78rem;line-height:1.5;color:var(--muted);margin-top:.6rem;}
+  .cs-proof strong{color:var(--ink);font-weight:700;}
+
+  .cs-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-card);overflow:hidden;background:#0E0E0E;
+    border:1px solid var(--border);box-shadow:var(--shadow-pop);cursor:pointer;background-size:cover;background-position:center;}
+  .cs-frame .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;
+    background:rgba(255,255,255,0.14);border:2px solid rgba(255,255,255,0.75);transition:background .2s ease;}
+  .cs-frame:hover .play{background:rgba(255,255,255,0.26);}
+  .cs-frame .play::after{content:"";position:absolute;left:56%;top:50%;transform:translate(-50%,-50%);
+    border-left:20px solid rgba(255,255,255,0.95);border-top:12px solid transparent;border-bottom:12px solid transparent;}
+  .cs-clip{max-width:660px;margin:1.4rem auto 0;text-align:center;}
+  .cs-clip .cs-frame{box-shadow:0 12px 30px -22px rgba(14,14,14,0.45);border-radius:14px;}
+  .cs-clip .play{width:62px;height:62px;}
+  .cs-clip .play::after{border-left:17px solid rgba(255,255,255,0.95);border-top:11px solid transparent;border-bottom:11px solid transparent;}
+  .cs-clip p{font-size:.92rem;line-height:1.55;color:var(--muted);margin:.8rem 0 0;}
+  .cs-clip strong{color:var(--ink);font-weight:700;}
+
+  .cs-film{padding:clamp(1.8rem,3vw,2.8rem) 1.6rem clamp(2rem,3.4vw,3rem);}
+  .cs-film .lab{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--green-dark);margin-bottom:.6rem;text-align:center;}
+  .cs-film h3{font-weight:800;font-size:clamp(1.4rem,3vw,2.2rem);letter-spacing:-0.035em;line-height:1.15;
+    color:var(--ink);text-align:center;margin-bottom:1.3rem;}
+
+  .cs-rule{height:1px;background:var(--border-soft);max-width:1180px;margin:clamp(1rem,2vw,1.6rem) auto;}
+
+  .results-disclaimer{max-width:820px;margin:0 auto;padding:1.5rem 1.7rem;border-radius:var(--r-card);
+    background:var(--surface-soft);border:1px solid var(--border-soft);}
+  .results-disclaimer .dt{font-size:.64rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--subtle);margin-bottom:.7rem;}
+  .results-disclaimer p{font-size:.82rem;line-height:1.6;color:var(--subtle);margin:0 0 .6rem;}
+  .results-disclaimer p:last-child{margin-bottom:0;}
+
+  @media(max-width:900px){
+    #jj .cs-grid,#kurtis .cs-grid{grid-template-columns:1fr;}
+    .cs-grid{gap:1.2rem;}
+    .cs-portrait{max-width:420px;}
+    .cs-portrait{max-width:380px;}
+    .cs-proof{grid-template-columns:1fr;max-width:380px;}
+    .cs-clip{grid-template-columns:1fr;max-width:320px;}
+  }
 </style>
-<section class="prob reveal">
-  <div class="prob-inner">
-    <div class="prob-eyebrow">Sound familiar?</div>
-    <h2 class="prob-title">You've built something real.<br>But you're still <span class="prob-accent">the bottleneck.</span></h2>
-    <div class="prob-card">
-      <p>Your skill works. The money comes in. But it only comes in <strong style="color:var(--parchment);font-weight:700;">when you show up.</strong></p>
-      <ul class="prob-list">
-        <li>Every client tied to your time.</li>
-        <li>Every pound tied to the room you're standing in.</li>
-        <li>The day you step away, it all stops.</li>
-      </ul>
-      <p>You're posting content, maybe. But it's just views and followers. What you really want is to diversify your income and actually get paid from it, and there's no system turning that attention into revenue.</p>
-      <p>Your knowledge is worth far more than the service you perform every day. You've just never packaged it into something you can sell, a high ticket programme people happily pay for.</p>
-      <p>So you stay on the tools. Trading hours for money. Watching the opportunity you know is there pass you by, because you have no way to capture it.</p>
-      <p class="prob-close">That's not an effort problem. It's a <span class="prob-accent">system problem.</span></p>
-    </div>
-  </div>
-</section>
 
-<div class="divider"></div>
-
-<!-- QUALIFY -->
-<section class="sec reveal">
-  <div class="eyebrow c">Read this carefully</div>
-  <h2 class="center">SCALO isn't for everyone.</h2>
-  <p class="center" style="max-width:560px;margin:1rem auto 2.6rem;">I only work with a specific kind of founder. If you don't fit this, we'll both waste each other's time.</p>
-  <div class="qual">
-    <div class="qual-col no">
-      <h3>Who this isn't for</h3>
-      <ul class="qual-list">
-        <li><span class="mark">&times;</span><span><strong>Pre-revenue.</strong> Not self-employed yet, or under ~£5k/m from your skill. Build the base first.</span></li>
-        <li><span class="mark">&times;</span><span><strong>Hands-off seekers.</strong> If you want results with zero involvement. (A done-for-you tier exists separately.)</span></li>
-        <li><span class="mark">&times;</span><span><strong>No audience yet.</strong> Starting from zero online, this isn't the right entry point.</span></li>
-        <li><span class="mark">&times;</span><span><strong>Earners, not builders.</strong> If you only want more money, not something that scales without you.</span></li>
-      </ul>
-    </div>
-    <div class="qual-col yes">
-      <h3>Who this is for</h3>
-      <ul class="qual-list">
-        <li><span class="mark">&check;</span><span><strong>Self-employed founders</strong> earning £5 to 10k+/m from a skill or service.</span></li>
-        <li><span class="mark">&check;</span><span><strong>Have an audience.</strong> 5 to 15k+ followers on a platform, already creating content.</span></li>
-        <li><span class="mark">&check;</span><span><strong>Founder mindset.</strong> You invest in yourself and move fast once you have clarity.</span></li>
-        <li><span class="mark">&check;</span><span><strong>Want freedom.</strong> Location freedom and independence, not just a bigger number.</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- STORIES -->
-<style>
-  .results-title{font-weight:800;font-size:clamp(2.4rem,5.4vw,3.8rem);letter-spacing:-0.035em;line-height:1.03;color:var(--ink);text-align:center;margin-top:.4rem;}
-  .results-sub{max-width:600px;margin:1.1rem auto 0;color:var(--muted);text-align:center;}
-  .rv-feature{margin:3rem auto 0;max-width:940px;display:grid;grid-template-columns:1.35fr 1fr;gap:1.6rem;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:1.4rem;box-shadow:var(--shadow-card);text-decoration:none;transition:border-color .18s,transform .18s;}
-  .rv-feature:hover{border-color:var(--green-line);transform:translateY(-2px);}
-  .rv-video{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0E0E0E;display:flex;align-items:center;justify-content:center;}
-  .rv-video .play{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.65);position:relative;transition:background .2s ease;}
-  .rv-video:hover .play{background:rgba(255,255,255,0.16);}
-  .rv-video .play::after{content:"";position:absolute;left:54%;top:50%;transform:translate(-50%,-50%);border-left:16px solid rgba(255,255,255,0.9);border-top:10px solid transparent;border-bottom:10px solid transparent;}
-  .rv-video .ph{position:absolute;bottom:11px;left:13px;font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(237,224,204,.55);}
-  .rv-info .tag{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green-dark);margin-bottom:.55rem;}
-  .rv-info h3{font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1.4rem,2.4vw,1.7rem);letter-spacing:-0.02em;line-height:1.05;margin-bottom:.7rem;color:var(--ink);}
-  .rv-info p{font-size:.92rem;line-height:1.6;color:var(--muted);margin:0;}
-  .rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.6rem auto 0;max-width:940px;align-items:start;}
-  .wa{border-radius:14px;overflow:hidden;border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow-card);display:block;transition:transform .18s,border-color .18s;}
-  .wa:hover{transform:translateY(-2px);border-color:var(--green-line);}
-  .wa img{width:100%;height:auto;display:block;}
-  .wa-item{display:flex;flex-direction:column;}
-  .wa-cap{font-size:.82rem;line-height:1.5;color:var(--muted);margin-top:.85rem;text-align:left;}
-  .wa-cap strong{color:var(--ink);font-weight:700;}
-  .results-disclaimer{max-width:680px;margin:1.6rem auto 0;text-align:center;}
-  .results-disclaimer .dt{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle);margin-bottom:.6rem;}
-  .results-disclaimer p{font-size:.72rem;line-height:1.55;color:var(--subtle);font-style:italic;margin:0 auto .4rem;max-width:600px;}
-  .rv-clip{max-width:560px;margin:1.4rem auto 0;}
-  .rv-pinwrap{position:relative;height:200vh;margin-top:3.4rem;}
-  .rv-pin{position:sticky;top:78px;}
-  .rv-pin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2.4rem;max-width:920px;margin:0 auto;width:100%;align-items:start;}
-  .rv-pin-left .rv-video{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0E0E0E;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-  .rv-stack{position:relative;width:340px;height:380px;margin:0 auto;}
-  .wa-card{position:absolute;top:0;left:0;width:100%;transition:filter .5s ease,opacity .5s ease,transform .5s ease;}
-  .wa-card a{display:block;}
-  .wa-card img{width:100%;height:auto;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow-card);display:block;}
-  .wa-card .wa-cap{margin-top:.7rem;font-size:.8rem;line-height:1.5;color:var(--muted);}
-  .wa-card .wa-cap strong{color:var(--ink);font-weight:700;}
-  .wa-card[data-state="active"]{filter:none;opacity:1;transform:translateY(0) scale(1);z-index:3;}
-  .wa-card[data-state="passed"]{filter:blur(5px);opacity:.3;transform:translateY(-18px) scale(.93);z-index:1;pointer-events:none;}
-  .wa-card[data-state="upcoming"]{opacity:0;transform:translateY(34px) scale(.96);z-index:0;pointer-events:none;}
-  @media(max-width:760px){.rv-pinwrap{height:auto;margin-top:1rem;}.rv-pin{position:static;height:auto;}.rv-pin-grid{grid-template-columns:1fr;}.rv-stack{position:static;width:230px;height:auto;}.wa-card{position:relative;margin-bottom:1.4rem;}.wa-card[data-state]{filter:none;opacity:1;transform:none;}}
-  .rv-clip .rv-video{aspect-ratio:16/9;border-radius:14px;}
-  .rv-clipcap{text-align:center;font-size:.92rem;color:var(--muted);margin:.9rem auto 0;max-width:48ch;line-height:1.5;}
-  .rv-clipcap strong{color:var(--ink);font-weight:700;}
-  @media(max-width:760px){.rv-feature{grid-template-columns:1fr;}.rv-grid{grid-template-columns:1fr;max-width:340px;}}
-</style>
-<section class="sec reveal">
+<section class="cs-head reveal panel">
   <div class="eyebrow c">Real results</div>
-  <h2 class="results-title">Founders who installed <span class="h-serif">the system.</span></h2>
-  <p class="results-sub">Real people, real numbers. The ones you can message inside the community right now.</p>
+  <h2>What they've built online</h2>
+  <p>Two barbers, two completely different products, both built out of what they already knew.</p>
+</section>
 
-  <div class="rv-feature">
-    <div class="rv-video" data-yt="vxuwO01YkYg" style="background-image:url('https://img.youtube.com/vi/vxuwO01YkYg/maxresdefault.jpg');background-size:cover;background-position:center;">
-      <div class="play"></div>
-    </div>
-    <div class="rv-info">
-      <div class="tag">Featured story · JJ</div>
-      <h3>0 to £21k in 10 days.</h3>
-      <p>He had the skill and the audience, but no offer and no system to sell it. We packaged his knowledge, built the engine behind it, and the first launch did the rest. Watch the full interview.</p>
-    </div>
-  </div>
+<!-- JJ -->
+<section class="cs reveal panel" id="jj">
+  <div class="cs-inner">
+    <div class="cs-card">
+      <div class="cs-grid">
+        <img class="cs-portrait" src="/book-a-call/assets/results/jj-portrait.jpg" alt="JJ Savani">
+        <div class="cs-copy">
+          <h2 class="cs-meet">Meet JJ Savani</h2>
+          <div class="cs-role">Fifteen years in the trade</div>
+          <p>Fifteen years behind the chair, and a name in the fashion world with it. GQ, Hair Expo India, the sort of rooms most barbers never get near.</p>
+          <p>What he didn't have was a way to sell any of it online. All that knowledge, all those connections, and it only ever paid when he was stood in front of someone.</p>
+          <div class="cs-stat"><span class="n">&pound;21,000</span><span class="l">In the first ten days</span></div>
 
-  <div class="rv-pinwrap">
-    <div class="rv-pin">
-      <div class="rv-pin-grid">
-        <div class="rv-pin-left">
-          <div class="rv-video" data-yt="2oNMBU64dRU" style="background-image:url('/book-a-call/assets/testimonials/jj-call.png');background-size:cover;background-position:center;"><div class="play"></div></div>
-          <p class="rv-clipcap"><strong>JJ:</strong> his reaction to his first ever £10k week.</p>
-        </div>
-        <div class="rv-pin-right">
-          <div class="rv-stack">
-            <div class="wa-card" data-state="active"><a href="/book-a-call/assets/testimonials/wa-42nd-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-42nd-uni.png" alt="Levelling up on the 42nd floor"></a><p class="wa-cap">Three months in, a client levelling up his life. Celebrating another close on the 42nd floor in London with his wife.</p></div>
-            <div class="wa-card" data-state="upcoming"><a href="/book-a-call/assets/testimonials/wa-21k-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-21k-uni.png" alt="21.5k collected in 10 days"></a><p class="wa-cap">From zero a couple of months earlier to <strong>£21.5k collected in ten days</strong>, with clients happy to pay.</p></div>
-            <div class="wa-card" data-state="upcoming"><a href="/book-a-call/assets/testimonials/wa-payment-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-payment-uni.png" alt="Payment received"></a><p class="wa-cap">Leads coming in, happy to pay a high ticket price for the knowledge he packaged up.</p></div>
+          <div class="cs-pack">
+            <h4>So this is what we packaged</h4>
+            <div class="prod">The Global Stylist Blueprint</div>
+            <img class="cs-shot" src="/book-a-call/assets/results/jj-product.jpg" alt="The Global Stylist Blueprint">
           </div>
         </div>
       </div>
-      <div class="results-disclaimer">
-        <div class="dt">A note on results</div>
-        <p>Every story and message on this page comes from a real client, but these results are not typical and they are not a promise of what you will do. What you get out of this depends on your skill, your effort, and plenty of things none of us control.</p>
-        <p>SCALO is education and coaching. I show founders how to package their knowledge and build the systems behind it. I do not sell a get rich quick scheme, I do not guarantee income, and I cannot do the work for you.</p>
+
+      <div class="cs-results">
+        <div class="lab">Results of the Global Stylist Blueprint</div>
+        <div class="cs-proof">
+          <figure>
+            <a href="/book-a-call/assets/testimonials/wa-42nd-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-42nd-uni.png" alt="Levelling up on the 42nd floor"></a>
+            <figcaption>Three months in, celebrating another close on the 42nd floor in London with his wife.</figcaption>
+          </figure>
+          <figure>
+            <a href="/book-a-call/assets/testimonials/wa-21k-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-21k-uni.png" alt="21.5k collected in 10 days"></a>
+            <figcaption>From zero a couple of months earlier to <strong>&pound;21.5k collected in ten days</strong>.</figcaption>
+          </figure>
+          <figure>
+            <a href="/book-a-call/assets/testimonials/wa-payment-uni.png" target="_blank" rel="noopener"><img src="/book-a-call/assets/testimonials/wa-payment-uni.png" alt="Payment received"></a>
+            <figcaption>Leads coming in, happy to pay a proper price for what he packaged up.</figcaption>
+          </figure>
+        </div>
+        <div class="cs-clip">
+          <div class="cs-frame" data-yt="2oNMBU64dRU" style="background-image:url('/book-a-call/assets/testimonials/jj-call.png');"><div class="play"></div></div>
+          <p><strong>JJ:</strong> his reaction to his first ever &pound;10k week.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<section class="cs-film reveal panel">
+  <div class="cs-inner">
+    <div class="lab">JJ Savani</div>
+    <h3>Watch the full interview</h3>
+    <div class="cs-frame" data-yt="vxuwO01YkYg" style="background-image:url('https://img.youtube.com/vi/vxuwO01YkYg/maxresdefault.jpg');"><div class="play"></div></div>
+  </div>
+</section>
 
-<!-- WHAT YOU GET -->
+<div class="cs-rule"></div>
+
+<!-- KURTIS -->
+<section class="cs reveal panel" id="kurtis">
+  <div class="cs-inner">
+    <div class="cs-card">
+      <div class="cs-grid">
+        <img class="cs-portrait" src="/book-a-call/assets/results/kurtis-portrait.jpg" alt="Kurtis Skipworth">
+        <div class="cs-copy">
+          <h2 class="cs-meet">Meet Kurtis Skipworth</h2>
+          <div class="cs-role">Four years, two businesses</div>
+          <p>Sharp businessman. In four years he opened two shops and made both of them work, which most people never manage once.</p>
+          <p>He knows how to run a floor properly. The trouble was that knowledge sat inside his own two shops and nowhere else.</p>
+          <div class="cs-stat"><span class="n">Two shops</span><span class="l">Built in four years</span></div>
+
+          <div class="cs-pack">
+            <h4>So this is what we packaged</h4>
+            <div class="prod">Ascend</div>
+            <img class="cs-shot" src="/book-a-call/assets/results/kurtis-product.jpg" alt="Ascend">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE CREED -->
 <style>
-  .wy{background:#0E0E0E;color:var(--parchment);padding:clamp(4rem,7vw,7rem) 1.6rem;}
-  .wy-inner{max-width:1040px;margin:0 auto;}
-  .wy-head{text-align:center;margin-bottom:3rem;}
-  .wy-eyebrow{font-size:.7rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(237,224,204,.42);margin-bottom:1.3rem;}
-  .wy-title{font-weight:800;font-size:clamp(2.1rem,4.6vw,3.4rem);letter-spacing:-0.03em;line-height:1.05;color:var(--parchment);}
-  .wy-title .ac{color:var(--green);}
-  .wy-sub{max-width:600px;margin:1.1rem auto 0;color:rgba(237,224,204,.6);font-size:1rem;line-height:1.6;}
-  .wy-cols{display:grid;grid-template-columns:1.3fr .9fr;gap:2.4rem;align-items:start;}
-  .wy-tl{position:relative;padding-left:34px;}
-  .wy-tl::before{content:"";position:absolute;left:6px;top:6px;bottom:10px;width:1.5px;background:rgba(237,224,204,.16);}
-  .wy-item{position:relative;padding-bottom:1.9rem;}
-  .wy-item:last-child{padding-bottom:0;}
-  .wy-node{position:absolute;left:-34px;top:3px;width:13px;height:13px;border-radius:50%;background:#0E0E0E;border:2.5px solid var(--green);}
-  .wy-item.now .wy-node{background:var(--green);box-shadow:0 0 0 4px rgba(168,224,32,.18);}
-  .wy-day{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);}
-  .wy-h{font-weight:700;font-size:1.15rem;letter-spacing:-0.01em;margin:.35rem 0 .4rem;color:var(--parchment);}
-  .wy-d{font-size:.92rem;line-height:1.6;color:rgba(237,224,204,.62);max-width:46ch;}
-  .wy-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;}
-  .wy-tag{font-size:.62rem;font-weight:600;letter-spacing:.04em;color:rgba(237,224,204,.7);background:rgba(237,224,204,.06);border:1px solid rgba(237,224,204,.14);border-radius:999px;padding:.3rem .7rem;}
-  .wy-side{display:grid;gap:1rem;position:sticky;top:80px;}
-  .wy-card{background:rgba(237,224,204,.04);border:1px solid rgba(237,224,204,.12);border-radius:var(--r-card);padding:1.6rem;}
-  .wy-card .ck{font-size:.64rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;}
-  .wy-row{padding:.6rem 0;border-top:1px solid rgba(237,224,204,.08);}
-  .wy-row:first-of-type{border-top:none;padding-top:0;}
-  .wy-row .rt{font-weight:700;font-size:.92rem;color:var(--parchment);}
-  .wy-row .rd{font-size:.82rem;color:rgba(237,224,204,.55);line-height:1.5;margin-top:.15rem;}
-  .wy-list{list-style:none;margin:0;padding:0;display:grid;gap:.6rem;}
-  .wy-list li{position:relative;padding-left:1.3rem;font-size:.86rem;color:rgba(237,224,204,.72);line-height:1.45;}
-  .wy-list li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--green);}
-  @media(max-width:860px){.wy-cols{grid-template-columns:1fr;gap:1.6rem;}.wy-side{position:static;}}
+  .cr{padding:clamp(3.5rem,6vw,5.5rem) 1.6rem clamp(4rem,7vw,6.5rem);}
+  .cr-inner{max-width:1180px;margin:0 auto;width:100%;}
+
+  .cr-creed{max-width:720px;}
+  .cr-creed p{font-size:clamp(1.02rem,1.5vw,1.22rem);line-height:1.75;color:var(--muted);margin:0 0 1.1rem;}
+  .cr-creed p:last-child{margin-bottom:0;}
+  .cr-lead{font-weight:700;color:var(--ink)!important;font-size:clamp(1.15rem,1.8vw,1.45rem)!important;letter-spacing:-0.02em;}
+  .cr-green{color:var(--green-dark);font-weight:700;}
+
+  .cr-gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1.2rem,2.2vw,2rem);
+    align-items:start;margin:clamp(2.6rem,5vw,4rem) 0 0;}
+  .cr-item{margin:0;}
+  .cr-item img{width:100%;display:block;object-fit:cover;border-radius:var(--r-card);
+    box-shadow:0 16px 36px -20px rgba(14,14,14,0.5);}
+  .cr-item figcaption{margin-top:.8rem;font-size:.86rem;line-height:1.55;color:var(--subtle);}
+
+  .cr-anchor{grid-column:span 7;}   .cr-anchor img{height:clamp(280px,30vw,440px);}
+  .cr-chair{grid-column:span 5;}    .cr-chair img{height:clamp(280px,30vw,440px);}
+  .cr-week{grid-column:span 4;}     .cr-week img{height:clamp(240px,25vw,360px);object-position:center top;}
+  .cr-away{grid-column:span 5;}     .cr-away img{height:clamp(240px,25vw,360px);}
+  .cr-people{grid-column:span 3;}   .cr-people img{height:clamp(240px,25vw,360px);}
+  .cr-graft{grid-column:span 7;}    .cr-graft img{height:clamp(260px,28vw,420px);}
+  .cr-money{grid-column:span 5;align-self:center;}  .cr-money img{height:auto;}
+
+  .cr-close{margin:clamp(3.5rem,6vw,5.5rem) 0 0;}
+  .cr-close p{font-weight:800;letter-spacing:-0.045em;
+    font-size:clamp(2.6rem,7.6vw,5.6rem);line-height:1.02;color:var(--ink);margin:0;}
+  .cr-close p + p{margin-top:.04em;}
+
+  @media(max-width:900px){
+    .cr-gallery{grid-template-columns:repeat(2,1fr);gap:1.2rem;}
+    .cr-anchor{grid-column:span 2;}
+    .cr-chair,.cr-week,.cr-away,.cr-people,.cr-graft{grid-column:span 1;}
+    .cr-money{grid-column:span 2;}
+    .cr-item img{height:clamp(200px,42vw,300px)!important;}
+    .cr-money img{height:auto!important;}
+  }
+  @media(max-width:620px){
+    .cr-gallery{grid-template-columns:1fr;}
+    .cr-anchor,.cr-chair,.cr-week,.cr-away,.cr-people,.cr-graft,.cr-money{grid-column:span 1;}
+  }
 </style>
-<section class="wy reveal">
-  <div class="wy-inner">
-    <div class="wy-head">
-      <div class="wy-eyebrow">What you actually get</div>
-      <h2 class="wy-title">Everything is built and <span class="ac">waiting for you.</span></h2>
-      <p class="wy-sub">120 days, built around your life. Here is exactly what happens from the moment you join.</p>
-    </div>
-    <div class="wy-cols">
-      <div class="wy-tl">
-        <div class="wy-item now"><span class="wy-node"></span><div class="wy-day">Day 0</div><div class="wy-h">You join, the portal goes live</div><div class="wy-d">Within 24 hours your custom SCALO portal is live and your onboarding call is booked. We review where you are, set your targets, and lock the plan.</div><div class="wy-tags"><span class="wy-tag">Portal live</span><span class="wy-tag">Onboarding call</span></div></div>
-        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">Week 1 · Lay the foundations</div><div class="wy-h">Your direction, locked</div><div class="wy-d">Identity, positioning, and the one offer worth building. By the end of week one you know exactly who you help and what you are selling.</div></div>
-        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">Weeks 2 to 3 · Architect your offer</div><div class="wy-h">Your knowledge, packaged</div><div class="wy-d">We turn what you already know into a premium offer with a clear transformation and a price that reflects the value. Built and ready to sell.</div></div>
-        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">Weeks 3 to 5 · Unleash your assets</div><div class="wy-h">The engine that brings people in</div><div class="wy-d">A content system, a lead magnet, and distribution that turns attention into qualified conversations, all built around your voice.</div></div>
-        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">By day 45 · Convert and close</div><div class="wy-h">Your first online sale</div><div class="wy-d">The sales assets, the discovery call process, and the objection handling that close the first deal, without you stuck on the tools.</div></div>
-        <div class="wy-item"><span class="wy-node"></span><div class="wy-day">Days 45 to 120 · Hand off and scale</div><div class="wy-h">A business that runs without you</div><div class="wy-d">Systems, tracking, and automation so the income no longer depends on you being in the room. This is the part that changes your life.</div></div>
-      </div>
-      <div class="wy-side">
-        <div class="wy-card">
-          <div class="ck">How we work together</div>
-          <div class="wy-row"><div class="rt">Weekly group coaching</div><div class="rd">Live calls with the cohort, the engine of the programme.</div></div>
-          <div class="wy-row"><div class="rt">1-on-1 calls</div><div class="rd">Private sessions at the key build moments.</div></div>
-          <div class="wy-row"><div class="rt">WhatsApp support</div><div class="rd">Direct access to me and the team, 24 hour response, all 120 days.</div></div>
-        </div>
-        <div class="wy-card">
-          <div class="ck">In your portal from day one</div>
-          <ul class="wy-list">
-            <li>Every framework, template, script and workflow, pre-built</li>
-            <li>Your full 120 day roadmap, personalised to you</li>
-            <li>10+ hours of recorded content across every phase</li>
-            <li>Every lead, client and number tracked in real time</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-      <div class="wy-cta">
-        <a href="#book" class="btn btn-primary btn-lg book-cta">Book your strategy call</a>
-        <div class="wy-cta-note">Free. Takes two minutes.</div>
-      </div>
-  </div>
-</section>
+<section class="cr reveal panel">
+  <div class="cr-inner">
+    <div class="cr-creed">
+      <p class="cr-lead">I'm not trying to get you out of the trade. I'm trying to make it a choice.</p>
 
-<div class="divider"></div>
+      <!-- SWAPPABLE: trade-specific lines, written for barbers. Replace only
+           these three when the audience broadens to tattooists or PTs. -->
+      <p>Fully booked isn't the top. <span class="cr-green">It's the ceiling.</span> A second shop is the same job, twice. Putting your prices up feels good for about a fortnight.</p>
 
-<!-- MEET TIM -->
-<section class="sec reveal">
-  <div class="tim">
-    <div class="tim-img">
-      <img class="tim-photo active" src="/book-a-call/assets/lifestyle/working-cafe.jpg" alt="Tim working">
-      <img class="tim-photo" src="/book-a-call/assets/lifestyle/working-coworking.jpg" alt="Tim working">
-      <img class="tim-photo" src="/book-a-call/assets/lifestyle/portrait-car.jpg" alt="Tim">
-      <img class="tim-photo" src="/book-a-call/assets/lifestyle/working-lamp.jpg" alt="Tim working">
-      <img class="tim-photo" src="/book-a-call/assets/lifestyle/travel-beach.jpg" alt="Tim on holiday">
+      <p>The way out was never more hours. It's the ten years already sat in your head. <span class="cr-green">Never sold once.</span></p>
+
+      <p>You keep the craft. You keep the chair. <span class="cr-green">You just stop needing it.</span> That's all any of us are after.</p>
     </div>
-    <div class="tim-text">
-      <div class="eyebrow">Meet Tim</div>
-      <h2 style="margin-bottom:1.2rem;">I made the exact <span class="h-serif">transition you're about to.</span></h2>
-      <p>I'm Tim, and I cut hair for ten years.</p>
-      <p>I was good at it. Booked out, earning well. But after a decade behind the chair I had to admit something: a barbershop only scales so far. You are always trading your time and your location for money, and the day you stop, the money stops.</p>
-      <p>I knew I had more to offer than the haircut. So I started <em>packaging what I knew</em>, the systems, the brand, the way I filled my chair, into something I could sell online. I built it while still cutting full time, figured it out as I went, and passed <strong>six figures in my first year</strong>.</p>
-      <p>That shift changed my life, and it is the exact one I now build for other founders. SCALO Online exists because most coaching is run by people who have never actually done it. <strong>I have.</strong></p>
+
+    <div class="cr-gallery">
+      <figure class="cr-item cr-anchor">
+        <img src="/book-a-call/assets/offtheback/anchor.jpg" loading="lazy" alt="Tim working on a laptop outdoors abroad">
+        <figcaption>Work from wherever you fancy that month.</figcaption>
+      </figure>
+      <figure class="cr-item cr-chair">
+        <img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="Tim cutting a client's hair in the shop">
+        <figcaption>Still cutting. Eight days a month, not twenty-four.</figcaption>
+      </figure>
+      <figure class="cr-item cr-week">
+        <img src="/book-a-call/assets/offtheback/the-week.jpg" loading="lazy" alt="A booking diary with days blocked out">
+        <figcaption>A Tuesday off, and the money still lands.</figcaption>
+      </figure>
+      <figure class="cr-item cr-away">
+        <img src="/book-a-call/assets/offtheback/not-working.jpg" loading="lazy" alt="Tim away from the shop, not working">
+        <figcaption>Book the trip first. Work the diary round it.</figcaption>
+      </figure>
+      <figure class="cr-item cr-people">
+        <img src="/book-a-call/assets/offtheback/with-people.jpg" loading="lazy" alt="Tim with friends and family">
+        <figcaption>Actually being there for the people who waited.</figcaption>
+      </figure>
+      <figure class="cr-item cr-graft">
+        <img src="/book-a-call/assets/offtheback/the-graft.jpg" loading="lazy" alt="Tim working late at a desk">
+        <figcaption>It isn't free. The first year gets built in the gaps.</figcaption>
+      </figure>
+      <figure class="cr-item cr-money">
+        <img src="/book-a-call/assets/offtheback/money-landing.jpg" loading="lazy" alt="A payment notification on a phone screen">
+        <figcaption>Money in, while you're nowhere near a pair of clippers.</figcaption>
+      </figure>
+    </div>
+
+    <div class="cr-close">
+      <p>Because you want to.</p>
+      <p>Not because you have to.</p>
     </div>
   </div>
 </section>
 
-<div class="divider"></div>
+<section class="cs reveal">
+  <div class="cs-inner">
+    <div class="results-disclaimer">
+      <div class="dt">A note on results</div>
+      <p>Every story and message on this page comes from a real client, but these results are not typical and they are not a promise of what you will do. What you get out of this depends on your skill, your effort, and plenty of things none of us control.</p>
+      <p>SCALO is education and coaching. I show founders how to package their knowledge and build the systems behind it. I do not sell a get rich quick scheme, I do not guarantee income, and I cannot do the work for you.</p>
+    </div>
+  </div>
+</section>
 
+</div>
+
+<div class="view" id="view-inside">
+<!-- WHAT YOU ACTUALLY GET -->
+<style>
+  .wg{padding:clamp(3rem,5vw,4.5rem) 1.6rem;}
+  .wg-inner{max-width:1320px;margin:0 auto;width:100%;}
+  .wg-title{font-weight:800;font-size:clamp(1.85rem,4.3vw,3.1rem);letter-spacing:-0.035em;line-height:1.14;color:var(--ink);text-align:center;}
+  .wg-sub{max-width:640px;margin:1.1rem auto 0;text-align:center;font-size:1rem;line-height:1.65;color:var(--muted);}
+  .wg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:2.6rem auto 0;}
+  .wg-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:1.5rem 1.5rem 2rem;
+    box-shadow:0 12px 30px -22px rgba(14,14,14,0.45);display:flex;flex-direction:column;}
+  .wg-media{aspect-ratio:4/3;width:100%;border-radius:14px;overflow:hidden;background:var(--surface-soft);
+    display:flex;align-items:center;justify-content:center;text-align:center;margin-bottom:1.5rem;}
+  .wg-media img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+  .wg-media img.mid{object-position:center;}
+  .wg-media img.lt{object-position:left top;}
+  .wg-media.is-todo{border:2px dashed rgba(14,14,14,.2);background:rgba(14,14,14,.02);}
+  .wg-todo{display:none;font-size:.72rem;line-height:1.6;color:var(--muted);padding:1.4rem;}
+  .wg-media.is-todo .wg-todo{display:block;}
+  .wg-n{font-size:.66rem;font-weight:800;letter-spacing:.2em;color:var(--green-dark);margin-bottom:.7rem;text-align:center;}
+  .wg-card h3{font-size:1.18rem;letter-spacing:-0.02em;line-height:1.3;margin-bottom:.6rem;color:var(--ink);text-align:center;}
+  .wg-card p{font-size:.96rem;line-height:1.65;margin:0;text-align:center;}
+  @media(max-width:960px){.wg-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:620px){.wg-grid{grid-template-columns:1fr;}}
+</style>
+<section class="wg reveal panel">
+  <div class="wg-inner">
+    <h2 class="wg-title">What you actually get</h2>
+    <p class="wg-sub">Built to fit round a full column. I built mine in the gaps while I was still cutting Tuesday to Saturday.</p>
+    <div class="wg-grid">
+
+      <div class="wg-card">
+        <div class="wg-media">
+          <img class="lt" src="/book-a-call/assets/whatyouget/01-who-you-sell-to.jpg" alt="The operator scorecard, filled in">
+        </div>
+        <div class="wg-n">01</div>
+        <h3>Who you sell to and what you charge</h3>
+        <p>No guessing, and no pricing it off what feels right</p>
+      </div>
+
+      <div class="wg-card">
+        <div class="wg-media">
+          <img src="/book-a-call/assets/whatyouget/02-your-offer.jpg" alt="The offer written out">
+        </div>
+        <div class="wg-n">02</div>
+        <h3>Your offer, built with you</h3>
+        <p>What you sell, and what's actually in it</p>
+      </div>
+
+      <div class="wg-card">
+        <div class="wg-media">
+          <img class="mid" src="/book-a-call/assets/whatyouget/03-one-to-one.jpg" alt="A one to one call">
+        </div>
+        <div class="wg-n">03</div>
+        <h3>Me, one to one, every week</h3>
+        <p>Not a group call you sit quietly on</p>
+      </div>
+
+      <div class="wg-card">
+        <div class="wg-media">
+          <img src="/book-a-call/assets/whatyouget/04-content.jpg" alt="A reel from Tim's account">
+        </div>
+        <div class="wg-n">04</div>
+        <h3>The content that brings people in</h3>
+        <p>Scripts, hooks and the formats that actually work</p>
+      </div>
+
+      <div class="wg-card">
+        <div class="wg-media">
+          <img src="/book-a-call/assets/whatyouget/05-dms.jpg" alt="A real message thread, identity blurred out">
+        </div>
+        <div class="wg-n">05</div>
+        <h3>Getting people to reply</h3>
+        <p>What to say, and what to say next</p>
+      </div>
+
+      <div class="wg-card">
+        <div class="wg-media">
+          <img class="mid" src="/book-a-call/assets/whatyouget/06-call.jpg" alt="Working through a call structure">
+        </div>
+        <div class="wg-n">06</div>
+        <h3>The call where they buy</h3>
+        <p>A structure, so you're not winging it</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="view" id="view-about">
+<!-- ABOUT AND MISSION -->
+<style>
+  /* block 1: mission */
+  .ms{padding:clamp(2.2rem,3.6vw,3.4rem) 1.4rem;}
+  .ms-inner{max-width:1440px;margin:0 auto;width:100%;text-align:center;}
+  .ms-title{font-weight:800;font-size:clamp(1.4rem,min(2.28vw,4.2vh),2.4rem);letter-spacing:-0.02em;line-height:1.2;
+    text-transform:uppercase;color:var(--ink);margin:0 auto;}
+  .ms-cols{display:grid;grid-template-columns:1.28fr .72fr;gap:clamp(1.8rem,3.2vw,3rem);align-items:start;
+    margin:clamp(1.4rem,2.6vw,2.2rem) auto 0;text-align:left;}
+  .ms-copy p{font-size:1rem;line-height:1.62;color:var(--muted);margin-bottom:.72rem;}
+  .ms-copy .btn{margin-top:.5rem;}
+  .ms-media{display:flex;flex-direction:column;}
+  .ms-media .ab-photo{flex:0 0 auto;aspect-ratio:1/1;height:auto;}
+  @media(min-width:1000px){.ms-title{white-space:nowrap;}}
+  @media(max-width:900px){.ms-cols{grid-template-columns:1fr;}.ms-media{order:-1;position:static;max-width:460px;}.ms-media .ab-photo{aspect-ratio:1/1;}}
+
+  /* the photo eases in a beat after the copy */
+  .ms-media{opacity:0;transform:translateY(26px) scale(.985);
+    transition:opacity 1s cubic-bezier(.22,.61,.36,1) .18s,transform 1s cubic-bezier(.22,.61,.36,1) .18s;}
+  .reveal.in .ms-media{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){.ms-media{opacity:1;transform:none;transition:none;}}
+  .ms-body p:last-child{margin-bottom:0;}
+
+  /* block 2: photo and statement */
+  .ab-photo{aspect-ratio:1/1;width:100%;height:100%;border-radius:var(--r-card);object-fit:cover;object-position:48% 50%;
+    border:1px solid var(--border);box-shadow:0 12px 30px -22px rgba(14,14,14,0.45);}
+  .ab-cap{margin-top:.8rem;font-size:.84rem;color:var(--subtle);}
+  .ab-lead{color:var(--ink)!important;font-weight:700;font-size:1.12rem!important;letter-spacing:-0.02em;margin-top:.35rem;}
+  .ab-lead.sm{font-size:1rem!important;margin-bottom:.7rem;}
+  .ab-list{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.55rem;}
+  .ab-list li{position:relative;padding-left:1.5rem;font-size:1rem;line-height:1.6;color:var(--muted);}
+  .ab-list li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--green);}
+
+  /* block 3: values */
+  .vl{padding:clamp(3.2rem,5.5vw,5rem) 1.6rem;}
+  .vl-inner{max-width:1320px;margin:0 auto;width:100%;}
+  .vl-title{font-weight:800;font-size:clamp(1.85rem,4.3vw,3.1rem);letter-spacing:-0.035em;line-height:1.14;color:var(--ink);text-align:center;}
+  .vl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin:2.6rem auto 0;}
+  .vl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:2.4rem 1.8rem;
+    box-shadow:var(--shadow-card);text-align:center;}
+  .vl-ico{width:62px;height:62px;margin:0 auto 1.5rem;color:var(--ink);opacity:.85;}
+  .vl-ico svg{width:100%;height:100%;display:block;}
+  .vl-card h3{font-size:1.2rem;letter-spacing:-0.02em;line-height:1.3;margin-bottom:.8rem;color:var(--ink);}
+  .vl-card p{font-size:.98rem;line-height:1.75;margin:0;}
+  @media(max-width:900px){.vl-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.vl-grid{grid-template-columns:1fr;}}
+
+  /* block 4: story banner */
+  .nb{padding:clamp(3rem,5.5vw,5rem) 1.6rem;}
+  .nb-inner{max-width:1000px;margin:0 auto;width:100%;text-align:center;}
+  .nb-lock{display:inline-block;text-align:left;font-size:clamp(2.3rem,8.4vw,5.6rem);color:var(--ink);
+    margin:0 auto clamp(1.4rem,2.6vw,2.2rem);}
+  .nb-big{display:block;font-weight:800;letter-spacing:-.05em;line-height:.94;white-space:nowrap;}
+  .nb-dot{color:var(--green);}
+  .nb-under{display:block;text-align:right;font-size:.2em;font-weight:800;letter-spacing:.02em;line-height:1;
+    color:var(--ink);margin:.24em .1em 0 0;}
+  .nb-video{max-width:900px;margin:0 auto;width:100%;}
+  .nb-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-card);overflow:hidden;background:#0E0E0E;
+    border:1px solid var(--border);box-shadow:var(--shadow-pop);}
+  .nb-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+</style>
+
+<!-- block 1 + 2: mission, statement and photo -->
+<section class="ms reveal panel">
+  <div class="ms-inner">
+    <h2 class="ms-title">My mission: barbers who cut because they want to, not because they have to</h2>
+    <div class="ms-cols">
+      <div class="ms-copy">
+        <p>SCALO started in January 2025, on a trip to Thailand with my mates.</p>
+        <p>I'd been cutting for ten years by then. Good column, decent money, business I was proud of. And sat out there I worked out that the money only existed if I was stood behind the chair.</p>
+        <p>So I built something else out of what I already knew. I still cut, about eight days a month, twelve if I want them. I just don't have to. I like it more now than I did when it was the only way I earned.</p>
+        <p class="ab-lead">Ten years behind the chair.</p>
+        <p>I'm not here to talk anyone out of barbering. I still do it.</p>
+        <p>What I want is for you to have the option. Because the minute cutting is the only way you can earn, you start resenting it. That's what ruins a trade you were once excited about.</p>
+        <p class="ab-lead sm">A barber should be able to:</p>
+        <ul class="ab-list">
+          <li>Cut because he wants to, not because he has to</li>
+          <li>Earn from what he knows, not just what he does</li>
+          <li>Charge more for the chair time he does keep</li>
+          <li>Be seen as someone who runs a business, not just someone who's handy with clippers</li>
+        </ul>
+        <p>I built mine out of what was already in my head. Ten years of it, sat there, never sold.</p>
+        <p>You've got the same thing. You've just never packaged it.</p>
+        <a href="#inside" data-view="inside" class="btn btn-primary btn-lg">See how it works</a>
+      </div>
+      <div class="ms-media">
+        <img class="ab-photo is-img" src="/book-a-call/assets/lifestyle/tim-about.jpg" alt="Tim Brace outside Canary Wharf station">
+        <div class="ab-cap">Tim Brace / Founder, SCALO</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- block 3: values -->
+<section class="vl reveal panel">
+  <div class="vl-inner">
+    <h2 class="vl-title">What I care about</h2>
+    <div class="vl-grid">
+      <div class="vl-card">
+        <!-- ICON PLACEHOLDER: swap for a scanned pen drawing -->
+        <div class="vl-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6.5c9.8.2 17.7 8.1 17.6 17.8C41.4 34 33.5 41.6 23.8 41.5 14.2 41.4 6.3 33.4 6.5 23.7 6.7 14.2 14.5 6.6 24 6.5z"/><path d="M23.6 13.2c.2 3.6.1 7.2.2 10.9 2.4 1.5 4.9 2.9 7.4 4.2"/></svg></div>
+        <h3>The life comes first</h3>
+        <p>We build the business around what you want your week to look like. Not the other way round.</p>
+      </div>
+      <div class="vl-card">
+        <!-- ICON PLACEHOLDER: swap for a scanned pen drawing -->
+        <div class="vl-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 25.8c3.6 2.3 6.4 5.2 8.8 8.9C22.6 24.5 30 15.4 39.6 8.2"/><path d="M8.2 39.4c9.9-.6 19.9-.7 31.4-.3"/></svg></div>
+        <h3>Do it properly</h3>
+        <p>No templates, no copy and paste. If it's not good enough to put your name on, it doesn't go out.</p>
+      </div>
+      <div class="vl-card">
+        <!-- ICON PLACEHOLDER: swap for a scanned pen drawing -->
+        <div class="vl-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18.4 9.2c4.3-.2 7.2 2.9 7 7-.2 3.9-3.1 6.7-7.1 6.6-4-.1-6.8-3-6.7-7 .1-3.8 2.9-6.5 6.8-6.6z"/><path d="M6.6 39.4c.6-6.4 5.4-10.4 11.9-10.4 6.4 0 11.2 3.9 11.8 10.3"/><path d="M31.5 12.6c3.6-.5 6.4 1.8 6.5 5.3.1 3.3-2.3 5.7-5.6 5.7"/><path d="M34.2 28.9c4.4.7 7.2 4 7.3 9"/></svg></div>
+        <h3>Real mates, not clients</h3>
+        <p>I take a handful of people at a time. Most of them I'm still speaking to long after the 120 days are up.</p>
+      </div>
+      <div class="vl-card">
+        <!-- ICON PLACEHOLDER: swap for a scanned pen drawing -->
+        <div class="vl-ico"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6.8 41 15.4c.2 6.1.3 12.2-.2 18.3L24 41.4 7.3 33.6C6.9 27.5 7 21.4 7.2 15.3z"/><path d="M7.4 15.5c5.7 2.5 11.2 5 16.6 7.6 5.6-2.6 11.2-5.1 17-7.5"/><path d="M24 23.3c.3 6 .3 12 .1 18"/></svg></div>
+        <h3>Build it once</h3>
+        <p>Everything we build should keep working whether you're there or not. That's the entire point of it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- block 4: story video banner -->
+<section class="nb reveal panel">
+  <div class="nb-inner">
+    <h2 class="nb-lock">
+      <span class="nb-big">TIM BRACE<span class="nb-dot">.</span></span>
+      <span class="nb-under">UNCOVERED</span>
+    </h2>
+    <div class="nb-video">
+      <div class="nb-frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/pN499zdH2E4?rel=0&amp;modestbranding=1&amp;playsinline=1"
+          title="Tim Brace uncovered" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div class="view" id="view-faq">
 <!-- FAQ -->
 <section class="sec sec--narrow reveal">
   <div class="eyebrow c">FAQ</div>
   <h2 class="center" style="font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-0.03em;">The questions <span class="h-serif">founders ask.</span></h2>
   <div class="faq">
-    <details class="faq-item"><summary>Does this work for my industry?</summary><div class="faq-body">Yes. SCALO is built for service based founders across industries, not one niche. Packaging your knowledge into an online offer and building the engine behind it works the same wherever your expertise sits.</div></details>
+    <details class="faq-item"><summary>Does this work for my industry?</summary><div class="faq-body">Yes. SCALO is built for service based founders across industries, not one niche. Packaging your knowledge into an online offer and building the engine behind it works the same wherever your skill sits.</div></details>
     <details class="faq-item"><summary>I already run a business, where is the time?</summary><div class="faq-body">The whole programme installs around a full schedule. A few focused hours a week is enough. Your portal and the pre built frameworks mean you are never starting from a blank page, and the weekly calls keep you moving.</div></details>
     <details class="faq-item"><summary>What exactly do I get on day one?</summary><div class="faq-body">Within 24 hours of joining, your portal is live with every framework, template and script, a 120 day roadmap personalised to you, over 10 hours of recorded content, WhatsApp access to me and the team, and an onboarding call to lock your plan.</div></details>
     <details class="faq-item"><summary>Do I need a big audience already?</summary><div class="faq-body">You need a skill people value and a small audience to speak to. Most founders come in with a few thousand followers and momentum, not a million. We build the system that turns that attention into income.</div></details>
@@ -528,7 +900,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .wy-cta{text-align:center;margin-top:3rem;}
   .wy-cta-note{margin-top:.75rem;font-size:.78rem;letter-spacing:.02em;color:rgba(237,224,204,.5);}
 </style>
-<section class="final reveal" id="book">
+<section class="final reveal panel full" id="book">
   <div class="eyebrow c">Your move</div>
   <h2>You have the skill.<br>Now build the <span class="big"><b>[business]</b> around it.</span></h2>
   <p>Watch the training, then book your strategy call. We will look at where you are, where you want to be, and whether SCALO is the way to get there.</p>
@@ -536,6 +908,10 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   <div class="final-status">Free. Takes two minutes.</div>
   <div class="e2">Prefer to ask first? Email <a href="mailto:tim@usescalo.com">tim@usescalo.com</a></div>
 </section>
+
+</div>
+
+</main>
 
 <footer class="footer">
   <p>&copy; 2026 SCALO &middot; Build the business behind your brand.</p>
@@ -558,45 +934,109 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   },true);
 })();
 
+/* ── Fit the hero to one screen: the video takes the space that is left ── */
+(function(){
+  var hero=document.querySelector('.hero'),vsl=document.querySelector('.vsl'),frame=document.querySelector('.vsl-frame');
+  if(!hero||!vsl||!frame)return;
+  var barEl=document.querySelector('.topbar');
+  function fit(){
+    if(barEl)document.documentElement.style.setProperty('--bar',Math.round(barEl.getBoundingClientRect().height)+'px');
+    if(!hero.getClientRects().length)return;
+    frame.style.height='0px';frame.style.width='';
+    var cs=getComputedStyle(hero);
+    var avail=hero.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+    // measure top of the first child to bottom of the last, so the margins between them count
+    var kids=[].slice.call(hero.children).filter(function(c){return getComputedStyle(c).position!=='absolute';});
+    var used=kids[kids.length-1].getBoundingClientRect().bottom-kids[0].getBoundingClientRect().top;
+    var h=Math.max(150,avail-used);
+    var w=Math.min(Math.min(1040,vsl.clientWidth),h*16/9);
+    frame.style.width=Math.round(w)+'px';
+    frame.style.height=Math.round(w*9/16)+'px';
+  }
+  window.fitHero=fit;
+  window.addEventListener('resize',fit);
+  window.addEventListener('orientationchange',fit);
+  window.addEventListener('load',fit);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+  fit();
+})();
+
+/* ── Tabbed views: each nav tab is its own page ── */
+(function(){
+  var views=[].slice.call(document.querySelectorAll('.view'));
+  if(!views.length)return;
+  // a restored scroll offset would drop you mid page on the wrong view
+  if('scrollRestoration' in history)history.scrollRestoration='manual';
+  var tabs=[].slice.call(document.querySelectorAll('[data-view]'));
+  var names=views.map(function(v){return v.id.replace('view-','');});
+  function show(name,record){
+    if(names.indexOf(name)<0)name='home';
+    views.forEach(function(v){v.classList.toggle('is-active',v.id==='view-'+name);});
+    tabs.forEach(function(t){t.classList.toggle('on',t.getAttribute('data-view')===name&&t.className.indexOf('tb-logo')<0);});
+    document.documentElement.classList.toggle('snap',name==='home');
+    var prev=document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior='auto';
+    window.scrollTo(0,0);
+    document.documentElement.style.scrollBehavior=prev;
+    if(record&&history.replaceState)history.replaceState(null,'','#'+name);
+    window.dispatchEvent(new Event('scroll'));
+    window.dispatchEvent(new Event('resize'));
+  }
+  window.showView=show;
+  tabs.forEach(function(t){t.addEventListener('click',function(e){e.preventDefault();show(t.getAttribute('data-view'),true);});});
+  window.addEventListener('hashchange',function(){show((location.hash||'').replace('#',''),false);});
+  show((location.hash||'').replace('#',''),false);
+  window.addEventListener('load',function(){window.scrollTo(0,0);});
+})();
+
+/* ── Scroll past the bottom and it flicks to the next page ── */
+(function(){
+  var nav=[].slice.call(document.querySelectorAll('.tb-nav a[data-view]'));
+  var order=nav.map(function(a){return a.getAttribute('data-view');});
+  if(order.length<2)return;
+  function current(){var v=document.querySelector('.view.is-active');return v?v.id.replace('view-',''):order[0];}
+  function nextOf(name){var i=order.indexOf(name);return i>=0&&i<order.length-1?order[i+1]:null;}
+  var acc=0,lock=false;
+  function atBottom(){return window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4;}
+  function advance(){
+    var n=nextOf(current());
+    if(!n||lock)return;
+    lock=true;acc=0;
+    if(window.showView)window.showView(n,true);
+    setTimeout(function(){lock=false;},650);
+  }
+  window.addEventListener('wheel',function(e){
+    if(lock)return;
+    if(e.deltaY<=0||!atBottom()){acc=0;return;}
+    acc+=e.deltaY;
+    if(acc>80)advance();
+  },{passive:true});
+  var ty=null;
+  window.addEventListener('touchstart',function(e){ty=e.touches[0].clientY;},{passive:true});
+  window.addEventListener('touchmove',function(e){
+    if(lock||ty===null)return;
+    if(ty-e.touches[0].clientY>70&&atBottom())advance();
+  },{passive:true});
+  window.addEventListener('touchend',function(){ty=null;},{passive:true});
+})();
+
 /* ── Adaptive top bar colour ── */
 (function(){
   var bar=document.querySelector('.topbar');if(!bar)return;
-  var dark=[].slice.call(document.querySelectorAll('.prob,.wy,.final'));
+  var dark=[].slice.call(document.querySelectorAll('.sf,.final'));
   function upd(){var y=bar.offsetHeight+2;var on=dark.some(function(el){var r=el.getBoundingClientRect();return r.top<=y&&r.bottom>=y;});bar.classList.toggle('on-dark',on);}
   window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
 })();
 
-/* ── Meet Tim photo carousel ── */
-(function(){
-  var ph=document.querySelectorAll('.tim-photo');if(ph.length<2)return;var i=0;
-  setInterval(function(){ph[i].classList.remove('active');i=(i+1)%ph.length;ph[i].classList.add('active');},2800);
-})();
-
 /* ── Featured interview click to play ── */
 (function(){
-  document.querySelectorAll('.rv-video[data-yt]').forEach(function(v){
+  document.querySelectorAll('.rv-video[data-yt],.cs-frame[data-yt]').forEach(function(v){
     v.style.cursor='pointer';
     v.addEventListener('click',function(){
       var id=v.getAttribute('data-yt');
       v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="Interview" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>';
     });
   });
-})();
-
-/* ── Results: scroll-pinned screenshot stack ── */
-(function(){
-  var wrap=document.querySelector('.rv-pinwrap');if(!wrap)return;
-  var cards=[].slice.call(wrap.querySelectorAll('.wa-card'));if(!cards.length)return;
-  function upd(){
-    if(window.innerWidth<=760){cards.forEach(function(c){c.setAttribute('data-state','active');});return;}
-    var r=wrap.getBoundingClientRect();
-    var total=wrap.offsetHeight-window.innerHeight;
-    var p=total>0?Math.min(1,Math.max(0,(-r.top)/total)):0;
-    var n=cards.length;
-    var active=Math.min(n-1,Math.floor(p*n*0.999));
-    cards.forEach(function(c,i){c.setAttribute('data-state', i===active?'active':(i<active?'passed':'upcoming'));});
-  }
-  window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
 })();
 
 /* ── Scroll reveal ── */
