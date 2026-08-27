@@ -16,7 +16,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=980240057697179&ev=PageView&noscript=1"/></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
@@ -543,19 +543,20 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .bp-mark{display:block;font-size:13.4cqi;line-height:.9;letter-spacing:-0.035em;color:var(--ink);white-space:nowrap;}
   .bp-mark .lo{font-weight:400;}
   .bp-mark .hi{font-weight:800;}
-  .bp-kicker{position:absolute;left:15cqi;top:1cqi;font-size:clamp(.62rem,1.2cqi,1.05rem);font-weight:700;
-    letter-spacing:.2em;text-transform:uppercase;color:var(--ink);white-space:nowrap;line-height:1;}
+  .bp-kicker{position:absolute;left:20.2cqi;top:1.4cqi;transform:translateX(-50%);font-size:0.8cqi;font-weight:700;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--ink);white-space:nowrap;line-height:1;}
   .bp-ipa{margin-top:.7rem;font-style:italic;font-size:.95rem;color:var(--subtle);text-align:center;}
-  @media(max-width:640px){
-    .bp-kicker{position:static;display:block;left:auto;top:auto;margin:0 auto .5em;text-align:center;font-size:.64rem;}
+  @media(max-width:900px){
+    .bp-kicker{position:static;display:block;left:auto;top:auto;transform:none;margin:0 auto .5em;text-align:center;
+      font-size:clamp(.6rem,1.6vw,.72rem);}
   }
 
   /* 3. definition (regular, muted), quote, and hairline */
-  .bp-def{max-width:600px;margin:clamp(1.6rem,2.6vw,2.2rem) auto 0;text-align:center;font-weight:400;
+  .bp-def{max-width:1040px;margin:clamp(1.8rem,2.8vw,2.4rem) auto 0;text-align:center;font-weight:400;
     font-size:clamp(1.05rem,1.5vw,1.24rem);line-height:1.7;color:rgba(14,14,14,0.66);}
-  .bp-quote{max-width:600px;margin:clamp(1.8rem,3vw,2.6rem) auto 0;text-align:center;
-    font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(1.35rem,2.4vw,1.9rem);line-height:1.4;
-    letter-spacing:-0.02em;color:var(--ink);}
+  /* the bold pay-off line: same font and size as the definition, just bold */
+  .bp-quote{max-width:1040px;margin:clamp(.9rem,1.4vw,1.3rem) auto 0;text-align:center;font-weight:700;
+    font-size:clamp(1.05rem,1.5vw,1.24rem);line-height:1.7;letter-spacing:-0.01em;color:var(--ink);}
   .bp-rule{width:64px;height:2px;background:var(--green-dark);margin:clamp(2.6rem,4.5vw,3.8rem) auto 0;}
 
   /* 4. numbered senses — zig-zag rows, text one side, photo the other */
@@ -624,7 +625,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 
     <!-- 2. DEFINITION + QUOTE + RULE -->
     <p class="bp-def">A barber who still loves to cut hair and the life that comes with it, but runs it with the head of a business owner. Builds a business that fuels a life they want instead of a life built around the business.</p>
-    <p class="bp-quote">&ldquo;You cut hair because you want to, not because you have to.&rdquo;</p>
+    <p class="bp-quote">You cut hair because you want to, not because you have to.</p>
     <div class="bp-rule"></div>
 
     <!-- 4. NUMBERED SENSES (zig-zag) -->
