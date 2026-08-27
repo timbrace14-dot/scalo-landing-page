@@ -16,7 +16,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=980240057697179&ev=PageView&noscript=1"/></noscript>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
@@ -536,24 +536,25 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <style>
   /* parchment band, hairline-separated from the page-coloured sections around it */
   .bp{color:var(--ink);padding:clamp(4.5rem,8vw,7.5rem) 1.6rem clamp(5rem,9vw,8rem);}
-  .bp-inner{max-width:1120px;margin:0 auto;width:100%;}
+  .bp-inner{max-width:1180px;margin:0 auto;width:100%;container-type:inline-size;}
 
-  /* 2. wordmark lockup — 'Scalo is building' kicker tucked above the big wordmark */
-  .bp-word{text-align:center;}
-  .bp-lock{display:inline-block;text-align:left;}
-  .bp-kicker{display:block;font-size:clamp(.64rem,1.05vw,.84rem);font-weight:700;letter-spacing:.24em;
-    text-transform:uppercase;color:var(--ink);margin:0 0 .35em .18em;}
-  .bp-mark{display:block;font-size:clamp(2.2rem,9vw,5.4rem);line-height:.92;letter-spacing:-0.04em;
-    color:var(--ink);white-space:nowrap;}
+  /* 2. wordmark lockup — full-width barberpreneurs, 'Scalo is building' nestled in top-left */
+  .bp-word{position:relative;text-align:center;}
+  .bp-mark{display:block;font-size:13.4cqi;line-height:.9;letter-spacing:-0.035em;color:var(--ink);white-space:nowrap;}
   .bp-mark .lo{font-weight:400;}
   .bp-mark .hi{font-weight:800;}
-  .bp-ipa{margin-top:1rem;font-style:italic;font-size:.95rem;color:var(--subtle);text-align:center;}
+  .bp-kicker{position:absolute;left:15cqi;top:1cqi;font-size:clamp(.62rem,1.2cqi,1.05rem);font-weight:700;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--ink);white-space:nowrap;line-height:1;}
+  .bp-ipa{margin-top:.7rem;font-style:italic;font-size:.95rem;color:var(--subtle);text-align:center;}
+  @media(max-width:640px){
+    .bp-kicker{position:static;display:block;left:auto;top:auto;margin:0 auto .5em;text-align:center;font-size:.64rem;}
+  }
 
   /* 3. definition (regular, muted), quote, and hairline */
   .bp-def{max-width:600px;margin:clamp(1.6rem,2.6vw,2.2rem) auto 0;text-align:center;font-weight:400;
     font-size:clamp(1.05rem,1.5vw,1.24rem);line-height:1.7;color:rgba(14,14,14,0.66);}
-  .bp-quote{max-width:640px;margin:clamp(1.6rem,2.6vw,2.2rem) auto 0;text-align:center;
-    font-family:var(--serif);font-style:italic;font-size:clamp(1.35rem,2.4vw,1.9rem);line-height:1.4;
+  .bp-quote{max-width:600px;margin:clamp(1.8rem,3vw,2.6rem) auto 0;text-align:center;
+    font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(1.35rem,2.4vw,1.9rem);line-height:1.4;
     letter-spacing:-0.02em;color:var(--ink);}
   .bp-rule{width:64px;height:2px;background:var(--green-dark);margin:clamp(2.6rem,4.5vw,3.8rem) auto 0;}
 
@@ -616,10 +617,8 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 
     <!-- 1. WORDMARK LOCKUP: Scalo is building barberpreneurs -->
     <div class="bp-word">
-      <div class="bp-lock">
-        <span class="bp-kicker">Scalo is building</span>
-        <div class="bp-mark"><span class="lo">barber</span><span class="hi">preneurs</span></div>
-      </div>
+      <span class="bp-kicker">Scalo is building</span>
+      <div class="bp-mark"><span class="lo">barber</span><span class="hi">preneurs</span></div>
       <div class="bp-ipa">/ˈbɑːbəprəˈnɜː/ · noun</div>
     </div>
 
