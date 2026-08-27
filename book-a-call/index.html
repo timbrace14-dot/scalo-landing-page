@@ -535,25 +535,27 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
      lead-in, wordmark, definition, four numbered senses, life band, origin note, closing -->
 <style>
   /* parchment band, hairline-separated from the page-coloured sections around it */
-  .bp{background:var(--parchment);color:var(--ink);padding:clamp(4.5rem,8vw,7.5rem) 1.6rem clamp(5rem,9vw,8rem);
-    border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
+  .bp{color:var(--ink);padding:clamp(4.5rem,8vw,7.5rem) 1.6rem clamp(5rem,9vw,8rem);}
   .bp-inner{max-width:1120px;margin:0 auto;width:100%;}
 
-  /* 1. lead-in */
-  .bp-lead{max-width:620px;margin:0 auto;text-align:center;font-size:clamp(.95rem,1.3vw,1.08rem);
-    line-height:1.6;color:var(--muted);}
-
-  /* 2. wordmark — all lowercase, only 'preneur' bold, never wraps between the two parts */
-  .bp-word{text-align:center;margin:clamp(1.6rem,3vw,2.4rem) 0 0;}
-  .bp-mark{font-size:clamp(2rem,7.5vw,4.6rem);line-height:1;letter-spacing:-0.035em;color:var(--ink);white-space:nowrap;}
+  /* 2. wordmark lockup — 'Scalo is building' kicker tucked above the big wordmark */
+  .bp-word{text-align:center;}
+  .bp-lock{display:inline-block;text-align:left;}
+  .bp-kicker{display:block;font-size:clamp(.64rem,1.05vw,.84rem);font-weight:700;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--ink);margin:0 0 .35em .18em;}
+  .bp-mark{display:block;font-size:clamp(2.2rem,9vw,5.4rem);line-height:.92;letter-spacing:-0.04em;
+    color:var(--ink);white-space:nowrap;}
   .bp-mark .lo{font-weight:400;}
   .bp-mark .hi{font-weight:800;}
-  .bp-ipa{margin-top:.9rem;font-style:italic;font-size:.95rem;color:var(--subtle);}
+  .bp-ipa{margin-top:1rem;font-style:italic;font-size:.95rem;color:var(--subtle);text-align:center;}
 
-  /* 3. short definition + dark-green hairline */
-  .bp-def{max-width:540px;margin:clamp(1.4rem,2.4vw,2rem) auto 0;text-align:center;font-weight:500;
-    font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.45;letter-spacing:-0.02em;color:var(--ink);}
-  .bp-rule{width:64px;height:2px;background:var(--green-dark);margin:clamp(2.4rem,4.5vw,3.6rem) auto 0;}
+  /* 3. definition (regular, muted), quote, and hairline */
+  .bp-def{max-width:600px;margin:clamp(1.6rem,2.6vw,2.2rem) auto 0;text-align:center;font-weight:400;
+    font-size:clamp(1.05rem,1.5vw,1.24rem);line-height:1.7;color:rgba(14,14,14,0.66);}
+  .bp-quote{max-width:640px;margin:clamp(1.6rem,2.6vw,2.2rem) auto 0;text-align:center;
+    font-family:var(--serif);font-style:italic;font-size:clamp(1.35rem,2.4vw,1.9rem);line-height:1.4;
+    letter-spacing:-0.02em;color:var(--ink);}
+  .bp-rule{width:64px;height:2px;background:var(--green-dark);margin:clamp(2.6rem,4.5vw,3.8rem) auto 0;}
 
   /* 4. numbered senses — zig-zag rows, text one side, photo the other */
   .bp-senses{margin:clamp(3rem,6vw,5rem) 0 0;display:grid;gap:clamp(3.5rem,7vw,6.5rem);}
@@ -612,17 +614,18 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <section class="bp reveal panel">
   <div class="bp-inner">
 
-    <!-- 1. LEAD-IN -->
-    <p class="bp-lead">I'm not trying to get you out of the trade. I'm trying to make it a choice.<br>So we needed a word for it.</p>
-
-    <!-- 2. WORDMARK -->
+    <!-- 1. WORDMARK LOCKUP: Scalo is building barberpreneurs -->
     <div class="bp-word">
-      <div class="bp-mark"><span class="lo">barber</span><span class="hi">preneur</span></div>
+      <div class="bp-lock">
+        <span class="bp-kicker">Scalo is building</span>
+        <div class="bp-mark"><span class="lo">barber</span><span class="hi">preneurs</span></div>
+      </div>
       <div class="bp-ipa">/ˈbɑːbəprəˈnɜː/ · noun</div>
     </div>
 
-    <!-- 3. SHORT DEFINITION + RULE -->
-    <p class="bp-def">A barber who still loves cutting hair, but doesn't want it to be the only way he earns.</p>
+    <!-- 2. DEFINITION + QUOTE + RULE -->
+    <p class="bp-def">A barber who still loves to cut hair and the life that comes with it, but runs it with the head of a business owner. Builds a business that fuels a life they want instead of a life built around the business.</p>
+    <p class="bp-quote">&ldquo;You cut hair because you want to, not because you have to.&rdquo;</p>
     <div class="bp-rule"></div>
 
     <!-- 4. NUMBERED SENSES (zig-zag) -->
