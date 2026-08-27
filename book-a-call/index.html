@@ -538,22 +538,14 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .bp{color:var(--ink);padding:clamp(4.5rem,8vw,7.5rem) 1.6rem clamp(5rem,9vw,8rem);}
   .bp-inner{max-width:1180px;margin:0 auto;width:100%;container-type:inline-size;}
 
-  /* 2. wordmark lockup — full-width barberpreneurs, 'Scalo is building' nestled in top-left */
-  .bp-word{position:relative;text-align:center;}
-  .bp-mark{display:block;font-size:13.4cqi;line-height:.9;letter-spacing:-0.035em;color:var(--ink);white-space:nowrap;}
-  .bp-mark .lo{font-weight:400;}
-  .bp-mark .hi{font-weight:800;}
-  .bp-kicker{position:absolute;left:16.74cqi;top:-0.68cqi;transform:translateX(-50%);font-size:1.62cqi;font-weight:700;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;line-height:1;}
-  .bp-ipa{margin-top:.7rem;font-style:italic;font-size:.95rem;color:var(--subtle);text-align:center;}
-  @media(max-width:900px){
-    .bp-kicker{position:static;display:block;left:auto;top:auto;transform:none;margin:0 auto .5em;text-align:center;
-      font-size:clamp(.6rem,1.6vw,.72rem);}
-  }
+  /* 2. wordmark lockup — supplied as a transparent image */
+  .bp-word{text-align:center;}
+  .bp-lockup{display:block;width:100%;max-width:1120px;height:auto;margin:0 auto;}
+  .bp-ipa{margin-top:1rem;font-style:italic;font-size:.95rem;color:var(--subtle);text-align:center;}
 
   /* 3. definition (regular, muted), quote, and hairline */
-  .bp-def{max-width:1000px;margin:clamp(1.8rem,2.8vw,2.4rem) auto 0;text-align:center;font-weight:400;
-    font-size:clamp(.9rem,1.15vw,1rem);line-height:1.7;color:rgba(14,14,14,0.66);}
+  .bp-def{max-width:820px;margin:clamp(1.8rem,2.8vw,2.4rem) auto 0;text-align:center;font-weight:400;
+    font-size:clamp(.76rem,1vw,.84rem);line-height:1.7;color:rgba(14,14,14,0.66);}
   .bp-def strong{font-weight:700;color:var(--ink);}
   .bp-rule{width:64px;height:2px;background:var(--green-dark);margin:clamp(2.6rem,4.5vw,3.8rem) auto 0;}
 
@@ -614,10 +606,9 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <section class="bp reveal panel">
   <div class="bp-inner">
 
-    <!-- 1. WORDMARK LOCKUP: Scalo is building barberpreneurs -->
+    <!-- 1. WORDMARK LOCKUP (supplied transparent image) -->
     <div class="bp-word">
-      <span class="bp-kicker">Scalo is building</span>
-      <div class="bp-mark"><span class="lo">barber</span><span class="hi">preneurs</span></div>
+      <img class="bp-lockup" src="/book-a-call/assets/barberpreneurs-lockup.png" alt="Scalo is building barberpreneurs" loading="lazy">
       <div class="bp-ipa">/ˈbɑːbəprəˈnɜː/ · noun</div>
     </div>
 
