@@ -531,123 +531,138 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   </div>
 </section>
 
-<!-- THE CREED (dark). Order: creed / gallery / barberpreneur / closing -->
+<!-- THE BARBERPRENEUR SECTION (light / parchment). A dictionary entry:
+     lead-in, wordmark, definition, four numbered senses, life band, origin note, closing -->
 <style>
-  /* whole section on pitch black */
-  .cr{background:#0E0E0E;color:var(--parchment);padding:clamp(3.5rem,6vw,5.5rem) 1.6rem clamp(4.5rem,8vw,7rem);}
-  .cr-inner{max-width:1180px;margin:0 auto;width:100%;}
+  /* parchment band, hairline-separated from the page-coloured sections around it */
+  .bp{background:var(--parchment);color:var(--ink);padding:clamp(4.5rem,8vw,7.5rem) 1.6rem clamp(5rem,9vw,8rem);
+    border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);}
+  .bp-inner{max-width:1120px;margin:0 auto;width:100%;}
 
-  /* 1. the creed — the line breaks are the rhythm, one line each, four stanzas + coda */
-  .cr-creed{max-width:640px;}
-  .cr-stanza{font-size:clamp(1.5rem,2.3vw,1.95rem);line-height:1.5;letter-spacing:-0.02em;
-    font-weight:500;color:rgba(237,224,204,.82);margin:0;}
-  .cr-stanza + .cr-stanza{margin-top:clamp(2rem,3.2vw,2.9rem);}
-  .cr-green{color:var(--green);font-weight:600;}
+  /* 1. lead-in */
+  .bp-lead{max-width:620px;margin:0 auto;text-align:center;font-size:clamp(.95rem,1.3vw,1.08rem);
+    line-height:1.6;color:var(--muted);}
 
-  /* 2. the gallery — a deliberate, staggered scatter in journey order.
-     size = column span, height stays natural (nothing squashed). min-width:0 stops the
-     wide source images blowing the grid out — that was the duplicate clipped column,
-     fixed at the cause rather than masked with overflow:hidden. */
-  .cr-gallery{display:grid;grid-template-columns:repeat(12,1fr);column-gap:clamp(1rem,2vw,1.8rem);
-    align-items:start;margin:clamp(3rem,5.5vw,4.5rem) 0 0;}
-  .cr-item{margin:0;min-width:0;break-inside:avoid;}
-  .cr-item img{width:100%;height:auto;display:block;border-radius:var(--r-card);
-    box-shadow:0 20px 60px rgba(0,0,0,0.5);}
-  .cr-item figcaption{margin-top:.85rem;font-size:.86rem;line-height:1.5;color:rgba(237,224,204,.55);}
+  /* 2. wordmark — all lowercase, only 'preneur' bold, never wraps between the two parts */
+  .bp-word{text-align:center;margin:clamp(1.6rem,3vw,2.4rem) 0 0;}
+  .bp-mark{font-size:clamp(2rem,7.5vw,4.6rem);line-height:1;letter-spacing:-0.035em;color:var(--ink);white-space:nowrap;}
+  .bp-mark .lo{font-weight:400;}
+  .bp-mark .hi{font-weight:800;}
+  .bp-ipa{margin-top:.9rem;font-style:italic;font-size:.95rem;color:var(--subtle);}
 
-  /* anchor is the biggest, the two phone shots the smallest; tops are offset so no two
-     neighbours line up on the same edge. reads top to bottom in the journey order. */
-  .cr-graft  {grid-column:1 / span 4;   grid-row:1;}
-  .cr-chair  {grid-column:7 / span 4;   grid-row:1;  margin-top:clamp(2.5rem,5vw,4.5rem);}
-  .cr-week   {grid-column:1 / span 3;   grid-row:2;  margin-top:clamp(1rem,2.5vw,2rem);}
-  .cr-people {grid-column:5 / span 3;   grid-row:2;  margin-top:clamp(3rem,6vw,5rem);}
-  .cr-notwork{grid-column:8 / span 5;   grid-row:2;  margin-top:clamp(1.5rem,3.5vw,3rem);}
-  .cr-anchor {grid-column:1 / span 8;   grid-row:3;}
-  .cr-money  {grid-column:10 / span 3;  grid-row:3;  margin-top:clamp(3rem,6vw,5rem);}
+  /* 3. short definition + dark-green hairline */
+  .bp-def{max-width:540px;margin:clamp(1.4rem,2.4vw,2rem) auto 0;text-align:center;font-weight:500;
+    font-size:clamp(1.2rem,1.9vw,1.5rem);line-height:1.45;letter-spacing:-0.02em;color:var(--ink);}
+  .bp-rule{width:64px;height:2px;background:var(--green-dark);margin:clamp(2.4rem,4.5vw,3.6rem) auto 0;}
 
-  /* tablet: two staggered columns. mobile: one column, journey order. */
-  @media(max-width:900px){
-    .cr-gallery{display:block;columns:2;column-gap:clamp(1rem,3vw,1.8rem);}
-    .cr-item{margin:0 0 clamp(1.3rem,3vw,1.9rem);break-inside:avoid;}
+  /* 4. numbered senses — zig-zag rows, text one side, photo the other */
+  .bp-senses{margin:clamp(3rem,6vw,5rem) 0 0;display:grid;gap:clamp(3.5rem,7vw,6.5rem);}
+  .bp-sense{display:grid;grid-template-columns:1fr 45%;gap:clamp(2rem,5vw,4.5rem);align-items:center;}
+  .bp-sense .bp-sense-txt{grid-column:1;}
+  .bp-sense .bp-sense-img{grid-column:2;}
+  .bp-sense.rev{grid-template-columns:45% 1fr;}
+  .bp-sense.rev .bp-sense-txt{grid-column:2;}
+  .bp-sense.rev .bp-sense-img{grid-column:1;}
+  .bp-sense-txt{position:relative;padding-left:clamp(2.6rem,4.5vw,4.4rem);}
+  .bp-num{position:absolute;left:0;top:-.1em;font-weight:800;color:var(--green-dark);
+    font-size:clamp(2.2rem,4vw,3.4rem);line-height:1;letter-spacing:-0.02em;}
+  .bp-sense-txt p{margin:0;max-width:20ch;font-size:clamp(1.45rem,2.3vw,1.95rem);line-height:1.35;
+    letter-spacing:-0.02em;color:var(--ink);font-weight:500;}
+  .bp-sense-img img{width:100%;height:auto;display:block;border-radius:var(--r-card);
+    box-shadow:0 18px 50px rgba(30,25,15,0.14);}
+
+  /* 5. the life band — three photos, slightly offset, one shared line */
+  .bp-life{margin:clamp(4rem,7vw,6.5rem) 0 0;}
+  .bp-life-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,2.4vw,2rem);align-items:start;}
+  .bp-life-grid figure{margin:0;min-width:0;}
+  .bp-life-grid img{width:100%;height:auto;display:block;border-radius:var(--r-card);
+    box-shadow:0 18px 50px rgba(30,25,15,0.14);}
+  .bp-life-grid .a{margin-top:clamp(1.6rem,3vw,2.8rem);}
+  .bp-life-grid .c{margin-top:clamp(.8rem,1.6vw,1.4rem);}
+  .bp-life-cap{margin:clamp(1.6rem,3vw,2.4rem) auto 0;text-align:center;font-size:.95rem;color:var(--muted);}
+
+  /* 6. origin note — the old creed lines, demoted to a footnote */
+  .bp-origin{max-width:640px;margin:clamp(4rem,7vw,6rem) auto 0;text-align:center;}
+  .bp-origin .lab{font-size:.64rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--subtle);margin-bottom:.8rem;}
+  .bp-origin p{margin:0;font-size:clamp(.9rem,1.1vw,1rem);line-height:1.7;color:var(--subtle);}
+
+  /* 7. closing — largest type on the whole page, black on parchment */
+  .bp-close{margin:clamp(4.5rem,8vw,7rem) 0 0;text-align:center;}
+  .bp-close p{font-weight:800;letter-spacing:-0.045em;font-size:clamp(2.6rem,7.6vw,5.6rem);
+    line-height:1.02;color:var(--ink);margin:0;}
+  .bp-close p + p{margin-top:.04em;}
+
+  /* tablet: senses stack, image above text, no alternating. life band two plus one. */
+  @media(max-width:860px){
+    .bp-sense,.bp-sense.rev{grid-template-columns:1fr;gap:1.4rem;}
+    .bp-sense .bp-sense-txt,.bp-sense.rev .bp-sense-txt{grid-column:1;order:2;}
+    .bp-sense .bp-sense-img,.bp-sense.rev .bp-sense-img{grid-column:1;order:1;max-width:460px;}
+    .bp-sense-txt{padding-left:clamp(2.4rem,7vw,3.4rem);}
+    .bp-life-grid{grid-template-columns:1fr 1fr;}
+    .bp-life-grid .a,.bp-life-grid .c{margin-top:0;}
+    .bp-life-grid figure:last-child{grid-column:1 / -1;max-width:460px;margin:0 auto;}
   }
-  @media(max-width:600px){
-    .cr-gallery{columns:1;}
+  /* mobile: single column throughout */
+  @media(max-width:560px){
+    .bp-sense .bp-sense-img,.bp-sense.rev .bp-sense-img{max-width:none;}
+    .bp-life-grid{grid-template-columns:1fr;}
+    .bp-life-grid figure:last-child{max-width:none;}
   }
-
-  /* 3. the barberpreneur wordmark, set like a dictionary entry */
-  .cr-word{margin:clamp(4rem,8vw,7rem) auto 0;text-align:center;}
-  .cr-mark{font-size:clamp(2.1rem,6.4vw,4.4rem);line-height:1;letter-spacing:-0.03em;color:var(--parchment);}
-  .cr-mark .lo{font-weight:400;text-transform:lowercase;}
-  .cr-mark .hi{font-weight:800;text-transform:uppercase;}
-  .cr-ipa{margin-top:1rem;font-style:italic;font-size:.95rem;color:rgba(237,224,204,.5);}
-  .cr-def{max-width:560px;margin:1.5rem auto 0;font-size:1.02rem;line-height:1.65;color:rgba(237,224,204,.72);}
-
-  /* 4. the closing statement — biggest type on the page. size, weight and spacing
-     unchanged; only the colour flips to parchment so it reads on black. */
-  .cr-close{margin:clamp(4rem,8vw,7rem) 0 0;}
-  .cr-close p{font-weight:800;letter-spacing:-0.045em;
-    font-size:clamp(2.6rem,7.6vw,5.6rem);line-height:1.02;color:var(--parchment);margin:0;}
-  .cr-close p + p{margin-top:.04em;}
 </style>
-<section class="cr reveal panel">
-  <div class="cr-inner">
+<section class="bp reveal panel">
+  <div class="bp-inner">
 
-    <!-- 1. THE CREED -->
-    <div class="cr-creed">
-      <p class="cr-stanza">I'm not trying to get you out of the trade.<br>I'm trying to make it a choice.</p>
+    <!-- 1. LEAD-IN -->
+    <p class="bp-lead">I'm not trying to get you out of the trade. I'm trying to make it a choice.<br>So we needed a word for it.</p>
 
-      <!-- SWAPPABLE: trade-specific lines, written for barbers. Replace only
-           these three when the audience broadens to tattooists or PTs. -->
-      <p class="cr-stanza">Fully booked isn't the top. <span class="cr-green">It's the ceiling.</span><br>A second shop is the same job, twice.<br>Putting your prices up feels good for about a fortnight.</p>
-
-      <p class="cr-stanza">The way out was never more hours.<br>It's the ten years already sat in your head.<br><span class="cr-green">Never sold once.</span></p>
-
-      <p class="cr-stanza">You keep the craft. You keep the chair.<br><span class="cr-green">You just stop needing it.</span></p>
-
-      <p class="cr-stanza">That's all any of us are after.</p>
+    <!-- 2. WORDMARK -->
+    <div class="bp-word">
+      <div class="bp-mark"><span class="lo">barber</span><span class="hi">preneur</span></div>
+      <div class="bp-ipa">/ˈbɑːbəprəˈnɜː/ · noun</div>
     </div>
 
-    <!-- 2. THE GALLERY — journey order: graft, chair, week, with-people, not-working, anchor, money -->
-    <div class="cr-gallery">
-      <figure class="cr-item cr-graft">
-        <img src="/book-a-call/assets/offtheback/the-graft.jpg" loading="lazy" alt="Tim working late at a desk">
-        <figcaption>It isn't free. The first year gets built in the gaps.</figcaption>
-      </figure>
-      <figure class="cr-item cr-chair">
-        <img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="Tim cutting a client's hair in the shop">
-        <figcaption>Still cutting. Eight days a month, not twenty-four.</figcaption>
-      </figure>
-      <figure class="cr-item cr-week">
-        <img src="/book-a-call/assets/offtheback/the-week.jpg" loading="lazy" alt="A booking diary with days blocked out">
-        <figcaption>A Tuesday off, and the money still lands.</figcaption>
-      </figure>
-      <figure class="cr-item cr-people">
-        <img src="/book-a-call/assets/offtheback/with-people.jpg" loading="lazy" alt="Tim with friends and family">
-        <figcaption>Actually being there for the people who waited.</figcaption>
-      </figure>
-      <figure class="cr-item cr-notwork">
-        <img src="/book-a-call/assets/offtheback/not-working.jpg" loading="lazy" alt="Tim away from the shop, not working">
-        <figcaption>Book the trip first. Work the diary round it.</figcaption>
-      </figure>
-      <figure class="cr-item cr-anchor">
-        <img src="/book-a-call/assets/offtheback/anchor.jpg" loading="lazy" alt="Tim working on a laptop outdoors abroad">
-        <figcaption>Work from wherever you fancy that month.</figcaption>
-      </figure>
-      <figure class="cr-item cr-money">
-        <img src="/book-a-call/assets/offtheback/money-landing.jpg" loading="lazy" alt="A payment notification on a phone screen">
-        <figcaption>Money in, while you're nowhere near a pair of clippers.</figcaption>
-      </figure>
+    <!-- 3. SHORT DEFINITION + RULE -->
+    <p class="bp-def">A barber who still loves cutting hair, but doesn't want it to be the only way he earns.</p>
+    <div class="bp-rule"></div>
+
+    <!-- 4. NUMBERED SENSES (zig-zag) -->
+    <div class="bp-senses">
+      <div class="bp-sense">
+        <div class="bp-sense-txt"><span class="bp-num">1</span><p>Still loves the craft. Just doesn't want the chair to be the only way money comes in.</p></div>
+        <div class="bp-sense-img"><img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair in a shop"></div>
+      </div>
+      <div class="bp-sense rev">
+        <div class="bp-sense-txt"><span class="bp-num">2</span><p>Sells the knowledge behind the haircut, not just the haircut.</p></div>
+        <div class="bp-sense-img"><img src="/book-a-call/assets/offtheback/the-graft.jpg" loading="lazy" alt="Tim working late on a laptop at a desk"></div>
+      </div>
+      <div class="bp-sense">
+        <div class="bp-sense-txt"><span class="bp-num">3</span><p>Builds it once and sells it to many, instead of one client, one hour, one payment.</p></div>
+        <div class="bp-sense-img"><img src="/book-a-call/assets/offtheback/money-landing.jpg" loading="lazy" alt="A Stripe payment notification on a phone screen"></div>
+      </div>
+      <div class="bp-sense rev">
+        <div class="bp-sense-txt"><span class="bp-num">4</span><p>Cuts because he wants to, not because he has to.</p></div>
+        <div class="bp-sense-img"><img src="/book-a-call/assets/offtheback/the-week.jpg" loading="lazy" alt="A week of appointments blocked out in a booking diary"></div>
+      </div>
     </div>
 
-    <!-- 3. THE BARBERPRENEUR WORDMARK -->
-    <div class="cr-word">
-      <div class="cr-mark"><span class="lo">barber</span><span class="hi">PRENEUR</span></div>
-      <div class="cr-ipa">/ˈbɑːbəprəˈnɜː/ · noun</div>
-      <div class="cr-def">A barber who still loves the craft and the life that comes with it, but runs it with the head of a business owner. Builds a business that fuels the life they want, instead of a life built around the business.</div>
+    <!-- 5. THE LIFE BAND -->
+    <div class="bp-life">
+      <div class="bp-life-grid">
+        <figure class="b"><img src="/book-a-call/assets/offtheback/anchor.jpg" loading="lazy" alt="Tim working on a laptop at an outdoor table by the sea"></figure>
+        <figure class="a"><img src="/book-a-call/assets/offtheback/not-working.jpg" loading="lazy" alt="Friends laughing together at a get-together"></figure>
+        <figure class="c"><img src="/book-a-call/assets/offtheback/with-people.jpg" loading="lazy" alt="A group of friends walking together outdoors"></figure>
+      </div>
+      <p class="bp-life-cap">And this is what it buys back.</p>
     </div>
 
-    <!-- 4. THE CLOSING STATEMENT -->
-    <div class="cr-close">
+    <!-- 6. ORIGIN NOTE -->
+    <div class="bp-origin">
+      <div class="lab">Origin</div>
+      <p>Fully booked isn't the top, it's the ceiling. A second shop is the same job, twice. Putting your prices up feels good for about a fortnight. The way out was never more hours. It's the ten years already sat in your head, never sold once. You keep the craft. You keep the chair. You just stop needing it.</p>
+    </div>
+
+    <!-- 7. THE CLOSING STATEMENT -->
+    <div class="bp-close">
       <p>Because you want to.</p>
       <p>Not because you have to.</p>
     </div>
