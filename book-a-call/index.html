@@ -543,8 +543,8 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .bp-mark{display:block;font-size:13.4cqi;line-height:.9;letter-spacing:-0.035em;color:var(--ink);white-space:nowrap;}
   .bp-mark .lo{font-weight:400;}
   .bp-mark .hi{font-weight:800;}
-  .bp-kicker{position:absolute;left:16.4cqi;top:-2.4cqi;transform:translateX(-50%);font-size:1.15cqi;font-weight:700;
-    letter-spacing:.1em;text-transform:uppercase;color:var(--ink);white-space:nowrap;line-height:1;}
+  .bp-kicker{position:absolute;left:16.74cqi;top:-0.68cqi;transform:translateX(-50%);font-size:1.62cqi;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;line-height:1;}
   .bp-ipa{margin-top:.7rem;font-style:italic;font-size:.95rem;color:var(--subtle);text-align:center;}
   @media(max-width:900px){
     .bp-kicker{position:static;display:block;left:auto;top:auto;transform:none;margin:0 auto .5em;text-align:center;
@@ -552,11 +552,9 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   }
 
   /* 3. definition (regular, muted), quote, and hairline */
-  .bp-def{max-width:1040px;margin:clamp(1.8rem,2.8vw,2.4rem) auto 0;text-align:center;font-weight:400;
-    font-size:clamp(1.05rem,1.5vw,1.24rem);line-height:1.7;color:rgba(14,14,14,0.66);}
-  /* the bold pay-off line: same font and size as the definition, just bold */
-  .bp-quote{max-width:1040px;margin:clamp(.9rem,1.4vw,1.3rem) auto 0;text-align:center;font-weight:700;
-    font-size:clamp(1.05rem,1.5vw,1.24rem);line-height:1.7;letter-spacing:-0.01em;color:var(--ink);}
+  .bp-def{max-width:1000px;margin:clamp(1.8rem,2.8vw,2.4rem) auto 0;text-align:center;font-weight:400;
+    font-size:clamp(.9rem,1.15vw,1rem);line-height:1.7;color:rgba(14,14,14,0.66);}
+  .bp-def strong{font-weight:700;color:var(--ink);}
   .bp-rule{width:64px;height:2px;background:var(--green-dark);margin:clamp(2.6rem,4.5vw,3.8rem) auto 0;}
 
   /* 4. numbered senses — zig-zag rows, text one side, photo the other */
@@ -623,9 +621,8 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
       <div class="bp-ipa">/ˈbɑːbəprəˈnɜː/ · noun</div>
     </div>
 
-    <!-- 2. DEFINITION + QUOTE + RULE -->
-    <p class="bp-def">A barber who still loves to cut hair and the life that comes with it, but runs it with the head of a business owner. Builds a business that fuels a life they want instead of a life built around the business.</p>
-    <p class="bp-quote">You cut hair because you want to, not because you have to.</p>
+    <!-- 2. DEFINITION (two lines; bold pay-off tail) + RULE -->
+    <p class="bp-def">A barber who still loves to cut hair and the life that comes with it, but runs it with the head of a business owner. Builds a business that fuels a life they want instead of a life built around the business, <strong>so you can cut hair because you want to, not because you have to.</strong></p>
     <div class="bp-rule"></div>
 
     <!-- 4. NUMBERED SENSES (zig-zag) -->
