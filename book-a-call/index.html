@@ -628,16 +628,16 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
     transition:opacity .5s ease, visibility 0s linear .5s;
     background:linear-gradient(90deg,#5A8000,#8FBF20);-webkit-background-clip:text;background-clip:text;color:transparent;}
   .up-rot .w.on{opacity:1;visibility:visible;transition:opacity .5s ease;}
-  .up-items{display:grid;gap:clamp(1.9rem,3.4vw,3rem);}
-  .up-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.2rem,2.2vw,2rem);align-items:start;padding-left:1.6rem;}
+  .up-items{display:grid;gap:clamp(2rem,3.6vw,3.2rem);}
+  .up-item{position:relative;padding-left:1.6rem;}
   .up-item::before{content:"";position:absolute;left:0;top:.15rem;bottom:.15rem;width:6px;border-radius:999px;background:var(--green-dark);}
-  .up-item>div{min-width:0;}
-  .up-item h3{font-size:clamp(1.3rem,2vw,1.7rem);font-weight:700;letter-spacing:-0.025em;line-height:1.14;color:var(--ink);margin:0 0 .55rem;}
-  .up-item p{font-size:clamp(.9rem,1.05vw,1rem);line-height:1.65;color:rgba(14,14,14,0.5);margin:0;}
-  .up-thumb{width:clamp(120px,15vw,185px);flex:0 0 auto;aspect-ratio:4/3;border-radius:14px;overflow:hidden;
-    background:#EBE3D2;box-shadow:0 12px 30px -14px rgba(30,25,15,0.28);}
+  .up-item::after{content:"";display:block;clear:both;}
+  .up-thumb{float:right;margin:.1rem 0 .7rem clamp(1rem,2vw,1.6rem);width:clamp(96px,12vw,150px);aspect-ratio:4/3;
+    border-radius:14px;overflow:hidden;background:#EBE3D2;box-shadow:0 12px 30px -14px rgba(30,25,15,0.28);}
   .up-thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
-  @media(max-width:860px){.up{grid-template-columns:1fr;gap:2.4rem;}.up-thumb{width:150px;}}
+  .up-item h3{margin:0 0 .5rem;font-size:clamp(1.3rem,2vw,1.7rem);font-weight:700;letter-spacing:-0.025em;line-height:1.14;color:var(--ink);}
+  .up-item p{margin:0;font-size:clamp(.9rem,1.05vw,1rem);line-height:1.65;color:rgba(14,14,14,0.5);}
+  @media(max-width:860px){.up{grid-template-columns:1fr;gap:2.4rem;}.up-thumb{width:130px;}}
 
   /* ── BLOCK 5: photo band (bento, 10 tiles) ── */
   .pb{margin:clamp(4.5rem,8vw,7rem) 0 0;display:grid;grid-template-columns:repeat(12,1fr);
@@ -645,7 +645,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .pb figure{position:relative;margin:0;overflow:hidden;border-radius:14px;}
   .pb figure img{width:100%;height:100%;object-fit:cover;display:block;}
   /* reframe portraits that sit in wide tiles so faces aren't cropped */
-  .pb-graft img{object-position:center 40%;}
+  .pb-graft img{object-position:center;}
   .pb-cutmate img{object-position:center 26%;}
   .pb-evening img{object-position:center 54%;}
   .pb figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .9rem .7rem;color:#fff;
@@ -703,16 +703,19 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
       <h2 class="up-head">SCALO will upgrade your<br><span class="up-rot"><span class="spacer">perceived value</span><span class="w on">life</span><span class="w">business</span><span class="w">perceived value</span></span></h2>
       <div class="up-items">
         <div class="up-item">
-          <div><h3>Your life</h3><p>Twelve days in the chair instead of twenty-four, and a diary you actually control.</p></div>
           <div class="up-thumb"><img src="/book-a-call/assets/upgrade/life.jpg" loading="lazy" alt="A slower week, diary under control"></div>
+          <h3>Your Life</h3>
+          <p>Twelve days in the chair instead of twenty-four, and a diary you actually control.</p>
         </div>
         <div class="up-item">
-          <div><h3>Your business</h3><p>A second income built off the ten years you already have, sold to many people instead of one at a time.</p></div>
           <div class="up-thumb"><img src="/book-a-call/assets/upgrade/business.jpg" loading="lazy" alt="A desk set up for online work"></div>
+          <h3>Your Business</h3>
+          <p>A second income built off the ten years you already have, sold to many people instead of one at a time.</p>
         </div>
         <div class="up-item">
-          <div><h3>Your perceived value</h3><p>Clients and other barbers stop seeing a barber and start seeing someone who runs a business. That on its own is why you can charge more.</p></div>
           <div class="up-thumb"><img src="/book-a-call/assets/upgrade/perceived.jpg" loading="lazy" alt="A barber seen as a business owner"></div>
+          <h3>Your Perceived Value</h3>
+          <p>Clients and other barbers stop seeing a barber and start seeing someone who runs a business. That on its own is why you can charge more.</p>
         </div>
       </div>
     </div>
