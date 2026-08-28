@@ -55,3 +55,6 @@ book-a-call/about me.png
 
 # Source images for the what-you-get cards, only the built JPEGs ship
 book-a-call/assets/whatyouget/_source/
+
+# Source reel exports (~39MB each); only the processed clips in assets/video/ ship
+book-a-call/assets/whatyouget/barberpreneur video/

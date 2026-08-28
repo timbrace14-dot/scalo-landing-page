@@ -264,7 +264,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <!-- HERO -->
 <section class="hero panel">
   <div class="hero-badge"><span class="d"></span><span class="lbl">For barbers doing &pound;5k plus a month</span></div>
-  <h1 class="hero-title">Turn Your Knowledge Into<br><span class="ul">An Online Business</span></h1>
+  <h1 class="hero-title">The Fastest Way To Turn Your<br>Knowledge Into An <span class="ul">Online Business</span></h1>
   <p class="hero-sub">I work with you one to one to package what you already know, using <strong>The L.A.U.N.C.H Method</strong>. 120 days, built to double what you're earning now, and built so you can run it from anywhere.</p>
 
   <div class="vsl">
@@ -603,6 +603,59 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
     .bp-life-grid figure:last-child{max-width:none;}
   }
 </style>
+<style>
+  /* ── BLOCK A: hero video ── */
+  .bp-hero{margin:clamp(2.4rem,4.5vw,3.6rem) auto 0;max-width:1000px;position:relative;}
+  .bp-hero video{width:100%;height:auto;display:block;border-radius:var(--r-card);box-shadow:0 18px 50px rgba(30,25,15,0.14);background:#0E0E0E;}
+  .bp-hero .unmute{position:absolute;right:14px;bottom:14px;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+    background:rgba(237,224,204,0.8);color:var(--ink);display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .bp-hero .unmute:hover{background:rgba(237,224,204,0.96);}
+  .bp-hero .unmute svg{width:20px;height:20px;display:block;}
+  .bp-hero .unmute .on-ic{display:none;} .bp-hero .unmute.sound .off-ic{display:none;} .bp-hero .unmute.sound .on-ic{display:block;}
+
+  /* ── BLOCK B: upgrade ── */
+  .up{margin:clamp(4.5rem,8vw,7rem) 0 0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center;}
+  .up-head{font-weight:800;font-size:clamp(1.9rem,4.2vw,3.2rem);letter-spacing:-0.035em;line-height:1.12;color:var(--ink);margin:0;}
+  .up-rot{position:relative;display:inline-block;}
+  .up-rot .spacer{visibility:hidden;white-space:nowrap;}
+  .up-rot .w{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transition:opacity .55s ease;
+    background:linear-gradient(90deg,#5A8000,#8FBF20);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .up-rot .w.on{opacity:1;}
+  .up-items{display:grid;gap:clamp(1.1rem,2vw,1.7rem);}
+  .up-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center;
+    border-left:4px solid var(--green-dark);padding:.15rem 0 .25rem 1.1rem;}
+  .up-item>div{min-width:0;}
+  .up-item h3{font-size:clamp(1.02rem,1.4vw,1.18rem);font-weight:700;letter-spacing:-0.02em;color:var(--ink);margin:0 0 .3rem;}
+  .up-item p{font-size:clamp(.84rem,1vw,.94rem);line-height:1.6;color:var(--muted);margin:0;}
+  .up-thumb{width:130px;height:96px;object-fit:cover;border-radius:12px;}
+  @media(max-width:860px){.up{grid-template-columns:1fr;gap:2rem;}.up-thumb{width:104px;height:78px;}}
+
+  /* ── BLOCK C: reel band ── */
+  .reels{margin:clamp(4.5rem,8vw,7rem) 0 0;}
+  .reels-cap{text-align:center;font-size:.95rem;color:var(--muted);margin:0 0 clamp(1.4rem,2.6vw,2rem);}
+  .reels-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(.8rem,1.6vw,1.3rem);align-items:start;}
+  .reel{margin:0;}
+  .reel video{width:100%;height:auto;display:block;border-radius:var(--r-card);box-shadow:0 18px 50px rgba(30,25,15,0.14);background:#0E0E0E;}
+  @media(max-width:700px){.reels-grid{grid-template-columns:1fr;}}
+
+  /* ── BLOCK D: photo band (bento) ── */
+  .pb{margin:clamp(4.5rem,8vw,7rem) 0 0;display:grid;grid-template-columns:repeat(6,1fr);
+    grid-auto-rows:minmax(150px,21vw);gap:clamp(.35rem,.6vw,.5rem);}
+  .pb figure{position:relative;margin:0;overflow:hidden;border-radius:14px;}
+  .pb figure img{width:100%;height:100%;object-fit:cover;display:block;}
+  .pb figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .9rem .7rem;color:#fff;
+    font-size:.82rem;font-weight:600;line-height:1.3;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);}
+  .pb-anchor{grid-column:1 / 4;grid-row:1 / 3;}
+  .pb-notwork{grid-column:4 / 6;grid-row:1;}
+  .pb-people{grid-column:6 / 7;grid-row:1;}
+  .pb-graft{grid-column:4 / 5;grid-row:2;}
+  .pb-chair{grid-column:5 / 7;grid-row:2;}
+  @media(max-width:700px){
+    .pb{grid-template-columns:repeat(2,1fr);grid-auto-rows:minmax(140px,42vw);}
+    .pb-anchor{grid-column:1 / 3;grid-row:auto;}
+    .pb-notwork,.pb-people,.pb-graft,.pb-chair{grid-column:auto;grid-row:auto;}
+  }
+</style>
 <section class="bp panel">
   <div class="bp-inner">
 
@@ -615,6 +668,16 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
     <!-- 2. DEFINITION (two lines; bold pay-off tail) + RULE -->
     <p class="bp-def reveal">A barber who still loves to cut hair and the life that comes with it, but runs it with the head of a business owner. Builds a business that fuels a life they want instead of a life built around the business, <strong>so you can cut hair because you want to, not because you have to.</strong></p>
     <div class="bp-rule reveal"></div>
+
+    <!-- BLOCK A: HERO VIDEO — pending hero.mp4 from Tim (styles ready in .bp-hero).
+         Once supplied and processed, add here:
+         <div class="bp-hero reveal">
+           <video data-hero muted loop playsinline preload="metadata" poster="/book-a-call/assets/video/hero-poster.jpg">
+             <source src="/book-a-call/assets/video/hero.webm" type="video/webm">
+             <source src="/book-a-call/assets/video/hero.mp4" type="video/mp4">
+           </video>
+           <button class="unmute" type="button" aria-label="Toggle sound">…icons…</button>
+         </div> -->
 
     <!-- 4. NUMBERED SENSES (zig-zag) -->
     <div class="bp-senses">
@@ -636,14 +699,60 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
       </div>
     </div>
 
-    <!-- 5. THE LIFE BAND -->
-    <div class="bp-life reveal">
-      <div class="bp-life-grid">
-        <figure class="b"><img src="/book-a-call/assets/offtheback/anchor.jpg" loading="lazy" alt="Tim working on a laptop at an outdoor table by the sea"></figure>
-        <figure class="a"><img src="/book-a-call/assets/offtheback/not-working.jpg" loading="lazy" alt="Friends laughing together at a get-together"></figure>
-        <figure class="c"><img src="/book-a-call/assets/offtheback/with-people.jpg" loading="lazy" alt="A group of friends walking together outdoors"></figure>
+    <!-- BLOCK B: UPGRADE SECTION -->
+    <div class="up reveal">
+      <h2 class="up-head">SCALO will upgrade your<br><span class="up-rot"><span class="spacer">perceived value</span><span class="w on">life</span><span class="w">business</span><span class="w">perceived value</span></span></h2>
+      <div class="up-items">
+        <div class="up-item">
+          <div>
+            <h3>Your life</h3>
+            <p>Twelve days in the chair instead of twenty-four, and a diary you actually control.</p>
+          </div>
+          <img class="up-thumb" src="/book-a-call/assets/offtheback/the-week.jpg" loading="lazy" alt="A week's booking diary with days blocked out">
+        </div>
+        <div class="up-item">
+          <div>
+            <h3>Your business</h3>
+            <p>A second income built off the ten years you already have, sold to many people instead of one at a time.</p>
+          </div>
+          <img class="up-thumb" src="/book-a-call/assets/offtheback/money-landing.jpg" loading="lazy" alt="A payment notification on a phone screen">
+        </div>
+        <div class="up-item">
+          <div>
+            <h3>Your perceived value</h3>
+            <p>Clients and other barbers stop seeing a barber and start seeing someone who runs a business. That on its own is why you can charge more.</p>
+          </div>
+          <img class="up-thumb" src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair in a shop">
+        </div>
       </div>
-      <p class="bp-life-cap">And this is what it buys back.</p>
+    </div>
+
+    <!-- BLOCK C: REEL BAND (2 of 4 reels supplied so far) -->
+    <div class="reels reveal">
+      <p class="reels-cap">What it looks like from the inside.</p>
+      <div class="reels-grid">
+        <figure class="reel">
+          <video data-reel muted loop playsinline preload="none" poster="/book-a-call/assets/video/reel-01-poster.jpg">
+            <source src="/book-a-call/assets/video/reel-01.webm" type="video/webm">
+            <source src="/book-a-call/assets/video/reel-01.mp4" type="video/mp4">
+          </video>
+        </figure>
+        <figure class="reel">
+          <video data-reel muted loop playsinline preload="none" poster="/book-a-call/assets/video/reel-02-poster.jpg">
+            <source src="/book-a-call/assets/video/reel-02.webm" type="video/webm">
+            <source src="/book-a-call/assets/video/reel-02.mp4" type="video/mp4">
+          </video>
+        </figure>
+      </div>
+    </div>
+
+    <!-- BLOCK D: PHOTO BAND (bento) -->
+    <div class="pb reveal">
+      <figure class="pb-anchor"><img src="/book-a-call/assets/offtheback/anchor.jpg" loading="lazy" alt="Tim working on a laptop at an outdoor table by the sea"><figcaption>Work from wherever you fancy that month</figcaption></figure>
+      <figure class="pb-notwork"><img src="/book-a-call/assets/offtheback/not-working.jpg" loading="lazy" alt="Friends laughing together at a get-together"><figcaption>Book the trip first</figcaption></figure>
+      <figure class="pb-people"><img src="/book-a-call/assets/offtheback/with-people.jpg" loading="lazy" alt="A group of friends walking together outdoors"><figcaption>The people who waited</figcaption></figure>
+      <figure class="pb-graft"><img src="/book-a-call/assets/offtheback/the-graft.jpg" loading="lazy" alt="Tim working late on a laptop at a desk"><figcaption>The first year, in the gaps</figcaption></figure>
+      <figure class="pb-chair"><img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair in a shop"><figcaption>Still cutting, by choice</figcaption></figure>
     </div>
 
     <!-- 6. ORIGIN NOTE -->
@@ -1076,6 +1185,41 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 (function(){
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12});
   document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+})();
+
+/* ── barberpreneur: rotating upgrade word (soft crossfade) ── */
+(function(){
+  var rot=document.querySelector('.up-rot');if(!rot)return;
+  var ws=[].slice.call(rot.querySelectorAll('.w'));if(ws.length<2)return;
+  var i=0;
+  setInterval(function(){ws[i].classList.remove('on');i=(i+1)%ws.length;ws[i].classList.add('on');},2500);
+})();
+
+/* ── videos: autoplay muted only while in view; honour reduced-motion ── */
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('video[data-reel],video[data-hero]'));
+  if(!vids.length)return;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){vids.forEach(function(v){try{v.pause();v.removeAttribute('autoplay');v.load();}catch(e){}});return;} // posters only
+  if(!('IntersectionObserver' in window)){vids.forEach(function(v){var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    var v=e.target;
+    if(e.isIntersecting){var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});}
+    else{v.pause&&v.pause();}
+  });},{threshold:0.25});
+  vids.forEach(function(v){io.observe(v);});
+})();
+
+/* ── hero video: unmute toggle (active once hero.mp4 is added) ── */
+(function(){
+  var btn=document.querySelector('.bp-hero .unmute');if(!btn)return;
+  var v=document.querySelector('.bp-hero video');if(!v)return;
+  btn.addEventListener('click',function(){
+    v.muted=!v.muted;
+    if(!v.muted){var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});}
+    btn.classList.toggle('sound',!v.muted);
+    btn.setAttribute('aria-pressed',String(!v.muted));
+  });
 })();
 </script>
 </body>
