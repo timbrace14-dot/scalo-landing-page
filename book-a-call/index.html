@@ -368,7 +368,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <div class="view" id="view-results">
 <!-- RESULTS: TWO CASE STUDIES -->
 <style>
-  .cs-head{padding:clamp(3rem,5vw,4.5rem) 1.6rem clamp(1rem,2vw,1.6rem);text-align:center;}
+  .cs-head{padding:clamp(1.25rem,2.6vw,2.1rem) 1.6rem clamp(1rem,2vw,1.6rem);text-align:center;}
   .cs-head h2{font-weight:800;font-size:clamp(1.85rem,4.3vw,3.1rem);letter-spacing:-0.035em;line-height:1.14;color:var(--ink);}
   .cs-head p{max-width:620px;margin:1.1rem auto 0;font-size:1rem;line-height:1.65;color:var(--muted);}
 
@@ -604,56 +604,65 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   }
 </style>
 <style>
-  /* ── BLOCK A: hero video ── */
-  .bp-hero{margin:clamp(2.4rem,4.5vw,3.6rem) auto 0;max-width:1000px;position:relative;}
-  .bp-hero video{width:100%;height:auto;display:block;border-radius:var(--r-card);box-shadow:0 18px 50px rgba(30,25,15,0.14);background:#0E0E0E;}
-  .bp-hero .unmute{position:absolute;right:14px;bottom:14px;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
-    background:rgba(237,224,204,0.8);color:var(--ink);display:flex;align-items:center;justify-content:center;transition:background .2s;}
-  .bp-hero .unmute:hover{background:rgba(237,224,204,0.96);}
-  .bp-hero .unmute svg{width:20px;height:20px;display:block;}
-  .bp-hero .unmute .on-ic{display:none;} .bp-hero .unmute.sound .off-ic{display:none;} .bp-hero .unmute.sound .on-ic{display:block;}
+  /* ── BLOCK 3: video strip (one clip at a time) ── */
+  .vstrip{margin:clamp(4.5rem,8vw,7rem) 0 0;}
+  .vstrip-cap{text-align:center;font-size:.95rem;color:var(--muted);margin:0 0 clamp(1.4rem,2.6vw,2rem);}
+  .vstrip-frame{position:relative;width:100%;height:clamp(300px,44vw,560px);border-radius:var(--r-card);overflow:hidden;
+    box-shadow:0 18px 50px rgba(30,25,15,0.14);background:#0E0E0E;}
+  .vs-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;}
+  .vs-vid.show{opacity:1;}
+  .vs-sound{position:absolute;right:16px;bottom:16px;z-index:3;display:flex;align-items:center;gap:.55rem;background:transparent;border:none;cursor:pointer;padding:0;}
+  .vs-sound .lab{font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.55);}
+  .vs-sound .circ{width:44px;height:44px;border-radius:50%;background:rgba(237,224,204,0.85);color:var(--ink);display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .vs-sound:hover .circ{background:rgba(237,224,204,0.97);}
+  .vs-sound svg{width:20px;height:20px;display:block;}
+  .vs-sound .on-ic{display:none;} .vs-sound.on .off-ic{display:none;} .vs-sound.on .on-ic{display:block;}
+  @media(max-width:700px){.vstrip-frame{height:clamp(220px,60vw,340px);}}
 
-  /* ── BLOCK B: upgrade ── */
+  /* ── BLOCK 4: upgrade (premium) ── */
   .up{margin:clamp(4.5rem,8vw,7rem) 0 0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center;}
-  .up-head{font-weight:800;font-size:clamp(1.9rem,4.2vw,3.2rem);letter-spacing:-0.035em;line-height:1.12;color:var(--ink);margin:0;}
+  .up-head{font-weight:800;font-size:clamp(2.2rem,5.2vw,4rem);letter-spacing:-0.035em;line-height:1.07;color:var(--ink);margin:0;}
   .up-rot{position:relative;display:inline-block;}
   .up-rot .spacer{visibility:hidden;white-space:nowrap;}
-  .up-rot .w{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;transition:opacity .55s ease;
+  .up-rot .w{position:absolute;left:0;top:0;white-space:nowrap;opacity:0;visibility:hidden;
+    transition:opacity .5s ease, visibility 0s linear .5s;
     background:linear-gradient(90deg,#5A8000,#8FBF20);-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .up-rot .w.on{opacity:1;}
-  .up-items{display:grid;gap:clamp(1.1rem,2vw,1.7rem);}
-  .up-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center;
-    border-left:4px solid var(--green-dark);padding:.15rem 0 .25rem 1.1rem;}
+  .up-rot .w.on{opacity:1;visibility:visible;transition:opacity .5s ease;}
+  .up-items{display:grid;gap:clamp(1.9rem,3.4vw,3rem);}
+  .up-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.1rem,2vw,1.7rem);align-items:center;padding-left:1.5rem;}
+  .up-item::before{content:"";position:absolute;left:0;top:.2rem;bottom:.2rem;width:6px;border-radius:999px;background:var(--green-dark);}
   .up-item>div{min-width:0;}
-  .up-item h3{font-size:clamp(1.02rem,1.4vw,1.18rem);font-weight:700;letter-spacing:-0.02em;color:var(--ink);margin:0 0 .3rem;}
-  .up-item p{font-size:clamp(.84rem,1vw,.94rem);line-height:1.6;color:var(--muted);margin:0;}
-  .up-thumb{width:130px;height:96px;object-fit:cover;border-radius:12px;}
-  @media(max-width:860px){.up{grid-template-columns:1fr;gap:2rem;}.up-thumb{width:104px;height:78px;}}
+  .up-item h3{font-size:clamp(1.25rem,1.9vw,1.6rem);font-weight:700;letter-spacing:-0.025em;line-height:1.12;color:var(--ink);margin:0 0 .5rem;}
+  .up-item p{font-size:clamp(.88rem,1.05vw,.98rem);line-height:1.7;color:rgba(14,14,14,0.5);margin:0;}
+  .up-thumb{width:170px;flex:0 0 auto;aspect-ratio:4/3;border-radius:16px;padding:12px;
+    background:linear-gradient(135deg,#E9F2D6,#EFE8D8);box-shadow:0 12px 30px -14px rgba(30,25,15,0.28);}
+  .up-thumb img{width:100%;height:100%;object-fit:cover;object-position:center;border-radius:9px;display:block;}
+  @media(max-width:860px){.up{grid-template-columns:1fr;gap:2.4rem;}.up-thumb{width:150px;}}
 
-  /* ── BLOCK C: reel band ── */
-  .reels{margin:clamp(4.5rem,8vw,7rem) 0 0;}
-  .reels-cap{text-align:center;font-size:.95rem;color:var(--muted);margin:0 0 clamp(1.4rem,2.6vw,2rem);}
-  .reels-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(.8rem,1.6vw,1.3rem);align-items:start;}
-  .reel{margin:0;}
-  .reel video{width:100%;height:auto;display:block;border-radius:var(--r-card);box-shadow:0 18px 50px rgba(30,25,15,0.14);background:#0E0E0E;}
-  @media(max-width:700px){.reels-grid{grid-template-columns:1fr;}}
-
-  /* ── BLOCK D: photo band (bento) ── */
-  .pb{margin:clamp(4.5rem,8vw,7rem) 0 0;display:grid;grid-template-columns:repeat(6,1fr);
-    grid-auto-rows:minmax(150px,21vw);gap:clamp(.35rem,.6vw,.5rem);}
+  /* ── BLOCK 5: photo band (bento, 10 tiles) ── */
+  .pb{margin:clamp(4.5rem,8vw,7rem) 0 0;display:grid;grid-template-columns:repeat(12,1fr);
+    grid-auto-rows:minmax(150px,15vw);gap:clamp(.35rem,.6vw,.5rem);}
   .pb figure{position:relative;margin:0;overflow:hidden;border-radius:14px;}
   .pb figure img{width:100%;height:100%;object-fit:cover;display:block;}
   .pb figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .9rem .7rem;color:#fff;
     font-size:.82rem;font-weight:600;line-height:1.3;background:linear-gradient(to top,rgba(0,0,0,.6),transparent);}
-  .pb-anchor{grid-column:1 / 4;grid-row:1 / 3;}
-  .pb-notwork{grid-column:4 / 6;grid-row:1;}
-  .pb-people{grid-column:6 / 7;grid-row:1;}
-  .pb-graft{grid-column:4 / 5;grid-row:2;}
-  .pb-chair{grid-column:5 / 7;grid-row:2;}
+  .pb .ph{background:repeating-linear-gradient(45deg,#EFE7D6,#EFE7D6 11px,#E7DDC8 11px,#E7DDC8 22px);
+    border:2px dashed rgba(14,14,14,.22);display:flex;align-items:center;justify-content:center;}
+  .pb .ph span{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(14,14,14,.45);text-align:center;padding:.6rem;line-height:1.5;}
+  .pb-anchor{grid-column:1 / 6;grid-row:1 / 3;}
+  .pb-notwork{grid-column:6 / 9;grid-row:1;}
+  .pb-people{grid-column:9 / 13;grid-row:1;}
+  .pb-graft{grid-column:6 / 10;grid-row:2;}
+  .pb-chair{grid-column:10 / 13;grid-row:2;}
+  .pb-secondloc{grid-column:1 / 5;grid-row:3;}
+  .pb-travel{grid-column:5 / 8;grid-row:3;}
+  .pb-cutmate{grid-column:8 / 13;grid-row:3;}
+  .pb-abroad{grid-column:1 / 7;grid-row:4;}
+  .pb-evening{grid-column:7 / 13;grid-row:4;}
   @media(max-width:700px){
-    .pb{grid-template-columns:repeat(2,1fr);grid-auto-rows:minmax(140px,42vw);}
-    .pb-anchor{grid-column:1 / 3;grid-row:auto;}
-    .pb-notwork,.pb-people,.pb-graft,.pb-chair{grid-column:auto;grid-row:auto;}
+    .pb{grid-template-columns:repeat(2,1fr);grid-auto-rows:minmax(130px,40vw);}
+    .pb figure{grid-column:auto!important;grid-row:auto!important;}
+    .pb-anchor{grid-column:1 / 3!important;}
   }
 </style>
 <section class="bp panel">
@@ -669,90 +678,53 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
     <p class="bp-def reveal">A barber who still loves to cut hair and the life that comes with it, but runs it with the head of a business owner. Builds a business that fuels a life they want instead of a life built around the business, <strong>so you can cut hair because you want to, not because you have to.</strong></p>
     <div class="bp-rule reveal"></div>
 
-    <!-- BLOCK A: HERO VIDEO — pending hero.mp4 from Tim (styles ready in .bp-hero).
-         Once supplied and processed, add here:
-         <div class="bp-hero reveal">
-           <video data-hero muted loop playsinline preload="metadata" poster="/book-a-call/assets/video/hero-poster.jpg">
-             <source src="/book-a-call/assets/video/hero.webm" type="video/webm">
-             <source src="/book-a-call/assets/video/hero.mp4" type="video/mp4">
-           </video>
-           <button class="unmute" type="button" aria-label="Toggle sound">…icons…</button>
-         </div> -->
-
-    <!-- 4. NUMBERED SENSES (zig-zag) -->
-    <div class="bp-senses">
-      <div class="bp-sense reveal">
-        <div class="bp-sense-txt"><span class="bp-num">1</span><p>Still loves the craft. Just doesn't want the chair to be the only way money comes in.</p></div>
-        <div class="bp-sense-img"><img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair in a shop"></div>
-      </div>
-      <div class="bp-sense rev reveal">
-        <div class="bp-sense-txt"><span class="bp-num">2</span><p>Sells the knowledge behind the haircut, not just the haircut.</p></div>
-        <div class="bp-sense-img"><img src="/book-a-call/assets/offtheback/the-graft.jpg" loading="lazy" alt="Tim working late on a laptop at a desk"></div>
-      </div>
-      <div class="bp-sense reveal">
-        <div class="bp-sense-txt"><span class="bp-num">3</span><p>Builds it once and sells it to many, instead of one client, one hour, one payment.</p></div>
-        <div class="bp-sense-img"><img src="/book-a-call/assets/offtheback/money-landing.jpg" loading="lazy" alt="A Stripe payment notification on a phone screen"></div>
-      </div>
-      <div class="bp-sense rev reveal">
-        <div class="bp-sense-txt"><span class="bp-num">4</span><p>Cuts because he wants to, not because he has to.</p></div>
-        <div class="bp-sense-img"><img src="/book-a-call/assets/offtheback/the-week.jpg" loading="lazy" alt="A week of appointments blocked out in a booking diary"></div>
+    <!-- BLOCK 3: VIDEO STRIP (one clip at a time, sequenced with crossfade) -->
+    <div class="vstrip reveal">
+      <p class="vstrip-cap">What it looks like from the inside.</p>
+      <div class="vstrip-frame" data-vstrip>
+        <video class="vs-vid" muted playsinline preload="auto" poster="/book-a-call/assets/video/reel-01-poster.jpg"></video>
+        <video class="vs-vid" muted playsinline preload="auto"></video>
+        <button class="vs-sound" type="button" aria-label="Toggle sound" aria-pressed="false">
+          <span class="lab">Sound</span>
+          <span class="circ">
+            <svg class="off-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="on-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></svg>
+          </span>
+        </button>
       </div>
     </div>
 
-    <!-- BLOCK B: UPGRADE SECTION -->
+    <!-- BLOCK 4: SCALO WILL UPGRADE YOUR -->
     <div class="up reveal">
       <h2 class="up-head">SCALO will upgrade your<br><span class="up-rot"><span class="spacer">perceived value</span><span class="w on">life</span><span class="w">business</span><span class="w">perceived value</span></span></h2>
       <div class="up-items">
         <div class="up-item">
-          <div>
-            <h3>Your life</h3>
-            <p>Twelve days in the chair instead of twenty-four, and a diary you actually control.</p>
-          </div>
-          <img class="up-thumb" src="/book-a-call/assets/offtheback/the-week.jpg" loading="lazy" alt="A week's booking diary with days blocked out">
+          <div><h3>Your life</h3><p>Twelve days in the chair instead of twenty-four, and a diary you actually control.</p></div>
+          <div class="up-thumb"><img src="/book-a-call/assets/offtheback/the-week.jpg" loading="lazy" alt="A week's booking diary with days blocked out"></div>
         </div>
         <div class="up-item">
-          <div>
-            <h3>Your business</h3>
-            <p>A second income built off the ten years you already have, sold to many people instead of one at a time.</p>
-          </div>
-          <img class="up-thumb" src="/book-a-call/assets/offtheback/money-landing.jpg" loading="lazy" alt="A payment notification on a phone screen">
+          <div><h3>Your business</h3><p>A second income built off the ten years you already have, sold to many people instead of one at a time.</p></div>
+          <div class="up-thumb"><img src="/book-a-call/assets/offtheback/money-landing.jpg" loading="lazy" alt="A payment notification on a phone"></div>
         </div>
         <div class="up-item">
-          <div>
-            <h3>Your perceived value</h3>
-            <p>Clients and other barbers stop seeing a barber and start seeing someone who runs a business. That on its own is why you can charge more.</p>
-          </div>
-          <img class="up-thumb" src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair in a shop">
+          <div><h3>Your perceived value</h3><p>Clients and other barbers stop seeing a barber and start seeing someone who runs a business. That on its own is why you can charge more.</p></div>
+          <div class="up-thumb"><img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair in a shop"></div>
         </div>
       </div>
     </div>
 
-    <!-- BLOCK C: REEL BAND (2 of 4 reels supplied so far) -->
-    <div class="reels reveal">
-      <p class="reels-cap">What it looks like from the inside.</p>
-      <div class="reels-grid">
-        <figure class="reel">
-          <video data-reel muted loop playsinline preload="none" poster="/book-a-call/assets/video/reel-01-poster.jpg">
-            <source src="/book-a-call/assets/video/reel-01.webm" type="video/webm">
-            <source src="/book-a-call/assets/video/reel-01.mp4" type="video/mp4">
-          </video>
-        </figure>
-        <figure class="reel">
-          <video data-reel muted loop playsinline preload="none" poster="/book-a-call/assets/video/reel-02-poster.jpg">
-            <source src="/book-a-call/assets/video/reel-02.webm" type="video/webm">
-            <source src="/book-a-call/assets/video/reel-02.mp4" type="video/mp4">
-          </video>
-        </figure>
-      </div>
-    </div>
-
-    <!-- BLOCK D: PHOTO BAND (bento) -->
+    <!-- BLOCK 5: PHOTO BAND (bento; 5 tiles pending photos) -->
     <div class="pb reveal">
       <figure class="pb-anchor"><img src="/book-a-call/assets/offtheback/anchor.jpg" loading="lazy" alt="Tim working on a laptop at an outdoor table by the sea"><figcaption>Work from wherever you fancy that month</figcaption></figure>
-      <figure class="pb-notwork"><img src="/book-a-call/assets/offtheback/not-working.jpg" loading="lazy" alt="Friends laughing together at a get-together"><figcaption>Book the trip first</figcaption></figure>
-      <figure class="pb-people"><img src="/book-a-call/assets/offtheback/with-people.jpg" loading="lazy" alt="A group of friends walking together outdoors"><figcaption>The people who waited</figcaption></figure>
-      <figure class="pb-graft"><img src="/book-a-call/assets/offtheback/the-graft.jpg" loading="lazy" alt="Tim working late on a laptop at a desk"><figcaption>The first year, in the gaps</figcaption></figure>
-      <figure class="pb-chair"><img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair in a shop"><figcaption>Still cutting, by choice</figcaption></figure>
+      <figure class="pb-notwork"><img src="/book-a-call/assets/offtheback/not-working.jpg" loading="lazy" alt="Friends laughing together"><figcaption>Book the trip first</figcaption></figure>
+      <figure class="pb-people"><img src="/book-a-call/assets/offtheback/with-people.jpg" loading="lazy" alt="Friends walking together outdoors"><figcaption>The people who waited</figcaption></figure>
+      <figure class="pb-graft"><img src="/book-a-call/assets/offtheback/the-graft.jpg" loading="lazy" alt="Tim working late on a laptop"><figcaption>The first year, in the gaps</figcaption></figure>
+      <figure class="pb-chair"><img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair"><figcaption>Still cutting, by choice</figcaption></figure>
+      <figure class="pb-secondloc ph"><span>second-location<br>photo pending</span></figure>
+      <figure class="pb-travel ph"><span>travelling<br>photo pending</span></figure>
+      <figure class="pb-cutmate ph"><span>cutting-a-mate<br>photo pending</span></figure>
+      <figure class="pb-abroad ph"><span>working-abroad<br>photo pending</span></figure>
+      <figure class="pb-evening ph"><span>evening<br>photo pending</span></figure>
     </div>
 
     <!-- 6. ORIGIN NOTE -->
@@ -1195,31 +1167,50 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   setInterval(function(){ws[i].classList.remove('on');i=(i+1)%ws.length;ws[i].classList.add('on');},2500);
 })();
 
-/* ── videos: autoplay muted only while in view; honour reduced-motion ── */
+/* ── video strip: one clip at a time, sequenced with a crossfade ── */
 (function(){
-  var vids=[].slice.call(document.querySelectorAll('video[data-reel],video[data-hero]'));
-  if(!vids.length)return;
+  var strip=document.querySelector('[data-vstrip]');if(!strip)return;
+  var vs=[].slice.call(strip.querySelectorAll('.vs-vid'));if(vs.length<2)return;
+  // sequence (extend with 'hero','reel-03','reel-04' once supplied):
+  var clips=['reel-01','reel-02'];
+  var base='/book-a-call/assets/video/';
+  var ext=(vs[0].canPlayType&&vs[0].canPlayType('video/webm').replace('no',''))?'webm':'mp4';
+  function src(n){return base+n+'.'+ext;}
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){vids.forEach(function(v){try{v.pause();v.removeAttribute('autoplay');v.load();}catch(e){}});return;} // posters only
-  if(!('IntersectionObserver' in window)){vids.forEach(function(v){var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});});return;}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){
-    var v=e.target;
-    if(e.isIntersecting){var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});}
-    else{v.pause&&v.pause();}
-  });},{threshold:0.25});
-  vids.forEach(function(v){io.observe(v);});
-})();
-
-/* ── hero video: unmute toggle (active once hero.mp4 is added) ── */
-(function(){
-  var btn=document.querySelector('.bp-hero .unmute');if(!btn)return;
-  var v=document.querySelector('.bp-hero video');if(!v)return;
-  btn.addEventListener('click',function(){
-    v.muted=!v.muted;
-    if(!v.muted){var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});}
-    btn.classList.toggle('sound',!v.muted);
-    btn.setAttribute('aria-pressed',String(!v.muted));
+  var soundOn=false,vol=0.15;
+  var cur=vs[0],nxt=vs[1],ci=0,started=false;
+  function tune(v){v.muted=!soundOn;v.volume=vol;}
+  function load(v,i){if(v.src.indexOf(clips[i]+'.')<0){v.src=src(clips[i]);v.load();}}
+  function play(v){var p=v.play&&v.play();if(p&&p.catch)p.catch(function(){});}
+  function begin(){
+    if(started||reduce)return;started=true;
+    load(cur,0);cur.classList.add('show');tune(cur);play(cur);
+    load(nxt,1%clips.length);
+  }
+  function advance(){
+    var ni=(ci+1)%clips.length;
+    load(nxt,ni);tune(nxt);nxt.currentTime=0;play(nxt);
+    nxt.classList.add('show');cur.classList.remove('show');
+    var out=cur;setTimeout(function(){out.pause();out.currentTime=0;},520);
+    var t=cur;cur=nxt;nxt=t;ci=ni;
+    load(nxt,(ci+1)%clips.length);
+  }
+  vs[0].addEventListener('ended',function(){if(cur===vs[0])advance();});
+  vs[1].addEventListener('ended',function(){if(cur===vs[1])advance();});
+  var btn=strip.querySelector('.vs-sound');
+  if(btn)btn.addEventListener('click',function(){
+    soundOn=!soundOn;tune(vs[0]);tune(vs[1]);
+    if(soundOn)play(cur);
+    btn.classList.toggle('on',soundOn);btn.setAttribute('aria-pressed',String(soundOn));
+    var l=btn.querySelector('.lab');if(l)l.textContent=soundOn?'Sound on':'Sound';
   });
+  if(reduce){cur.classList.add('show');return;} // hero/first poster only, no sequence
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){started?play(cur):begin();}else{vs[0].pause();vs[1].pause();}
+    });},{threshold:0.3});
+    io.observe(strip);
+  }else begin();
 })();
 </script>
 </body>
