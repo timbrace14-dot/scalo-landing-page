@@ -607,7 +607,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   /* ── BLOCK 3: video strip (one clip at a time) ── */
   .vstrip{margin:clamp(4.5rem,8vw,7rem) 0 0;}
   .vstrip-cap{text-align:center;font-size:.95rem;color:var(--muted);margin:0 0 clamp(1.4rem,2.6vw,2rem);}
-  .vstrip-frame{position:relative;width:100%;height:clamp(300px,44vw,560px);border-radius:var(--r-card);overflow:hidden;
+  .vstrip-frame{position:relative;width:100%;max-width:600px;margin:0 auto;aspect-ratio:1/1;border-radius:var(--r-card);overflow:hidden;
     box-shadow:0 18px 50px rgba(30,25,15,0.14);background:#0E0E0E;}
   .vs-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;}
   .vs-vid.show{opacity:1;}
@@ -617,7 +617,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   .vs-sound:hover .circ{background:rgba(237,224,204,0.97);}
   .vs-sound svg{width:20px;height:20px;display:block;}
   .vs-sound .on-ic{display:none;} .vs-sound.on .off-ic{display:none;} .vs-sound.on .on-ic{display:block;}
-  @media(max-width:700px){.vstrip-frame{height:clamp(220px,60vw,340px);}}
+  @media(max-width:700px){.vstrip-frame{max-width:none;}}
 
   /* ── BLOCK 4: upgrade (premium) ── */
   .up{margin:clamp(4.5rem,8vw,7rem) 0 0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,5vw,5rem);align-items:center;}
@@ -629,14 +629,14 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
     background:linear-gradient(90deg,#5A8000,#8FBF20);-webkit-background-clip:text;background-clip:text;color:transparent;}
   .up-rot .w.on{opacity:1;visibility:visible;transition:opacity .5s ease;}
   .up-items{display:grid;gap:clamp(1.9rem,3.4vw,3rem);}
-  .up-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.1rem,2vw,1.7rem);align-items:center;padding-left:1.5rem;}
-  .up-item::before{content:"";position:absolute;left:0;top:.2rem;bottom:.2rem;width:6px;border-radius:999px;background:var(--green-dark);}
+  .up-item{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.2rem,2.2vw,2rem);align-items:start;padding-left:1.6rem;}
+  .up-item::before{content:"";position:absolute;left:0;top:.15rem;bottom:.15rem;width:6px;border-radius:999px;background:var(--green-dark);}
   .up-item>div{min-width:0;}
-  .up-item h3{font-size:clamp(1.25rem,1.9vw,1.6rem);font-weight:700;letter-spacing:-0.025em;line-height:1.12;color:var(--ink);margin:0 0 .5rem;}
-  .up-item p{font-size:clamp(.88rem,1.05vw,.98rem);line-height:1.7;color:rgba(14,14,14,0.5);margin:0;}
-  .up-thumb{width:170px;flex:0 0 auto;aspect-ratio:4/3;border-radius:16px;padding:12px;
-    background:linear-gradient(135deg,#E9F2D6,#EFE8D8);box-shadow:0 12px 30px -14px rgba(30,25,15,0.28);}
-  .up-thumb img{width:100%;height:100%;object-fit:cover;object-position:center;border-radius:9px;display:block;}
+  .up-item h3{font-size:clamp(1.3rem,2vw,1.7rem);font-weight:700;letter-spacing:-0.025em;line-height:1.14;color:var(--ink);margin:0 0 .55rem;}
+  .up-item p{font-size:clamp(.9rem,1.05vw,1rem);line-height:1.65;color:rgba(14,14,14,0.5);margin:0;}
+  .up-thumb{width:clamp(120px,15vw,180px);flex:0 0 auto;aspect-ratio:5/4;border-radius:14px;overflow:hidden;
+    background:#EBE3D2;box-shadow:0 12px 30px -14px rgba(30,25,15,0.28);}
+  .up-thumb img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
   @media(max-width:860px){.up{grid-template-columns:1fr;gap:2.4rem;}.up-thumb{width:150px;}}
 
   /* ── BLOCK 5: photo band (bento, 10 tiles) ── */
@@ -700,15 +700,15 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
       <div class="up-items">
         <div class="up-item">
           <div><h3>Your life</h3><p>Twelve days in the chair instead of twenty-four, and a diary you actually control.</p></div>
-          <div class="up-thumb"><img src="/book-a-call/assets/offtheback/the-week.jpg" loading="lazy" alt="A week's booking diary with days blocked out"></div>
+          <div class="up-thumb"><img src="/book-a-call/assets/upgrade/life.jpg" loading="lazy" alt="A slower week, diary under control"></div>
         </div>
         <div class="up-item">
           <div><h3>Your business</h3><p>A second income built off the ten years you already have, sold to many people instead of one at a time.</p></div>
-          <div class="up-thumb"><img src="/book-a-call/assets/offtheback/money-landing.jpg" loading="lazy" alt="A payment notification on a phone"></div>
+          <div class="up-thumb"><img src="/book-a-call/assets/upgrade/business.jpg" loading="lazy" alt="A desk set up for online work"></div>
         </div>
         <div class="up-item">
           <div><h3>Your perceived value</h3><p>Clients and other barbers stop seeing a barber and start seeing someone who runs a business. That on its own is why you can charge more.</p></div>
-          <div class="up-thumb"><img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair in a shop"></div>
+          <div class="up-thumb"><img src="/book-a-call/assets/upgrade/perceived.jpg" loading="lazy" alt="A barber seen as a business owner"></div>
         </div>
       </div>
     </div>
@@ -720,11 +720,11 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
       <figure class="pb-people"><img src="/book-a-call/assets/offtheback/with-people.jpg" loading="lazy" alt="Friends walking together outdoors"><figcaption>The people who waited</figcaption></figure>
       <figure class="pb-graft"><img src="/book-a-call/assets/offtheback/the-graft.jpg" loading="lazy" alt="Tim working late on a laptop"><figcaption>The first year, in the gaps</figcaption></figure>
       <figure class="pb-chair"><img src="/book-a-call/assets/offtheback/in-the-chair.jpg" loading="lazy" alt="A barber cutting a client's hair"><figcaption>Still cutting, by choice</figcaption></figure>
-      <figure class="pb-secondloc ph"><span>second-location<br>photo pending</span></figure>
-      <figure class="pb-travel ph"><span>travelling<br>photo pending</span></figure>
-      <figure class="pb-cutmate ph"><span>cutting-a-mate<br>photo pending</span></figure>
-      <figure class="pb-abroad ph"><span>working-abroad<br>photo pending</span></figure>
-      <figure class="pb-evening ph"><span>evening<br>photo pending</span></figure>
+      <figure class="pb-secondloc"><img src="/book-a-call/assets/offtheback/second-location.jpg" loading="lazy" alt="A second shop location"><figcaption>Somewhere else, same month</figcaption></figure>
+      <figure class="pb-travel"><img src="/book-a-call/assets/offtheback/travelling.jpg" loading="lazy" alt="Travelling"><figcaption>Booked without checking the diary</figcaption></figure>
+      <figure class="pb-cutmate"><img src="/book-a-call/assets/offtheback/cutting-a-mate.jpg" loading="lazy" alt="Cutting a mate's hair"><figcaption>Still the best part of the week</figcaption></figure>
+      <figure class="pb-abroad"><img src="/book-a-call/assets/offtheback/working-abroad.jpg" loading="lazy" alt="Working abroad on a laptop"><figcaption>An hour's work, then the day is yours</figcaption></figure>
+      <figure class="pb-evening"><img src="/book-a-call/assets/offtheback/evening.jpg" loading="lazy" alt="An evening out"><figcaption>Being somewhere, properly</figcaption></figure>
     </div>
 
     <!-- 6. ORIGIN NOTE -->
