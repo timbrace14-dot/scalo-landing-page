@@ -17,9 +17,15 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css">
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
+  /* ── CONNECT booking popup ── */
+  .cx-overlay{position:fixed;inset:0;z-index:9999;background:rgba(8,8,8,.78);display:flex;align-items:center;justify-content:center;padding:16px;animation:cxfade .2s ease both}
+  @keyframes cxfade{from{opacity:0}to{opacity:1}}
+  .cx-box{position:relative;width:min(1100px,100%);height:min(760px,100%);border-radius:24px;overflow:hidden;background:#141412;box-shadow:0 40px 100px rgba(0,0,0,.6)}
+  .cx-frame{width:100%;height:100%;border:0;display:block;background:transparent}
+  .cx-close{position:absolute;top:12px;right:12px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(14,14,14,.72);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+  .cx-close:hover{background:rgba(14,14,14,.9)}
+  @media (max-width:700px){.cx-overlay{padding:0}.cx-box{border-radius:0;width:100%;height:100%}}
   /* ── SCALO brand faces, self-hosted ── */
   @font-face{font-family:'Neue Haas Grotesk Display';src:url('/book-a-call/fonts/NeueHaasGrotDisp-55Roman-Trial.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;}
   @font-face{font-family:'Neue Haas Grotesk Display';src:url('/book-a-call/fonts/NeueHaasGrotDisp-65Medium-Trial.otf') format('opentype');font-weight:500 800;font-style:normal;font-display:swap;}
@@ -1037,17 +1043,42 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 <script>
 /* (countdown removed, no deadline banner) */
 
-/* ── Calendly popup on every .book-cta ── */
+/* ── CONNECT booking popup on every .book-cta ── */
 (function(){
-  var URL='https://calendly.com/timbrace14/scalo-discovery-call?hide_gdpr_banner=1&background_color=141412&text_color=ede0cc&primary_color=a8e020';
-  function open(){if(window.Calendly&&Calendly.initPopupWidget){Calendly.initPopupWidget({url:URL});return true;}return false;}
+  var TRUSTED=['https://book.buildwithscalo.com','https://businessos.buildwithscalo.com'];
+  var ov=null,back=null;
+  function bookUrl(){
+    // On book.buildwithscalo.com the scheduler is served from the same address; elsewhere it comes from the Business OS site
+    var base=window.CONNECT_BOOK_URL||(location.hostname==='book.buildwithscalo.com'?'/call':'https://businessos.buildwithscalo.com/book/call');
+    var q=new URLSearchParams(location.search);q.set('embed','1'); // keeps utm_* and ref codes so every booking stays tracked
+    return base+(base.indexOf('?')<0?'?':'&')+q.toString();
+  }
+  function close(){if(!ov)return;ov.remove();ov=null;document.body.style.overflow='';if(back&&back.focus)back.focus();}
+  function open(){
+    if(ov)return;
+    back=document.activeElement;
+    ov=document.createElement('div');ov.className='cx-overlay';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');ov.setAttribute('aria-label','Book your call');
+    ov.innerHTML='<div class="cx-box"><button type="button" class="cx-close" aria-label="Close">&times;</button><iframe class="cx-frame" title="Book your call" allow="clipboard-write"></iframe></div>';
+    ov.querySelector('iframe').src=bookUrl();
+    document.body.appendChild(ov);document.body.style.overflow='hidden';
+    ov.addEventListener('click',function(e){if(e.target===ov||e.target.closest('.cx-close'))close();});
+    ov.querySelector('.cx-close').focus();
+  }
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  window.addEventListener('message',function(e){
+    var ok=TRUSTED.concat([location.origin]);
+    if(window.CONNECT_BOOK_URL){try{ok.push(new URL(window.CONNECT_BOOK_URL,location.href).origin);}catch(x){}}
+    if(ok.indexOf(e.origin)<0)return;
+    var d=e.data||{};
+    if(d.t==='connect:redirect'&&typeof d.url==='string'&&/^https:\/\//.test(d.url)){location.href=d.url;}
+    if(d.t==='connect:close'){close();}
+  });
   document.addEventListener('click',function(e){
     var l=e.target.closest('.book-cta');if(!l)return;
     e.preventDefault();
     // Meta Pixel: intent-to-book signal. Booked-call conversion fires as Schedule on /post-booking.
     try{if(typeof fbq==='function'){fbq('track','InitiateCheckout',{content_name:'SCALO Strategy Call',content_category:'booking_intent'});}}catch(err){console.warn('[Pixel] InitiateCheckout failed:',err);}
-    // Open the popup; if widget.js is still loading, retry briefly until it is ready.
-    if(!open()){var n=0,iv=setInterval(function(){if(open()||++n>40)clearInterval(iv);},100);}
+    open();
   },true);
 })();
 

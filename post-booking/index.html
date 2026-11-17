@@ -1124,7 +1124,7 @@ fbq('track', 'Schedule', { content_name: 'SCALO Strategy Call Booked', content_c
 <main class="post-hero">
   <div class="post-hero-inner">
     <div class="eyebrow-pill"><span class="dot"></span>Almost complete</div>
-    <h1>Your call isn't yet confirmed.</h1>
+    <h1 id="pbHeadline">Your call isn't yet confirmed.</h1>
     <p class="subhead">Watch the short video below. It walks you through what to expect on the call and how we'll use the time. <em>Lock it in by watching to the end.</em></p>
   </div>
 </main>
@@ -1973,5 +1973,15 @@ fbq('track', 'Schedule', { content_name: 'SCALO Strategy Call Booked', content_c
 })();
 </script>
 
+<script>
+/* First name from the new booking page (?name=Jordan): shown in the headline, falls back to the original line */
+(function(){
+  try{
+    var n=(new URLSearchParams(location.search).get('name')||'').trim().replace(/[^\p{L}\p{M}' .-]/gu,'').slice(0,40);
+    var h=document.getElementById('pbHeadline');
+    if(n&&h){h.textContent=n+', your call isn\'t yet confirmed.';}
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
