@@ -1076,7 +1076,7 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
   document.addEventListener('click',function(e){
     var l=e.target.closest('.book-cta');if(!l)return;
     e.preventDefault();
-    // Meta Pixel: intent-to-book signal. Booked-call conversion fires as Schedule on /post-booking.
+    // Meta Pixel: intent-to-book signal. Booked-call conversion fires as Schedule on the booking confirmation page (CONNECT).
     try{if(typeof fbq==='function'){fbq('track','InitiateCheckout',{content_name:'SCALO Strategy Call',content_category:'booking_intent'});}}catch(err){console.warn('[Pixel] InitiateCheckout failed:',err);}
     open();
   },true);
