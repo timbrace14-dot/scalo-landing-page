@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+<title>Chair Freedom Calculator · SCALO</title>
+<meta name="description" content="Work out what the chair really pays you an hour, where its ceiling is, and how many chair hours income from outside the chair would replace." />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap">
+<style>
+/* Layout: one column, four sliders, a black ceiling block, then the online slider. Phone first. */
+:root{
+  --bg:#ffffff;
+  --fg:#0a0a0a;
+  --muted:#6b6b6b;
+  --line:#e4e4e4;
+  --panel:#f5f5f5;
+  --ink-bg:#0a0a0a;
+  --ink-fg:#ffffff;
+  --ink-muted:#9c9c9c;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a0a0a;
+    --fg:#fafafa;
+    --muted:#9a9a9a;
+    --line:#262626;
+    --panel:#151515;
+    --ink-bg:#fafafa;
+    --ink-fg:#0a0a0a;
+    --ink-muted:#555555;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a0a0a;
+  --fg:#fafafa;
+  --muted:#9a9a9a;
+  --line:#262626;
+  --panel:#151515;
+  --ink-bg:#fafafa;
+  --ink-fg:#0a0a0a;
+  --ink-muted:#555555;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-weight:200;
+  font-size:17px;
+  line-height:1.55;
+  margin:0;
+}
+.wrap{
+  max-width:620px;
+  margin:0 auto;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:calc(40px + env(safe-area-inset-top, 0px)) calc(56px + env(safe-area-inset-bottom, 0px));
+}
+b,strong,h1,h2,h3,.b{font-weight:700;letter-spacing:-0.027em}
+h1{font-size:clamp(30px,8vw,42px);line-height:1.02;margin:0;text-wrap:balance}
+h2{font-size:13px;letter-spacing:0.16em;text-transform:uppercase;margin:0;font-weight:700}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* header */
+header{border-bottom:1.5px solid var(--fg);padding-bottom:22px}
+.byline{display:flex;gap:10px;align-items:baseline;margin-bottom:18px;font-size:14px}
+.byline .nm{font-weight:700;letter-spacing:-0.027em}
+.byline .hd{color:var(--muted)}
+header p.intro{margin-top:16px;color:var(--muted);font-size:16px;max-width:46ch}
+
+/* sections */
+section{padding-block:30px;border-bottom:1px solid var(--line)}
+section.last{border-bottom:0}
+.eyebrow{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+/* sliders */
+.fields{display:flex;flex-direction:column;gap:26px;margin-top:22px}
+.field label{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.field .lab{font-size:15px}
+.field .val{font-weight:700;letter-spacing:-0.027em;font-size:26px;font-variant-numeric:tabular-nums;min-width:0}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:28px;margin:6px 0 0;background:transparent;display:block;cursor:pointer;
+}
+input[type=range]:focus-visible{outline:2px solid var(--fg);outline-offset:4px}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--line)}
+input[type=range]::-moz-range-track{height:2px;background:var(--line)}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:26px;height:26px;border-radius:50%;background:var(--fg);border:0;margin-top:-12px;
+}
+input[type=range]::-moz-range-thumb{
+  width:26px;height:26px;border-radius:50%;background:var(--fg);border:0;
+}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+
+/* results */
+.results{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:22px}
+.cell{background:var(--bg);padding:18px 16px;min-width:0}
+.cell .k{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.cell .v{font-weight:700;letter-spacing:-0.027em;font-size:clamp(26px,7vw,34px);line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
+.cell .n{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* ceiling */
+.ink{background:var(--ink-bg);color:var(--ink-fg);padding:26px 20px;margin-top:22px}
+.ink .k{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;color:var(--ink-muted)}
+.ink .v{font-weight:700;letter-spacing:-0.027em;font-size:clamp(38px,11vw,54px);line-height:1;margin-top:10px;font-variant-numeric:tabular-nums}
+.ink .n{font-size:14px;color:var(--ink-muted);margin-top:14px;max-width:44ch}
+
+/* online */
+.swap{background:var(--panel);padding:22px 18px;margin-top:22px}
+.swap .big{font-weight:700;letter-spacing:-0.027em;font-size:clamp(24px,6.5vw,32px);line-height:1.15;font-variant-numeric:tabular-nums}
+.swap .sub{color:var(--muted);font-size:15px;margin-top:10px}
+.swap ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.swap li{display:flex;justify-content:space-between;gap:14px;font-size:15px;border-top:1px solid var(--line);padding-top:8px}
+.swap li span:last-child{font-weight:700;letter-spacing:-0.027em;font-variant-numeric:tabular-nums;text-align:right}
+
+/* close */
+.close{margin-top:34px;border-top:1.5px solid var(--fg);padding-top:22px}
+.close .line{font-weight:700;letter-spacing:-0.027em;font-size:clamp(20px,5.5vw,26px);line-height:1.2;text-wrap:balance}
+.close .hd{margin-top:10px;color:var(--muted);font-size:15px}
+.close .hd b{color:var(--fg)}
+.foot{margin-top:28px;font-size:12px;color:var(--muted);line-height:1.5}
+
+@media (max-width:420px){
+  .results{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="byline"><span class="nm">Tim Brace</span><span class="hd">@timbrace_</span></div>
+    <h1>Chair Freedom Calculator</h1>
+    <p class="intro">Four numbers you already know. What they add up to, where the chair runs out, and how much of it income from outside the chair would replace.</p>
+  </header>
+
+  <section>
+    <h2>Your week</h2>
+    <div class="fields">
+
+      <div class="field">
+        <label for="cuts"><span class="lab">Cuts a day</span><span class="val num" id="cutsV">8</span></label>
+        <input type="range" id="cuts" min="1" max="20" step="1" value="8">
+        <div class="scale"><span>1</span><span>20</span></div>
+      </div>
+
+      <div class="field">
+        <label for="price"><span class="lab">Average price</span><span class="val num" id="priceV">£20</span></label>
+        <input type="range" id="price" min="5" max="100" step="1" value="20">
+        <div class="scale"><span>£5</span><span>£100</span></div>
+      </div>
+
+      <div class="field">
+        <label for="days"><span class="lab">Days a week</span><span class="val num" id="daysV">5</span></label>
+        <input type="range" id="days" min="1" max="7" step="1" value="5">
+        <div class="scale"><span>1</span><span>7</span></div>
+      </div>
+
+      <div class="field">
+        <label for="hours"><span class="lab">Hours a day</span><span class="val num" id="hoursV">8</span></label>
+        <input type="range" id="hours" min="1" max="14" step="0.5" value="8">
+        <div class="scale"><span>1</span><span>14</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>What that pays</h2>
+    <div class="results">
+      <div class="cell">
+        <div class="k">A week</div>
+        <div class="v num" id="weekly">£800</div>
+        <div class="n num" id="weeklyN">40 cuts, 40 hours</div>
+      </div>
+      <div class="cell">
+        <div class="k">A month</div>
+        <div class="v num" id="monthly">£3,467</div>
+        <div class="n">Averaged across the year</div>
+      </div>
+      <div class="cell">
+        <div class="k">An hour is worth</div>
+        <div class="v num" id="hourly">£20.00</div>
+        <div class="n num" id="hourlyN">1.0 cuts an hour</div>
+      </div>
+      <div class="cell">
+        <div class="k">A year</div>
+        <div class="v num" id="yearly">£41,600</div>
+        <div class="n">Before costs and tax</div>
+      </div>
+    </div>
+
+    <div class="ink">
+      <div class="k">Your ceiling</div>
+      <div class="v num" id="ceiling">£7,280</div>
+      <p class="n">That is seven days a week, twelve hours a day, at the pace you already cut. Nobody holds that for long, which is the point. The chair only gives you one lever, and this is where it stops.</p>
+    </div>
+  </section>
+
+  <section class="last">
+    <h2>Now add income that is not hours</h2>
+
+    <div class="field" style="margin-top:22px">
+      <label for="online"><span class="lab">Monthly online income</span><span class="val num" id="onlineV">£500</span></label>
+      <input type="range" id="online" min="0" max="5000" step="50" value="500">
+      <div class="scale"><span>£0</span><span>£5,000</span></div>
+    </div>
+
+    <div class="swap">
+      <p class="big" id="swapBig">£500 a month replaces 25.0 hours in the chair.</p>
+      <p class="sub" id="swapSub">About 0.7 days a week you would not have to work.</p>
+      <ul>
+        <li><span>Share of your chair income</span><span class="num" id="share">14%</span></li>
+        <li><span>Cuts you would not need</span><span class="num" id="cutsSaved">25</span></li>
+        <li><span>Hours back a year</span><span class="num" id="hoursYear">300</span></li>
+      </ul>
+    </div>
+
+    <div class="close">
+      <p class="line">Want help building the online side? DM me.</p>
+      <p class="hd">Instagram <b>@timbrace_</b></p>
+    </div>
+
+    <p class="foot">Rough figures, before costs, tax and no shows. Monthly numbers use 52 weeks divided by 12, so a month is 4.33 weeks.</p>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  var W = 52 / 12; // weeks in an average month
+  var el = function (id) { return document.getElementById(id); };
+  var ids = ['cuts', 'price', 'days', 'hours', 'online'];
+
+  function money(n, dp) {
+    if (!isFinite(n)) return '£0';
+    return '£' + n.toLocaleString('en-GB', {
+      minimumFractionDigits: dp || 0,
+      maximumFractionDigits: dp || 0
+    });
+  }
+
+  function render() {
+    var cuts = +el('cuts').value;
+    var price = +el('price').value;
+    var days = +el('days').value;
+    var hours = +el('hours').value;
+    var online = +el('online').value;
+
+    el('cutsV').textContent = cuts;
+    el('priceV').textContent = money(price);
+    el('daysV').textContent = days;
+    el('hoursV').textContent = hours % 1 ? hours.toFixed(1) : hours;
+    el('onlineV').textContent = money(online);
+
+    var weekly = cuts * price * days;
+    var weekHours = hours * days;
+    var monthly = weekly * W;
+    var hourly = weekHours > 0 ? weekly / weekHours : 0;
+    var cutsPerHour = hours > 0 ? cuts / hours : 0;
+    var ceilingMonthly = cutsPerHour * 12 * 7 * price * W;
+
+    el('weekly').textContent = money(weekly);
+    el('weeklyN').textContent = (cuts * days) + ' cuts, ' + (weekHours % 1 ? weekHours.toFixed(1) : weekHours) + ' hours';
+    el('monthly').textContent = money(monthly);
+    el('yearly').textContent = money(weekly * 52);
+    el('hourly').textContent = money(hourly, 2);
+    el('hourlyN').textContent = cutsPerHour.toFixed(1) + ' cuts an hour';
+    el('ceiling').textContent = money(ceilingMonthly);
+
+    var replaced = hourly > 0 ? online / hourly : 0;
+    var daysFreed = hours > 0 ? replaced / hours / W : 0;
+    var share = monthly > 0 ? (online / monthly) * 100 : 0;
+    var cutsSaved = price > 0 ? online / price : 0;
+
+    el('swapBig').textContent = online === 0
+      ? 'Move the slider to see what it replaces.'
+      : money(online) + ' a month replaces ' + replaced.toFixed(1) + ' hours in the chair.';
+    el('swapSub').textContent = online === 0
+      ? 'Every pound here is a pound that does not need an hour behind it.'
+      : 'About ' + daysFreed.toFixed(1) + ' days a week you would not have to work.';
+
+    el('share').textContent = Math.round(share) + '%';
+    el('cutsSaved').textContent = Math.round(cutsSaved);
+    el('hoursYear').textContent = Math.round(replaced * 12);
+  }
+
+  ids.forEach(function (id) {
+    el(id).addEventListener('input', render);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
