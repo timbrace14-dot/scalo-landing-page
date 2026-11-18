@@ -1047,9 +1047,12 @@ fbq('track', 'ViewContent', { content_name: 'SCALO Booking Page', content_catego
 (function(){
   var TRUSTED=['https://www.buildwithscalo.com','https://buildwithscalo.com','https://book.buildwithscalo.com','https://businessos.buildwithscalo.com'];
   var ov=null,back=null;
+  // Which video, post or person sent them here. Comes from book.buildwithscalo.com/r/CODE (or ?r=CODE). Counted once, then handed to the scheduler.
+  var REF=(function(){var m=location.pathname.match(/^\/r\/([A-Za-z0-9_-]{3,40})\/?$/),q=new URLSearchParams(location.search),r=(m&&m[1])||q.get('r')||q.get('ref')||q.get('c')||q.get('code')||'';try{if(r)sessionStorage.setItem('cx_ref',r);else r=sessionStorage.getItem('cx_ref')||'';}catch(e){}return r;})();
+  if(REF){try{var ck='cx_clicked_'+REF;if(!sessionStorage.getItem(ck)){sessionStorage.setItem(ck,'1');fetch('https://kadgzthwuzzjwxxcbgzi.supabase.co/functions/v1/booking/click',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code:REF}),keepalive:true}).catch(function(){});}}catch(e){}}
   function bookUrl(){
     var base=window.CONNECT_BOOK_URL||'https://www.buildwithscalo.com/book/call'; // one address everywhere
-    var q=new URLSearchParams(location.search);q.set('embed','1'); // keeps utm_* and ref codes so every booking stays tracked
+    var q=new URLSearchParams(location.search);q.set('embed','1');if(REF)q.set('r',REF); // keeps utm_* and ref codes so every booking stays tracked
     return base+(base.indexOf('?')<0?'?':'&')+q.toString();
   }
   function close(){if(!ov)return;ov.remove();ov=null;document.body.style.overflow='';if(back&&back.focus)back.focus();}

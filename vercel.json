@@ -2,6 +2,11 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/r/:code",
+      "has": [{ "type": "host", "value": "book.buildwithscalo.com" }],
+      "destination": "/book-a-call/index.html"
+    },
+    {
       "source": "/book",
       "destination": "https://businessos.buildwithscalo.com/book"
     },
