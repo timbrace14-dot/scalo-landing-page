@@ -31,16 +31,6 @@
     },
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "post-booking.buildwithscalo.com" }],
-      "destination": "/post-booking/index.html"
-    },
-    {
-      "source": "/index.html",
-      "has": [{ "type": "host", "value": "post-booking.buildwithscalo.com" }],
-      "destination": "/post-booking/index.html"
-    },
-    {
-      "source": "/",
       "has": [{ "type": "host", "value": "skill-sell-scale.buildwithscalo.com" }],
       "destination": "/skill-sell-scale/index.html"
     },
