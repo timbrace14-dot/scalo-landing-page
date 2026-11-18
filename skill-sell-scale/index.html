@@ -13,9 +13,6 @@
 <script src="https://fast.wistia.com/player.js" async></script>
 <script src="https://fast.wistia.com/embed/70c6vngscr.js" async type="module"></script>
 <style>wistia-player[media-id='70c6vngscr']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/70c6vngscr/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
-<!-- Calendly inline-popup widget -->
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <style>
   :root {
     /* Light "Packaged" theme, matched to book.buildwithscalo.com */
@@ -1228,7 +1225,7 @@
 const CONFIG = {
   GENERATE_ROADMAP_URL: "https://generate-roadmap.timbrace14.workers.dev",
   SUBSCRIBE_URL: "https://subscribe-deploy.timbrace14.workers.dev",
-  CALENDLY_URL: "https://calendly.com/timbrace14/scalo-discovery-call",
+  BOOK_URL: "https://www.buildwithscalo.com/book/call",
 };
 
 // ---------- Questions ----------
@@ -2080,7 +2077,7 @@ function renderResults() {
         <div class="cta-card">
           <div class="cta-headline">Book your <em>free</em> discovery call</div>
           <div class="cta-sub">We'll map your climb together and show you exactly how SCALO gets you there in 120 days.</div>
-          <a class="btn btn-primary" href="${escapeHtml(CONFIG.CALENDLY_URL)}" onclick="if (window.Calendly) { Calendly.initPopupWidget({url: this.href}); return false; }">Book my call <span class="arrow">→</span></a>
+          <a class="btn btn-primary" href="${escapeHtml(CONFIG.BOOK_URL)}">Book my call <span class="arrow">→</span></a>
         </div>
       </div>` },
   ];
