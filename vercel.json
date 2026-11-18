@@ -64,6 +64,31 @@
       "has": [{ "type": "host", "value": "packaged.buildwithscalo.com" }],
       "destination": "/skill-sell-scale/index.html"
     },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
+      "destination": "/resources/index.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
+      "destination": "/resources/index.html"
+    },
+    {
+      "source": "/roadmap",
+      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
+      "destination": "/resources/files/90-day-chair-to-online-roadmap.pdf"
+    },
+    {
+      "source": "/sell",
+      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
+      "destination": "/resources/files/5-things-a-barber-can-sell-online.pdf"
+    },
+    {
+      "source": "/calculator",
+      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
+      "destination": "/resources/calculator/index.html"
+    },
     { "source": "/", "destination": "/waitlist.html" },
     { "source": "/index.html", "destination": "/waitlist.html" }
   ]
