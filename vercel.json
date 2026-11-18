@@ -72,31 +72,6 @@
       "destination": "/resources/index.html"
     },
     {
-      "source": "/hooks",
-      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
-      "destination": "/resources/files/50-hooks-that-book.pdf"
-    },
-    {
-      "source": "/calendar",
-      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
-      "destination": "/resources/files/30-day-content-calendar.pdf"
-    },
-    {
-      "source": "/calendar-list",
-      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
-      "destination": "/resources/files/30-day-content-calendar-list.txt"
-    },
-    {
-      "source": "/audit",
-      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
-      "destination": "/resources/files/barber-profile-audit.pdf"
-    },
-    {
-      "source": "/dms",
-      "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
-      "destination": "/resources/files/comment-to-client-dm-scripts.pdf"
-    },
-    {
       "source": "/roadmap",
       "has": [{ "type": "host", "value": "resources.buildwithscalo.com" }],
       "destination": "/resources/files/90-day-chair-to-online-roadmap.pdf"
