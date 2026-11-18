@@ -2,6 +2,14 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/book",
+      "destination": "https://businessos.buildwithscalo.com/book"
+    },
+    {
+      "source": "/book/:path*",
+      "destination": "https://businessos.buildwithscalo.com/book/:path*"
+    },
+    {
       "source": "/",
       "has": [{ "type": "host", "value": "join.buildwithscalo.com" }],
       "destination": "/sales/index.html"
